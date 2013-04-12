@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <base href="/Belle/" />
+    <meta charset="utf-8">
+    <title>Umbraco Angular</title>
+    
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.cosmo.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/application.css" />
+    <link rel="stylesheet" href="css/page.css"  />
+    <link rel="stylesheet" href="css/treeicons.css" />
+
+</head>
+    <body ng-controller="MainController" id="umbracoMainPageBody">     
+        <div ng-show="user.authenticated" id="layout">
+            <div id="contentwrapper">
+                <div id="contentcolumn" class="fill">
+                    <div ng-view></div>
+                </div>
+            </div>
+
+
+            <div id="leftcolumn" ng-controller="SectionController"  class="fill" ng-mouseleave="hideSectionTree()">
+                <div id="applications" class="fill">
+                    <div id="avatar">
+                        <a href="#" data-behavior="usermodal" title="Per Ploug Krogslund">
+                            <img src="img/avatar.jpeg" />
+                        </a>
+                    </div>
+
+                    <ul >
+                        <li ng-repeat="section in sections">
+                            <a href="#/{{section.alias}}" ng-mouseenter="showSectionTree(section)" ng-click="openSection(section)" prevent-default>
+                                <i class="icon-large icon-{{section.cssclass}}"></i>    
+                                <span>{{section.name}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+
+                    <a class="search" href="#/search">
+                        <img src="css/help.svg" style="height: 30px; width: 30px;" />
+                        <span>help</span>
+                    </a>
+
+                </div>
+                
+                <div id="tree" class="fill shadow" ng-show="ui.treeVisible">
+                    <div id="search">
+                        <form class="form-search">
+                            <input type="text" ng-model="search" class="umb-search-field search-query" data-options="{resultsSelector: '#umb-searchresults', hideSelector: '#umb-maintree'}" 
+                                   data-shortcut="ctrl+q" 
+                                   data-shortcut-event="focus" 
+                                   placeholder="Type to search...">
+                        </form>
+                    </div>
+            
+                    <div class="umb-scrollable" auto-scale="0">
+                        <div ng-include="'views/application/tree.html'"></div>
+                    </div>
+                </div>
+                
+                <ul ng-show="ui.showMenu">
+                    <li ng-repeat="item in contextMenu"><a href="#/action/{{item.name}}/">{{item.name}}</a></li>
+                </ul>    
+            </div>
+        </div>
+
+
+        <div id="login" ng-hide="user.authenticated">
+            <div class="form">
+                <h1>Happy {{today}}!, log in below</h1>
+                <div class="control-group"><input type="text" ng-model="user.name" class="input-xlarge" placeholder="Enter your username"/></div>
+                <div class="control-group"><input type="password" ng-model="user.password" class="input-xlarge" placeholder="Enter your password"/></div>
+                <input type="button" ng-click="signin()" class="btn" value="Login" />
+            </div>
+        </div>                    
+        <div id='umb-speechbubble' class='umb-notification'>
+            <ul>
+                <li ng-repeat="notification in notifications" class="alert alert-block alert-{{notification.type}}">
+                    <strong>{{notification.headline}}:</strong>{{notification.message}}<a class='close' ng-click="removeNotification($index)" prevent-default href='#'>&times;</a>
+                </li>
+            </ul>
+        </div>
+
+        
+        <!-- In production use:
+            <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+         -->
+
+        <script data-main="js/main" src="lib/require/require-2.1.0.js"></script>
+    </body>
+</html>
