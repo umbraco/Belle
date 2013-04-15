@@ -36,7 +36,7 @@ app.controller("SectionController", function ($scope, $window, stateManager, $ro
 });
 
 
-app.controller("TreeController", function ($scope, treeFactory, $routeParams, stateManager) {
+app.controller("TreeController", function ($scope, $tree, $routeParams, stateManager) {
 
     stateManager.registerInitialiser(function (pathComponents) {
         loadTree(pathComponents);
@@ -53,7 +53,7 @@ app.controller("TreeController", function ($scope, treeFactory, $routeParams, st
         if (node.expanded)
             node.expanded = false;
         else {
-            node.children = treeFactory.getChildren(node, $scope.section);
+            node.children =  $tree.getChildren(node, $scope.section);
             node.expanded = true;
         }
     };
@@ -64,12 +64,12 @@ app.controller("TreeController", function ($scope, treeFactory, $routeParams, st
 
     $scope.$on('showSectionTree', function(event, section) {
         $scope.section = section;
-        $scope.tree = treeFactory.getTree($scope.section);
+        $scope.tree =  $tree.getTree($scope.section);
     });
 
     function loadTree(pathComponents) {
         $scope.section = pathComponents[0];
-        $scope.tree = treeFactory.getTree($scope.section);
+        $scope.tree =  $tree.getTree($scope.section);
     }
 
     $scope.openContextMenu = function (item) {
@@ -93,7 +93,7 @@ app.controller("DashboardController", function ($scope, $routeParams) {
 
 
 //handles authentication and other application.wide services
-app.controller("MainController", function ($scope, stateManager, notificationFactory) {
+app.controller("MainController", function ($scope, stateManager, $notifications) {
     var d = new Date();
     var authCookie = jQuery.cookie('authed') == "authenticated";
     
@@ -128,15 +128,15 @@ app.controller("MainController", function ($scope, stateManager, notificationFac
     };
 
     //subscribes to notifications in the notification service
-    $scope.notifications = notificationFactory.notifications;
-    $scope.$watch('notificationFactory.notifications', function (newVal, oldVal, scope) {
+    $scope.notifications = $notifications.notifications;
+    $scope.$watch('$notifications.notifications', function (newVal, oldVal, scope) {
         if (newVal) {
             $scope.notifications = newVal;
         }
     });
 
     $scope.removeNotification = function(index) {
-        notificationFactory.remove(index);
+        $notifications.remove(index);
     };
 
     if (authCookie) {

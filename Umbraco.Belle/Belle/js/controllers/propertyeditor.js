@@ -2,7 +2,20 @@
 
 define(['app'], function (app) {
 
-	app.controller("GoogleMapsController", function ($rootScope, $scope, notificationFactory) {
+    //this controller simply tells the dialogs service to open a mediaPicker window
+    //with a specified callback, this callback will receive an object with a selection on it
+    app.controller("mediaPickerController", function($rootScope, $scope, $dialogs){
+        $scope.openMediaPicker =function(value){
+                var dialog = $dialogs.mediaPicker({scope: $scope, callback: populate});
+        };
+
+        function populate(data){
+            $scope.property.value = data.selection;    
+        }
+    });
+
+
+	app.controller("GoogleMapsController", function ($rootScope, $scope, $notifications) {
 	
             //Paste code here
             require(
@@ -37,7 +50,7 @@ define(['app'], function (app) {
 
                             //call the notication engine
                             $rootScope.$apply(function () {
-                                notificationFactory.warning("Your dragged a marker to", $scope.property.value);
+                                $notifications.warning("Your dragged a marker to", $scope.property.value);
                             });
                         });
                     }
@@ -45,17 +58,6 @@ define(['app'], function (app) {
 
 
 	});
-    
-
-
-
-
-
-
-
-
-
-
 
     app.controller("CodeMirrorController", function ($scope, $rootScope) {
         require(

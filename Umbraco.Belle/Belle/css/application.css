@@ -11,7 +11,11 @@ body{
 }
 
 .controls-row img {
-max-width: none !Important;
+max-width: none;
+}
+
+.thumbnail img {
+    max-width: 100% !Important;
 }
 
 .fill{height: 100%; min-height: 100%;}
@@ -153,3 +157,37 @@ h5.search{ font-size: 12px;text-transform: uppercase;font-weight: bold; margin: 
 
 .no-spr{background: none !Important;}
 .sep{ background: #E8E8E8; margin-left: 30px; height: 1px}
+
+
+//***************** MODAL *************//
+.umb-modal {
+  background: red
+}
+.selected{border-color: red !Important; background: red !Important;}
+
+.umb-modal.fade {
+  top: 0 !Important;
+  left: -100% !Important;
+  width: 0px !Important;
+
+  -webkit-transition: left 0.3s linear, left 0.3s ease-out;
+     -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
+       -o-transition: opacity 0.3s linear, top 0.3s ease-out;
+          transition: opacity 0.3s linear, top 0.3s ease-out;
+
+   
+   height: 100% !Important;
+}
+
+.umb-modal.fade.in {
+    top: 0 !Important;
+    left: 100% !Important;
+    margin-left: -400px;
+    width: 400px !Important;
+    height: 100% !Important;
+    display: block;
+}
+
+
+
+

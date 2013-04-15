@@ -30,7 +30,6 @@ a{color: #2E8AEA}
 	background: #fff;
 	padding: 0px;
 	margin: 0px;
-	padding-top: 0px;
     height: 90px;
 }
 .umb-panel-body{
@@ -40,12 +39,7 @@ a{color: #2E8AEA}
 
 .umb-panel-header h1{margin: 0px; padding-top: 17px;}
 .float-left{float: left;}
-.umb-el-wrap{max-width: 800px; position: relative; padding: 0px; margin: 0px; padding-left: 20px; }
-.umb-no-gutter{margin-left: 0px !Important;}
-.umb-icon-label{padding-top: 4px; padding-left: 25px;}
-.umb-icon-label i{margin-left: -20px;}
-
-.dashboard h1{float: none; padding-top: 25px;}
+.umb-el-wrap{max-width: 800px; position: relative; padding: 0px 20px 0px 20px; margin: 0px;}
 
 small.umb-detail, label small{color: #b3b3b3 !Important; text-decoration: none;display: block; font-weight: normal }
 
@@ -54,10 +48,7 @@ small.umb-detail, label small{color: #b3b3b3 !Important; text-decoration: none;d
 /* TABS */
 
 .tabbable .umb-panel-body{padding: 0px;}
-.umb-nav-tabs{
-    padding-top: 0px; margin-top: 0px; margin-bottom: 0px; border-bottom: none; clear: both;}
-
-
+.umb-nav-tabs{padding-top: 0px; margin-top: 0px; margin-bottom: 0px; border-bottom: none; clear: both;}
 .umb-nav-tabs li a{border-radius: 0; color: #333; padding: 5px 15px 5px 15px;}
 .umb-nav-tabs li a:hover, .umb-nav-tabs li.open a.dropdown-toggle{}
 
@@ -69,7 +60,7 @@ small.umb-detail, label small{color: #b3b3b3 !Important; text-decoration: none;d
 
 
 /* ICON TOOLBAR */
-.umb-btn-toolbar{margin-top: 17px; }
+.umb-btn-toolbar{margin-top: 25px; }
 .umb-panel-buttons .umb-btn-toolbar{padding-left: 0px; float: right; text-align: right}
 
 
