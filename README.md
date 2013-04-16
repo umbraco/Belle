@@ -13,7 +13,7 @@ Setup a webserver and point it at the Umbraco.Belle directory. then browse to wh
 
 To run on *windows*, setup IIS or IIS express to serve the umbraco.belle folder. If you have web matrix installed, you can right-click the folder and open it in web matrix to run it its built-in webserver.
 
-To run on *osx*, open term in the umbraco.belle folder and run:
+To run on *OS X*, open Terminal in the umbraco.belle folder and run:
 	
 	python -m SimpleHTTPServer 8080
 
