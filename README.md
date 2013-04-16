@@ -15,7 +15,7 @@ To run on *windows*, setup IIS or IIS express to serve the umbraco.belle folder.
 
 To run on *osx*, open term in the umbraco.belle folder and run:
 	
-	python -m SimpleHttpServer 8080
+	python -m SimpleHTTPServer 8080
 
 This will have the site on http://localhost:8080/belle
 
