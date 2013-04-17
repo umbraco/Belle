@@ -6,7 +6,7 @@ define(['app'], function (app) {
     /*****
           CONTENT, (injects the notification factory)
       ****/
-    app.factory('contentFactory', function ($notifications) {
+    app.factory('contentFactory', function ($notification) {
         var contentArray = new Array();
 
         return {
@@ -52,21 +52,21 @@ define(['app'], function (app) {
 
             saveContent: function (content) {
                 contentArray[content.id] = content;
-                $notifications.success(content.name + " saved", "");
+                $notification.success(content.name + " saved", "");
 
                 //alert("Saved: " + JSON.stringify(content));
             },
 
             publishContent: function (content) {
                 contentArray[content.id] = content;
-                $notifications.success(content.name + " published", "");
+                $notification.success(content.name + " published", "");
             }
 
         };
     });
 
 
-    app.factory('mediaFactory', function ($notifications) {
+    app.factory('mediaFactory', function ($notification) {
         var mediaArray = new Array();
 
         return {

@@ -93,7 +93,7 @@ app.controller("DashboardController", function ($scope, $routeParams) {
 
 
 //handles authentication and other application.wide services
-app.controller("MainController", function ($scope, stateManager, $notifications) {
+app.controller("MainController", function ($scope, stateManager, $notification) {
     var d = new Date();
     var authCookie = jQuery.cookie('authed') == "authenticated";
     
@@ -128,8 +128,8 @@ app.controller("MainController", function ($scope, stateManager, $notifications)
     };
 
     //subscribes to notifications in the notification service
-    $scope.notifications = $notifications.notifications;
-    $scope.$watch('$notifications.notifications', function (newVal, oldVal, scope) {
+    $scope.notifications = $notification.notifications;
+    $scope.$watch('$notification.notifications', function (newVal, oldVal, scope) {
         if (newVal) {
             $scope.notifications = newVal;
         }

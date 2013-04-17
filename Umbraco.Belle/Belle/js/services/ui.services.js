@@ -61,7 +61,7 @@ define([ 'angular'], function (angular) {
 	     NOTIFICATIONS
 	 ****/
 
-	 uiServices.factory('$notifications', function ($rootScope) {
+	 uiServices.factory('$notification', function ($rootScope) {
 
 	     var nArray = new Array();
 
