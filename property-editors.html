@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Property · Belle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="assets/css/docs.css" rel="stylesheet">
+    <link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+  </head>
+
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+
+    <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="./index.html">Belle</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="">
+                <a href="./index.html">Home</a>
+              </li>
+              
+              <li class="">
+                <a href="./getting-started.html">Get started</a>
+              </li>
+              
+              <li class="active">
+                <a href="./property-editors.html">Property Editors</a>
+              </li>
+
+              <li class="">
+                <a href="./services.html">Services</a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Subhead
+================================================== -->
+<header class="jumbotron subhead" id="overview">
+  <div class="container">
+    <h1>Property Editors</h1>
+    <p class="lead">Sample implementations of the core property editors</p>
+  </div>
+</header>
+
+
+  <div class="container">
+
+    <!-- Docs nav
+    ================================================== -->
+    <div class="row">
+      <div class="span3 bs-docs-sidebar">
+        <ul class="nav nav-list bs-docs-sidenav">
+          <li><a href="#introduction"><i class="icon-chevron-right"></i> Introduction</a></li>
+          <li><a href="#files"><i class="icon-chevron-right"></i> Files and folders</a></li>
+          <li><a href="#textstring"><i class="icon-chevron-right"></i> Textstring</a></li>
+          <li><a href="#textarea"><i class="icon-chevron-right"></i> Textarea</a></li>
+          <li><a href="#googleMaps"><i class="icon-chevron-right"></i> Google Maps</a></li>
+          <li><a href="#mediaPicker"><i class="icon-chevron-right"></i> Media Picker</a></li>
+         </ul>
+      </div>
+      <div class="span9">
+
+        <!-- intro
+        ================================================== -->
+      <section id="introduction">
+        <div class="page-header">
+          <h1>Introduction</h1>
+        </div>
+
+        <p>Property editors are modular components for editing a single piece of data on a 
+          umbraco document. 
+        </p>
+  
+        <p>
+          A property editor is located in its own partial view, can have its own controller, load its
+          own dependencies and services and finally have full access to the property its assigned to, as well as the entire document scope.
+        </p>
+
+        <p>
+          A property editor is executed and rendered on the serverside, if a developer needs data from the server, it must be fetched via the proper service, as the editor is not executed on the server, and thus, does not have access to the server context.
+        </p>
+
+        <p>
+          Each component is specified on the Document Type, and Angular takes care
+          of injecting each property editor into the main editor. 
+        </p>
+
+
+      </section>
+
+        <!-- intro
+        ================================================== -->
+      <section id="files">
+        <div class="page-header">
+          <h1>Files and folders</h1>
+        </div>
+
+        <p>Each property editor is contained in its own folder, following a specific convention:</p>
+    
+      <ul>
+        <li>Each editor has its own folder, like: Views/PropertyEditors/Vendor/EditorAlias</li>
+        <li>Any 3rd party libraries are placed in the libs/vendor/libraryName folders</p>
+        <li>The editor view must be named view.html</li>
+        <li>The editor controller must be named controller.js</li>
+        <li>Configuration and dependency data must be stored in config.js</li>
+      </ul>        
+
+      <p><strong>note:</strong> not all of the above is implemented yet, look in the source for the current
+        implemenation setup</p>
+      </section>
+
+
+<!-- textstring
+================================================== -->
+<section id="textstring">
+  <div class="page-header">
+    <h1>Textstring</h1>
+  </div>
+          
+<p>Simple text input field, uses nothing but ng-model to function</p>
+
+          
+<pre class="prettyprint linenums">
+&lt;input type=&quot;text&quot; 
+  ng-model=&quot;property.value&quot; 
+  id=&quot;{{property.alias}}&quot; 
+  class=&quot;umb-textfield umb-editor&quot; /&gt;
+</pre>
+
+<h2>Markup</h2>
+<p>
+  The mark-up contains a <code>ng-model</code> attribute, this is what performs the 2-way data bind between then UI (the input field) and the model (the document data). <code>property.value</code> points to the action value of the property being edited by this editor, but also has a couple of other pieces of data, like <code>.alias</code>, <code>.config</code> and so on.
+</p>
+
+<p>
+  <strong>Convention:</strong> Always set the editor to the alias of the property, as this helps connect the label with the editor, and makes it easier for the editor.  
+</p>
+
+
+<h2>CSS</h2>
+<p>
+  This editor has the <code>umb-editor</code> class, which should be on root editor elements, so in this case where the <code>&lt;input&gt;</code> is the root element, this gets the umb-editor class
+</p>
+<p>
+  To be able to target your editor type specifically, it is recommend you add your own css class to its container element. like <code>vendor-editorname</code>
+</p>
+</section>
+
+
+
+<!-- textarea
+================================================== -->
+<section id="textarea">
+  <div class="page-header">
+    <h1>Textarea</h1>
+  </div>
+          
+<p>Simple textarea, uses ng-model to bind and shows how Configuration could be injected into the editor</p>
+
+          
+<pre class="prettyprint linenums">
+&lt;textarea 
+  ng-model=&quot;property.value&quot;
+  id=&quot;{{property.alias}}&quot;  
+  rows=&quot;{{property.config.rows}}&quot;&gt;
+  class=&quot;umb-textarea umb-editor&quot;
+&lt;/textarea&gt;
+</pre>
+
+<h2>Markup</h2>
+<p>
+  The mark-up contains a <code>ng-model</code> attribute, this is what performs the 2-way data bind between then UI (the input field) and the model (the document data). <code>property.value</code> points to the action value of the property being edited by this editor, but also has a couple of other pieces of data, like <code>.alias</code>, <code>.config</code> and so on.
+</p>
+
+
+<h2>CSS</h2>
+<p>
+  This editor has the <code>umb-editor</code> class, which should be on root editor elements, so in this case where the <code>&lt;textarea&gt;</code> is the root element, this gets the umb-editor class
+</p>
+<p>
+  To be able to target your editor type specifically, it is recommend you add your own css class to its container element. like <code>vendor-editorname</code>
+</p>
+</section>
+
+
+
+
+
+
+<!-- Google maps
+================================================== -->
+<section id="googleMaps">
+  <div class="page-header">
+    <h1>Google Maps</h1>
+  </div>
+          
+<p>Google Maps editor, which has its own <code>controller</code>, loads dependencies through require.js and hooks into the <code>$notification</code> service</p>
+
+          
+<pre class="prettyprint linenums">
+&lt;div class=&quot;umb-editor umb-googlemaps-editor&quot; ng-controller=&quot;GoogleMapsController&quot;&gt;
+    &lt;div style=&quot;width: 300px; height: 200px;&quot; id=&quot;{{property.alias}}_map&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<h2>Markup</h2>
+<p>
+  The mark-up contains nothing but 2 div elements. The parent element contains a <code>ng-controller</code> attribute. The inner div, has an element ID consisting of the property alias and "_map", which is used in the controller to inject the google maps element.
+</p>
+
+<h2>Controller</h2>
+<p>
+    This property editor requires some code-behind processing, to do that, we need a controller, which is triggered when its associated area of the site is rendered. In this case the root div of the editor. 
+</p>
+
+<p>
+    The controller loads the google maps API with require.js, it then sets up the map, the map markers and everything else, through the google maps API. <br/>
+
+    Finally, the editor notifies the <code>$notification</code> service about changes with the map marker. 
+</p>
+
+<pre class="prettyprint linenums">
+//registers the GoogleMapsController in the application
+//Injects the $rootScope, $scope and the $notification service  
+app.controller("GoogleMapsController", function ($rootScope, $scope, $notification) {
+
+//Tells require.js to load the maps api from google, prefixed by async to enable loading
+//it through googles service.
+require(
+    [
+        'async!http://maps.google.com/maps/api/js?sensor=false'
+    ],
+
+    //when API is loaded, setup the map in the div
+    function () {
+        //Google maps  is available and all components are ready to use.
+        var valueArray = $scope.property.value.split(',');
+        var latLng = new google.maps.LatLng(valueArray[0], valueArray[1]);
+        
+        var mapDiv = document.getElementById($scope.property.alias + '_map');
+        var mapOptions = {
+            zoom: $scope.property.config.zoom,
+            center: latLng,
+            mapTypeId: google.maps.MapTypeId[$scope.property.config.mapType]
+        };
+
+        //set up the map marker
+        var map = new google.maps.Map(mapDiv, mapOptions);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: latLng,
+            draggable: true
+        });
+        
+
+        //Setup an event handler to listen to when the marker is dragged
+        google.maps.event.addListener(marker, "dragend", function(e){
+            var newLat = marker.getPosition().lat();
+            var newLng = marker.getPosition().lng();
+        
+            //here we will set the value on the property
+            $scope.property.value = newLat + "," + newLng;
+
+            //call the notication engine when you are done dragging
+            //the $rootScope.$apply is needed, because this actually happens in the maps API
+            //outside angular, so we need to inform angular of the change made. 
+            $rootScope.$apply(function () {
+                $notification.warning("Your dragged a marker to", $scope.property.value);
+            });
+        });
+    }
+);    
+});
+</pre>
+</section>    
+<!-- Google maps
+================================================== -->
+<section id="mediaPicker">
+  <div class="page-header">
+    <h1>Media Picker</h1>
+  </div>
+          
+<p>Media Picker, which hooks into the <code>$dialog</code> service to choose images from the media section</p>
+<p>The picker editor itself is simple, as most of the logic takes place in the <code>$dialog</code> service which is called from the editor, and then returns a collection of selected items when done. 
+</p>
+
+<pre class="prettyprint linenums">
+&lt;div ng-controller="mediaPickerController"&gt;
+  &lt;ul class="thumbnails"&gt;
+    &lt;li class="span2" ng-repeat="image in property.value"&gt;
+      &lt;a href="#" class="thumbnail" prevent-default&gt;
+        &lt;img src="{{image.thumbnail}}" /&gt;
+      &lt;/a&gt;
+    &lt;/li&gt;
+
+    &lt;li class="span2"&gt;
+      &lt;a href="#" ng-click="openMediaPicker(property.value)" prevent-default&gt;Choose something&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+
+<h2>Markup</h2>
+
+
+</section>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+    <!-- Footer
+    ================================================== -->
+    <footer class="footer">
+      <div class="container">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+      </div>
+    </footer>
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/google-code-prettify/prettify.js"></script>
+    <script src="assets/js/bootstrap-transition.js"></script>
+    <script src="assets/js/bootstrap-alert.js"></script>
+    <script src="assets/js/bootstrap-modal.js"></script>
+    <script src="assets/js/bootstrap-dropdown.js"></script>
+    <script src="assets/js/bootstrap-scrollspy.js"></script>
+    <script src="assets/js/bootstrap-tab.js"></script>
+    <script src="assets/js/bootstrap-tooltip.js"></script>
+    <script src="assets/js/bootstrap-popover.js"></script>
+    <script src="assets/js/bootstrap-button.js"></script>
+    <script src="assets/js/bootstrap-collapse.js"></script>
+    <script src="assets/js/bootstrap-carousel.js"></script>
+    <script src="assets/js/bootstrap-typeahead.js"></script>
+    <script src="assets/js/bootstrap-affix.js"></script>
+    <script src="assets/js/application.js"></script>
+
+
+  </body>
+</html>
