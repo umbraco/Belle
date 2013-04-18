@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title><%title%></title>
+    <title>Back · Belle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -42,24 +42,24 @@
           <a class="brand" href="./index.html">Belle</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="<%index%>">
-                <a href="./index.html"><%_i%>Home<%/i%></a>
+              <li class="">
+                <a href="./index.html">Home</a>
               </li>
               
-              <li class="<%getting-started%>">
-                <a href="./getting-started.html"><%_i%>Get started<%/i%></a>
+              <li class="">
+                <a href="./getting-started.html">Get started</a>
               </li>
               
-              <li class="<%property-editors%>">
-                <a href="./property-editors.html"><%_i%>Property Editors<%/i%></a>
+              <li class="">
+                <a href="./property-editors.html">Property Editors</a>
               </li>
 
-              <li class="<%back-office%>">
-                <a href="./back-office.html"><%_i%>Back Office<%/i%></a>
+              <li class="active">
+                <a href="./back-office.html">Back Office</a>
               </li>
 
-              <li class="<%services%>">
-                <a href="./services.html"><%_i%>Services<%/i%></a>
+              <li class="">
+                <a href="./services.html">Services</a>
               </li>
 
             </ul>
@@ -68,7 +68,72 @@
       </div>
     </div>
 
-<%>body%>
+<!-- Subhead
+================================================== -->
+<header class="jumbotron subhead" id="overview">
+  <div class="container">
+    <h1>Back Office</h1>
+    <p class="lead">These items are common terms and concepts that are used throughout the Umbraco backoffice.</p>
+  </div>
+</header>
+
+
+  <div class="container">
+
+    <!-- Docs nav
+    ================================================== -->
+    <div class="row">
+      <div class="span3 bs-docs-sidebar">
+        <ul class="nav nav-list bs-docs-sidenav">
+          <li><a href="#grid-system"><i class="icon-chevron-right"></i> Grid System</a></li>
+          <li><a href="#section-bar"><i class="icon-chevron-right"></i> Section bar</a></li>
+        </ul>
+      </div>
+      <div class="span9">
+
+
+
+
+
+        <!-- Grid system
+        ================================================== -->
+        <section id="grid-system">
+          <div class="page-header">
+            <h1>1. Grid system</h1>
+          </div>
+          <p class="lead">The grid system is a design tool that help and achieve visuel unity across Umbraco. The grid system is built on top of <a href="http://twitter.github.io/bootstrap/index.html">Twitter Bootstrap</a>.</p>
+          <img src="assets/img/umbraco/grid.png" alt="">
+        </section>
+
+        <!-- Section bar
+        ================================================== -->
+        <section id="section-bar">
+          <div class="page-header">
+            <h1>2. Section Bar</h1>
+          </div>
+          <div class="row-fluid">
+          <div class="span2">
+            <img src="assets/img/umbraco/sections.gif" alt="">
+          </div>
+          <p>The section bar on the left contains a avatar and access to all sections: 
+            <ul>
+              <li>Content</li>
+              <li>Media</li>
+              <li>Settings</li>
+              <li>Developer</li>
+            </ul>Contains the bar more than 5 icons appears an icon an extra icon. By clicking on this a new section bar appear. Avatar picture disappears and instead produce a back arrow.</p>
+          <p>Fører man musen over Content sektionen slider Content træet [link til træ] ind. Fra Content træet har man via en hierarkisk list overblik over hele ens content struktur.  </p>
+          <p>I sections baren har man også direkte adgang til Hjælp. </p>
+</div>
+          
+        </section>
+
+
+
+      </div>
+    </div>
+
+  </div>
 
 
 
@@ -76,7 +141,7 @@
     ================================================== -->
     <footer class="footer">
       <div class="container">
-        <p class="pull-right"><a href="#"><%_i%>Back to top<%/i%></a></p>
+        <p class="pull-right"><a href="#">Back to top</a></p>
       </div>
     </footer>
 
