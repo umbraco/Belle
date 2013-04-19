@@ -21,14 +21,14 @@ a{color: #2E8AEA}
 
 .umb-panel-header{
 	border-bottom: 1px solid #e9e9e9;
-	background: #fff;
-	padding: 0px;
+    background: #f8f8f8;
+    padding: 0px;
 	margin: 0px;
     height: 90px;
 }
 .umb-panel-body{
-	background: #f8f8f8;
-	padding: 15px;	
+	background: #fff;
+    padding: 15px;	
 }
 
 .umb-panel-header h1{margin: 0px; padding: 35px 0px 6px 0px;}
@@ -52,7 +52,7 @@ label small{color: #b3b3b3 !Important; text-decoration: none;display: block; fon
 .umb-nav-tabs{padding-top: 0px; margin-top: 0px; margin-bottom: 0px; border-bottom: none; clear: both;}
 .umb-nav-tabs li a{border-radius: 0; color: #333; padding: 5px 15px 5px 15px;}
 .umb-nav-tabs li a:hover, .umb-nav-tabs li.open a.dropdown-toggle{}
-.umb-nav-tabs li.active a{color: #000; background: #f8f8f8; border-color: #e9e9e9; border-bottom-color: #f8f8f8}
+.umb-nav-tabs li.active a{color: #000; background: #fff; border-color: #e9e9e9; border-bottom-color: #fff}
 .umb-nav-tabs li .caret{margin-top: 16px !Important; border-top-color: #828282 !Important;}
 .umb-nav-tabs .dropdown-menu a{line-height: 20px}
 .umb-tab-pane{padding: 0px 20px 0px 20px;}
@@ -142,7 +142,7 @@ label small{color: #b3b3b3 !Important; text-decoration: none;display: block; fon
 .popover-title{display: none}
 .umb-buttons{ text-align: right; padding: 15px; margin-top: 30px;clear: both; border-top: #efefef 1px solid}
 
-
+.thumbnails .selected{border-color: #999; background: #999}
 
 /* TREE */                                                                     /* TREE */
 .umb-tree{ list-style: none;margin: 0px; min-width: 100%; width: auto;}

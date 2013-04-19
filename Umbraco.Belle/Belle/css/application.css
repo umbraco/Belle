@@ -85,7 +85,7 @@ max-width: none;
 }
 
 #tree{left: 91px; top: 0; position: absolute; 
-      background: #f8f8f8;}
+      background: #fff;}
 #tree .tree-container{padding: 15px 20px 20px 0px;}
 
 
@@ -94,7 +94,7 @@ background: url(search.png) no-repeat  225px 10px #fff}
 
 #umb-searchresults{display: none}
 .umb-modalcolumn{
-	background: #f8f8f8;
+	background: #fff;
 	position: absolute;
 	top: 0px;
   left: 100%;

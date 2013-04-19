@@ -8,22 +8,35 @@ define([ 'angular'], function (angular) {
 	 /*****
 	     TREE
 	 ****/
+	 uiServices.factory('$section', function () {
+	     var currentSection = "content";
+		 return {
+	     	all: function(){
+	     		return [
+		                { name: "Content", cssclass: "file", alias: "content" },
+		                { name: "Media", cssclass: "picture", alias: "media" },
+		                { name: "Settings", cssclass: "dashboard",  alias: "settings" },
+		                { name: "Developer", cssclass: "cog", alias: "developer" },
+		                { name: "Users", cssclass: "user", alias: "users" }
+		            ];	
+	     	},
+	     	
+	     	setCurrent: function(sectionAlias){
+	     		currentSection = sectionAlias;	
+	     	}
 
-	 uiServices.factory('$tree', function () {
+	     };
+	});
+
+
+
+	 uiServices.factory('$tree', function ($section) {
 	     //implement this in local storage
 	     var treeArray = new Array();
 	     var currentSection = "content";
 
 	     return {
-
-	         getCurrentSection: function () {
-	             return currentSection;
-	         },
-
 	         getTree: function (section) {
-
-	             currentSection = section;
-
 	             if (treeArray[section] != undefined)
 	                 return treeArray[section];
 
@@ -143,8 +156,8 @@ define([ 'angular'], function (angular) {
 				    $compile($modal)(scope);
 				  });
 
-				  scope.modalData = {};
-				  scope.modalData.selection = [];
+				  scope.dialogData = {};
+				  scope.dialogData.selection = [];
 
 				  // Provide scope display functions
 				  scope.$modal = function(name) {
@@ -164,8 +177,8 @@ define([ 'angular'], function (angular) {
 				  };
 
 				  scope.select = function(item){
-				  	if(scope.modalData.selection.indexOf(item) < 0){
-				  			scope.modalData.selection.push(item);	
+				  	if(scope.dialogData.selection.indexOf(item) < 0){
+				  			scope.dialogData.selection.push(item);	
 				  	}	
 				  };
 
@@ -218,153 +231,3 @@ define([ 'angular'], function (angular) {
 	 
 	 return uiServices;
 });		
-
-	 		/*
-	 		return {
-	 			open: function(options){
-	 				if(!options) options = {};
-
-	 				var scope = options.scope || $rootScope.$new(),
-	 				    templateUrl = options.template;
-	 				
-	 				var callback = options.callback;
-
-	 				//@todo support {title, content} object
-
-	 				return $q.when($templateCache.get(templateUrl) || $http.get(templateUrl, {cache: true}).then(function(res) { return res.data; }))
-	 					.then(function onSuccess(template) {
-
-	 				  // Build modal object
-	 				  var id = templateUrl.replace('.html', '').replace(/[\/|\.|:]/g, "-") + '-' + scope.$id;
-	 				  var $modal = $('<div class="modal umb-modal  hide" tabindex="-1"></div>').attr('id', id).addClass('fade').html(template);
-	 				  if(options.modalClass) $modal.addClass(options.modalClass);
-
-	 				  $('body').append($modal);
-
-	 				  // Compile modal content
-	 				  $timeout(function() {
-	 				    $compile($modal)(scope);
-	 				  });
-
-	 				  scope.modalData = {};
-
-	 				  // Provide scope display functions
-	 				  scope.$modal = function(name) {
-	 				    $modal.modal(name);
-	 				  };
-	 				  scope.hide = function() {
-	 				    $modal.modal('hide');
-	 				  };
-	 				  
-	 				  scope.show = function() {
-	 				    $modal.modal('show');
-	 				  };
-
-	 				  scope.submit = function(data){
-	 				  	callback(data);
-	 				  	$modal.modal('hide');
-	 				  };
-
-	 				  scope.dismiss = scope.hide;
-
-	 				  // Emit modal events
-	 				  angular.forEach(['show', 'shown', 'hide', 'hidden'], function(name) {
-	 				    $modal.on(name, function(ev) {
-	 				      scope.$emit('modal-' + name, ev);
-	 				    });
-	 				  });
-
-	 				  // Support autofocus attribute
-	 				  $modal.on('shown', function(event) {
-	 				    $('input[autofocus]', $modal).first().trigger('focus');
-	 				  });
-
-	 				  if(options.show) {
-	 				    $modal.modal('show');
-	 				  }
-
-	 				  return $modal;	
-	 			}
-	 		}
-	});
-
-
-	    var ModalFactory = function ModalFactory(options) {
-
-	     function Modal(options) {
-	       if(!options) options = {};
-
-	       var scope = options.scope || $rootScope.$new(),
-	           templateUrl = options.template;
-	       
-	       var callback = options.callback;
-
-	       //@todo support {title, content} object
-
-	       return $q.when($templateCache.get(templateUrl) || $http.get(templateUrl, {cache: true}).then(function(res) { return res.data; }))
-	       .then(function onSuccess(template) {
-
-	         // Build modal object
-	         var id = templateUrl.replace('.html', '').replace(/[\/|\.|:]/g, "-") + '-' + scope.$id;
-	         var $modal = $('<div class="modal umb-modal  hide" tabindex="-1"></div>').attr('id', id).addClass('fade').html(template);
-	         if(options.modalClass) $modal.addClass(options.modalClass);
-
-	         $('body').append($modal);
-
-	         // Compile modal content
-	         $timeout(function() {
-	           $compile($modal)(scope);
-	         });
-
-	       	 scope.modalData = {};
-
-	         // Provide scope display functions
-	         scope.$modal = function(name) {
-	           $modal.modal(name);
-	         };
-	         scope.hide = function() {
-	           $modal.modal('hide');
-	         };
-	         
-	         scope.show = function() {
-	           $modal.modal('show');
-	         };
-
-	         scope.submit = function(data){
-	         	callback(data);
-	         	$modal.modal('hide');
-	         };
-
-	         scope.dismiss = scope.hide;
-
-	         // Emit modal events
-	         angular.forEach(['show', 'shown', 'hide', 'hidden'], function(name) {
-	           $modal.on(name, function(ev) {
-	             scope.$emit('modal-' + name, ev);
-	           });
-	         });
-
-	         // Support autofocus attribute
-	         $modal.on('shown', function(event) {
-	           $('input[autofocus]', $modal).first().trigger('focus');
-	         });
-
-	         if(options.show) {
-	           $modal.modal('show');
-	         }
-
-	         return $modal;
-
-	       });
-	     }
-
-	     return new Modal(options);
-	   };
-
-
-
-	   return ModalFactory;
-}]);
-	   */
-
-	

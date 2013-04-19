@@ -3,24 +3,16 @@
 define([ 'app'], function (app) {
 
 //Handles the section area of the app
-app.controller("NavigationController", function ($scope, $window, $tree, stateManager, $rootScope) {
+app.controller("NavigationController", function ($scope, $window, $tree, $section, stateManager, $rootScope) {
     stateManager.registerInitialiser(function (pathComponents) {
         loadTree(pathComponents[0]);
-
-        $scope.sections =
-            [
-                { name: "Content", cssclass: "file", alias: "content" },
-                { name: "Media", cssclass: "picture", alias: "media" },
-                { name: "Settings", cssclass: "dashboard",  alias: "settings" },
-                { name: "Developer", cssclass: "cog", alias: "developer" },
-                { name: "Users", cssclass: "user", alias: "users" }
-            ];
+        $scope.sections = $section.all();
     })($scope);
     
     $scope.openSection = function (section) {
         stateManager.pushState([section.alias]);
+        $section.setCurrent(section.alias);
         $scope.currentSection = section.alias;
-
         $scope.showSectionTree(section);
     };
 
@@ -112,12 +104,12 @@ app.controller("MainController", function ($scope, stateManager, $notification) 
     };
 
     //subscribes to notifications in the notification service
-    $scope.notifications = $notification.notifications;
-    $scope.$watch('$notification.notifications', function (newVal, oldVal, scope) {
-        if (newVal) {
-            $scope.notifications = newVal;
-        }
-    });
+$scope.notifications = $notification.notifications;
+$scope.$watch('$notification.notifications', function (newVal, oldVal, scope) {
+    if (newVal) {
+        $scope.notifications = newVal;
+    }
+});
 
     $scope.removeNotification = function(index) {
         $notifications.remove(index);
