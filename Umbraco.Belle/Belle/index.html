@@ -69,23 +69,23 @@
                     <!-- The context menu -->
                     <div id='actionscolumn' class='umb-modalcolumn fill shadow' ng-show="ui.showContextMenu"> 
                         <div class='umb-panel-header'>
-                            <a href='#' data-behavior='umb-modal-close' class='umb-modal-close-icon umb-modal-close'><i class='umb-spr spr-directional_left'></i></a>
-
                             <h1>{{currentNode.name}}</h1>
                         </div>
 
                         <div class='umb-panel-body'>
-                                <ul class="umb-actions" id="actions">
+                                <ul class="umb-actions" id="contextMenu" ng-hide="ui.showContextMenuDialog">
                                     <li class="action" ng-class="{sep:action.seperator}" ng-repeat="action in contextMenu">
-                                        <a href="#/action/{{action.name}}/">
+                                        <a href="#/{{currentSection}}/{{action.alias}}/{{currentNode.id}}" prevent-default 
+                                            ng-click="showContextDialog(currentNode,action,currentSection)">
                                             <i class="icon icon-{{action.cssclass}}"></i>
                                             <span class="menu-label">{{action.name}}</span>
                                         </a>
                                     </li>
-                                </ul>    
+                                </ul>
+                                <div id="contextMenuDialog" ng-show="ui.showContextMenuDialog"></div>    
                         </div>
 
-                    </div>
+                    </div
                 </div>
             </div>
         </div>

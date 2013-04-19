@@ -51,30 +51,28 @@ define([ 'angular'], function (angular) {
 	                 ]
 	             };
 
-
 	             treeArray[section] = t;
 	             return treeArray[section];
 	         },
 
 	        getActions: function(treeItem, section){
+				return [
+	                { name: "Create", cssclass: "plus", alias: "create" },
 
-     		return [
-	                { name: "Create", cssclass: "plus", alias: "content" },
-
-	                { seperator: true, name: "Delete", cssclass: "remove", alias: "media" },
-	                { name: "Move", cssclass: "move",  alias: "settings" },
-	                { name: "Copy", cssclass: "copy", alias: "developer" },
-	                { name: "Sort", cssclass: "sort", alias: "users" },
+	                { seperator: true, name: "Delete", cssclass: "remove", alias: "delete" },
+	                { name: "Move", cssclass: "move",  alias: "move" },
+	                { name: "Copy", cssclass: "copy", alias: "copy" },
+	                { name: "Sort", cssclass: "sort", alias: "sort" },
 	                
-	                { seperator: true, name: "Publish", cssclass: "globe", alias: "users" },
-					{ name: "Rollback", cssclass: "undo", alias: "users" },
+	                { seperator: true, name: "Publish", cssclass: "globe", alias: "publish" },
+					{ name: "Rollback", cssclass: "undo", alias: "rollback" },
 	                
-	                { seperator: true, name: "Permissions", cssclass: "lock", alias: "users" },
-	                { name: "Audit Trail", cssclass: "time", alias: "time" },
-	                { name: "Notifications", cssclass: "envelope", alias: "users" },
+	                { seperator: true, name: "Permissions", cssclass: "lock", alias: "permissions" },
+	                { name: "Audit Trail", cssclass: "time", alias: "audittrail" },
+	                { name: "Notifications", cssclass: "envelope", alias: "notifications" },
 
-	                { seperator: true, name: "Hostnames", cssclass: "home", alias: "users" },
-	                { name: "Public Access", cssclass: "group", alias: "users" },
+	                { seperator: true, name: "Hostnames", cssclass: "home", alias: "hostnames" },
+	                { name: "Public Access", cssclass: "group", alias: "publicaccess" },
 	                
 	                { seperator: true, name: "Reload", cssclass: "refresh", alias: "users" },
 	            ];
@@ -97,7 +95,6 @@ define([ 'angular'], function (angular) {
 	 /*****
 	     NOTIFICATIONS
 	 ****/
-
 	 uiServices.factory('$notification', function ($rootScope) {
 
 	     var nArray = new Array();
@@ -144,7 +141,7 @@ define([ 'angular'], function (angular) {
 			return $q.when($templateCache.get(templateUrl) || $http.get(templateUrl, {cache: true}).then(function(res) { return res.data; }))
 				.then(function onSuccess(template) {
 
-			  // Build modal object
+			  	  // Build modal object
 				  var id = templateUrl.replace('.html', '').replace(/[\/|\.|:]/g, "-") + '-' + scope.$id;
 				  var $modal = $('<div class="modal umb-modal  hide" tabindex="-1"></div>').attr('id', id).addClass('fade').html(template);
 				  if(options.modalClass) $modal.addClass(options.modalClass);
@@ -224,6 +221,23 @@ define([ 'angular'], function (angular) {
 				                    callback: options.callback, 
 				                    template: 'views/application/dialogs/media.html', 
 				                    show: true, backdrop: 'static'});
+				},
+				append : function(options){
+					var scope = options.scope || $rootScope.$new(), 
+						templateUrl = options.template;
+
+					return $q.when($templateCache.get(templateUrl) || $http.get(templateUrl, {cache: true}).then(function(res) { return res.data; }))
+						.then(function onSuccess(template) {
+
+						options.container.html(template[1]);
+
+						// Compile modal content
+						$timeout(function() {
+							$compile(options.container)(options.scope);
+						});
+
+						return template;
+					});
 				}  
 	 	};
 

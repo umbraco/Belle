@@ -11,7 +11,9 @@
     </div>
 
     <ul ng-class="{collapsed: !node.expanded}">
-        <li ng-repeat="node in node.children" ng-class="{current:node.id == selectedId}" ng-include="'tree_item_renderer.html'"></li>
+        <li ng-repeat="node in node.children" 
+            ng-class="{current:node.id == selectedId}" 
+            ng-include="'tree_item_renderer.html'"></li>
     </ul>
 </script>
 
@@ -22,7 +24,9 @@
         </div>
     
         <ul>
-            <li class="file" ng-repeat="node in tree.children" ng-class="{current:node.id == selectedId}" ng-include="'tree_item_renderer.html'"></li>
+            <li class="file" ng-repeat="node in tree.children" 
+             ng-class="{current:node.id == selectedId}" 
+             ng-include="'tree_item_renderer.html'"></li>
         </ul>
     </li> 
 </ul>

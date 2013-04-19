@@ -73,7 +73,7 @@ define(['app'], function (app) {
 
             rootMedia: function(){
               return [
-                    {src: "/Media/boston.jpg", thumbnail: "/Media/boston.jpg" },
+                    {id: 1234, src: "/Media/boston.jpg", thumbnail: "/Media/boston.jpg" },
                     {src: "/Media/bird.jpg", thumbnail: "/Media/bird.jpg" },
                     {src: "/Media/frog.jpg", thumbnail: "/Media/frog.jpg" }
                 ];
