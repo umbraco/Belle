@@ -20,11 +20,9 @@
           <li><a href="#header"><i class="icon-chevron-right"></i> <%_i%>Header<%/i%></a></li>
           <li><a href="#tree"><i class="icon-chevron-right"></i> <%_i%>Tree<%/i%></a></li>
           <li><a href="#modals"><i class="icon-chevron-right"></i> <%_i%>Modals<%/i%></a></li>
-          <li><a href="#pickers"><i class="icon-chevron-right"></i> <%_i%>Pickers<%/i%></a></li>
           <li><a href="#buttons"><i class="icon-chevron-right"></i> <%_i%>Buttons<%/i%></a></li>
           <li><a href="#typography"><i class="icon-chevron-right"></i> <%_i%>Typography<%/i%></a></li>
-          <li><a href="#icon-font"><i class="icon-chevron-right"></i> <%_i%>Icon font<%/i%></a></li>
-          <li><a href="#list-view"><i class="icon-chevron-right"></i> <%_i%>List view<%/i%></a></li>
+          <li><a href="#icons"><i class="icon-chevron-right"></i> <%_i%>Icon font<%/i%></a></li>
         </ul>
       </div>
       <div class="span9">
@@ -124,7 +122,7 @@
           <div class="page-header">
             <h1><%_i%>3. Header<%/i%></h1>
           </div>
-          <p class="lead">The header contain a minimal of information, to keep it simpel and clear to the user. Page name, witchs can easily been edit, just by clicking the text. Here you also have the ability to change language. In the right side of the header 2 buttons are showen, Preview and Publish. The preview button opens a new page with the current page. The Publish button is saving and publishing the current page. Umbraco is constantly saving the current document in the background, so you don't need to press save, but you can still access the Save button by clicking the arrow down, besides Publish. All header will always be visible to the user.</p>
+          <p class="lead">The header contain a minimal of information, to keep it simpel and clear to the user. </p><p>Page name, witchs can easily been edit, just by clicking the text. Here you also have the ability to change language. In the right side of the header 2 buttons are showen, Preview and Publish. The preview button opens a new page with the current page. The Publish button is saving and publishing the current page. Umbraco is constantly saving the current document in the background, so you don't need to press save, but you can still access the Save button by clicking the arrow down, besides Publish. The header also contains tabs. The maximum number of tabs is 3. If more than 3 tabs, they will get a drop down. All header will always be visible to the user.</p>
           <img src="assets/img/umbraco/header.gif" alt="Header">
 
         </section>
@@ -151,7 +149,128 @@
           
         </section>
 
+        <!-- Modals
+        ================================================== -->
+        <section id="modals">
+          <div class="page-header">
+            <h1><%_i%>Modals<%/i%></h1>
+          </div>
+          <p class="lead">Modals gives you more opportunities in an given context. That could be a media picker etc.</p>
+          
+        </section>
 
+         <!-- Typography
+        ================================================== -->
+        <section id="typography">
+          <div class="page-header">
+            <h1><%_i%>4. Typography<%/i%></h1>
+          </div>
+          
+          <p class="lead">For Umbraco we have chosen the font Open Sans. It was optimized for web, mobile interfaces and has excellent legibility characteristics in its letterforms.</p>
+          <p>Open Sans is a humanist sans serif typeface designed by Steve Matteson, Type Director of Ascender Corp. It contains 897 character set, which includes the standard ISO Latin 1, Latin CE, Greek and Cyrillic character sets. Open Sans was designed with an upright stress, open forms and a neutral, yet friendly appearance. The font is license under <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, version 2</a>.</p>
+          <p>Available in following cuts:</p>
+          <pl>
+            <li>Normal <code>font-weight: 400</code></li>
+            <li>Normal, Italic<code>font-weight: 400; font-style:italic</code></li>
+            <li>Semi-bold <code>font-weight: 500</code></li>
+            <li>Semi-bold, Italic<code>font-weight: 500; font-style:italic</code></li>
+            <li>Bold <code>font-weight: 700</code></li>
+            <li>Bold, Italic<code>font-weight: 700; font-style:italic</code></li>
+          </ul>
+
+          <div class="bs-docs-example">
+            <h1>h1 Heading 1</h1>
+            <h2>h2 Heading 2</h2>
+            <h3>h3 Heading 3</h3>
+            <h4>h4 Heading 4</h4>
+            <h5>h5 Heading 5</h5>
+          </div>
+        </section>
+
+        <!-- Buttons
+        ================================================== -->
+        <section id="buttons">
+          <div class="page-header">
+            <h1>Buttons</h1>
+          </div>
+          <p>Button styles can be applied to anything with the <code>.btn</code> class applied. However, typically you'll want to apply these to only <code>&lt;a&gt;</code> and <code>&lt;button&gt;</code> elements for the best rendering.</p>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Button</th>
+                <th>class=""</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><button type="button" class="btn">Default</button></td>
+                <td><code>btn</code></td>
+                <td>Standard gray button with gradient</td>
+              </tr>
+              <tr>
+                <td><button type="button" class="btn btn-primary">Primary</button></td>
+                <td><code>btn btn-primary</code></td>
+                <td>Provides extra visual weight and identifies the primary action in a set of buttons</td>
+              </tr>
+              <tr>
+                <td><button type="button" class="btn btn-info">Info</button></td>
+                <td><code>btn btn-info</code></td>
+                <td>Used as an alternative to the default styles</td>
+              </tr>
+              <tr>
+                <td><button type="button" class="btn btn-success">Success</button></td>
+                <td><code>btn btn-success</code></td>
+                <td>Indicates a successful or positive action</td>
+              </tr>
+              <tr>
+                <td><button type="button" class="btn btn-warning">Warning</button></td>
+                <td><code>btn btn-warning</code></td>
+                <td>Indicates caution should be taken with this action</td>
+              </tr>
+              <tr>
+                <td><button type="button" class="btn btn-danger">Danger</button></td>
+                <td><code>btn btn-danger</code></td>
+                <td>Indicates a dangerous or potentially negative action</td>
+              </tr>
+              <tr>
+                <td><button type="button" class="btn btn-inverse">Inverse</button></td>
+                <td><code>btn btn-inverse</code></td>
+                <td>Alternate dark gray button, not tied to a semantic action or use</td>
+              </tr>
+              <tr>
+                <td><button type="button" class="btn btn-link">Link</button></td>
+                <td><code>btn btn-link</code></td>
+                <td>Deemphasize a button by making it look like a link while maintaining button behavior</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </section>
+
+        <!-- Icons
+        ================================================== -->
+        <section id="icons">
+          <div class="page-header">
+            <h1>Icons <small>by <a href="http://hlvticons.ch/" target="_blank">Hlvticons</a></small></h1>
+          </div>
+
+          <h2>Icon font</h2>
+          <p>600+ icons, available as <code>@font-face</code> <a href="http://hlvticons.ch/" target="_blank">Glyphicons</a>.</p>
+          <div class="alert">Vis alle ikonerne</div>
+
+          <h3>Hlvticons attribution</h3>
+          <p><a href="http://hlvticons.ch/">Hlvticons</a> are normally not available for free, but an arrangement between Umbraco and the Hlvticons creator have made this possible at no cost to you as developers. As a thank you, we ask you to include an optional link back to <a href="http://hlvticons.ch/">Hlvticons</a> whenever practical.</p>
+
+
+          <hr class="bs-docs-separator">
+
+
+          <h2>How to use</h2>
+          
+
+
+        </section>
 
       </div><%! /span9 %>
     </div><%! row%>
