@@ -4,9 +4,9 @@ define(['app'], function (app) {
 
     //this controller simply tells the dialogs service to open a mediaPicker window
     //with a specified callback, this callback will receive an object with a selection on it
-    app.controller("mediaPickerController", function($rootScope, $scope, $dialogs){
+    app.controller("mediaPickerController", function($rootScope, $scope, $dialog){
         $scope.openMediaPicker =function(value){
-                var dialog = $dialogs.mediaPicker({scope: $scope, callback: populate});
+                var dialog = $dialog.mediaPicker({scope: $scope, callback: populate});
         };
 
         function populate(data){
@@ -15,7 +15,7 @@ define(['app'], function (app) {
     });
 
 
-app.controller("GoogleMapsController", function ($rootScope, $scope, $notifications) {
+app.controller("GoogleMapsController", function ($rootScope, $scope, $notification) {
 require(
     [
         'async!http://maps.google.com/maps/api/js?sensor=false'
@@ -48,7 +48,7 @@ require(
 
             //call the notication engine
             $rootScope.$apply(function () {
-                $notifications.warning("Your dragged a marker to", $scope.property.value);
+                $notification.warning("Your dragged a marker to", $scope.property.value);
             });
         });
     }

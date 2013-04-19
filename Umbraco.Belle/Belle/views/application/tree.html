@@ -1,11 +1,11 @@
 ﻿<script type="text/ng-template"  id="tree_item_renderer.html">
-    <div ng-style="setPadding(node)">
+    <div ng-style="setTreePadding(node)">
 
-    <ins class="toggle" ng-click="getChildren(node)"></ins>
+    <ins class="toggle" ng-click="getTreeChildren(node)"></ins>
     <i class="icon umb-tree-icon sprTree {{node.icon}}"></i>
 
     <a ng-href="#{{node.view}}">{{node.name}}</a>
-    <i class="icon-cog umb-options" ng-click="openContextMenu(node)"></i>
+    <i class="icon-cog umb-options" ng-click="showContextMenu(node)"></i>
 
     <div style="clear: both;"></div>
     </div>
@@ -15,12 +15,7 @@
     </ul>
 </script>
 
-
-<div id="umb-searchresults">
-    <h5 class='search'>Search results</h5>
-</div>
-
-<ul class="umb-tree" ng-controller="TreeController">
+<ul class="umb-tree">
     <li class="root">
         <div>   
             <a class="root-link">{{tree.name}}</a><i class="icon-cog umb-options"></i>
@@ -29,7 +24,5 @@
         <ul>
             <li class="file" ng-repeat="node in tree.children" ng-class="{current:node.id == selectedId}" ng-include="'tree_item_renderer.html'"></li>
         </ul>
-    </li>   
-    
-    
+    </li> 
 </ul>

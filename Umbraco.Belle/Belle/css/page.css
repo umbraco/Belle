@@ -1,13 +1,6 @@
 
-body{ background: #fff url(../img/loader.gif) no-repeat center center;height: 100%;width: 100%; overflow: hidden}
+.loading{ background: #fff url(../img/loader.gif) no-repeat center center;height: 100%;width: 100%; overflow: hidden}
 
-form, html, body {
-    margin: 0 !Important;
-    padding: 0 !Important;
-    border: none !Important;
-    font-size: 12px;
-
-}
 
 h1{
 	color: #b3b3b3 !Important;
@@ -25,6 +18,7 @@ a{color: #2E8AEA}
 .umb-panel{
 	background: #fff;
 }
+
 .umb-panel-header{
 	border-bottom: 1px solid #e9e9e9;
 	background: #fff;
@@ -37,31 +31,31 @@ a{color: #2E8AEA}
 	padding: 15px;	
 }
 
-.umb-panel-header h1{margin: 0px; padding-top: 17px;}
+.umb-panel-header h1{margin: 0px; padding: 35px 0px 6px 0px;}
+.umb-panel-header .umb-btn-toolbar{text-align: right; position: absolute; top: 16px; right: 20px;}
+
+
 .float-left{float: left;}
 .umb-el-wrap{max-width: 800px; position: relative; padding: 0px 20px 0px 20px; margin: 0px;}
 
-small.umb-detail, label small{color: #b3b3b3 !Important; text-decoration: none;display: block; font-weight: normal }
+small.umb-detail, 
+label small{color: #b3b3b3 !Important; text-decoration: none;display: block; font-weight: normal }
 
-/* CUSTOM STYLES ADDED TO BOOTSTRAP elements */
+
+
+
+
+
 
 /* TABS */
-
 .tabbable .umb-panel-body{padding: 0px;}
 .umb-nav-tabs{padding-top: 0px; margin-top: 0px; margin-bottom: 0px; border-bottom: none; clear: both;}
 .umb-nav-tabs li a{border-radius: 0; color: #333; padding: 5px 15px 5px 15px;}
 .umb-nav-tabs li a:hover, .umb-nav-tabs li.open a.dropdown-toggle{}
-
 .umb-nav-tabs li.active a{color: #000; background: #f8f8f8; border-color: #e9e9e9; border-bottom-color: #f8f8f8}
 .umb-nav-tabs li .caret{margin-top: 16px !Important; border-top-color: #828282 !Important;}
 .umb-nav-tabs .dropdown-menu a{line-height: 20px}
-
 .umb-tab-pane{padding: 0px 20px 0px 20px;}
-
-
-/* ICON TOOLBAR */
-.umb-btn-toolbar{margin-top: 25px; }
-.umb-panel-buttons .umb-btn-toolbar{padding-left: 0px; float: right; text-align: right}
 
 
 
@@ -77,16 +71,20 @@ small.umb-detail, label small{color: #b3b3b3 !Important; text-decoration: none;d
 .btn-link{ background-color: none;border: none;}
 
 
-
 /* CONTEXT MENU */
 .umb-actions{margin: 12px 0px 0px 0px; padding: 0px; list-style: none; }
 .umb-actions ul{}
-.umb-actions li.sep{margin: 3px 15px 3px 35px; height: 1px; background: #efefef;}
-.umb-actions a{white-space: nowrap; display: block; font-size: 12px; color: #414141; padding: 3px 25px 3px 10px;  text-decoration: none;}
-.umb-actions a:hover, .umb-actions li.selected{color: #fff; background: url(tree-item-background.gif) repeat-x top #2e8aea; }
+
+.umb-actions li.sep{margin-top: 4px; display: block; border-top: 1px solid #efefef;}
+.umb-actions li.sep a{margin-top: 4px;}
+.umb-actions a{white-space: nowrap; display: block; font-size: 14px; color: #414141; 
+    padding: 4px 25px 4px 20px;  text-decoration: none;}
+.umb-actions a:hover, 
+.umb-actions li.selected{color: #fff; background: url(tree-item-background.gif) repeat-x top #2e8aea; }
 .umb-actions a:hover i{color: #fff;}
-.umb-actions .menuLabel{display: inline-block;vertical-align: middle; padding-left: 10px;padding-top: 2px; text-transform: capitalize }
-.umb-actions .umb-menu-icon{margin-top: 2px;  font-size: 14px;vertical-align: middle; color: #414141}
+
+.umb-actions .menu-label{display: inline-block;vertical-align: middle; padding-left: 15px;padding-top: 2px; text-transform: capitalize }
+.umb-actions i{color: #999; margin-top: 2px;  font-size: 18px;vertical-align: middle; color: #414141}
 
 .umb-actions-child {
     list-style: none;

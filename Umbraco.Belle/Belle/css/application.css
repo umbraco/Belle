@@ -3,7 +3,6 @@ html, body {
     overflow: hidden
 }
 
-
 body{
 	margin:0;
 	padding:0;
@@ -17,7 +16,6 @@ max-width: none;
 .thumbnail img {
     max-width: 100% !Important;
 }
-
 .fill{height: 100%; min-height: 100%;}
 
 .shadow {
@@ -30,7 +28,7 @@ max-width: none;
 #login .form {
     display: block; padding-top: 100px; padding-left: 165px; width: 370px; text-align: right
 }
-#login h1{display: block; text-align: right; color: #fff !Important;font-size: 20px !Important; font-weight: normal !Important}
+#login h1{display: block; text-align: right; color: #fff !Important;font-size: 18px !Important; font-weight: normal !Important}
 
 
 #layout{position: relative; height: 100%}
@@ -55,7 +53,6 @@ max-width: none;
 	height: 100%;
 	z-index: 20;
 }
-
 #applications{border-right: 1px solid #4c4b4b; background: #1d1d1d; width: 90px; height: 100%;position: relative; text-align: center}
 
 #avatar{height: 65px;  padding-top: 25px; text-align: center; border-bottom: 1px solid #343434;}
@@ -63,11 +60,9 @@ max-width: none;
     background: no-repeat center center;  }
 #avatar a img{border-radius: 500px;}
 
-#applications ul{list-style: none; display: block; margin: 0px; padding: 0px; 
-        }
+#applications ul{list-style: none; display: block; margin: 0px; padding: 0px; }
 #applications ul li{list-style: none; display: block; margin: 0px;margin-bottom: 5px; 
-    padding: 0px; line-height: 15px; 	}
-
+    padding: 0px; line-height: 15px;}
 #applications ul li a {
         display: block;
         text-decoration: none;
@@ -83,48 +78,38 @@ max-width: none;
 #applications a span{display: block; visibility: hidden; font-size 10px; color: #939393;}
 #applications ul:hover li a span{visibility: visible;}
 
-#applications a.search{
-    position: absolute;
-    bottom: 0; 
-    display: block;
-    text-decoration: none;
-    font-size: 10px;
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid #343434;
-    height: 55px;
-    width: 100%;
+#search form{
+  padding: 27px 20px 20px 20px; 
+  display: block;
+  margin: 0px;
 }
 
-#applications a.search img{opacity: 0.3;}
-#applications a.search:hover img{opacity: 1;}
-
-
-/* border-right: #e1e1e1 1px solid; */
 #tree{left: 91px; top: 0; position: absolute; 
-      width: 295px; background: #f8f8f8;}
-.treeContainer{padding: 10px 10px 10px 15px}
+      background: #f8f8f8;}
+#tree .tree-container{padding: 15px 20px 20px 0px;}
 
 
-#search{padding: 12px 0px 0px 20px; margin-bottom: 17px}
-#search form{margin: 0px;}
-
-.umb-search-field{font-size: 12px; width: 235px; border-radius: 0 !Important; border-color: #f5f5f5; padding: 7px !Important; 
+.umb-search-field{font-size: 12px; width: 235px; border-radius: 0 !Important; border-color: #f5f5f5; padding: 5px 7px  !Important; 
 background: url(search.png) no-repeat  225px 10px #fff}
 
 #umb-searchresults{display: none}
-
 .umb-modalcolumn{
-	background: #fff;
+	background: #f8f8f8;
 	position: absolute;
 	top: 0px;
-    left: 100%;
+  left: 100%;
 	border-left: #f6f6f6 1px solid;
 	z-index: 10;
-    display: none;
 }
 
-.umb-modalcolumn .umb-panel-header{ padding: 0px 25px 0px 55px; white-space: nowrap}
+#actionscolumn h1{
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 35px;
+  text-transform: capitalize;
+}
+
+.umb-modalcolumn .umb-panel-header{white-space: nowrap}
 .umb-modalcolumn .umb-panel-body{padding: 0px}
 .no-padding .umb-panel-body{padding: 0px}
 
@@ -155,14 +140,7 @@ h5.search{ font-size: 12px;text-transform: uppercase;font-weight: bold; margin: 
 .umb-icon-item .umb-spr{float: left}
 
 
-.no-spr{background: none !Important;}
-.sep{ background: #E8E8E8; margin-left: 30px; height: 1px}
-
-
 //***************** MODAL *************//
-.umb-modal {
-  background: red
-}
 .selected{border-color: red !Important; background: red !Important;}
 
 .umb-modal.fade {

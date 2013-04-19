@@ -3,8 +3,10 @@
 define([ 'app'], function (app) {
 
 //Handles the section area of the app
-app.controller("SectionController", function ($scope, $window, stateManager, $rootScope) {
+app.controller("NavigationController", function ($scope, $window, $tree, stateManager, $rootScope) {
     stateManager.registerInitialiser(function (pathComponents) {
+        loadTree(pathComponents[0]);
+
         $scope.sections =
             [
                 { name: "Content", cssclass: "file", alias: "content" },
@@ -15,75 +17,57 @@ app.controller("SectionController", function ($scope, $window, stateManager, $ro
             ];
     })($scope);
     
-    
     $scope.openSection = function (section) {
         stateManager.pushState([section.alias]);
-        $scope.ui.treeVisible = true;
+        $scope.currentSection = section.alias;
 
-        $rootScope.$broadcast('showSectionTree', section.alias);
-        $rootScope.$broadcast('openSection', section.alias);
+        $scope.showSectionTree(section);
     };
 
     $scope.hideSectionTree = function () {
         $scope.ui.treeVisible = false;
-        $rootScope.$broadcast('hideSectionTree');
+        $scope.hideContextMenu();
     };
 
     $scope.showSectionTree = function (section) {
         $scope.ui.treeVisible = true;
-        $rootScope.$broadcast('showSectionTree', section.alias);
+        loadTree(section.alias);
     };
-});
 
 
-app.controller("TreeController", function ($scope, $tree, $routeParams, stateManager) {
-
-    stateManager.registerInitialiser(function (pathComponents) {
-        loadTree(pathComponents);
-        
-        if(pathComponents.length > 2){
-            $scope.selectedId = pathComponents[2];    
-         }
-
-        //Do whatever you like here to respond to state changes: load subviews via ng-include, load content via AJAX, whatever...
-        //If you load in new subviews via ng-include and if doing so causes an ng-controller directive to be compiled, that new controller's initialiser will also get called once it's loaded.
-    })($scope);
-
-    $scope.getChildren = function (node) {
+    $scope.getTreeChildren = function (node) {
         if (node.expanded)
             node.expanded = false;
         else {
             node.children =  $tree.getChildren(node, $scope.section);
             node.expanded = true;
-        }
+        }   
     };
 
-    $scope.setPadding = function(item) {
+    $scope.setTreePadding = function(item) {
         return { 'padding-left': (item.level * 20) + "px" };
     };
 
-    $scope.$on('showSectionTree', function(event, section) {
-        $scope.section = section;
-        $scope.tree =  $tree.getTree($scope.section);
-    });
 
-    function loadTree(pathComponents) {
-        $scope.section = pathComponents[0];
-        $scope.tree =  $tree.getTree($scope.section);
-    }
+    $scope.showContextMenu = function (item) {
+        $scope.ui.showContextMenu = true;
+        $scope.contextMenu = $tree.getActions(item, $scope.section);
+        $scope.currentNode = item; 
 
-    $scope.openContextMenu = function (item) {
-        $scope.showMenu = true;
-        $scope.contextMenu = ["Create", "Copy", "move", "Quit"];
         //do some opening stuff here...
     };
-    
 
-    $scope.closeContextMenu = function (item) {
-        $scope.showMenu = false;
+    $scope.hideContextMenu = function () {
+        $scope.ui.showContextMenu = false;
         $scope.contextMenu = [];
     };
-    
+
+    function loadTree(section) {
+      //  $scope.hideContextMenu();
+
+        $scope.section = section;
+        $scope.tree =  $tree.getTree($scope.section);
+    }
 });
 
 

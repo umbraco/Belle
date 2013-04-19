@@ -43,6 +43,30 @@ define([ 'angular'], function (angular) {
 	             return treeArray[section];
 	         },
 
+	        getActions: function(treeItem, section){
+
+     		return [
+	                { name: "Create", cssclass: "plus", alias: "content" },
+
+	                { seperator: true, name: "Delete", cssclass: "remove", alias: "media" },
+	                { name: "Move", cssclass: "move",  alias: "settings" },
+	                { name: "Copy", cssclass: "copy", alias: "developer" },
+	                { name: "Sort", cssclass: "sort", alias: "users" },
+	                
+	                { seperator: true, name: "Publish", cssclass: "globe", alias: "users" },
+					{ name: "Rollback", cssclass: "undo", alias: "users" },
+	                
+	                { seperator: true, name: "Permissions", cssclass: "lock", alias: "users" },
+	                { name: "Audit Trail", cssclass: "time", alias: "time" },
+	                { name: "Notifications", cssclass: "envelope", alias: "users" },
+
+	                { seperator: true, name: "Hostnames", cssclass: "home", alias: "users" },
+	                { name: "Public Access", cssclass: "group", alias: "users" },
+	                
+	                { seperator: true, name: "Reload", cssclass: "refresh", alias: "users" },
+	            ];
+	         },	
+
 	         getChildren: function (treeItem, section) {
 	             var iLevel = treeItem.level + 1;
 	             return [
@@ -95,7 +119,7 @@ define([ 'angular'], function (angular) {
 	 });
 
 
-	 uiServices.factory('$dialogs', ['$rootScope', '$compile', '$http', '$timeout', '$q', '$templateCache', function($rootScope, $compile, $http, $timeout, $q, $templateCache) {
+	 uiServices.factory('$dialog', ['$rootScope', '$compile', '$http', '$timeout', '$q', '$templateCache', function($rootScope, $compile, $http, $timeout, $q, $templateCache) {
 		
 		function _open(options){	
 			if(!options) options = {};

@@ -22,7 +22,9 @@
             </div>
 
 
-            <div id="leftcolumn" ng-controller="SectionController"  class="fill" ng-mouseleave="hideSectionTree()">
+            <div id="leftcolumn" ng-controller="NavigationController"  class="fill" 
+                ng-mouseleave="hideSectionTree()">
+
                 <div id="applications" class="fill">
                     <div id="avatar">
                         <a href="#" data-behavior="usermodal" title="Per Ploug Krogslund">
@@ -49,22 +51,42 @@
                 
                 <div id="tree" class="fill shadow" ng-show="ui.treeVisible">
                     <div id="search">
-                        <form class="form-search">
-                            <input type="text" ng-model="search" class="umb-search-field search-query" data-options="{resultsSelector: '#umb-searchresults', hideSelector: '#umb-maintree'}" 
-                                   data-shortcut="ctrl+q" 
-                                   data-shortcut-event="focus" 
-                                   placeholder="Type to search...">
-                        </form>
+                        <div class="umb-panel-header umb-padded-header">
+                            <form class="form-search">
+                                <input type="text" ng-model="search" class="umb-search-field search-query" data-options="{resultsSelector: '#umb-searchresults', hideSelector: '#umb-maintree'}" 
+                                       data-shortcut="ctrl+q" 
+                                       data-shortcut-event="focus" 
+                                       placeholder="Type to search...">
+                            </form>
+                        </div>
                     </div>
             
-                    <div class="umb-scrollable" auto-scale="0">
+                    <!-- the tree -->
+                    <div class="umb-scrollable tree-container" auto-scale="0">
                         <div ng-include="'views/application/tree.html'"></div>
                     </div>
+                    
+                    <!-- The context menu -->
+                    <div id='actionscolumn' class='umb-modalcolumn fill shadow' ng-show="ui.showContextMenu"> 
+                        <div class='umb-panel-header'>
+                            <a href='#' data-behavior='umb-modal-close' class='umb-modal-close-icon umb-modal-close'><i class='umb-spr spr-directional_left'></i></a>
+
+                            <h1>{{currentNode.name}}</h1>
+                        </div>
+
+                        <div class='umb-panel-body'>
+                                <ul class="umb-actions" id="actions">
+                                    <li class="action" ng-class="{sep:action.seperator}" ng-repeat="action in contextMenu">
+                                        <a href="#/action/{{action.name}}/">
+                                            <i class="icon icon-{{action.cssclass}}"></i>
+                                            <span class="menu-label">{{action.name}}</span>
+                                        </a>
+                                    </li>
+                                </ul>    
+                        </div>
+
+                    </div>
                 </div>
-                
-                <ul ng-show="ui.showMenu">
-                    <li ng-repeat="item in contextMenu"><a href="#/action/{{item.name}}/">{{item.name}}</a></li>
-                </ul>    
             </div>
         </div>
 
