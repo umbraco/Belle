@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Services · Belle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="assets/css/docs.css" rel="stylesheet">
+    <link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+  </head>
+
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+
+    <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="./index.html">Belle</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="">
+                <a href="./index.html">Home</a>
+              </li>
+              
+              <li class="">
+                <a href="./getting-started.html">Get started</a>
+              </li>
+              
+              <li class="">
+                <a href="./property-editors.html">Property Editors</a>
+              </li>
+
+              <li class="">
+                <a href="./back-office.html">Back Office</a>
+              </li>
+
+              <li class="active">
+                <a href="./services.html">Services</a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Subhead
+<!-- Subhead
+================================================== -->
+<header class="jumbotron subhead" id="overview">
+  <div class="container">
+    <h1>Services</h1>
+    <p class="lead">Application UI services for common components like tree, dialog and notifications</p>
+  </div>
+</header>
+
+
+  <div class="container">
+
+    <!-- Docs nav
+    ================================================== -->
+    <div class="row">
+      <div class="span3 bs-docs-sidebar">
+
+        <ul class="nav nav-list bs-docs-sidenav">
+          <li><a href="#introduction"><i class="icon-chevron-right"></i> Introduction</a></li>
+
+          <li><a href="#injection"><i class="icon-chevron-right"></i> Service injection</a></li>
+          <li><a href="#notification"><i class="icon-chevron-right"></i> $notification</a></li>
+          <li><a href="#dialog"><i class="icon-chevron-right"></i> $dialog</a></li>
+          <li><a href="#tree"><i class="icon-chevron-right"></i> $tree</a></li>
+        
+          <li><a href="#section"><i class="icon-chevron-right"></i> $section</a></li>
+          <li><a href="#content"><i class="icon-chevron-right"></i> content factory</a></li>
+          <li><a href="#media"><i class="icon-chevron-right"></i> media factory</a></li>
+         </ul>
+      </div>
+      <div class="span9">
+
+        <!-- intro
+        ================================================== -->
+      <section id="introduction">
+        <div class="page-header">
+          <h1>Introduction</h1>
+        </div>
+
+        <p>Services are used for application-wide operations, such as loading tree-data, handling dialogs, and displaying notifications.   
+        </p>
+  
+        <p>
+        Due to the scope of the current prototype, there are currently mostly UI focused services for handling the core application UI - services in regard to handling Umbraco assets such as content, media, templates as so on, will be added, a couple of sample services are described though.
+        </p>
+      </section>
+
+    
+      <!-- intro
+      ================================================== -->
+    <section id="injection">
+      <div class="page-header">
+        <h1>Service Injection</h1>
+      </div>
+
+      <p>
+        All services are registered on the Umbraco angular module, so they are easy to access in your own controller by using AngularJS's dependency injection system.
+      </p>
+    
+      <p>
+      Lets say you create a new Controller to handle a property editor, and wish to hook into the notification service, simply create the controller by defining it in the app:
+      </p>
+
+<pre class="prettyprint linenums">
+//define dependencies for require.js, this injects the umbraco application module:  
+define([&#039;app&#039;], function (app) {
+
+    //register the controller in umbraco module
+    //notice how $notification is injected in the function()
+    //angular takes care of the rest
+    app.controller(&quot;myCustomController&quot;, function($notification){
+        //you now access to all methods on the $notification service
+        $notification.warning(&quot;Hello&quot;);
+    });
+
+    return app;
+});
+</pre>
+
+    </section>
+
+      <!-- intro
+      ================================================== -->
+
+        <!-- notification
+        ================================================== -->
+      <section id="notification">
+        <div class="page-header">
+          <h1>$notification</h1>
+        </div>
+
+        <p>Access to the application Notification UI, can be used to alert the user about recent changes, or successfull operations</p>
+    
+      <h2>Methods</h2>
+
+      <h3>warning(headline, message)</h3>        
+      <p>Displays a warning message in orange, indicating something might be wrong, but it was not a fatal operation</p>
+  
+      <pre class="prettyprint linenums">$notification.warning("Are you sure?", "Content is stored, but some fields are missing?");</pre>
+      
+      <h3>error(headline, message)</h3>        
+      <p>Displays an error message in red, indicating something is wrong or an operation could be completed</p>
+      
+      <pre class="prettyprint linenums">$notification.error("Invalid data", "Content was not saved");</pre>
+
+      <h3>success(headline, message)</h3>        
+      <p>Displays a success message in green, indicating the requested access was completed</p>
+      
+      <pre class="prettyprint linenums">$notification.success("Published", "The page 'news' was published");</pre>
+
+      <h3>remove(index)</h3>        
+      <p>Removes an item from the notifcation collection</p>
+      
+      <pre class="prettyprint linenums">$notification.remove(0);</pre>
+
+      <h2>Collections</h2>
+      <h3>notifications</h3>        
+      <p>returns the current active notifcations as an array, this array can be watched for changes, like the application currently does to display the list of notifations in the UI</p>
+      
+      <pre class="prettyprint linenums">
+$scope.notifications = $notification.notifications;
+$scope.$watch('$notification.notifications', function (newVal, oldVal, scope) {
+    if (newVal) {
+        $scope.notifications = newVal;
+    }
+});</pre>
+
+      <p>The data returned by <code>$notification.notifications</code> as an array of:</p>
+
+      <pre class="prettyprint linenums">
+{ headline: "Saved", message: "The page 'news' was saved", type: 'success', time: new Date() }</pre>
+      </section>
+
+
+<!-- dialog
+================================================== -->
+<section id="dialog">
+  <div class="page-header">
+    <h1>dialog</h1>
+  </div>
+          
+<p>Service to display the left-hand dialog, comes with predefined services for common dialogs like content and meda pickers, provides a callback hook, which can return the result of the data entered into the dialog</p>
+
+
+<h2>Methods</h2>
+
+<h3>mediaPicker({scope, callback})</h3>        
+<p>Opens the core media picker. When selection is completed, the callback method is called, which returns the media selection</p>
+
+<pre class="prettyprint linenums">
+$scope.openMediaPicker =function(){
+    $dialog.mediaPicker({scope: $scope, callback: populate});
+};
+
+function populate(data){
+    $scope.property.value = data.selection;    
+}</pre>
+
+<p>Data returned from the media picker, represents each media item and its common properties and is set on the <code>data.selection</code> property</p>
+
+<pre class="prettyprint linenums">
+data{
+  selection: [
+    {id: 1234, src: "/Media/boston.jpg", thumbnail: "/Media/boston_thumb.jpg" },
+    {id: 1235, src: "/Media/fish.jpg", thumbnail: "/Media/fish_thumb.jpg" }
+  ]
+}
+</pre>
+
+<h3>contentPicker({scope, callback})</h3>        
+<p>Opens the core content picker. When selection is completed, the callback method is called, which returns the content selection</p>
+
+<pre class="prettyprint linenums">
+$scope.openContentPicker =function(){
+    $dialog.contentPicker({scope: $scope, callback: populate});
+};
+
+function populate(data){
+    $scope.property.value = data.selection;    
+}</pre>
+
+<p>Data returned from the content picker, represents each content item and its common properties and is set on the <code>data.selection</code> property</p>
+
+<pre class="prettyprint linenums">
+data{
+  selection: [
+    {id: 1234, name: "Hello world", icon: "news" },
+    {id: 1235, name: "Article", icon: "article" }
+  ]
+}
+</pre>
+
+<h3>open({scope, callback, template, show, backdrop})</h3>        
+<p>Opens a template in the right-hand dialog and wires the callback function to it, any form elements in the dialog can be wired to a data object and passed back to callback function.
+</p>
+
+
+<pre class="prettyprint linenums">
+$scope.openDialog =function(){
+    $dialog.open({scope: $scope, template: "views/some-view.html" callback: populate});
+};
+
+function populate(data){
+    $scope.property.value = data.selection;    
+}</pre>
+
+<p>Anything can be turned from the dialog, as long as its binded to the data object the dialog has in its scope. so a template with this html:</p>
+
+<pre class="prettyprint linenums">
+&lt;input type=&quot;text&quot; ng-model=&quot;dialogData.someValue&quot; /&gt;
+&lt;input type=&quot;button&quot; ng-click=&quot;submit(dialogData)&quot; value=&quot;submit&quot; /&gt;
+</pre>
+
+<p>Will bind <code>someValue</code> to the <code>dialogData</code> and be returned to the callback function</p>
+
+<pre class="prettyprint linenums">
+$scope.openDialog =function(){
+    $dialog.open({scope: $scope, template: "views/some-view.html" callback: populate});
+};
+
+function populate(data){
+    $scope.property.value = data.someValue;    
+}</pre>
+
+</section>
+
+        <!-- tree
+        ================================================== -->
+      <section id="tree">
+        <div class="page-header">
+          <h1>$tree</h1>
+        </div>
+
+        <p>Service for rendering tree items</p>
+    
+      <h2>Methods</h2>
+
+      <h3>getTree(section)</h3>        
+      <p>Returns the root tree data along with its immediate children</p>
+
+      <pre class="prettyprint linenums">$scope.tree =  $tree.getTree("content");</pre>
+      
+      <h3>getChildren(treeItem, section)</h3>        
+      <p>Returns children of a specific tree item</p>
+
+      <pre class="prettyprint linenums">$scope.children =  $tree.getChildren(node, "content");</pre>
+
+
+      <h3>getAction(treeItem, section)</h3>        
+      <p>Returns available actions for the specific tree item, used to render the tree context menu</p>
+
+      <pre class="prettyprint linenums">$scope.menu =  $tree.getActions(node, "content");</pre>
+      </section>
+
+
+        <!-- section
+        ================================================== -->
+      <section id="section">
+        <div class="page-header">
+          <h1>$section</h1>
+        </div>
+
+        <p>Service for rendering section items</p>
+      
+      <h2>Methods</h2>
+
+      <h3>all()</h3>        
+      <p>Returns all available sections</p>
+
+      <pre class="prettyprint linenums">$scope.sections =  $section.all();</pre>
+      
+      <h3>setCurrent(sectionAlias)</h3>        
+      <p>registers which section is currently considered active</p>
+      </section>
+      
+        <!-- content factory
+        ================================================== -->
+      <section id="content">
+        <div class="page-header">
+          <h1>Content Factory</h1>
+        </div>
+
+        <p>The content factory handles fetching content items, creating, updating and deleting them</p>
+      
+      <h2>Methods</h2>
+
+      <h3>getContent(id)</h3>        
+      <p>Returns the content by its ID</p>
+      
+      <h3>saveContent(contentObj)</h3>        
+      <p>Saves changes made to the content object</p>
+
+      <h3>publishContent(contentObj)</h3>        
+      <p>Saves changes made to the content object and publishes it</p>
+      
+
+      </section>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+    <!-- Footer
+    ================================================== -->
+    <footer class="footer">
+      <div class="container">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+      </div>
+    </footer>
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/google-code-prettify/prettify.js"></script>
+    <script src="assets/js/bootstrap-transition.js"></script>
+    <script src="assets/js/bootstrap-alert.js"></script>
+    <script src="assets/js/bootstrap-modal.js"></script>
+    <script src="assets/js/bootstrap-dropdown.js"></script>
+    <script src="assets/js/bootstrap-scrollspy.js"></script>
+    <script src="assets/js/bootstrap-tab.js"></script>
+    <script src="assets/js/bootstrap-tooltip.js"></script>
+    <script src="assets/js/bootstrap-popover.js"></script>
+    <script src="assets/js/bootstrap-button.js"></script>
+    <script src="assets/js/bootstrap-collapse.js"></script>
+    <script src="assets/js/bootstrap-carousel.js"></script>
+    <script src="assets/js/bootstrap-typeahead.js"></script>
+    <script src="assets/js/bootstrap-affix.js"></script>
+    <script src="assets/js/application.js"></script>
+
+
+  </body>
+</html>
