@@ -83,9 +83,11 @@ body {
 /*********************************************
  * NAVIGATION CONTROLS
  *********************************************/
+
 .reveal .controls div.navigate-left,
 .reveal .controls div.navigate-left.enabled {
-  border-right-color: #000; }
+  border-right-color: #000; 
+}
 
 .reveal .controls div.navigate-right,
 .reveal .controls div.navigate-right.enabled {
@@ -114,6 +116,7 @@ body {
 .belle body {
   background: url(../../images/belle.jpg) no-repeat top center;
   -webkit-background-size: cover;
+  z-index: -9999px
 }
 
 .coffee body {
