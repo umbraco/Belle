@@ -1,13 +1,10 @@
 ﻿<script type="text/ng-template"  id="tree_item_renderer.html">
     <div ng-style="setTreePadding(node)">
+        <ins class="toggle" ng-click="getTreeChildren(node)"></ins>
+        <i class="icon umb-tree-icon sprTree {{node.icon}}"></i>
 
-    <ins class="toggle" ng-click="getTreeChildren(node)"></ins>
-    <i class="icon umb-tree-icon sprTree {{node.icon}}"></i>
-
-    <a ng-href="#{{node.view}}">{{node.name}}</a>
-    <i class="icon-cog umb-options" ng-click="showContextMenu(node)"></i>
-
-    <div style="clear: both;"></div>
+        <a ng-href="#{{node.view}}">{{node.name}}</a>
+        <i class="icon-cog umb-options" ng-click="showContextMenu(node, $event)"></i>
     </div>
 
     <ul ng-class="{collapsed: !node.expanded}">

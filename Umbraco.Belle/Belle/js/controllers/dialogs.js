@@ -7,6 +7,10 @@ define([ 'app'], function (app) {
 		$scope.images = mediaFactory.rootMedia();
 	});
 	
+	app.controller("contentCreateDialogController", function ($scope, $routeParams,contentTypeFactory) {	
+		$scope.allowedTypes  = contentTypeFactory.allowedTypes($scope.currentNode.id);	
+	});
+
 	return app;
 });
 

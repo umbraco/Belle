@@ -22,10 +22,9 @@
             </div>
 
 
-            <div id="leftcolumn" ng-controller="NavigationController"  class="fill" 
-                ng-mouseleave="hideSectionTree()">
+            <div id="leftcolumn" ng-controller="NavigationController"  class="fill" ng-mouseleave="hideSectionTree()">
 
-                <div id="applications" class="fill">
+                <div id="applications" class="fill" ng-class="{faded:ui.stickyNavigation}">
                     <div id="avatar">
                         <a href="#" data-behavior="usermodal" title="Per Ploug Krogslund">
                             <img src="img/avatar.jpeg" />
@@ -40,17 +39,17 @@
                             </a>
                         </li>
                     </ul>
-                    
 
-                    <a class="search" href="#/search">
+                    <a class="help" href="#/help">
                         <img src="css/help.svg" style="height: 30px; width: 30px;" />
                         <span>help</span>
                     </a>
-
                 </div>
                 
-                <div id="tree" class="fill shadow" ng-show="ui.treeVisible">
-                    <div id="search">
+                <!-- navigation container -->
+                <div id="navigation" class="fill shadow" ng-show="ui.showNavigation" ng-animate="'slide'">
+                    <!-- the search -->
+                    <div id="search" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
                         <div class="umb-panel-header umb-padded-header">
                             <form class="form-search">
                                 <input type="text" ng-model="search" class="umb-search-field search-query" data-options="{resultsSelector: '#umb-searchresults', hideSelector: '#umb-maintree'}" 
@@ -60,32 +59,42 @@
                             </form>
                         </div>
                     </div>
-            
+
                     <!-- the tree -->
-                    <div class="umb-scrollable tree-container" auto-scale="0">
+                    <div id="tree" class="umb-scrollable" auto-scale="0" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
                         <div ng-include="'views/application/tree.html'"></div>
                     </div>
-                    
+
+
                     <!-- The context menu -->
-                    <div id='actionscolumn' class='umb-modalcolumn fill shadow' ng-show="ui.showContextMenu"> 
+                    <div id='contextMenu' class='umb-modalcolumn fill shadow' ng-show="ui.showContextMenu" ng-animate="'slide'"> 
                         <div class='umb-panel-header'>
-                            <h1>{{currentNode.name}}</h1>
+                            <h1>{{menuTitle}}</h1>
                         </div>
 
                         <div class='umb-panel-body'>
-                                <ul class="umb-actions" id="contextMenu" ng-hide="ui.showContextMenuDialog">
+                                <ul class="umb-actions" >
                                     <li class="action" ng-class="{sep:action.seperator}" ng-repeat="action in contextMenu">
-                                        <a href="#/{{currentSection}}/{{action.alias}}/{{currentNode.id}}" prevent-default 
+                                        <a  prevent-default 
                                             ng-click="showContextDialog(currentNode,action,currentSection)">
                                             <i class="icon icon-{{action.cssclass}}"></i>
                                             <span class="menu-label">{{action.name}}</span>
                                         </a>
                                     </li>
                                 </ul>
-                                <div id="contextMenuDialog" ng-show="ui.showContextMenuDialog"></div>    
                         </div>
+                    </div>
+                </div>
+                
 
-                    </div
+
+                <div id="dialog" class='umb-modalcolumn fill shadow' ng-show="ui.showContextMenuDialog" ng-animate="'slide'">
+                    <div class='umb-panel-header'>
+                        <h1>{{dialogTitle}}</h1>
+                    </div>
+
+                    <div class='umb-panel-body'></div>
+                </div> 
                 </div>
             </div>
         </div>
@@ -98,7 +107,8 @@
                 <div class="control-group"><input type="password" ng-model="user.password" class="input-xlarge" placeholder="Enter your password"/></div>
                 <input type="button" ng-click="signin()" class="btn" value="Login" />
             </div>
-        </div>                    
+        </div>
+
         <div id='umb-speechbubble' class='umb-notification'>
             <ul>
                 <li ng-repeat="notification in notifications" class="alert alert-block alert-{{notification.type}}">

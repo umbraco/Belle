@@ -24,7 +24,6 @@ define([ 'angular'], function (angular) {
 	     	setCurrent: function(sectionAlias){
 	     		currentSection = sectionAlias;	
 	     	}
-
 	     };
 	});
 
@@ -40,16 +39,51 @@ define([ 'angular'], function (angular) {
 	             if (treeArray[section] != undefined)
 	                 return treeArray[section];
 
-	             var t = {
-	                 name: section,
-	                 alias: section,
-	                 children: [
-	                     { name: "random-name-" + section, id: 1234, icon: "icon-home", view: section + "/edit/" + 1234, children: [], expanded: false, level: 1 },
-	                     { name: "random-name-" + section, id: 1235, icon: "icon-folder-close", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1 },
-	                     { name: "random-name-" + section, id: 1236, icon: "icon-folder-close", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1 },
-	                     { name: "random-name-" + section, id: 1237, icon: "icon-folder-close", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 }
-	                 ]
-	             };
+	            var t; 	
+	            switch(section){
+	            	case "developer":
+	            		t = {
+	            		    name: section,
+	            		    alias: section,
+
+	            		    children: [
+	            		        { name: "Data types", id: 1234, icon: "icon-folder-close", view: section + "/edit/" + 1234, children: [], expanded: false, level: 1 },
+	            		        { name: "Macros", id: 1235, icon: "icon-folder-close", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1 },
+	            		        { name: "Pacakges", id: 1236, icon: "icon-folder-close", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1 },
+	            		        { name: "XSLT Files", id: 1237, icon: "icon-folder-close", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 },
+	            		        { name: "Razor Files", id: 1237, icon: "icon-folder-close", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 }
+	            		    ]
+	            		 };
+	            		break;
+	            	case "settings":
+	            		t = {
+	            		    name: section,
+	            		    alias: section,
+
+	            		    children: [
+	            		        { name: "Stylesheets", id: 1234, icon: "icon-folder-close", view: section + "/edit/" + 1234, children: [], expanded: false, level: 1 },
+	            		        { name: "Templates", id: 1235, icon: "icon-folder-close", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1 },
+	            		        { name: "Dictionary", id: 1236, icon: "icon-folder-close", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1 },
+	            		        { name: "Media types", id: 1237, icon: "icon-folder-close", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 },
+	            		        { name: "Document types", id: 1237, icon: "icon-folder-close", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 }
+	            		    ]
+	            		 };
+	            		break;
+	            	default: 
+	            		t = {
+	            		    name: section,
+	            		    alias: section,
+
+	            		    children: [
+	            		        { name: "random-name-" + section, id: 1234, icon: "icon-home", defaultAction: "create", view: section + "/edit/" + 1234, children: [], expanded: false, level: 1 },
+	            		        { name: "random-name-" + section, id: 1235, icon: "icon-folder-close", defaultAction: "create", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1 },
+	            		        { name: "random-name-" + section, id: 1236, icon: "icon-folder-close", defaultAction: "create", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1 },
+	            		        { name: "random-name-" + section, id: 1237, icon: "icon-folder-close", defaultAction: "create", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 }
+	            		    ]
+	            		 };
+	            		break;
+	            };	 	
+	             
 
 	             treeArray[section] = t;
 	             return treeArray[section];
@@ -76,7 +110,30 @@ define([ 'angular'], function (angular) {
 	                
 	                { seperator: true, name: "Reload", cssclass: "refresh", alias: "users" },
 	            ];
-	         },	
+	        },	
+
+	        getChildActions: function(treeItem, section){
+	        			return [
+	                        { name: "Create", cssclass: "plus", alias: "create" },
+
+	                        { seperator: true, name: "Delete", cssclass: "remove", alias: "delete" },
+	                        { name: "Move", cssclass: "move",  alias: "move" },
+	                        { name: "Copy", cssclass: "copy", alias: "copy" },
+	                        { name: "Sort", cssclass: "sort", alias: "sort" },
+	                        
+	                        { seperator: true, name: "Publish", cssclass: "globe", alias: "publish" },
+	        				{ name: "Rollback", cssclass: "undo", alias: "rollback" },
+	                        
+	                        { seperator: true, name: "Permissions", cssclass: "lock", alias: "permissions" },
+	                        { name: "Audit Trail", cssclass: "time", alias: "audittrail" },
+	                        { name: "Notifications", cssclass: "envelope", alias: "notifications" },
+
+	                        { seperator: true, name: "Hostnames", cssclass: "home", alias: "hostnames" },
+	                        { name: "Public Access", cssclass: "group", alias: "publicaccess" },
+	                        
+	                        { seperator: true, name: "Reload", cssclass: "refresh", alias: "users" },
+	                    ];
+	         },
 
 	         getChildren: function (treeItem, section) {
 	             var iLevel = treeItem.level + 1;
@@ -129,6 +186,9 @@ define([ 'angular'], function (angular) {
 	 });
 
 
+	 /*****
+	     Dialogs
+	 ****/
 	 uiServices.factory('$dialog', ['$rootScope', '$compile', '$http', '$timeout', '$q', '$templateCache', function($rootScope, $compile, $http, $timeout, $q, $templateCache) {
 		
 		function _open(options){	
@@ -229,11 +289,10 @@ define([ 'angular'], function (angular) {
 					return $q.when($templateCache.get(templateUrl) || $http.get(templateUrl, {cache: true}).then(function(res) { return res.data; }))
 						.then(function onSuccess(template) {
 
-						options.container.html(template[1]);
-
 						// Compile modal content
 						$timeout(function() {
-							$compile(options.container)(options.scope);
+							options.container.html(template);
+							$compile(options.container)(scope);
 						});
 
 						return template;
@@ -243,5 +302,92 @@ define([ 'angular'], function (angular) {
 
 	 }]);
 	 
-	 return uiServices;
+
+	 /*****
+	       Keypress helper, used for the keypress directive, for parsing keystrokes to functions
+	 ****/
+	 uiServices.factory('keypressHelper', ['$parse', function keypress($parse){
+	  var keysByCode = {
+	    8: 'backspace',
+	    9: 'tab',
+	    13: 'enter',
+	    27: 'esc',
+	    32: 'space',
+	    33: 'pageup',
+	    34: 'pagedown',
+	    35: 'end',
+	    36: 'home',
+	    37: 'left',
+	    38: 'up',
+	    39: 'right',
+	    40: 'down',
+	    45: 'insert',
+	    46: 'delete'
+	  };
+
+	  var capitaliseFirstLetter = function (string) {
+	    return string.charAt(0).toUpperCase() + string.slice(1);
+	  };
+
+	  return function(mode, scope, elm, attrs) {
+	    var params, combinations = [];
+	    params = scope.$eval(attrs['ui'+capitaliseFirstLetter(mode)]);
+
+	    // Prepare combinations for simple checking
+	    angular.forEach(params, function (v, k) {
+	      var combination, expression;
+	      expression = $parse(v);
+
+	      angular.forEach(k.split(' '), function(variation) {
+	        combination = {
+	          expression: expression,
+	          keys: {}
+	        };
+	        angular.forEach(variation.split('-'), function (value) {
+	          combination.keys[value] = true;
+	        });
+	        combinations.push(combination);
+	      });
+	    });
+
+	    // Check only matching of pressed keys one of the conditions
+	    elm.bind(mode, function (event) {
+	      // No need to do that inside the cycle
+	      var altPressed = !!(event.metaKey || event.altKey);
+	      var ctrlPressed = !!event.ctrlKey;
+	      var shiftPressed = !!event.shiftKey;
+	      var keyCode = event.keyCode;
+
+	      // normalize keycodes
+	      if (mode === 'keypress' && !shiftPressed && keyCode >= 97 && keyCode <= 122) {
+	        keyCode = keyCode - 32;
+	      }
+
+	      // Iterate over prepared combinations
+	      angular.forEach(combinations, function (combination) {
+
+	        var mainKeyPressed = combination.keys[keysByCode[event.keyCode]] || combination.keys[event.keyCode.toString()];
+
+	        var altRequired = !!combination.keys.alt;
+	        var ctrlRequired = !!combination.keys.ctrl;
+	        var shiftRequired = !!combination.keys.shift;
+
+	        if (
+	          mainKeyPressed &&
+	          ( altRequired == altPressed ) &&
+	          ( ctrlRequired == ctrlPressed ) &&
+	          ( shiftRequired == shiftPressed )
+	        ) {
+	          // Run the function
+	          scope.$apply(function () {
+	            combination.expression(scope, { '$event': event });
+	          });
+	        }
+	      });
+	    });
+	  };
+	}]);
+
+
+	return uiServices;
 });		

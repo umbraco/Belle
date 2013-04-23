@@ -20,6 +20,7 @@ define(['app'], function (app) {
                     updateDate: new Date(),
                     publishDate: new Date(),
                     id: id,
+                    parentId: 1234,
                     tabs: [
                         {
                             label: "Tab 1",
@@ -50,6 +51,25 @@ define(['app'], function (app) {
                 return content;
             },
 
+            //returns an empty content object which can be persistent on the content service
+            //requires the parent id and the alias of the content type to base the scaffold on
+            getContentScaffold: function(parentId, alias){
+
+                //use temp storage for now...
+
+                var c = this.getContent(parentId);
+                c.name = "empty name";
+                
+                $.each(c.tabs, function(index, tab){
+                    $.each(tab.properties,function(index, property){
+                        property.value = "";
+                    });
+                });
+
+                return c;
+            },
+
+            //saves or updates a content object
             saveContent: function (content) {
                 contentArray[content.id] = content;
                 $notification.success(content.name + " saved", "");
@@ -81,6 +101,17 @@ define(['app'], function (app) {
         };
     });
 
+    app.factory('contentTypeFactory', function ($notification) {
+        return {
+            allowedTypes: function(parentId){
+              return [
+                    {name: "News Article", description: "Standard news article", alias: "newsArticle", id: 1234, cssClass:"file"},
+                    {name: "News Area", description: "Area to hold all news articles, there should be only one", alias: "newsArea", id: 1234, cssClass:"suitcase"},
+                    {name: "Employee", description: "Employee profile information page",  alias: "employee", id: 1234, cssClass:"user"},
+                ];
+            }
+        };
+    });
 
 
     /*****

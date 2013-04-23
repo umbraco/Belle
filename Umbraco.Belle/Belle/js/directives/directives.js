@@ -3,19 +3,23 @@
 define(['angular'], function (angular) {
 
 /* Directives */
-return angular.module('umbraco.directives', [])
-    .directive('appVersion', ['version', function (version) {
+var umbDir = angular.module('umbraco.directives', []);
+
+    umbDir.directive('appVersion', ['version', function (version) {
         return function(scope, elm, attrs) {
           elm.text(version);
         };
-    }])
-    .directive('preventDefault', function () {
+    }]);
+
+    umbDir.directive('preventDefault', function () {
         return function (scope, element, attrs) {
             $(element).click(function (event) {
                 event.preventDefault();
             });
         }
-    }).directive('autoScale', function ($window) {
+    });
+
+    umbDir.directive('autoScale', function ($window) {
         return function(scope, el, attrs) {
 
             var totalOffset = 0;
@@ -24,27 +28,40 @@ return angular.module('umbraco.directives', [])
             if (offsety != undefined)
                 totalOffset += offsety;
 
-            el.height(window.height() - (el.offset().top + totalOffset));
+            setTimeout(function (){
+                     el.height(window.height() - (el.offset().top + totalOffset));
+                     }, 300);    
+            
             window.bind("resize", function() {
                 el.height(window.height() - (el.offset().top + totalOffset));
             });
 
         };
-    }).directive('shadowScroll', function ($window) {
-        return function(scope, el, attrs) {
-
-            var window = angular.element($window);
-            window.bind("scroll", function() {
-                if(el.offset().top !== 0){
-                        if(!el.hasClass('shadow')){
-                            el.addClass('shadow');
-                        }
-                    }else{
-                        el.removeClass('shadow');
-                    }
-            });
-
-        };
     });
 
+    umbDir.directive('uiKeydown', ['keypressHelper', function(keypressHelper){
+      return {
+        link: function (scope, elm, attrs) {
+          keypressHelper('keydown', scope, elm, attrs);
+        }
+      };
+    }]);
+
+    umbDir.directive('uiKeypress', ['keypressHelper', function(keypressHelper){
+      return {
+        link: function (scope, elm, attrs) {
+          keypressHelper('keypress', scope, elm, attrs);
+        }
+      };
+    }]);
+
+    umbDir.directive('uiKeyup', ['keypressHelper', function(keypressHelper){
+      return {
+        link: function (scope, elm, attrs) {
+          keypressHelper('keyup', scope, elm, attrs);
+        }
+      };
+    }]);
+
+    return umbDir;
 });
