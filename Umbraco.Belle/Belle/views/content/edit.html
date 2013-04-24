@@ -2,7 +2,8 @@
 <div class="umb-panel tabbable" ng-controller="ContentEditController">
 <div class="umb-panel-header umb-padded-header">
     <div class="umb-el-wrap umb-panel-buttons">
-            <h1 data-original-title='Click to edit' rel="" class='float-left umb-inline-editing-area'>{{content.name}}</h1>
+
+            <input type="text" placeholder="Enter a page title" headline ng-model="content.name" />
             
             <div class="btn-toolbar umb-btn-toolbar">
                     <button class="btn" ng-click="save(content)" data-shortcut="ctrl+s">Preview page</button>

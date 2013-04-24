@@ -1,5 +1,5 @@
 
-.loading{ background: #fff url(../img/loader.gif) no-repeat center center;height: 100%;width: 100%; overflow: hidden}
+
 
 
 h1{
@@ -34,7 +34,9 @@ a{color: #2E8AEA}
 .umb-panel-header h1{margin: 0px; padding: 35px 0px 6px 0px;}
 .umb-panel-header .umb-btn-toolbar{text-align: right; position: absolute; top: 16px; right: 20px;}
 
-
+.umb-panel-header .umb-headline-editor{width: 600px; 
+    box-shadow: none; padding:4px; outline: none; margin-top: 22px; border: none; background: none; font-size: 18px;}
+.umb-headline-editor:focus, .umb-headline-editor:active, .umb-headline-editor:hover{outline: none !Important; outline: 0; -webkit-appearance:none;}
 
 .float-left{float: left;}
 .umb-el-wrap{max-width: 800px; position: relative; padding: 0px 20px 0px 20px; margin: 0px;}
@@ -68,7 +70,7 @@ label small{color: #b3b3b3 !Important; text-decoration: none;display: block; fon
 .btn-primary{ background-color: #53a93f;border:1px solid #4c993a;color: #fff;}
 .btn-primary a{color: #fff !Important; }
 .btn-primary.disabled, .btn-primary[disabled] { background-color: #246BB5 !Important;cursor: not-allowed; }
-.btn-primary:hover, .btn-primary:active,{ background-color: #4c993a !Important;}
+.btn-primary:hover, .btn-primary:active{ background-color: #4c993a !Important;}
 .btn-link{ background-color: none;border: none;}
 
 

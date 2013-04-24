@@ -10,23 +10,22 @@
     <link rel="stylesheet" href="css/font-awesome.min.css"/>
     <link rel="stylesheet" href="css/application.css" />
     <link rel="stylesheet" href="css/page.css"  />
-    <link rel="stylesheet" href="css/treeicons.css" />
 
 </head>
     <body ng-controller="MainController" id="umbracoMainPageBody">     
-        <div ng-show="user.authenticated" id="layout">
-            <div id="contentwrapper">
-                <div id="contentcolumn" class="fill">
-                    <div ng-view></div>
-                </div>
-            </div>
+        
+        <div ng-show="user.authenticated" ng-class="{loaded:user.authenticated}" ng-animate="'fade'" id="layout">
+            
+        <div id="contentwrapper">
+            <div id="contentcolumn" class="fill"><div ng-view></div></div>
+        </div>
 
 
-            <div id="leftcolumn" ng-controller="NavigationController"  class="fill" ng-mouseleave="hideSectionTree()">
+    <div id="leftcolumn" ng-controller="NavigationController"  class="fill" ng-mouseleave="hideSectionTree()">
 
                 <div id="applications" class="fill" ng-class="{faded:ui.stickyNavigation}">
                     <div id="avatar">
-                        <a href="#" data-behavior="usermodal" title="Per Ploug Krogslund">
+                        <a href="#" title="Per Ploug Krogslund">
                             <img src="img/avatar.jpeg" />
                         </a>
                     </div>
@@ -44,8 +43,10 @@
                         <img src="css/help.svg" style="height: 30px; width: 30px;" />
                         <span>help</span>
                     </a>
+
                 </div>
                 
+
                 <!-- navigation container -->
                 <div id="navigation" class="fill shadow" ng-show="ui.showNavigation" ng-animate="'slide'">
                     <!-- the search -->
@@ -87,20 +88,20 @@
                 </div>
                 
 
-
+                <!-- Tree dialogs -->
                 <div id="dialog" class='umb-modalcolumn fill shadow' ng-show="ui.showContextMenuDialog" ng-animate="'slide'">
                     <div class='umb-panel-header'>
                         <h1>{{dialogTitle}}</h1>
                     </div>
-
                     <div class='umb-panel-body'></div>
                 </div> 
                 </div>
             </div>
         </div>
 
-
-        <div id="login" ng-hide="user.authenticated">
+        
+        <!-- Login screen -->
+        <div id="login" ng-hide="user.authenticated" ng-animate="'slide'">
             <div class="form">
                 <h1>Happy {{today}}!, log in below</h1>
                 <div class="control-group"><input type="text" ng-model="user.name" class="input-xlarge" placeholder="Enter your username"/></div>
@@ -109,6 +110,7 @@
             </div>
         </div>
 
+        <!-- notifications -->
         <div id='umb-speechbubble' class='umb-notification'>
             <ul>
                 <li ng-repeat="notification in notifications" class="alert alert-block alert-{{notification.type}}">
