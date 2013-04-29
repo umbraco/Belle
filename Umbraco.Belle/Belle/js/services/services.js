@@ -23,6 +23,13 @@ define(['app'], function (app) {
                     parentId: 1234,
                     tabs: [
                         {
+                            label: "Tab 0",
+                            alias: "tab00",
+                            properties: [
+                              { alias: "list", label: "List", view: "umbraco.listview", value: "" }
+                              ]
+                        },
+                        {
                             label: "Tab 1",
                             alias: "tab01",
                             properties: [
@@ -41,7 +48,7 @@ define(['app'], function (app) {
                                 { alias: "textarea", label: "Description", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 7 } },
                                 { alias: "dropdown", label: "Keywords", view: "umbraco.dropdown", value: "aksjdkasjdkj" },
                                 { alias: "upload", label: "Upload file", view: "umbraco.fileupload", value: "" },
-                                { alias: "code", label: "Codemirror", view: "umbraco.code", value: "test" }
+                                { alias: "code", label: "Codemirror", view: "umbraco.code", value: "test" },
                                 
                             ]
                         }
