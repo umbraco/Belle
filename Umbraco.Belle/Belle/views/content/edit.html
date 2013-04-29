@@ -35,16 +35,14 @@
                     <div class="umb-pane" ng-repeat="property in tab.properties">
                         <div class="control-group umb-control-group">
                             <div class="umb-el-wrap">
-                                <label class="control-label" for="{{property.alias}}">
+
+                                <label class="control-label" ng-hide="property.hideLabel" for="{{property.alias}}">
                                     {{property.label}}
                                     <small>{{property.description}}</small>
                                 </label>    
 
 
-
-                <div class="controls controls-row" ng-include="getView(property.view)"></div>
-
-
+                                <div class="controls controls-row" ng-include="getView(property.view)"></div>
 
                             </div>
                         </div>
