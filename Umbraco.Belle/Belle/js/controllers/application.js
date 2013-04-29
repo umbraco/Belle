@@ -137,7 +137,7 @@ app.controller("MainController", function ($scope, $notification, $routeParams) 
     var authCookie = jQuery.cookie('authed') == "authenticated";
     
     //also be authed for e2e test
-    authCookie = false;
+    authCookie = true;
     var weekday = new Array("Super Sunday", "Manic Monday", "Tremendous Tuesday", "Wonderfull Wednesday", "Thunder Thursday", "Friendly Friday", "Shiny Saturday");
     $scope.today = weekday[d.getDay()];
 

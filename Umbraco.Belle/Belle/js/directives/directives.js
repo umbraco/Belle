@@ -56,8 +56,8 @@ var umbDir = angular.module('umbraco.directives', []);
             }
 
             el.on("blur", function () {
-              el.hide();
-              h1.text(el.val()).show();
+              //el.hide();
+              //h1.text(el.val()).show();
             });
 
             h1.on("click", function () {

@@ -1,4 +1,14 @@
-﻿/*@import url('//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700');!
+﻿@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans')
+  , url(../../../font/opensans/OpenSans-Regular.woff) format('woff')
+  , url(../../../font/opensans/OpenSans-Regular.ttf) format('ttf');
+}
+
+
+/*import url('//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700');!
 
  * Bootstrap v2.3.1
  *

@@ -53,12 +53,15 @@
                     <div id="search" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
                         <div class="umb-panel-header umb-padded-header">
                             <form class="form-search">
-                                <input type="text" ng-model="search" class="umb-search-field search-query" data-options="{resultsSelector: '#umb-searchresults', hideSelector: '#umb-maintree'}" 
-                                       data-shortcut="ctrl+q" 
-                                       data-shortcut-event="focus" 
+                                <input type="text" ng-model="search" class="umb-search-field search-query"
                                        placeholder="Type to search...">
                             </form>
                         </div>
+                    </div>
+                    
+                    <!-- the tree -->
+                    <div id="search-results" class="umb-scrollable" auto-scale="0" ng-show="ui.showSearch" ng-animate="'slide'">
+                        <div ng-include="'views/application/tree.html'"></div>
                     </div>
 
                     <!-- the tree -->
