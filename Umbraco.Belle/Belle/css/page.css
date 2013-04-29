@@ -41,7 +41,7 @@ a{color: #2E8AEA}
 }  
 
 .float-left{float: left;}
-.umb-el-wrap{max-width: 800px; position: relative; padding: 0px 20px 0px 20px; margin: 0px;}
+.umb-el-wrap{position: relative; padding: 0px 20px 0px 20px; margin: 0px;}
 
 small.umb-detail, 
 label small{color: #b3b3b3 !Important; text-decoration: none;display: block; font-weight: normal }
@@ -125,12 +125,13 @@ label small{color: #b3b3b3 !Important; text-decoration: none;display: block; fon
 .umb-control-group label .help-block, .umb-control-group label small{font-size: 11px; color: #a0a0a0; line-height: 13px; padding-top: 5px;}
 .umb-nolabel .controls{ margin-left: 0px; }
 
-.umb-full-editor{ padding: 0px;border: none; margin: 0px !Important }
-.umb-full-editor .umb-el-wrap { padding-left: 20px;}
-.umb-full-editor .umb-btn-toolbar{ padding-left: 0px;}
-
 .controls-row{padding-top: 5px; margin-left: 240px !Important;}
 .controls-row label{display: inline-block}
+
+.hidelabel .controls-row{ padding: 0px;border: none; margin: 0px !Important;}
+
+
+
 
 /* CUSTOM CSS for texarea and textstring, we need to seperate these from the core style */
 .controls-row textarea, .controls-row input.textstring{

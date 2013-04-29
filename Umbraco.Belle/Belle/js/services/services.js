@@ -26,7 +26,7 @@ define(['app'], function (app) {
                             label: "Tab 0",
                             alias: "tab00",
                             properties: [
-                              { alias: "list", label: "List", view: "umbraco.listview", value: "" }
+                                { alias: "list", label: "List", view: "umbraco.listview", value: "", hideLabel: true }
                               ]
                         },
                         {
