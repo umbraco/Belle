@@ -71,31 +71,13 @@ var umbDir = angular.module('umbraco.directives', []);
 
 
 
-
-
-    umbDir.directive('uiKeydown', ['keypressHelper', function(keypressHelper){
-      return {
-        link: function (scope, elm, attrs) {
-          keypressHelper('keydown', scope, elm, attrs);
-        }
+    umbDir.directive('onKeyup', function() {
+      return function(scope, elm, attrs) {
+        elm.bind("keyup", function() {
+          scope.$apply(attrs.onKeyup);
+        });
       };
-    }]);
-
-    umbDir.directive('uiKeypress', ['keypressHelper', function(keypressHelper){
-      return {
-        link: function (scope, elm, attrs) {
-          keypressHelper('keypress', scope, elm, attrs);
-        }
-      };
-    }]);
-
-    umbDir.directive('uiKeyup', ['keypressHelper', function(keypressHelper){
-      return {
-        link: function (scope, elm, attrs) {
-          keypressHelper('keyup', scope, elm, attrs);
-        }
-      };
-    }]);
+    });
 
     return umbDir;
 });

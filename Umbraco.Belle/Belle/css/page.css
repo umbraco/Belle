@@ -38,6 +38,8 @@ a{color: #2E8AEA}
 .umb-headline-editor:focus, .umb-headline-editor:active, .umb-headline-editor:hover{
     outline:0px !important;
     -webkit-appearance:none !Important;
+    outline-width: 0;
+    outline-style: none;
 }  
 
 .float-left{float: left;}
@@ -173,11 +175,9 @@ label small{color: #b3b3b3 !Important; text-decoration: none;display: block; fon
 
 .umb-tree div{ vertical-align: middle; padding: 2px 0px 2px 0px; position: relative;}
 .umb-tree a.noSpr{background-position: 0 }
-.umb-tree div > i.umb-options{ visibility: hidden; vertical-align: center; margin:0px; 
-    font-weight: bold; cursor: pointer; background: #f8f8f8; font-size:22px; line-height: 10px; display: inline-block; text-align: center; 
-    height: 20px; width: 26px; position: absolute; right: 0px; top:0px; opacity: 0.7;}
-.umb-tree div:hover > i.umb-options{ visibility: visible; }
 
+.umb-tree div > i.umb-options{ visibility: hidden; }
+.umb-tree div:hover > i.umb-options{ visibility: visible; }
 .umb-tree li.root > div a{text-transform: uppercase; color: #b3b3b3;font-weight: bold; font-size: 13px;}
 
 .umb-tree ins{vertical-align: middle; background: url(tree-arrow.png) no-repeat center center; margin-left: -16px; width: 16px; height: 16px; display: inline-block;visibility: hidden; }

@@ -5,7 +5,7 @@ define([ 'app'], function (app) {
 
 
 //Handles the section area of the app
-app.controller("NavigationController", function ($scope, $window, $tree, $section, stateManager, $rootScope, $routeParams, $dialog) {
+app.controller("NavigationController", function ($scope, $window, $tree, $section, stateManager, $rootScope, $routeParams, $dialog, $search) {
     
     loadTree($routeParams.section);
     
@@ -52,6 +52,7 @@ app.controller("NavigationController", function ($scope, $window, $tree, $sectio
             setMode("menu");
         }
     };
+
     $scope.hideContextMenu = function () {
         $scope.selectedId = $routeParams.id;
         $scope.contextMenu = [];
@@ -72,6 +73,18 @@ app.controller("NavigationController", function ($scope, $window, $tree, $sectio
         $scope.showContextMenu($scope.currentNode, undefined);
     };    
 
+    $scope.performSearch = function (term) {
+        if(term.length > 3){
+            setMode("search");
+            $scope.searchResults = $search.search(term, $scope.currentSection);
+        }else{
+            $scope.searchResults = [];
+        }
+    };    
+
+    $scope.hideSearch = function () {
+       
+    };
 
     $scope.hideNavigation = function () {
         setMode("default");
@@ -100,6 +113,8 @@ app.controller("NavigationController", function ($scope, $window, $tree, $sectio
             switch(mode)
             {
             case 'tree':
+                $("#search-form input").focus();
+
                 $scope.ui.showNavigation = true;
                 $scope.ui.showContextMenu = false;
                 $scope.ui.showContextMenuDialog = false;
@@ -116,13 +131,24 @@ app.controller("NavigationController", function ($scope, $window, $tree, $sectio
                 $scope.ui.showNavigation = true;
                 $scope.ui.showContextMenu = false;
                 $scope.ui.showContextMenuDialog = true;
-                break; 
+                break;
+            case 'search':
+                $scope.ui.stickyNavigation = true;
+                $scope.ui.showNavigation = true;
+                $scope.ui.showContextMenu = false;
+                $scope.ui.showSearchResults = true;
+                $scope.ui.showContextMenuDialog = false;
+                break;      
             default:
                 //Reset everything
+                $("#search-form input").focus();
+                
                 $scope.ui.showNavigation = false;
                 $scope.ui.showContextMenu = false;
                 $scope.ui.showContextMenuDialog = false;
+                $scope.ui.showSearchResults = false;
                 $scope.ui.stickyNavigation = false;
+                break;
             }
     }
 });
@@ -142,7 +168,8 @@ app.controller("MainController", function ($scope, $notification, $routeParams) 
     $scope.today = weekday[d.getDay()];
 
     $scope.ui = {
-        treeVisible: false
+        showTree: false,
+        showSearchResults: false
     };
 
     $scope.user = {
