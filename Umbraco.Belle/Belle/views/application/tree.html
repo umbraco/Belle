@@ -4,7 +4,7 @@
         <i class="icon umb-tree-icon sprTree {{node.icon}}"></i>
 
         <a ng-href="#{{node.view}}">{{node.name}}</a>
-        <i class="umb-options" ng-click="showContextMenu(node, $event)">...</i>
+        <i class="umb-options" ng-click="showContextMenu(node, $event)"><i></i><i></i><i></i></i>
     </div>
 
     <ul ng-class="{collapsed: !node.expanded}">
@@ -17,7 +17,7 @@
 <ul class="umb-tree">
     <li class="root">
         <div>   
-            <a class="root-link">{{tree.name}}</a><i class="umb-options">...</i>
+            <a class="root-link">{{tree.name}}</a><i class="umb-options"><i></i><i></i><i></i></i>
         </div>
     
         <ul>

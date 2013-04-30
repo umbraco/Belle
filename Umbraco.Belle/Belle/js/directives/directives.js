@@ -44,7 +44,7 @@ var umbDir = angular.module('umbraco.directives', []);
         return function(scope, el, attrs) {
 
                 
-                var h1 = $("<h1></h1>").hide();
+                var h1 = $("<h1 class='umb-headline-editor'></h1>").hide();
                 el.parent().prepend(h1);  
                 el.addClass("umb-headline-editor");
 

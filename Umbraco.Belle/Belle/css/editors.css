@@ -1,0 +1,60 @@
+/* STYLES FOR SPECIFIC EDITOR COMPONENTS - for all property editors and other reusable editing components*/
+
+/* content picker */
+.umb-contentpicker-popover .search-holder{padding: 10px;}
+
+
+/* CODEMIRROR DATATYPE */
+div.umb-codeeditor {
+    border: 1px solid #e8e8e8;}
+div.umb-codeeditor .umb-el-wrap{ padding: 0px;}
+div.umb-codeeditor .umb-btn-toolbar{ padding: 0px;margin: 0px;border-bottom: #e8e8e8 1px solid; background: #f7f7f7 }
+
+
+/* IN-LINE HEADLINE EDITING*/
+input.umb-inline-editing-editor {
+    color: #626263 !Important;
+	font-size: 22px !Important;
+	font-weight: normal !Important;
+	line-height: 22px !Important;
+    height: 22px;
+    padding-top: 17px;
+    padding-left: 0px;
+    width: 300px;
+    display: none;   
+    border: none; background: none !Important; border-bottom: 1px dashed #626263 !Important; box-shadow: none !Important; -webkit-transition: none;
+}
+
+/* FILE UPLOAD*/
+.umb-fileupload .preview{ border-radius: 5px;border: 1px solid #a0a0a0;padding: 3px;background: #efefef;float: left;margin-right: 30px; margin-bottom: 30px }
+.umb-fileupload ul{ list-style: none;vertical-align: middle; margin-bottom: 0px}
+.umb-fileupload label{ vertical-align: middle;padding-left: 7px; font-weight: normal}
+.umb-fileupload .preview-file{ color: #666;height: 45px;width: 55px;text-align: center;text-transform: uppercase;font-size: 10px; padding-top: 27px}
+.umb-fileupload input{font-size: 12px}
+
+
+/* MISC FORM ELEMENTS */
+.umb-form-actions{background: none; border: none}
+.datepicker td.active,
+.datepicker td span.active{ background: #f3762c !Important;}
+.umb-datetime-picker div.info{vertical-align: middle}
+
+.umb-userwidget img{float: left; margin-right: 15px;}
+.umb-userwidget small{display: block}
+.popover-title{display: none}
+
+
+/*BUTTONS */
+.btn{ background-image: none !Important;background-color: #f5f5f5;
+      margin-left: 10px !Important; border-radius: 2px !Important;   
+      border:1px solid #dbdbdb;color: #101010;font-size: 12px !Important; text-shadow: none !Important}
+.btn-primary{ background-color: #53a93f;border:1px solid #4c993a;color: #fff;}
+.btn-primary a{color: #fff !Important; }
+.btn-primary.disabled, .btn-primary[disabled] { background-color: #246BB5 !Important;cursor: not-allowed; }
+.btn-primary:hover, .btn-primary:active{ background-color: #4c993a !Important;}
+.btn-link{ background-color: none;border: none;}
+
+.umb-plus-btn{border: 2px dashed #dbdbdb; height: 140px; text-align: center; font-size: 50px;}
+.umb-plus-btn a{height: 140px; color: #dbdbdb; vertical-align:middle !Important; text-decoration: none; background: #fff; display: block}
+.umb-plus-btn i{vertical-align: middle; margin: auto} 
+

@@ -1,104 +1,61 @@
-html, body {
-    height: 100%;
-    overflow: hidden
-}
 
-body{
-	margin:0;
-	padding:0;
-	line-height: 1.5em;
-  background: #fff url(../img/loader.gif) no-repeat center center;height: 100%;width: 100%; overflow: hidden
-}
-
-
-.controls-row img {
-max-width: none;
-}
-
-/*Hack*/
-.thumbnail img {max-width: 100% !Important;}
-
+/* utillity classes */
 .fill{height: 100%; min-height: 100%;}
 .shadow{box-shadow: 3px 0px 7px #dbdbdb;}
 
-#login{ width: 100%;height: 100%; 
-         background: #303030 url(../img/application/logo.png) no-repeat 10px 10px fixed !Important;
-         color: #fff; position: absolute; z-index: 2000; top: 0px; left: 0px;}
+.umb-scrollable, .umb-auto-overflow{ overflow: auto;}
+.umb-abstract{display: block; margin-top: 0px;margin-bottom: 15px;font-size: 14px; color: #b3b3b3}
 
-#login .form {
-    display: block; padding-top: 100px; padding-left: 165px; width: 370px; text-align: right
+.float-left{float: left;}
+.umb-el-wrap{position: relative; padding: 0px; margin: 0px;}
+
+
+
+
+
+
+
+/* sections list */
+ul.sections{list-style: none; display: block; margin: 0px; padding: 0px; 
+  border-right: 1px solid #4c4b4b; background: #1d1d1d; height: 100%;
 }
-#login h1{display: block; text-align: right; color: #fff !Important;font-size: 18px !Important; font-weight: normal !Important}
-
-#layout{position: relative; height: 100%; display: none; }
-#layout.loaded{display: block; z-index: 1;}
-
-#contentwrapper{
-	float: left;
-	width: 100%;
-	height: 100%;
-	z-index: 10
-}
-
-#contentcolumn{
-	margin-left: 91px; /*Set left margin to LeftColumnWidth*/
-	background: #fff url(../img/loader.gif) no-repeat center center;
-	z-index: 10
-}
-
-#contentcolumn iframe{display: block; position: relative; height: 100%; width: 100%; border: none;}
-#leftcolumn{
-  float: left;
-	width: 395px; /*Width of left column*/
-	margin-left: -100%;
-	height: 100%;
-	z-index: 20;
-}
-
-#applications{z-index: 1000; border-right: 1px solid #4c4b4b; background: #1d1d1d; width: 90px; height: 100%;position: relative; text-align: center}
-#applications ul{list-style: none; display: block; margin: 0px; padding: 0px; }
-#applications ul li{list-style: none; display: block; margin: 0px;margin-bottom: 5px; padding: 0px; line-height: 15px;}
-#applications ul li a {
+ul.sections li{border-bottom: 1px solid #343434; list-style: none; display: block; margin: 0px;margin-bottom: 5px; padding: 0px; line-height: 15px;}
+ul.sections li a {
         display: block;
         text-decoration: none;
         font-size: 10px;
         text-align: center;
         padding-top: 20px;
-        border-bottom: 1px solid #343434;
-        height: 55px;}
-#applications a i{font-size: 24px; display: inline-block; text-align: center; clear: both; color: #939393;}
-#applications a span{display: block; visibility: hidden; font-size 10px; color: #939393;}
-#applications ul:hover li a span{visibility: visible;}
-#applications .help{position: absolute; bottom: 0; left: 0; width: 91px; opacity: 0.4}
-#applications.faded li{opacity: 0.4}
-
-
-#avatar{height: 65px;  padding-top: 25px; text-align: center; border-bottom: 1px solid #343434;}
-#avatar a{margin: 0 auto; display: block; width: 38px;height: 38px; 
+        height: 55px;
+        color: #939393;
+      }
+ul.sections a i{font-size: 24px; display: inline-block; text-align: center; clear: both; }
+ul.sections a span{display: block; visibility: hidden; font-size 10px;}
+ul.sections:hover li a span{visibility: visible;}
+ul.sections li.help{position: absolute; bottom: 0; left: 0; display: block; width: 100%; opacity: 0.4}
+ul.sections li.avatar{height: 90px;  text-align: center; }
+ul.sections li.avatar a{margin: 0 auto; display: block; width: 38px;height: 38px; 
     background: no-repeat center center;  }
-#avatar a img{border-radius: 500px;}
-#notifcations{z-index: 1000;}
-
-#search-form{
-  display: block;
-  margin: 0px;
-  z-index: 100;
-  position: relative;}
-
-  
-#navigation{left: 91px; top: 0; position: absolute; background: #fff; z-index: 100}
-#tree{padding: 15px 0px 20px 0px; position: relative; z-index: 100 !Important; background: #fff}
-#search-results{position: relative; z-index: 100; padding: 15px 0px 20px 0px;}
-
-#contextMenu{z-index: 50; position: absolute; top: 0px; left: 100%; min-width: 250px;}
-#dialog{min-width: 500px; left: 91px; top: 0; position: absolute; z-index: 200; display: inline-block;}
+ul.sections li.avatar a img{border-radius: 500px; border: none;}
+.faded ul.sections li{opacity: 0.4}
 
 
+
+
+
+/* Search */
 .umb-search-field{font-size: 12px; width: 235px; border-radius: 0 !Important; border-color: #f5f5f5; padding: 5px 7px  !Important; 
 background: url(search.png) no-repeat  225px 8px #fff;
-margin: 27px 20px 20px 20px; 
+margin: 27px 20px 20px 0px; 
 }
+#search-results h5{margin: 0px 0px 7px 20px; }
+#search-results ul{ list-style: none; margin: 0px; padding: 0px; border-bottom: 1px solid #efefef}
 
+
+
+
+
+/* MODAL PANELS */
 .umb-modalcolumn{background: #fff; border-left: #f6f6f6 1px solid;}
 .umb-modalcolumn .umb-panel-header{white-space: nowrap}
 .umb-modalcolumn .umb-panel-body{padding: 0px}
@@ -108,15 +65,11 @@ margin: 27px 20px 20px 20px;
 .umb-modalcolumn .umb-modal-close-icon{position: absolute; top: 17px; left: 27px;}
 .umb-modalcolumn .umb-modal-close-icon i{ background: url(close.png);width: 18px; height: 18px }
 .umb-modalcolumn iframe{ border: none;padding: 0px;margin: 0px;}
-
 .umb-modalcolumn h1{
-  padding-left: 20px !Important;
-  padding-right: 20px  !Important;
   padding-top: 35px  !Important;
   text-transform: capitalize  !Important;
 }
 
-.umb-gear{width: 12px; height:12px; display:inline-block}
 
 .umb-dialog{padding: 20px 20px 0px 20px;}
 .umb-dialog .umb-dialog-body{}
@@ -125,19 +78,100 @@ margin: 27px 20px 20px 20px;
 
 
 
-#search-results h5{
-  text-transform: uppercase; color: #b3b3b3;font-weight: bold; font-size: 13px;
-  margin: 7px 10px 0px 20px;}
 
-#search-results ul{ list-style: none; margin: 0px; padding: 0px; border-bottom: 1px solid #efefef}
+
+
+/* TREE */
+.umb-tree{ list-style: none;margin: 0px; min-width: 100%; width: auto;}
+.umb-tree li{ display: block; min-width: 100%; width: auto; display: block}
+.umb-tree li.current > div{background: #2e8aea;}
+.umb-tree li.current > div i.umb-options i{background: #fff; border-color: #2e8aea;}
+.umb-tree li.current > div a, .umb-tree li.current > div i.icon{color: #fff !Important; background: #2e8aea; border-color: #2e8aea;}
+
+.umb-tree li.root div{padding-left: 20px}
+
+.umb-tree *{white-space: nowrap}
+.umb-tree ul{ padding: 0px;margin: 0px; min-width: 100%; width: 100%; display: table}
+.umb-tree a{vertical-align: middle;  color: #525252; font-size: 12px; line-height: 16px; height: 14px; display: inline-block;}
+
+
+.umb-tree div{ vertical-align: middle; padding: 2px 0px 2px 0px; position: relative;}
+.umb-tree a.noSpr{background-position: 0 }
+
+.umb-tree div > i.umb-options{ visibility: hidden; }
+.umb-tree div:hover > i.umb-options{ visibility: visible; }
+.umb-tree li.root > div a{text-transform: uppercase; color: #b3b3b3;font-weight: bold; font-size: 13px;}
+
+.umb-tree ins{vertical-align: middle; background: url(tree-arrow.png) no-repeat center center; margin-left: -16px; width: 16px; height: 16px; display: inline-block;visibility: hidden; }
+.umb-tree li:hover ins{ visibility: visible;}
+.umb-tree .icon{ vertical-align: middle; margin: 1px 13px 1px 0px; color: #414141}
+.umb-tree i.noSpr
+{
+    display: inline-block;
+  margin-top: 1px;
+  width: 16px;
+  height: 16px;
+    line-height: 16px;
+}
+
+.umb-tree div:hover{background: #f8f8f8}
+
+/* TREE ICON COLORS */
+i.blue{color: #0f82f5 !Important;}
+i.green{color: #41bb19  !Important;}
+i.purple{color: #8d46b0  !Important;}
+i.orange{color: #fe6600  !Important;}
+i.red{color: #e60033  !Important;}
+
+
+
+
+/* TREE CONTEXT MENU */
+.umb-actions{margin: 12px 0px 0px 0px; padding: 0px; list-style: none; }
+.umb-actions ul{}
+
+.umb-actions li.sep{margin-top: 4px; display: block; border-top: 1px solid #efefef;}
+.umb-actions li.sep a{margin-top: 4px;}
+.umb-actions a{white-space: nowrap; display: block; font-size: 14px; color: #414141; 
+    padding: 4px 25px 4px 20px;  text-decoration: none; cursor: pointer;}
+.umb-actions a:hover, 
+.umb-actions li.selected{color: #fff; background: #2e8aea; }
+.umb-actions a:hover i{color: #fff;}
+
+.umb-actions .menu-label{display: inline-block;vertical-align: middle; padding-left: 15px;padding-top: 2px; text-transform: capitalize }
+.umb-actions i{color: #999; margin-top: 2px;  font-size: 18px;vertical-align: middle; color: #414141}
+
+.umb-actions-child {list-style: none; display: block; margin: 0px;}
+.umb-actions-child li {display: block;width: 100%;}
+
+.umb-actions-child a.action{ display: block; clear: both;text-decoration: none;width: 100%; }
+.umb-actions-child li .menu-label{font-size: 12px;  margin-bottom: 10px;  color: #000}
+.umb-actions-child li a:hover{ color: #fff; background-color: #2E8AEA }
+.umb-actions-child li a:hover *{color: #fff !Important}
+
+.umb-actions-child li .menu-label small{ font-size: 12px; display: block; clear: right; line-height: 11px; color: #ccc}
+.umb-actions-child li a:hover .menuLabel small{ text-decoration: none !Important}
+.umb-actions-child li img{ height: 55px;width: 55px; float: left; margin-left: 25px}
+.umb-actions-child i{font-size: 24px; vertical-align: top; line-height: 36px}
+
+.umb-actions-child li.add{margin-top: 20px; border-top: 1px solid #e9e9e9; padding-top: 20px;}
+.umb-actions-child li.add i{opacity: 0.4;}
+
+
+
 
 
 
 /* STANDARD CONTENT REPRESENTATION, for use in search, pickers, etc */
-i.umb-options{ visibility: hidden; vertical-align: center; margin:0px; 
-    font-weight: bold; cursor: pointer; background: #f8f8f8; font-size:27px; line-height: 10px; display: inline-block; text-align: center; 
-    height: 20px; width: 26px; position: absolute; right: 0px; top:0px; opacity: 0.7;}
+i.umb-options{ visibility: hidden; 
+    cursor: pointer; line-height: 27px; display: inline-block; text-align: center; 
+    height: 100%; width: 45px; position: absolute; right: 0px; top:0px;
+}
 
+i.umb-options i{
+  height: 6px !Important; width: 6px  !Important; border-radius: 20px; 
+  background: #333; display: inline-block; border: 4px solid #f8f8f8; margin-right: -2px;
+}
 .umb-icon-item{ padding: 2px; padding-left: 55px; display: block;position: relative; }
 .umb-icon-item:hover{background: #f8f8f8}
 .umb-icon-item i.icon{position: absolute; top: 8px; left: 19px;}
@@ -182,7 +216,7 @@ i.umb-options{ visibility: hidden; vertical-align: center; margin:0px;
 }
 
 
-
+/* ANIMATIONS */
 .fade-hide-setup, .fade-show-setup {
   -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
   -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
