@@ -7,8 +7,7 @@ require.config({
     underscore: '../lib/underscore/underscore',
     angular: '../lib/angular/angular.min',
     angularResource: '../lib/angular/angular-resource',
-    statemanager: '../lib/angular/statemanager',
-
+   
     codemirror: '../lib/codemirror/js/lib/codemirror',
     codemirrorJs: '../lib/codemirror/js/mode/javascript/javascript',
     codemirrorCss: '../lib/codemirror/js/mode/css/css',
@@ -22,10 +21,8 @@ require.config({
   shim: {
     'angular' : {'exports' : 'angular'},
     'angular-resource': { deps: ['angular'] },
-    'statemanager': { deps: ['angular'] },
     'bootstrap': { deps: ['jquery'] },
     'jqueryCookie': { deps: ['jquery'] },
-    'angular-statemanager' : {deps:['angular']},
     'underscore': {exports: '_'},
     'codemirror': {exports: 'CodeMirror'},  
     'codemirrorJs':{deps:['codemirror']},
@@ -44,7 +41,6 @@ require( [
     'app',
     'jquery',
     'jqueryCookie',
-    'statemanager',
     'bootstrap',
     'services/services',
     'services/ui.services',

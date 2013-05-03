@@ -1,23 +1,23 @@
 'use strict';
-
 define([ 'app'], function (app) {
 
 
-
 //Handles the section area of the app
-app.controller("NavigationController", function ($scope, $window, $tree, $section, stateManager, $rootScope, $routeParams, $dialog, $search) {
-    
+app.controller("NavigationController", function ($scope, $window, $tree, $section, $rootScope, $routeParams, $dialog) {
     loadTree($routeParams.section);
     
     $scope.currentSection = $routeParams.section;
     $scope.selectedId = $routeParams.id;
     $scope.sections = $section.all();
 
-    setMode("default");
+    $scope.setMode = setMode;
+    $scope.setMode("default");
+
 
     $scope.openSection = function (section) {
         //reset everything
-        setMode("default");
+        $scope.setMode("default");
+        $("#search-form input").focus();
 
         $section.setCurrent(section.alias);
         $scope.currentSection = section.alias;
@@ -25,13 +25,14 @@ app.controller("NavigationController", function ($scope, $window, $tree, $sectio
     };
     $scope.showSectionTree = function (section) {
         if(!$scope.ui.stickyNavigation){
+            $("#search-form input").focus();
             loadTree(section.alias);
-            setMode("tree");
+            $scope.setMode("tree");
         }
     };
     $scope.hideSectionTree = function () {
         if(!$scope.ui.stickyNavigation){
-            setMode("default");
+            $scope.setMode("default");
         }
     };
 
@@ -49,18 +50,18 @@ app.controller("NavigationController", function ($scope, $window, $tree, $sectio
             $scope.currentNode = item;
             $scope.menuTitle = item.name;
             $scope.selectedId = item.id;
-            setMode("menu");
+            $scope.setMode("menu");
         }
     };
 
     $scope.hideContextMenu = function () {
         $scope.selectedId = $routeParams.id;
         $scope.contextMenu = [];
-        setMode("tree");
+        $scope.setMode("tree");
     };
 
     $scope.showContextDialog = function (item, action) {
-        setMode("dialog");
+        $scope.setMode("dialog");
 
         $scope.currentNode = item;
         $scope.dialogTitle = action.name;
@@ -73,21 +74,8 @@ app.controller("NavigationController", function ($scope, $window, $tree, $sectio
         $scope.showContextMenu($scope.currentNode, undefined);
     };    
 
-    $scope.performSearch = function (term) {
-        if(term.length > 3){
-            setMode("search");
-            $scope.searchResults = $search.search(term, $scope.currentSection);
-        }else{
-            $scope.searchResults = [];
-        }
-    };    
-
-    $scope.hideSearch = function () {
-       
-    };
-
     $scope.hideNavigation = function () {
-        setMode("default");
+        $scope.setMode("default");
     };
 
     $scope.setTreePadding = function(item) {
@@ -109,12 +97,9 @@ app.controller("NavigationController", function ($scope, $window, $tree, $sectio
 
     //function to turn navigation areas on/off
     function setMode(mode){
-
             switch(mode)
             {
             case 'tree':
-                $("#search-form input").focus();
-
                 $scope.ui.showNavigation = true;
                 $scope.ui.showContextMenu = false;
                 $scope.ui.showContextMenuDialog = false;
@@ -133,16 +118,13 @@ app.controller("NavigationController", function ($scope, $window, $tree, $sectio
                 $scope.ui.showContextMenuDialog = true;
                 break;
             case 'search':
-                $scope.ui.stickyNavigation = true;
+                $scope.ui.stickyNavigation = false;
                 $scope.ui.showNavigation = true;
                 $scope.ui.showContextMenu = false;
                 $scope.ui.showSearchResults = true;
                 $scope.ui.showContextMenuDialog = false;
                 break;      
             default:
-                //Reset everything
-                $("#search-form input").focus();
-                
                 $scope.ui.showNavigation = false;
                 $scope.ui.showContextMenu = false;
                 $scope.ui.showContextMenuDialog = false;
@@ -152,6 +134,46 @@ app.controller("NavigationController", function ($scope, $window, $tree, $sectio
             }
     }
 });
+
+
+app.controller("SearchController", function ($scope, $search, $key, $log) {
+
+    var currentTerm = "";
+    $scope.deActivateSearch = function(){
+       currentTerm = ""; 
+    };
+
+    $scope.performSearch = function (term) {
+        if(term != undefined && term != currentTerm){
+            if(term.length > 3){
+                $scope.ui.selectedSearchResult = -1;
+                $scope.setMode("search");
+
+                currentTerm = term;
+                $scope.ui.searchResults = $search.search(term, $scope.currentSection);
+
+            }else{
+                $scope.ui.searchResults = [];
+            }
+        }
+    };    
+
+    $scope.hideSearch = function () {
+       $scope.setMode("default");
+    };
+
+    $scope.iterateResults = function (direction) {
+       if(direction == "up" && $scope.ui.selectedSearchResult < $scope.ui.searchResults.length) 
+            $scope.ui.selectedSearchResult++;
+        else if($scope.ui.selectedSearchResult > 0)
+            $scope.ui.selectedSearchResult--;
+    };
+
+    $scope.selectResult = function () {
+        $scope.showContextMenu($scope.ui.searchResults[$scope.ui.selectedSearchResult], undefined);
+    };
+});
+
 
 app.controller("DashboardController", function ($scope, $routeParams) {
     $scope.name = $routeParams.section;

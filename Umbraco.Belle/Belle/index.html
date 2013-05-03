@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Umbraco Angular</title>
+    <title>Umbraco</title>
     
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-responsive.min.css" />
@@ -21,7 +21,7 @@
 </head>
 <body ng-controller="MainController" id="umbracoMainPageBody">     
 
-    <div ng-show="user.authenticated" ng-class="{loaded:user.authenticated}" ng-animate="'fade'" id="layout">
+    <div ng-show="user.authenticated" ng-cloak ng-animate="'fade'" id="layout">
 
         <div id="contentwrapper">
             <div id="contentcolumn" class="fill"><div ng-view></div></div>
@@ -55,8 +55,13 @@
                 <!-- the search -->
                 <div id="search-form" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
                     <div class="umb-panel-header">
-                        <form class="form-search">
-                            <input type="text" ng-model="search" class="umb-search-field search-query" placeholder="Type to search..." on-keyup="performSearch(search)">
+                        <form class="form-search" ng-controller="SearchController">
+                            <input type="text" 
+                                   ng-model="ui.searchTerm" 
+                                   class="umb-search-field search-query" 
+                                   placeholder="Type to search..."
+                                   on-blur="deActivateSearch()" 
+                                   on-keyup="performSearch(ui.searchTerm)">
                         </form>
                     </div>
                 </div>
@@ -65,8 +70,8 @@
                 <div id="search-results" class="umb-scrollable" auto-scale="0" ng-show="ui.showSearchResults" ng-animate="'slide'">
 
                     <h5>Search results</h5>
-                    <ul ng-repeat="resultGroup in searchResults" >
-                        <li class="umb-icon-item" ng-repeat="result in resultGroup.matches">
+                    <ul class="searchResults" ng-repeat="resultGroup in ui.searchResults" >
+                        <li class="umb-icon-item" ng-class="{selected:$index==ui.selectedSearchResult}" ng-repeat="result in resultGroup.matches">
                             <i class="icon umb-tree-icon sprTree {{result.icon}}" ng-show="$first"></i>
                             <a ng-href="#{{result.view}}">
                                 {{result.name}}
@@ -120,7 +125,7 @@
 </div>
 
 <!-- Login screen -->
-<div id="login" ng-hide="user.authenticated" ng-animate="'slide'">
+<div id="login" ng-hide="user.authenticated" ng-animate="'slide'" ng-cloak>
     <div class="form">
         <h1>Happy {{today}}!, log in below</h1>
         <div class="control-group"><input type="text" ng-model="user.name" class="input-xlarge" placeholder="Enter your username"/></div>
@@ -130,7 +135,7 @@
 </div>
 
 <!-- notifications -->
-<div id='speechbubble' class='umb-notification'>
+<div id='speechbubble' class='umb-notification' ng-cloak>
     <ul>
         <li ng-repeat="notification in notifications" class="alert alert-block alert-{{notification.type}}">
             <strong>{{notification.headline}}:</strong>{{notification.message}}<a class='close' ng-click="removeNotification($index)" prevent-default href='#'>&times;</a>

@@ -3,13 +3,10 @@
 define([ 'app'], function (app) {
 
 	app.controller("ContentEditController", function ($scope, $routeParams, contentFactory) {
-
 		if($routeParams.create)
 			$scope.content = contentFactory.getContentScaffold($routeParams.parentId, $routeParams.doctype);
 		else
 			$scope.content = contentFactory.getContent($routeParams.id);
-			
-
 
 		$scope.saveAndPublish = function (cnt) {
 			cnt.publishDate = new Date();
@@ -22,7 +19,7 @@ define([ 'app'], function (app) {
 		};
 
 		$scope.getView = function (viewType) {
-			return "views/application/propertyeditors/" + viewType + ".html";
+			return "views/propertyeditors/" + viewType.replace('.','/') + "/editor.html";
 		};
 	});
 

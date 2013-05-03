@@ -11,8 +11,7 @@ body{
   	background: #fff url(../img/loader.gif) no-repeat center center;height: 100%;width: 100%; overflow: hidden
 }
 
-#layout{position: relative; height: 100%; display: none; padding: 0;}
-#layout.loaded{display: block; z-index: 1;}
+#layout{position: relative; height: 100%; padding: 0; z-index: 1;}
 
 #contentwrapper{
 	float: left;

@@ -1,6 +1,5 @@
 'use strict';
 
-//require.js dependency handling
 define(['app'], function (app) {
 
     /*****
@@ -48,8 +47,14 @@ define(['app'], function (app) {
                                 { alias: "textarea", label: "Description", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 7 } },
                                 { alias: "dropdown", label: "Keywords", view: "umbraco.dropdown", value: "aksjdkasjdkj" },
                                 { alias: "upload", label: "Upload file", view: "umbraco.fileupload", value: "" },
-                                { alias: "code", label: "Codemirror", view: "umbraco.code", value: "test" },
-                                
+                                { alias: "code", label: "Codemirror", view: "umbraco.code", value: "test" }
+                            ]
+                        },
+                        {
+                            label: "Grid",
+                            alias: "tab03",
+                            properties: [
+                                { alias: "grid", label: "Grid", view: "umbraco.grid", value: "test", hideLabel: true }
                             ]
                         }
                     ]

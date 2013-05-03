@@ -42,8 +42,7 @@ var umbDir = angular.module('umbraco.directives', []);
 
     umbDir.directive('headline', function ($window) {
         return function(scope, el, attrs) {
-
-                
+          
                 var h1 = $("<h1 class='umb-headline-editor'></h1>").hide();
                 el.parent().prepend(h1);  
                 el.addClass("umb-headline-editor");
@@ -65,20 +64,43 @@ var umbDir = angular.module('umbraco.directives', []);
                   h1.hide();
                   el.show().focus();
                 });
-            
-
         };
     });
-
 
 
     umbDir.directive('onKeyup', function() {
       return function(scope, elm, attrs) {
         elm.bind("keyup", function() {
+
           scope.$apply(attrs.onKeyup);
         });
       };
     });
 
+
+    umbDir.directive('onKeyDown', function($key) {
+      return {
+          link: function (scope, elm, attrs) {
+            $key('keydown', scope, elm, attrs);
+          }
+        };
+    });
+
+
+    umbDir.directive('onBlur', function() {
+      return function(scope, elm, attrs) {
+        elm.bind("blur", function() {
+          scope.$apply(attrs.onBlur);
+        });
+      };
+    });
+
+    umbDir.directive('onFocus', function() {
+      return function(scope, elm, attrs) {
+        elm.bind("focus", function() {
+          scope.$apply(attrs.onFocus);
+        });
+      };
+    });
     return umbDir;
 });

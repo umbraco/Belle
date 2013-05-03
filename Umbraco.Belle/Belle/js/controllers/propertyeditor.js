@@ -2,17 +2,38 @@
 
 define(['app'], function (app) {
 
-    //this controller simply tells the dialogs service to open a mediaPicker window
-    //with a specified callback, this callback will receive an object with a selection on it
-    app.controller("mediaPickerController", function($rootScope, $scope, $dialog){
-        $scope.openMediaPicker =function(value){
-                var dialog = $dialog.mediaPicker({scope: $scope, callback: populate});
-        };
+//this controller simply tells the dialogs service to open a mediaPicker window
+//with a specified callback, this callback will receive an object with a selection on it
+app.controller("mediaPickerController", function($rootScope, $scope, $dialog){
+    $scope.openMediaPicker =function(value){
+            var dialog = $dialog.mediaPicker({scope: $scope, callback: populate});
+    };
 
-        function populate(data){
-            $scope.property.value = data.selection;    
-        }
-    });
+    function populate(data){
+        $scope.property.value = data.selection;    
+    }
+});
+
+//this controller simply tells the dialogs service to open a mediaPicker window
+//with a specified callback, this callback will receive an object with a selection on it
+app.controller("GridController", function($rootScope, $scope, $dialog, $log){
+    //we most likely will need some iframe-motherpage interop here
+    $log.log("loaded");
+
+    $scope.openMediaPicker =function(){
+            var dialog = $dialog.mediaPicker({scope: $scope, callback: populate});
+    };
+
+    function populate(data){
+        //notify iframe to render something.. 
+    }
+   
+    $(window).bind("umbraco.grid.click", function(event){
+        $scope.$apply(function () {
+            $scope.openMediaPicker();
+        });
+    })
+});
 
 
 app.controller("GoogleMapsController", function ($rootScope, $scope, $notification) {
@@ -21,7 +42,7 @@ require(
         'async!http://maps.google.com/maps/api/js?sensor=false'
     ],
     function () {
-        //Google maps  is available and all components are ready to use.
+        //Google maps is available and all components are ready to use.
         var valueArray = $scope.property.value.split(',');
         var latLng = new google.maps.LatLng(valueArray[0], valueArray[1]);
         
@@ -56,30 +77,30 @@ require(
 });
 
 
-    app.controller("CodeMirrorController", function ($scope, $rootScope) {
-        require(
-            [
-                'css!../lib/codemirror/js/lib/codemirror.css',
-                'css!../lib/codemirror/css/umbracoCustom.css',
-                'codemirrorHtml',
-            ],
-            function () {
+app.controller("CodeMirrorController", function ($scope, $rootScope) {
+    require(
+        [
+            'css!../lib/codemirror/js/lib/codemirror.css',
+            'css!../lib/codemirror/css/umbracoCustom.css',
+            'codemirrorHtml',
+        ],
+        function () {
 
-                var editor = CodeMirror.fromTextArea(
-                                        document.getElementById($scope.property.alias), 
-                                        {
-                                            mode: CodeMirror.modes.htmlmixed, 
-                                            tabMode: "indent"
-                                        });
+            var editor = CodeMirror.fromTextArea(
+                                    document.getElementById($scope.property.alias), 
+                                    {
+                                        mode: CodeMirror.modes.htmlmixed, 
+                                        tabMode: "indent"
+                                    });
 
-                editor.on("change", function(cm) {
-                    $rootScope.$apply(function(){
-                        $scope.property.value = cm.getValue();   
-                    });
+            editor.on("change", function(cm) {
+                $rootScope.$apply(function(){
+                    $scope.property.value = cm.getValue();   
                 });
-
             });
-    });
+
+        });
+});
 
 	return app;
 });
