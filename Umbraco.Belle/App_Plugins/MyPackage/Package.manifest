@@ -1,0 +1,57 @@
+﻿{    	
+	propertyEditors: [
+		{
+			alias: "numeric",
+			name: "Numeric",
+			editor: {
+				view: "numeric",
+				validation: [
+					{
+						type: "Required" 
+					},
+					{
+						type: "Regex",
+						value: "\\d*"
+					}					
+				]
+			},
+			preValues: {
+				view: "myPreValues1"				
+			}
+		},
+		{
+			alias: "myPropEditor2",
+			name: "My Property Editor 2",
+			editor: {
+				view: "myPropEditor2",
+				validation: [
+					{
+						type: "Field",
+						value: {
+							id: "field1",
+							validation: [
+								{
+									type: "Required"
+								}
+							]							
+						}
+					}
+				]
+			}
+		}	
+	],
+    config: {
+        paths: {
+            myPackageCommon: '~/App_Plugins/MyPackage/Common/Js/MyPackage',
+            myPropertyEditor: '~/App_Plugins/MyPackage/PropertyEditors/Js/MyPropertyEditor'            
+        },
+        shim: {
+            'myPackageCommon': { 'exports': 'myPackageCommon' },
+            'myPropertyEditor': { deps: ['myPackageCommon'] }
+        }
+    },
+    init: [
+        'myPackageCommon',
+        'myPropertyEditor'
+    ]
+}

@@ -1,0 +1,32 @@
+﻿@model dynamic
+
+@section Headder
+{
+    <script type="text/javascript">
+        function TestController($scope) {
+            $scope.model = {
+                alias: "numbers",
+                label: "Numeric",
+                description: "Enter a numeric value",
+                view: "numeric",
+                value: "12345987765"
+            };
+
+            $scope.doThis = function () {
+                alert("hello");
+            };
+        }
+    </script>
+}
+
+<div ng-controller="TestController" style="border:solid 1px orange">
+    <span>{{model.description}}</span>
+</div>
+
+
+<div>
+    <label>Name:</label>
+    <input type="text" ng-model="yourName" placeholder="Enter a name here" />
+    <hr />
+    <h1>Hello {{yourName}}!</h1>
+</div>
