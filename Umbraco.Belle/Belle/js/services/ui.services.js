@@ -4,7 +4,7 @@
 
 define(['angular'], function (angular) {
 	var uiServices =  angular.module('umbraco.ui.services', []);
-	 
+	  
 	 /*****
 	     TREE
 	 ****/
@@ -30,29 +30,50 @@ define(['angular'], function (angular) {
 	 /*****
 	     Authentication
 	 ****/
-	 uiServices.factory('$user', function () {
+	 uiServices.factory('$user', function ($rootScope) {
 	     
-	     var u = undefined;
-
-		 return {
-	     	authenticate: function(login, password){
-	     		u = { 
+	    var _currentUser = undefined;
+	    var _authenticated = jQuery.cookie('authed') == "authenticated";	     
+	    
+	    var _mockedU = { 
 		                	name: "Per Ploug", 
-		                	avatar: "file", 
+		                	avatar: "img/avatar.jpeg", 
 		                	id: 0,
-		                	authenticated: true 
+		                	authenticated: true,
+		                	locale: 'da-DK' 
 		                };
 
-	     		return true; 
+
+		if(_authenticated)
+			_currentUser = _mockedU; 
+
+
+		return {
+	     	authenticated: _authenticated,
+	     	currentUser: _currentUser,
+	     	
+	     	authenticate: function(login, password){
+				_authenticated = true;
+	     		_currentUser = _mockedU;
+	     		
+	     	//	jQuery.cookie('authed', "authenticated");
+	     		return _authenticated; 
 		    },
 	     	
 	     	logout: function(){
-	     		currentSection = sectionAlias;	
+				$rootScope.$apply(function() {
+	     			_authenticated = false;
+		     		jQuery.cookie('authed', null);
+		     		_currentUser = undefined;
+	     		});
 	     	},
 
-	     	currentUser: return u;	
+	     	getCurrentUser: function(){
+	     		return _currentUser;
+	     	}
 	     };
-	}); 
+	});
+
 	uiServices.factory('$search', function () {
 	     return {
 	      	search: function(term, section){
@@ -87,7 +108,6 @@ define(['angular'], function (angular) {
 	      						{ name: "Something else", path:"/Macros/Navigation.xslt",id: 1234, icon: "icon-cogs", view: section + "/edit/" + 1234, children: [], expanded: false, level: 1 }
 	      					]	
 	      				}
-	 	                
 	 	            ];	
 	      	},
 	      	
@@ -274,7 +294,8 @@ define(['angular'], function (angular) {
 
 			  	  // Build modal object
 				  var id = templateUrl.replace('.html', '').replace(/[\/|\.|:]/g, "-") + '-' + scope.$id;
-				  var $modal = $('<div class="modal umb-modal  hide" tabindex="-1"></div>').attr('id', id).addClass('fade').html(template);
+				  var $modal = $('<div class="modal umb-modal hide" tabindex="-1"></div>').attr('id', id).addClass('fade').html(template);
+				  
 				  if(options.modalClass) $modal.addClass(options.modalClass);
 
 				  $('body').append($modal);

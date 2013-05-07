@@ -181,12 +181,10 @@ app.controller("DashboardController", function ($scope, $routeParams) {
 
 
 //handles authentication and other application.wide services
-app.controller("MainController", function ($scope, $notification, $routeParams) {
-    var d = new Date();
-    var authCookie = jQuery.cookie('authed') == "authenticated";
+app.controller("MainController", function ($scope, $notification, $routeParams, $user) {
     
     //also be authed for e2e test
-    authCookie = true;
+    var d = new Date();
     var weekday = new Array("Super Sunday", "Manic Monday", "Tremendous Tuesday", "Wonderfull Wednesday", "Thunder Thursday", "Friendly Friday", "Shiny Saturday");
     $scope.today = weekday[d.getDay()];
 
@@ -195,21 +193,17 @@ app.controller("MainController", function ($scope, $notification, $routeParams) 
         showSearchResults: false
     };
 
-    $scope.user = {
-        authenticated: authCookie,
-        name: '',
-        password: ''
-    };  
-
     $scope.signin = function () {
-        jQuery.cookie('authed', "authenticated");
-        $scope.user.authenticated = true;
-        //$rootScope.$broadcast('start', 'content');
+        $scope.authenticated = $user.authenticate($scope.login, $scope.password);
+
+        if($scope.authenticated){
+            $scope.user = $user.getCurrentUser();
+        }
     };
 
     $scope.signout = function () {
-        jQuery.cookie('authed', null);
-        $scope.user.authenticated = false;
+        $user.signout();
+        $scope.authenticated = false;
     };
 
     //subscribes to notifications in the notification service
@@ -220,15 +214,25 @@ app.controller("MainController", function ($scope, $notification, $routeParams) 
         }
     });
 
+    //subscribes to auth status in $user
+    $scope.authenticated = $user.authenticated;
+    $scope.$watch('$user.authenticated', function (newVal, oldVal, scope) {
+        if (newVal) {
+            $scope.authenticated = newVal;
+        }
+    });
+
+
     $scope.removeNotification = function(index) {
         $notifications.remove(index);
     };
 
-    if (authCookie) {
+/*
+    if ($scope.authenticated) {
         $scope.$on('$viewContentLoaded', function() {
             $scope.signin();
         });
-    }
+    }*/
 });
 
 return app;
