@@ -78,6 +78,19 @@ var umbDir = angular.module('umbraco.directives', []);
     });
 
 
+    umbDir.directive('requireController', function($parse) {
+      return function(scope, elm, attrs) {
+          var path = scope.$eval(attrs.requireController);
+
+          if(path != undefined && path != ""){
+            path = "views/propertyeditors/" + path.replace('.','/') + "/controller.js";
+            require([path]);
+          }
+
+          //scope.$apply(attrs.requireController);
+      };
+    });
+
     umbDir.directive('onKeyDown', function($key) {
       return {
           link: function (scope, elm, attrs) {
