@@ -27,6 +27,32 @@ define(['angular'], function (angular) {
 	     };
 	});
 
+	 /*****
+	     Authentication
+	 ****/
+	 uiServices.factory('$user', function () {
+	     
+	     var u = undefined;
+
+		 return {
+	     	authenticate: function(login, password){
+	     		u = { 
+		                	name: "Per Ploug", 
+		                	avatar: "file", 
+		                	id: 0,
+		                	authenticated: true 
+		                };
+
+	     		return true; 
+		    },
+	     	
+	     	logout: function(){
+	     		currentSection = sectionAlias;	
+	     	},
+
+	     	currentUser: return u;	
+	     };
+	}); 
 	uiServices.factory('$search', function () {
 	     return {
 	      	search: function(term, section){

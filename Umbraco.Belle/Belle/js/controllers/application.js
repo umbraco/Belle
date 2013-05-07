@@ -179,6 +179,7 @@ app.controller("DashboardController", function ($scope, $routeParams) {
     $scope.name = $routeParams.section;
 });
 
+
 //handles authentication and other application.wide services
 app.controller("MainController", function ($scope, $notification, $routeParams) {
     var d = new Date();
