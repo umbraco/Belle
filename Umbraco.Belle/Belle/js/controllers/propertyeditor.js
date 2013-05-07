@@ -36,7 +36,7 @@ app.controller("GridController", function($rootScope, $scope, $dialog, $log){
 });
 
 
-app.controller("GoogleMapsController", function ($rootScope, $scope, $notification) {
+app.controller("GoogleMapsControllerTOBEDELETED", function ($rootScope, $scope, $notification) {
 require(
     [
         'async!http://maps.google.com/maps/api/js?sensor=false'

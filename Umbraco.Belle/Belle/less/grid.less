@@ -1,0 +1,121 @@
+// Grid
+// -------------------------
+
+/* CONTAINS BASIC APPLICATION LAYOUT, POSITIONING AND AREA DIMENSIONS */
+
+html, body {
+  height: 100%;
+  overflow: hidden
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5em;
+  background: #fff url(../img/loader.gif) no-repeat center center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden
+}
+
+#layout {
+  position: relative;
+  height: 100%;
+  padding: 0;
+  z-index: 1;
+}
+
+#contentwrapper {
+  float: left;
+  width: 100%;
+  height: 100%;
+  z-index: 10
+}
+
+#contentcolumn {
+  margin-left: 72px; /*Set left margin to LeftColumnWidth*/
+  background: #fff url(../img/loader.gif) no-repeat center center;
+  z-index: 10
+}
+
+#contentcolumn iframe {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+#leftcolumn {
+  float: left;
+  margin-left: -100%;
+  height: 100%;
+  z-index: 20;
+}
+
+/* refactor colors into a seperate class */
+#applications {
+  width: 72px;
+  z-index: 1000;
+  height: 100%;
+  position: relative;
+  text-align: center
+}
+
+#search-form {
+  display: block;
+  margin: 0px;
+  z-index: 100;
+  position: relative;
+}
+
+#navigation {
+  left: 72px;
+  top: 0;
+  position: absolute;
+  z-index: 100
+}
+
+#dialog {
+  min-width: 500px;
+  left: 72px;
+  top: 0;
+  position: absolute;
+  z-index: 200;
+  display: inline-block;
+}
+
+#tree {
+  padding: 15px 0px 20px 0px;
+  position: relative;
+  z-index: 100 !important;
+}
+
+#search-results {
+  position: relative;
+  z-index: 100;
+  padding: 15px 0px 20px 0px;
+}
+
+#contextMenu {
+  z-index: 50;
+  position: absolute;
+  top: 0px;
+  left: 100%;
+  min-width: 250px;
+}
+
+#speechbubble {
+  z-index: 1000;
+  position: absolute;
+  bottom: 0px;
+  right: 20%;
+  width: 60%;
+  border-bottom: none;
+  margin: auto;
+  padding: 0px;
+  border: none;
+  background: none;
+  border-radius: 0;
+}
+
+/* login form specific style*/

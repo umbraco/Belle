@@ -78,6 +78,46 @@ var umbDir = angular.module('umbraco.directives', []);
     });
 
 
+    umbDir.directive('requireController', function($parse) {
+      return function(scope, elm, attrs) {
+          var path = scope.$eval(attrs.requireController);
+
+          if(path != undefined && path != ""){
+            path = "views/propertyeditors/" + path.replace('.','/') + "/controller.js";
+            require([path]);
+          }
+
+          //scope.$apply(attrs.requireController);
+      };
+    });
+
+
+    umbDir.directive('propertyEditor', function () {
+        return {
+            restrict: 'A',
+            template: '<div class="controls controls-row" ng-include="editorView"></div>',
+            //templateUrl: '/partials/template.html',
+            link: function (scope, iterStartElement, attr) {
+
+                var property = scope.$eval(attr.propertyEditor);
+                var path = property.controller;
+                var editor = "views/propertyeditors/" + property.view.replace('.','/') + "/editor.html";
+
+                if(path != undefined && path != ""){
+                  path = "views/propertyeditors/" + path.replace('.','/') + "/controller.js";
+                  require([path], function(){
+                      scope.editorView = editor;
+                  });
+                }else{
+                    scope.editorView = editor;
+                }
+
+                
+            }
+        };
+    });
+
+
     umbDir.directive('onKeyDown', function($key) {
       return {
           link: function (scope, elm, attrs) {

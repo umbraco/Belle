@@ -47,7 +47,6 @@ require( [
     'controllers/application',
     'controllers/dialogs',
     'controllers/editors',
-    'controllers/propertyeditor',
     'filters/filters',
     'directives/directives',
     'routes'

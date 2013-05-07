@@ -13,10 +13,10 @@ define(['angular'], function (angular) {
 		 return {
 	     	all: function(){
 	     		return [
-		                { name: "Content", cssclass: "file", alias: "content" },
-		                { name: "Media", cssclass: "picture", alias: "media" },
-		                { name: "Settings", cssclass: "dashboard",  alias: "settings" },
-		                { name: "Developer", cssclass: "cog", alias: "developer" },
+		                { name: "Content", cssclass: "content", alias: "content" },
+		                { name: "Media", cssclass: "media", alias: "media" },
+		                { name: "Settings", cssclass: "settings",  alias: "settings" },
+		                { name: "Developer", cssclass: "developer", alias: "developer" },
 		                { name: "Users", cssclass: "user", alias: "users" }
 		            ];	
 	     	},
@@ -33,7 +33,7 @@ define(['angular'], function (angular) {
 	 uiServices.factory('$user', function ($rootScope) {
 	     
 	    var _currentUser = undefined;
-	    var _authenticated = jQuery.cookie('authed') == "authenticated";	     
+	    var _authenticated = true; //jQuery.cookie('authed') == "authenticated";	     
 	    
 	    var _mockedU = { 
 		                	name: "Per Ploug", 
@@ -56,7 +56,7 @@ define(['angular'], function (angular) {
 				_authenticated = true;
 	     		_currentUser = _mockedU;
 	     		
-	     	//	jQuery.cookie('authed', "authenticated");
+	     	 	jQuery.cookie('authed', "authenticated");
 	     		return _authenticated; 
 		    },
 	     	
