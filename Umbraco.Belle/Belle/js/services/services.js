@@ -36,7 +36,7 @@ define(['app'], function (app) {
                                 { alias: "textarea", label: "textarea", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 4 } },
                                 { alias: "map", label: "Map", view: "umbraco.googlemaps", controller: "umbraco.googlemaps", value: "37.4419,-122.1419", config: { mapType: "ROADMAP", zoom: 4 } },
                                 { alias: "upload", label: "Upload file", view: "umbraco.fileupload", value: "" },
-                                { alias: "media", label: "Media picker", view: "umbraco.mediapicker", value: "" }
+                                { alias: "media", label: "Media picker", view: "umbraco.mediapicker", controller: "umbraco.mediapicker", value: "" }
                             ]
                         },
                         {
@@ -47,14 +47,14 @@ define(['app'], function (app) {
                                 { alias: "textarea", label: "Description", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 7 } },
                                 { alias: "dropdown", label: "Keywords", view: "umbraco.dropdown", value: "aksjdkasjdkj" },
                                 { alias: "upload", label: "Upload file", view: "umbraco.fileupload", value: "" },
-                                { alias: "code", label: "Codemirror", view: "umbraco.code", value: "test" }
+                                { alias: "code", label: "Codemirror", view: "umbraco.code", controller: "umbraco.code", value: "test" }
                             ]
                         },
                         {
                             label: "Grid",
                             alias: "tab03",
                             properties: [
-                                { alias: "grid", label: "Grid", view: "umbraco.grid", value: "test", hideLabel: true }
+                                { alias: "grid", label: "Grid", view: "umbraco.grid", controller: "umbraco.grid" value: "test", hideLabel: true }
                             ]
                         }
                     ]
