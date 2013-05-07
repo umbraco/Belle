@@ -54,7 +54,7 @@ define(['app'], function (app) {
                             label: "Grid",
                             alias: "tab03",
                             properties: [
-                                { alias: "grid", label: "Grid", view: "umbraco.grid", controller: "umbraco.grid" value: "test", hideLabel: true }
+                                { alias: "grid", label: "Grid", view: "umbraco.grid", controller: "umbraco.grid", value: "test", hideLabel: true }
                             ]
                         }
                     ]

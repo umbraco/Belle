@@ -33,7 +33,7 @@ define(['angular'], function (angular) {
 	 uiServices.factory('$user', function ($rootScope) {
 	     
 	    var _currentUser = undefined;
-	    var _authenticated = jQuery.cookie('authed') == "authenticated";	     
+	    var _authenticated = true; //jQuery.cookie('authed') == "authenticated";	     
 	    
 	    var _mockedU = { 
 		                	name: "Per Ploug", 
@@ -56,7 +56,7 @@ define(['angular'], function (angular) {
 				_authenticated = true;
 	     		_currentUser = _mockedU;
 	     		
-	     	//	jQuery.cookie('authed', "authenticated");
+	     	 	jQuery.cookie('authed', "authenticated");
 	     		return _authenticated; 
 		    },
 	     	

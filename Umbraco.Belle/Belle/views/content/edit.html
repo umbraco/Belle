@@ -1,5 +1,4 @@
-﻿    
-<div class="umb-panel tabbable" ng-controller="ContentEditController">
+﻿<div class="umb-panel tabbable" ng-controller="ContentEditController">
 <div class="umb-panel-header umb-padded-header">
     <div class="umb-el-wrap umb-panel-buttons">
 
@@ -33,8 +32,9 @@
                 <div class='umb-tab-pane-inner'>
             
                     <div class="umb-pane" ng-repeat="property in tab.properties">
-                        <div class="control-group umb-control-group" require-controller="property.controller" 
+                        <div class="control-group umb-control-group"
                         ng-class="{hidelabel:property.hideLabel}" >
+                            
                             <div class="umb-el-wrap">
 
                                 <label class="control-label" ng-hide="property.hideLabel" for="{{property.alias}}">
@@ -42,12 +42,15 @@
                                     <small>{{property.description}}</small>
                                 </label>    
 
+                                <div property-editor="property"></div>
 
                                 <div class="controls controls-row" 
-                                    ng-include="getView(property.view)">
+                                    nginclude="getView(property.view)">
                                 </div>
 
                             </div>
+
+
                         </div>
                     </div>
 
