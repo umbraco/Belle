@@ -1,20 +1,24 @@
+// Hacks
+// -------------------------
+
 /* CONTAINS ALL HACKS AND OTHER QUICK-FIXES THAT WE MUST HANDLE BEFORE A RELEASE */
 
 .controls-row img {
-max-width: none;
+	max-width: none;
 }
 
-/*Hack*/
-.thumbnail img {max-width: 100% !Important;}
+.thumbnail img {
+	max-width: 100% !important
+}
 
 /* Should be in a seperate colors css */
-body{
+body {
  	background: #fff url(../img/loader.gif) no-repeat center center;height: 100%;width: 100%; overflow: hidden
 }
 
-
 /* CUSTOM CSS for texarea and textstring, we need to seperate these from the core style */
-.controls-row textarea, .controls-row input.textstring{
+.controls-row textarea, 
+.controls-row input.textstring {
     width: 550px;
     border: 1px solid #dad9d9;
     background: #fff;

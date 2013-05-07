@@ -6,20 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Umbraco</title>
-    
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-responsive.min.css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css"/>
-
-    <link rel="stylesheet" href="css/grid.css" />
-    <link rel="stylesheet" href="css/application.css" />
-    <link rel="stylesheet" href="css/page.css"  />
-    <link rel="stylesheet" href="css/editors.css"  />
-
     <link rel="stylesheet" href="css/belle.css"  />
-
-    <link rel="stylesheet" href="css/shame.css"  />
-
 </head>
 <body ng-controller="MainController" id="umbracoMainPageBody">     
 
@@ -39,12 +26,12 @@
                     </li>    
                     <li ng-repeat="section in sections">
                         <a href="#/{{section.alias}}" ng-mouseenter="showSectionTree(section)" ng-click="openSection(section)" prevent-default>
-                            <i class="icon-large icon-{{section.cssclass}}"></i><span>{{section.name}}</span>
+                            <i class="{{section.cssclass}}"></i><span>{{section.name}}</span>
                         </a>
                     </li>
                     <li class="help">
                         <a class="help" href="#/help">
-                            <img src="css/help.svg" style="height: 30px; width: 30px;" />
+                            <img src="img/applicationIcons/help.svg" style="height: 30px; width: 30px;" />
                             <span>help</span>
                         </a>
                     </li>    

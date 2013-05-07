@@ -13,10 +13,10 @@ define(['angular'], function (angular) {
 		 return {
 	     	all: function(){
 	     		return [
-		                { name: "Content", cssclass: "file", alias: "content" },
-		                { name: "Media", cssclass: "picture", alias: "media" },
-		                { name: "Settings", cssclass: "dashboard",  alias: "settings" },
-		                { name: "Developer", cssclass: "cog", alias: "developer" },
+		                { name: "Content", cssclass: "content", alias: "content" },
+		                { name: "Media", cssclass: "media", alias: "media" },
+		                { name: "Settings", cssclass: "settings",  alias: "settings" },
+		                { name: "Developer", cssclass: "developer", alias: "developer" },
 		                { name: "Users", cssclass: "user", alias: "users" }
 		            ];	
 	     	},
