@@ -16,27 +16,57 @@ app.controller("mediaPickerController", function($rootScope, $scope, $dialog){
 
 //this controller simply tells the dialogs service to open a mediaPicker window
 //with a specified callback, this callback will receive an object with a selection on it
-app.controller("GridController", function($rootScope, $scope, $dialog, $log){
+app.controller("GridController", function($rootScope, $scope, $dialog, $log, macroFactory){
     //we most likely will need some iframe-motherpage interop here
-    $log.log("loaded");
+   
 
     $scope.openMediaPicker =function(){
-            var dialog = $dialog.mediaPicker({scope: $scope, callback: populate});
+            var dialog = $dialog.mediaPicker({scope: $scope, callback: renderImages});
     };
 
-    function populate(data){
-        //notify iframe to render something.. 
+    $scope.propertyDialog =function(){
+            var dialog = $dialog.property({scope: $scope, callback: renderProperty});
+    };
+
+    $scope.macroDialog =function(){
+            var dialog = $dialog.macroPicker({scope: $scope, callback: renderMacro});
+    };
+
+    function renderProperty(data){
+       $scope.currentElement.html("<h1>boom, property!</h1>"); 
+    }
+
+    function renderMacro(data){
+       $scope.currentElement.html( macroFactory.renderMacro(data.macro, -1) ); 
     }
    
+    function renderImages(data){
+        var list = $("<ul class='thumbnails'></ul>")
+        $.each(data.selection, function(i, image) {
+            list.append( $("<li class='span2'><img class='thumbnail' src='" + image.src + "'></li>") );
+        });
+
+        $scope.currentElement.html( list[0].outerHTML); 
+    }
+
     $(window).bind("umbraco.grid.click", function(event){
+
         $scope.$apply(function () {
-            $scope.openMediaPicker();
+            $scope.currentEditor = event.editor;
+            $scope.currentElement = $(event.element);
+
+            if(event.editor == "macro")
+                $scope.macroDialog();
+            else if(event.editor == "image")
+                $scope.openMediaPicker();
+            else
+                $scope.propertyDialog();
         });
     })
 });
 
 
-app.controller("GoogleMapsControllerTOBEDELETED", function ($rootScope, $scope, $notification) {
+app.controller("GoogleMapsController", function ($rootScope, $scope, $notification) {
 require(
     [
         'async!http://maps.google.com/maps/api/js?sensor=false'

@@ -358,20 +358,33 @@ define(['angular'], function (angular) {
 		return{
 				open: function(options){
 					return _open(options);
-				}
-	 			,
+				},
 				mediaPicker: function(options){
 				    return _open({
 				                    scope: options.scope, 
 				                    callback: options.callback, 
-				                    template: 'views/application/dialogs/media.html', 
+				                    template: 'views/application/dialogs/mediaPicker.html', 
 				                    show: true, backdrop: 'static'});
 				},
 				contentPicker: function(options){
 				    return _open({
 				                    scope: options.scope, 
 				                    callback: options.callback, 
-				                    template: 'views/application/dialogs/media.html', 
+				                    template: 'views/application/dialogs/contentPicker.html', 
+				                    show: true, backdrop: 'static'});
+				},
+				macroPicker: function(options){
+				    return _open({
+				                    scope: options.scope, 
+				                    callback: options.callback, 
+				                    template: 'views/application/dialogs/macroPicker.html', 
+				                    show: true, backdrop: 'static'});
+				},
+				propertyDialog: function(options){
+				    return _open({
+				                    scope: options.scope, 
+				                    callback: options.callback, 
+				                    template: 'views/application/dialogs/property.html', 
 				                    show: true, backdrop: 'static'});
 				},
 				append : function(options){
