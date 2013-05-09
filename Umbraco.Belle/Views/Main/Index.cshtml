@@ -1,11 +1,19 @@
-﻿@model dynamic
+﻿@using Umbraco.Belle.Controllers
+@using Umbraco.Web
+@model dynamic
+
+ @{
+     var serverEnvironmentView = Url.Action("ServerEnvironment", "ServerSidePropertyEditors");
+     var postSaveUrl = Url.GetUmbracoApiService<ContentEditorApiController>("PostSaveContent");
+ }
 
 @section Headder
 {
     <script type="text/javascript">
 
-        function TestController($scope) {
-
+        Umbraco.Sys.registerNamespace("TestNamespace");        
+        TestNamespace.TestController = function ($scope, $http) {
+            
             $scope.properties = [
                 {
                     alias: "numbers",
@@ -21,22 +29,42 @@
                     alias: "serverEnvironment",
                     label: "Server Info",
                     description: "Some server information",
-                    view: "/Belle/PropertyEditors/ServerSidePropertyEditors/ServerEnvironment",
-                    value: ""                    
+                    view: "@(serverEnvironmentView)",
+                    value: ""
                 }
             ];
+
+            $scope.save = function() {
+                var valueToPost = [];
+                for (var p in $scope.properties) {
+                    valueToPost.push({
+                        alias: $scope.properties[p].alias,
+                        value: $scope.properties[p].value
+                    });
+                }
+                $http.post('@(postSaveUrl)', valueToPost).
+                    success(function(data, status, headers, config) {
+                        alert("success!");
+                    }).
+                    error(function(data, status, headers, config) {
+                        alert("failed!");
+                    });
+            };
 
         }
     </script>
 }
 
-<div ng-controller="TestController" style="border: solid 1px orange">
+<form ng-controller="TestNamespace.TestController" ng-submit="save()" style="border: solid 1px orange">
+    
     <div ng-repeat="model in properties">
         <div>{{model.description}}</div>
         <span>{{model.label}}</span>
         <div ng-include="model.view"></div>
     </div>
-</div>
+    
+    <button>Save</button>
+</form>
 
 
 @*<div>
