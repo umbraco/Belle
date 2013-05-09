@@ -11,15 +11,16 @@
 {
     <script type="text/javascript">
 
-        Umbraco.Sys.registerNamespace("TestNamespace");        
-        TestNamespace.TestController = function ($scope, $http) {
-            
+        Umbraco.Sys.registerNamespace("TestNamespace");
+
+        TestNamespace.TestController = function($scope, $http, $log, $filter) {
+
             $scope.properties = [
                 {
                     alias: "numbers",
                     label: "Numeric",
                     description: "Enter a numeric value",
-                    view: "/App_Plugins/MyPackage/PropertyEditors/numeric.html",
+                    view: "/App_Plugins/MyPackage/PropertyEditors/Numeric.html",
                     value: "12345987765",
                     config: {
                         format: "## #### ####"
@@ -31,6 +32,13 @@
                     description: "Some server information",
                     view: "@(serverEnvironmentView)",
                     value: ""
+                },
+                {
+                    alias: "complexEditor",
+                    label: "Multiple Values",
+                    description: "A multi value editor",
+                    view: "/App_Plugins/MyPackage/PropertyEditors/ComplexEditor.html",
+                    value: "My Value 1, My Value 2, My Value 3, My Value 4, My Value 5"
                 }
             ];
 
@@ -42,6 +50,9 @@
                         value: $scope.properties[p].value
                     });
                 }
+
+                $log.info("Sending data: " + $filter("json")(valueToPost));
+
                 $http.post('@(postSaveUrl)', valueToPost).
                     success(function(data, status, headers, config) {
                         alert("success!");
@@ -51,7 +62,7 @@
                     });
             };
 
-        }
+        };
     </script>
 }
 

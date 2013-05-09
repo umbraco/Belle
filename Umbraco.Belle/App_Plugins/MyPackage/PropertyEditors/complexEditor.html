@@ -1,2 +1,8 @@
-﻿
-<input type="text" ng-model="property.value" id="{{property.alias}}" />
+﻿<div ng-controller="MyPackage.PropertyEditors.ComplexEditorController">
+    
+    <div ng-repeat="item in values">
+        <input type="text" ng-model="item.value" /><br />
+    </div>    
+    
+    <span>{{model.value}}</span>
+</div>

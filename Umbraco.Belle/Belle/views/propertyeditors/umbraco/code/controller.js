@@ -7,7 +7,7 @@ app.controller("CodeMirrorController", function ($scope, $rootScope) {
         [
             'css!../lib/codemirror/js/lib/codemirror.css',
             'css!../lib/codemirror/css/umbracoCustom.css',
-            'codemirrorHtml',
+            'codemirrorHtml'
         ],
         function () {
 

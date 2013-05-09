@@ -15,12 +15,12 @@ app.controller("GridController", function($rootScope, $scope, $dialog, $log){
     function populate(data){
         //notify iframe to render something.. 
     }
-       
-    $(window).bind("umbraco.grid.click", function(event){
-        $scope.$apply(function () {
+
+    $(window).bind("umbraco.grid.click", function(event) {
+        $scope.$apply(function() {
             $scope.openMediaPicker();
         });
-    })
+    });
 });
 
 	return app;

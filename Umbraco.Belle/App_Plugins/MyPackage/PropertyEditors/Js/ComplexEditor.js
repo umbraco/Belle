@@ -1,40 +1,32 @@
-﻿function ComplexEditorController($scope, $http) {
+﻿Umbraco.Sys.registerNamespace("MyPackage.PropertyEditors");
 
-    $scope.properties = [
-        {
-            alias: "numbers",
-            label: "Numeric",
-            description: "Enter a numeric value",
-            view: "/App_Plugins/MyPackage/PropertyEditors/numeric.html",
-            value: "12345987765",
-            config: {
-                format: "## #### ####"
-            }
-        },
-        {
-            alias: "serverEnvironment",
-            label: "Server Info",
-            description: "Some server information",
-            view: "@(serverEnvironmentView)",
-            value: ""
-        }
-    ];
+MyPackage.PropertyEditors.ComplexEditorController = function ($scope, $http, $filter) {
 
-    $scope.save = function () {
-        var valueToPost = [];
-        for (var p in $scope.properties) {
-            valueToPost.push({
-                alias: $scope.properties[p].alias,
-                value: $scope.properties[p].value
+    var values = [];
+    
+    //this will be comma delimited
+    if ($scope.model && $scope.model.value && (typeof $scope.model.value == "string")) {
+        var splitVals = $scope.model.value.split(",");
+        //set the values of our object
+        for (var i = 0; i < splitVals.length; i++) {
+            values.push({
+                index: i,
+                value: splitVals[i].trim()
             });
         }
-        $http.post('@(postSaveUrl)', valueToPost).
-            success(function (data, status, headers, config) {
-                alert("success!");
-            }).
-            error(function (data, status, headers, config) {
-                alert("failed!");
-            });
-    };
+    }
 
-}
+    //set the scope values to bind on our view to the new object
+    $scope.values = values;
+
+    //set up listeners for the object to write back to our comma delimited property value
+    $scope.$watch('values', function (newValue, oldValue) {
+        var csv = [];
+        for (var v in newValue) {
+            csv.push(newValue[v].value);
+        }
+        //write the csv value back to the property
+        $scope.model.value = csv.join();
+    }, true);
+
+};
