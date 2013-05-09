@@ -11,9 +11,7 @@
 {
     <script type="text/javascript">
 
-        Umbraco.Sys.registerNamespace("TestNamespace");
-
-        TestNamespace.TestController = function($scope, $http, $log, $filter) {
+        function TestController($scope, $http, $log, $filter) {
 
             $scope.properties = [
                 {
@@ -37,7 +35,7 @@
                     alias: "complexEditor",
                     label: "Multiple Values",
                     description: "A multi value editor",
-                    view: "/App_Plugins/MyPackage/PropertyEditors/ComplexEditor.html",
+                    view: "/App_Plugins/MyPackage/PropertyEditors/CsvEditor.html",
                     value: "My Value 1, My Value 2, My Value 3, My Value 4, My Value 5"
                 }
             ];
@@ -66,7 +64,7 @@
     </script>
 }
 
-<form ng-controller="TestNamespace.TestController" ng-submit="save()" style="font-family:sans-serif;">
+<form ng-controller="TestController" ng-submit="save()" style="font-family:sans-serif;">
     
     <div ng-repeat="model in properties" style="background-color:#EEEEEE;margin:5px;padding:5px;">
         <div style="font-style:italic;">{{model.label}}</div>

@@ -7,6 +7,6 @@ require("##RequireJsInitialize##", function (angular, app) {
   //This callback is optional.
 
   jQuery(document).ready(function () {
-    angular.bootstrap(document, ['umbraco']);
+    //angular.bootstrap(document, ['umbraco']);
   });
 });

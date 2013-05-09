@@ -278,10 +278,10 @@
     <Compile Include="System\Trees\TreeQueryStringParameters.cs" />
     <Compile Include="System\Trees\UrlHelperExtensions.cs" />
     <Content Include="App_Plugins\MyPackage\Common\Js\MyPackage.js" />
-    <Content Include="App_Plugins\MyPackage\PropertyEditors\myPropEditor2.html" />
-    <Content Include="App_Plugins\MyPackage\PropertyEditors\Js\MyPropertyEditor.js" />
+    <Content Include="App_Plugins\MyPackage\PropertyEditors\CsvEditor.html" />
+    <Content Include="App_Plugins\MyPackage\PropertyEditors\Js\CsvEditor.js" />
     <None Include="App_Plugins\MyPackage\Package.manifest" />
-    <Content Include="App_Plugins\MyPackage\PropertyEditors\numeric.html" />
+    <Content Include="App_Plugins\MyPackage\PropertyEditors\Numeric.html" />
     <Content Include="Belle\js\controllers\application.js" />
     <Content Include="Belle\js\controllers\application.min.js" />
     <Content Include="Belle\js\controllers\dialogs.js" />
@@ -806,6 +806,7 @@
     <Content Include="Belle\lib\tinymce3\utils\form_utils.js" />
     <Content Include="Belle\lib\tinymce3\utils\mctabs.js" />
     <Content Include="Belle\lib\tinymce3\utils\validate.js" />
+    <Content Include="Belle\lib\Umbraco\NamespaceManager.js" />
     <Content Include="Belle\lib\underscore\underscore-min.js" />
     <Content Include="Belle\lib\underscore\underscore.js" />
     <Content Include="Belle\views\application\dashboard.html" />

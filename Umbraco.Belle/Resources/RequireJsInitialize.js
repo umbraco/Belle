@@ -1,15 +1,5 @@
 ﻿[
     'angular',
-    'app',
     'jquery',
-    'jqueryCookie',
-    'statemanager',
-    'bootstrap',
-    'services/services',
-    'controllers/controllers.application',
-    'controllers/controllers.editors',
-    'controllers/controllers.propertyeditor',
-    'filters/filters',
-    'directives/directives',
-    'routes'
+    'namespaceMgr'
 ]

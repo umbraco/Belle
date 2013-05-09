@@ -2,10 +2,7 @@
 <html lang="en" ng-app>
     <head>
         <meta charset="utf-8" />
-        <title>Property Editor Test</title>   
-        <script src="/Belle/lib/angular/angular.js"></script>    
-        <script src="/Belle/lib/Umbraco/NamespaceManager.js"></script>    
-        <script src="/App_Plugins/MyPackage/PropertyEditors/Js/ComplexEditor.js"></script>    
+        <title>Property Editor Test</title>
         @RenderSection("Headder", false)
     </head>
     <body>
@@ -13,6 +10,6 @@
         @RenderBody()
         
         <script src="~/Belle/lib/require/require-2.1.0.js"></script>
-        @*<script src="@Url.Action("MainJs", "Main")"></script>*@
+        <script src="@Url.Action("MainJs", "Main")"></script>
     </body>
 </html>

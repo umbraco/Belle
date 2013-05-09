@@ -4,7 +4,7 @@
 			alias: "numeric",
 			name: "Numeric",
 			editor: {
-				view: "numeric",
+				view: "~/App_Plugins/MyPackage/PropertyEditors/Numeric.html",
 				validation: [
 					{
 						type: "Required" 
@@ -20,38 +20,25 @@
 			}
 		},
 		{
-			alias: "myPropEditor2",
-			name: "My Property Editor 2",
+			alias: "csvEditor",
+			name: "CSV Editor",
 			editor: {
-				view: "myPropEditor2",
-				validation: [
-					{
-						type: "Field",
-						value: {
-							id: "field1",
-							validation: [
-								{
-									type: "Required"
-								}
-							]							
-						}
-					}
-				]
+				view: "~/App_Plugins/MyPackage/PropertyEditors/CsvEditor.html"				
 			}
 		}	
 	],
     config: {
         paths: {
             myPackageCommon: '~/App_Plugins/MyPackage/Common/Js/MyPackage',
-            myPropertyEditor: '~/App_Plugins/MyPackage/PropertyEditors/Js/MyPropertyEditor'            
+            csvPropertyEditor: '~/App_Plugins/MyPackage/PropertyEditors/Js/CsvEditor'            
         },
         shim: {
             'myPackageCommon': { 'exports': 'myPackageCommon' },
-            'myPropertyEditor': { deps: ['myPackageCommon'] }
+            'csvPropertyEditor': { deps: ['myPackageCommon'] }
         }
     },
     init: [
         'myPackageCommon',
-        'myPropertyEditor'
+        'csvPropertyEditor'
     ]
 }

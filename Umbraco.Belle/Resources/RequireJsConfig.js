@@ -13,19 +13,20 @@
         angularResource: '../lib/angular/angular-resource',
         statemanager: '../lib/angular/statemanager',
         text: '../lib/require/text',
-        async: '../lib/require/async'
+        async: '../lib/require/async',
+        namespaceMgr: '../lib/Umbraco/NamespaceManager'
     },
     shim: {
         'angular' : {'exports' : 'angular'},
-      'angular-resource': { deps: ['angular'] },
-      'statemanager': { deps: ['angular'] },
-      'bootstrap': { deps: ['jquery'] },
-      'jqueryCookie': { deps: ['jquery'] },
-      'angular-statemanager' : {deps:['angular']},
-      'underscore': {exports: '_'}
+        'angular-resource': { deps: ['angular'] },
+        'statemanager': { deps: ['angular'] },
+        'bootstrap': { deps: ['jquery'] },
+        'jqueryCookie': { deps: ['jquery'] },
+        'angular-statemanager' : {deps:['angular']},
+        'underscore': {exports: '_'}
     },
     priority: [
-      "angular"
+        "angular"
     ],
     urlArgs: 'v=1.1'
 }
