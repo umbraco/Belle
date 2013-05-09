@@ -42,18 +42,18 @@
                 }
             ];
 
+            $scope.valueToPost = [];
+
             $scope.save = function() {
-                var valueToPost = [];
+                $scope.valueToPost = [];
                 for (var p in $scope.properties) {
-                    valueToPost.push({
+                    $scope.valueToPost.push({
                         alias: $scope.properties[p].alias,
                         value: $scope.properties[p].value
                     });
                 }
-
-                $log.info("Sending data: " + $filter("json")(valueToPost));
-
-                $http.post('@(postSaveUrl)', valueToPost).
+                
+                $http.post('@(postSaveUrl)', $scope.valueToPost).
                     success(function(data, status, headers, config) {
                         alert("success!");
                     }).
@@ -66,21 +66,17 @@
     </script>
 }
 
-<form ng-controller="TestNamespace.TestController" ng-submit="save()" style="border: solid 1px orange">
+<form ng-controller="TestNamespace.TestController" ng-submit="save()" style="font-family:sans-serif;">
     
-    <div ng-repeat="model in properties">
-        <div>{{model.description}}</div>
-        <span>{{model.label}}</span>
+    <div ng-repeat="model in properties" style="background-color:#EEEEEE;margin:5px;padding:5px;">
+        <div style="font-style:italic;">{{model.label}}</div>
+        <div style="font-size:9px;">{{model.description}}</div>
+        
         <div ng-include="model.view"></div>
     </div>
-    
+    <hr/>
     <button>Save</button>
+    <hr/>
+    <div>Posting value:</div>
+    <div>{{valueToPost}}</div>
 </form>
-
-
-@*<div>
-    <label>Name:</label>
-    <input type="text" ng-model="yourName" placeholder="Enter a name here" />
-    <hr />
-    <h1>Hello {{yourName}}!</h1>
-</div>*@
