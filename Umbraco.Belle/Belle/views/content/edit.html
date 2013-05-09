@@ -41,11 +41,10 @@
                                     {{property.label}}
                                     <small>{{property.description}}</small>
                                 </label>    
-
-                                <div property-editor="property"></div>
+                                
 
                                 <div class="controls controls-row" 
-                                    nginclude="getView(property.view)">
+                                    ng-include="property.view | propertyEditor">
                                 </div>
 
                             </div>

@@ -1,0 +1,39 @@
+<div class="umb-panel" ng-controller="macroPickerDialogController">
+	<div class="umb-panel-header">
+		<div class="umb-el-wrap umb-panel-buttons">
+	        <div class="btn-toolbar umb-btn-toolbar">
+	         	<input type="button" ng-click="submit(dialogData)" class="btn btn-primary" value="select" />
+	        </div>
+		</div>
+	</div>
+
+	<div class="umb-panel-body umb-scrollable" auto-scale="1" ng-switch on="dialogMode">
+		<div ng-switch-when="list" ng-swicth-default class="tab-content form-horizontal umb-el-wrap">
+				<ul>	
+					<li ng-repeat="macro in macros">
+						<a href="#" ng-click="configureMacro(macro)" prevent-default>
+							{{macro.name}}
+						</a>
+					</li>
+				</ul>	
+		</div>
+
+		<div ng-switch-when="configure" class="tab-content form umb-el-wrap">
+				<div class="umb-pane" ng-repeat="property in dialogData.macro.properties">
+				    <div class="control-group umb-control-group"
+				    ng-class="{hidelabel:property.hideLabel}" >
+				        
+				        <div class="umb-el-wrap">
+				            <label class="control-label" ng-hide="property.hideLabel" for="{{property.alias}}">
+				                {{property.label}}
+				            </label>    
+
+				            <div class="controls controls-row" 
+				                ng-include="property.view | propertyEditor">
+				            </div>
+				        </div>
+				    </div>
+				</div>
+		</div>
+	</div>
+</div>

@@ -10,11 +10,9 @@ $(function(){
         event.preventDefault();
 
       //  parent.document.fire("umbraco.grid.click");
-
-        var e = jQuery.Event("umbraco.grid.click", {someVal: 76, something: "HULK"});
+      	var el = this;
+      	var e = jQuery.Event("umbraco.grid.click", {editor: $(el).data("editor"), element: el});
         p.trigger( e );
-
-       
     });
 });
 

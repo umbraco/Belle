@@ -17,10 +17,6 @@ define([ 'app'], function (app) {
 			cnt.updateDate = new Date();
 			contentFactory.saveContent(cnt);
 		};
-
-		$scope.getView = function (viewType) {
-			return "views/propertyeditors/" + viewType.replace('.','/') + "/editor.html";
-		};
 	});
 
 
