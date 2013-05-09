@@ -3,30 +3,45 @@
 @section Headder
 {
     <script type="text/javascript">
-        function TestController($scope) {
-            $scope.model = {
-                alias: "numbers",
-                label: "Numeric",
-                description: "Enter a numeric value",
-                view: "numeric",
-                value: "12345987765"
-            };
 
-            $scope.doThis = function () {
-                alert("hello");
-            };
+        function TestController($scope) {
+
+            $scope.properties = [
+                {
+                    alias: "numbers",
+                    label: "Numeric",
+                    description: "Enter a numeric value",
+                    view: "/App_Plugins/MyPackage/PropertyEditors/numeric.html",
+                    value: "12345987765",
+                    config: {
+                        format: "## #### ####"
+                    }
+                },
+                {
+                    alias: "serverEnvironment",
+                    label: "Server Info",
+                    description: "Some server information",
+                    view: "/Belle/PropertyEditors/ServerSidePropertyEditors/ServerEnvironment",
+                    value: ""                    
+                }
+            ];
+
         }
     </script>
 }
 
-<div ng-controller="TestController" style="border:solid 1px orange">
-    <span>{{model.description}}</span>
+<div ng-controller="TestController" style="border: solid 1px orange">
+    <div ng-repeat="model in properties">
+        <div>{{model.description}}</div>
+        <span>{{model.label}}</span>
+        <div ng-include="model.view"></div>
+    </div>
 </div>
 
 
-<div>
+@*<div>
     <label>Name:</label>
     <input type="text" ng-model="yourName" placeholder="Enter a name here" />
     <hr />
     <h1>Hello {{yourName}}!</h1>
-</div>
+</div>*@

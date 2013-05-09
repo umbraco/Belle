@@ -254,6 +254,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ServerSidePropertyEditorsController.cs" />
     <Compile Include="App_Plugins\MyPackage\Trees\LegacyTestTree.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ApplicationTreeApiController.cs" />
@@ -280,6 +281,17 @@
     <Content Include="App_Plugins\MyPackage\PropertyEditors\Js\MyPropertyEditor.js" />
     <None Include="App_Plugins\MyPackage\Package.manifest" />
     <Content Include="App_Plugins\MyPackage\PropertyEditors\numeric.html" />
+    <Content Include="Belle\js\controllers\application.js" />
+    <Content Include="Belle\js\controllers\application.min.js" />
+    <Content Include="Belle\js\controllers\dialogs.js" />
+    <Content Include="Belle\js\controllers\editors.js" />
+    <Content Include="Belle\js\controllers\editors.min.js" />
+    <Content Include="Belle\js\controllers\propertyeditor.js" />
+    <Content Include="Belle\js\controllers\propertyeditor.min.js" />
+    <Content Include="Belle\js\main.min.js" />
+    <Content Include="Belle\js\services\services.min.js" />
+    <Content Include="Belle\js\services\ui.services.js" />
+    <Content Include="Belle\js\services\ui.services.min.js" />
     <Content Include="Belle\lib\bootstrap\css\bootstrap.cosmo.min.css" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -303,9 +315,6 @@
     <Content Include="Belle\img\.gitignore" />
     <Content Include="Belle\index.html" />
     <Content Include="Belle\js\app.js" />
-    <Content Include="Belle\js\controllers\controllers.application.js" />
-    <Content Include="Belle\js\controllers\controllers.editors.js" />
-    <Content Include="Belle\js\controllers\controllers.propertyeditor.js" />
     <Content Include="Belle\js\directives\directives.js" />
     <Content Include="Belle\js\filters\filters.js" />
     <Content Include="Belle\js\main.js" />
@@ -799,13 +808,30 @@
     <Content Include="Belle\lib\underscore\underscore-min.js" />
     <Content Include="Belle\lib\underscore\underscore.js" />
     <Content Include="Belle\views\application\dashboard.html" />
-    <Content Include="Belle\views\application\propertyeditors\umbraco.googlemaps.html" />
-    <Content Include="Belle\views\application\propertyeditors\umbraco.textarea.html" />
-    <Content Include="Belle\views\application\sections.html" />
+    <Content Include="Belle\views\application\dialogs\media.html" />
     <Content Include="Belle\views\application\tree.html" />
+    <Content Include="Belle\views\content\copy.html" />
+    <Content Include="Belle\views\content\create.html" />
     <Content Include="Belle\views\content\edit.html" />
-    <Content Include="Belle\views\application\propertyeditors\umbraco.fileupload.html" />
-    <Content Include="Belle\views\application\propertyeditors\umbraco.textstring.html" />
+    <Content Include="Belle\views\content\sort.html" />
+    <Content Include="Belle\views\propertyeditors\umbraco\code\controller.js" />
+    <Content Include="Belle\views\propertyeditors\umbraco\code\editor.html" />
+    <Content Include="Belle\views\propertyeditors\umbraco\contentpicker\editor.html" />
+    <Content Include="Belle\views\propertyeditors\umbraco\dropdown\editor.html" />
+    <Content Include="Belle\views\propertyeditors\umbraco\fileupload\editor.html" />
+    <Content Include="Belle\views\propertyeditors\umbraco\googlemaps\controller.js" />
+    <Content Include="Belle\views\propertyeditors\umbraco\googlemaps\editor.html" />
+    <Content Include="Belle\views\propertyeditors\umbraco\grid\controller.js" />
+    <Content Include="Belle\views\propertyeditors\umbraco\grid\css\iframe.css" />
+    <Content Include="Belle\views\propertyeditors\umbraco\grid\editor.html" />
+    <Content Include="Belle\views\propertyeditors\umbraco\grid\iframe.html" />
+    <Content Include="Belle\views\propertyeditors\umbraco\grid\js\iframe.js" />
+    <Content Include="Belle\views\propertyeditors\umbraco\listview\editor.html" />
+    <Content Include="Belle\views\propertyeditors\umbraco\mediapicker\controller.js" />
+    <Content Include="Belle\views\propertyeditors\umbraco\mediapicker\editor.html" />
+    <Content Include="Belle\views\propertyeditors\umbraco\rte\editor.html" />
+    <Content Include="Belle\views\propertyeditors\umbraco\textarea\editor.html" />
+    <Content Include="Belle\views\propertyeditors\umbraco\textstring\editor.html" />
     <Content Include="Belle\views\settings\template.html" />
   </ItemGroup>
   <ItemGroup>
@@ -845,6 +871,22 @@
     <Content Include="Config\trees.config" />
     <Content Include="Config\applications.config" />
     <Content Include="Config\log4net.config" />
+    <Content Include="Belle\less\animations.less" />
+    <Content Include="Belle\less\belle.less" />
+    <Content Include="Belle\less\buttons.less" />
+    <Content Include="Belle\less\font-awesome.min.less" />
+    <Content Include="Belle\less\footer.less" />
+    <Content Include="Belle\less\forms.less" />
+    <Content Include="Belle\less\grid.less" />
+    <Content Include="Belle\less\hacks.less" />
+    <Content Include="Belle\less\login.less" />
+    <Content Include="Belle\less\main.less" />
+    <Content Include="Belle\less\modals.less" />
+    <Content Include="Belle\less\panel.less" />
+    <Content Include="Belle\less\sections.less" />
+    <Content Include="Belle\less\tree.less" />
+    <Content Include="Belle\less\variables.less" />
+    <Content Include="Views\ServerSidePropertyEditors\ServerEnvironment.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -857,9 +899,6 @@
     <Content Include="Belle\font\fontawesome-webfont.ttf" />
     <Content Include="Belle\font\fontawesome-webfont.woff" />
     <Content Include="Belle\font\FontAwesome.otf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Belle\views\application\propertyeditors\umbraco.rte.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Plugins\MyPackage\Common\Css\" />
