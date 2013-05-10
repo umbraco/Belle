@@ -14,6 +14,7 @@ require.config({
     codemirrorXml: '../lib/codemirror/js/mode/xml/xml',
     codemirrorHtml: '../lib/codemirror/js/mode/htmlmixed/htmlmixed',
 
+    tinymce: '../lib/tinymce/tinymce.min',
     text: '../lib/require/text',
     async: '../lib/require/async',
     css: '../lib/require/css'
@@ -28,7 +29,14 @@ require.config({
     'codemirrorJs':{deps:['codemirror']},
     'codemirrorCss':{deps:['codemirror']},
     'codemirrorXml':{deps:['codemirror']},
-    'codemirrorHtml':{deps:['codemirrorXml','codemirrorCss','codemirrorJs'], exports: 'mixedMode'}
+    'codemirrorHtml':{deps:['codemirrorXml','codemirrorCss','codemirrorJs'], exports: 'mixedMode'},
+    'tinymce': {
+                exports: 'tinyMCE',
+                init: function () {
+                    this.tinymce.DOM.events.domLoaded = true;
+                    return this.tinymce;
+                }
+            }
   },
   priority: [
     "angular"

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-define(['app'], function (app) {
+define(['app','tinymce'], function (app,tinymce) {
 
 //this controller simply tells the dialogs service to open a mediaPicker window
 //with a specified callback, this callback will receive an object with a selection on it
@@ -18,17 +18,15 @@ app.controller("mediaPickerController", function($rootScope, $scope, $dialog){
 //with a specified callback, this callback will receive an object with a selection on it
 app.controller("GridController", function($rootScope, $scope, $dialog, $log, macroFactory){
     //we most likely will need some iframe-motherpage interop here
-   
-
     $scope.openMediaPicker =function(){
             var dialog = $dialog.mediaPicker({scope: $scope, callback: renderImages});
     };
 
-    $scope.propertyDialog =function(){
+    $scope.openPropertyDialog =function(){
             var dialog = $dialog.property({scope: $scope, callback: renderProperty});
     };
 
-    $scope.macroDialog =function(){
+    $scope.openMacroDialog =function(){
             var dialog = $dialog.macroPicker({scope: $scope, callback: renderMacro});
     };
 
@@ -56,13 +54,50 @@ app.controller("GridController", function($rootScope, $scope, $dialog, $log, mac
             $scope.currentElement = $(event.element);
 
             if(event.editor == "macro")
-                $scope.macroDialog();
+                $scope.openMacroDialog();
             else if(event.editor == "image")
                 $scope.openMediaPicker();
             else
                 $scope.propertyDialog();
         });
     })
+});
+
+app.controller("RTEController", function($rootScope, $scope, $dialog, $log){
+    require(
+        [
+            'tinymce'
+        ],
+        function (tinymce) {
+
+            tinymce.DOM.events.domLoaded = true;
+
+            tinymce.init({
+               selector: "#" + $scope.property.alias,
+               handle_event_callback : "myHandleEvent" 
+             });
+        
+            $scope.openMediaPicker =function(value){
+                    var dialog = $dialog.mediaPicker({scope: $scope, callback: populate});
+            };
+
+            function bindValue(inst){
+                $log.log("woot");
+
+                $scope.$apply(function(){
+                    $scope.property.value = inst.getBody().innerHTML;
+                })
+            }
+
+            function myHandleEvent(e){
+                $log.log(e);
+            }
+
+            function populate(data){
+                $scope.property.value = data.selection;    
+            }
+
+        });
 });
 
 

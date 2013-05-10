@@ -43,7 +43,7 @@ define(['app'], function (app) {
                             label: "Tab 2",
                             alias: "tab02",
                             properties: [
-                                { alias: "bodyText", label: "Meta Text", view: "umbraco.rte", value: "<p>askjdkasj lasjd</p>" },
+                                { alias: "metaText", label: "Meta Text", view: "umbraco.rte", value: "<p>askjdkasj lasjd</p>" },
                                 { alias: "textarea", label: "Description", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 7 } },
                                 { alias: "dropdown", label: "Keywords", view: "umbraco.dropdown", value: "aksjdkasjdkj" },
                                 { alias: "upload", label: "Upload file", view: "umbraco.fileupload", value: "" },
@@ -97,6 +97,7 @@ define(['app'], function (app) {
         };
     });
 
+
     /*****
       MEDIA
     ****/
@@ -118,15 +119,23 @@ define(['app'], function (app) {
     ****/
     app.factory('contentTypeFactory', function () {
         return {
+
+            //return all availabel types
             all: function(){
                 return [];
             },
+
+            //return children inheriting a given type
             children: function(id){
                 return [];
             },
+
+            //return all content types a type inherite from
             parents: function(id){
                 return [];
             },
+
+            //return all types allowed under given document
             allowedTypes: function(documentId){
               return [
                     {name: "News Article", description: "Standard news article", alias: "newsArticle", id: 1234, cssClass:"file"},
