@@ -70,10 +70,9 @@ namespace Umbraco.Belle.Resources {
         ///  //This callback is optional.
         ///
         ///  jQuery(document).ready(function () {
-        ///    angular.bootstrap(document, [&apos;umbraco&apos;]);
+        ///    //angular.bootstrap(document, [&apos;umbraco&apos;]);
         ///  });
-        ///});
-        ///.
+        ///});.
         /// </summary>
         internal static string Main {
             get {
@@ -83,6 +82,10 @@ namespace Umbraco.Belle.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to {
+        ///    
+        ///    /*NOTE: This is actually /Belle/js because we are loading in requireJs from /Belle already*/
+        ///    baseUrl: &apos;js&apos;,
+        ///    
         ///    waitSeconds: 120,
         ///    paths: {
         ///        jquery: &apos;../lib/jquery/jquery-1.8.2.min&apos;,
@@ -91,12 +94,7 @@ namespace Umbraco.Belle.Resources {
         ///        underscore: &apos;../lib/underscore/underscore&apos;,
         ///        angular: &apos;../lib/angular/angular.min&apos;,
         ///        angularResource: &apos;../lib/angular/angular-resource&apos;,
-        ///        statemanager: &apos;../lib/angular/statemanager&apos;,
-        ///        text: &apos;../lib/require/text&apos;,
-        ///        async: &apos;../lib/require/async&apos;
-        ///    },
-        ///    shim: {
-        /// [rest of string was truncated]&quot;;.
+        ///        statemanager:  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RequireJsConfig {
             get {
@@ -107,23 +105,36 @@ namespace Umbraco.Belle.Resources {
         /// <summary>
         ///   Looks up a localized string similar to [
         ///    &apos;angular&apos;,
-        ///    &apos;app&apos;,
         ///    &apos;jquery&apos;,
-        ///    &apos;jqueryCookie&apos;,
-        ///    &apos;statemanager&apos;,
-        ///    &apos;bootstrap&apos;,
-        ///    &apos;services/services&apos;,
-        ///    &apos;controllers/controllers.application&apos;,
-        ///    &apos;controllers/controllers.editors&apos;,
-        ///    &apos;controllers/controllers.propertyeditor&apos;,
-        ///    &apos;filters/filters&apos;,
-        ///    &apos;directives/directives&apos;,
-        ///    &apos;routes&apos;
+        ///    &apos;namespaceMgr&apos;,
+        ///    &apos;myApp&apos;
         ///].
         /// </summary>
         internal static string RequireJsInitialize {
             get {
                 return ResourceManager.GetString("RequireJsInitialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to define([&apos;namespaceMgr&apos;], function() {
+        ///
+        ///    //create the namespace
+        ///    Umbraco.Sys.registerNamespace(&quot;Umbraco.System&quot;);
+        ///
+        ///    //define a global static object
+        ///    Umbraco.System.ServerVariables = {
+        ///        ##Variables##
+        ///    };
+        ///
+        ///    //return it (though it can be used globally anyways)
+        ///    return Umbraco.System.ServerVariables;
+        ///
+        ///});.
+        /// </summary>
+        internal static string ServerVariables {
+            get {
+                return ResourceManager.GetString("ServerVariables", resourceCulture);
             }
         }
     }

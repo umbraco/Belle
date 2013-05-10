@@ -14,7 +14,8 @@
         statemanager: '../lib/angular/statemanager',
         text: '../lib/require/text',
         async: '../lib/require/async',
-        namespaceMgr: '../lib/Umbraco/NamespaceManager'
+        namespaceMgr: '../lib/Umbraco/NamespaceManager',
+        myApp: '../../../Content/JavaScript/myApp'
     },
     shim: {
         'angular' : {'exports' : 'angular'},

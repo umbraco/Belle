@@ -229,9 +229,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\LatestUmbracoAssemblies\umbraco.providers.dll</HintPath>
     </Reference>
-    <Reference Include="Umbraco.Tests">
-      <HintPath>..\packages\LatestUmbracoAssemblies\Umbraco.Tests.dll</HintPath>
-    </Reference>
     <Reference Include="Umbraco.Web.UI, Version=1.0.4869.20316, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\LatestUmbracoAssemblies\Umbraco.Web.UI.dll</HintPath>
@@ -254,11 +251,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Plugins\MyPackage\System\MyStartupHandler.cs" />
     <Compile Include="Controllers\ContentEditorApiController.cs" />
-    <Compile Include="Controllers\ServerSidePropertyEditorsController.cs" />
+    <Compile Include="App_Plugins\MyPackage\Controllers\ServerSidePropertyEditorsController.cs" />
     <Compile Include="App_Plugins\MyPackage\Trees\LegacyTestTree.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ApplicationTreeApiController.cs" />
+    <Compile Include="Controllers\SystemScriptsController.cs" />
     <Compile Include="Controllers\TestTreeApiController.cs" />
     <Compile Include="System\ManifestParser.cs" />
     <Compile Include="System\PackageManifest.cs" />
@@ -267,6 +266,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JsResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="System\ServerVariablesParser.cs" />
     <Compile Include="System\Trees\FormDataCollectionExtensions.cs" />
     <Compile Include="System\Trees\ISearchableTree.cs" />
     <Compile Include="System\Trees\LegacyTreeDataAdapter.cs" />
@@ -279,9 +279,10 @@
     <Compile Include="System\Trees\UrlHelperExtensions.cs" />
     <Content Include="App_Plugins\MyPackage\Common\Js\MyPackage.js" />
     <Content Include="App_Plugins\MyPackage\PropertyEditors\CsvEditor.html" />
+    <Content Include="App_Plugins\MyPackage\PropertyEditors\Js\RegexEditor.js" />
     <Content Include="App_Plugins\MyPackage\PropertyEditors\Js\CsvEditor.js" />
     <None Include="App_Plugins\MyPackage\Package.manifest" />
-    <Content Include="App_Plugins\MyPackage\PropertyEditors\Numeric.html" />
+    <Content Include="App_Plugins\MyPackage\PropertyEditors\Regex.html" />
     <Content Include="Belle\js\controllers\application.js" />
     <Content Include="Belle\js\controllers\application.min.js" />
     <Content Include="Belle\js\controllers\dialogs.js" />
@@ -839,6 +840,7 @@
   <ItemGroup>
     <Content Include="Config\testacular-e2e.conf.js" />
     <Content Include="Config\testacular.conf.js" />
+    <Content Include="Content\JavaScript\myApp.js" />
     <Content Include="Global.asax" />
     <EmbeddedResource Include="Resources\JsResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -847,6 +849,7 @@
     <EmbeddedResource Include="Resources\RequireJsInitialize.js" />
     <EmbeddedResource Include="Resources\Main.js" />
     <EmbeddedResource Include="Resources\RequireJsConfig.js" />
+    <EmbeddedResource Include="Resources\ServerVariables.js" />
     <Content Include="Umbraco\Config\Lang\da.xml" />
     <Content Include="Umbraco\Config\Lang\de.xml" />
     <Content Include="Umbraco\Config\Lang\en.xml" />
@@ -888,7 +891,8 @@
     <Content Include="Belle\less\sections.less" />
     <Content Include="Belle\less\tree.less" />
     <Content Include="Belle\less\variables.less" />
-    <Content Include="Views\ServerSidePropertyEditors\ServerEnvironment.cshtml" />
+    <Content Include="App_Plugins\MyPackage\Views\ServerSidePropertyEditors\ServerEnvironment.cshtml" />
+    <Content Include="App_Plugins\MyPackage\Views\Web.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

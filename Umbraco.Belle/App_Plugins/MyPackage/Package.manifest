@@ -1,10 +1,10 @@
 ﻿{    	
 	propertyEditors: [
 		{
-			alias: "numeric",
-			name: "Numeric",
+			alias: "regex",
+			name: "Regex",
 			editor: {
-				view: "~/App_Plugins/MyPackage/PropertyEditors/Numeric.html",
+				view: "~/App_Plugins/MyPackage/PropertyEditors/Regex.html",
 				validation: [
 					{
 						type: "Required" 
@@ -30,15 +30,18 @@
     config: {
         paths: {
             myPackageCommon: '~/App_Plugins/MyPackage/Common/Js/MyPackage',
-            csvPropertyEditor: '~/App_Plugins/MyPackage/PropertyEditors/Js/CsvEditor'            
+            csvPropertyEditor: '~/App_Plugins/MyPackage/PropertyEditors/Js/CsvEditor',
+			regexPropertyEditor: '~/App_Plugins/MyPackage/PropertyEditors/Js/RegexEditor'
         },
         shim: {
             'myPackageCommon': { 'exports': 'myPackageCommon' },
-            'csvPropertyEditor': { deps: ['myPackageCommon'] }
+            'csvPropertyEditor': { deps: ['myPackageCommon'] },
+			'regexPropertyEditor': { deps: ['myPackageCommon'] }
         }
     },
     init: [
         'myPackageCommon',
-        'csvPropertyEditor'
+        'csvPropertyEditor',
+		'regexPropertyEditor'
     ]
 }

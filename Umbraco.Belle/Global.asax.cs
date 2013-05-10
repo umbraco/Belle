@@ -42,9 +42,10 @@ namespace Umbraco.Belle
 
             //For testing for now we'll route to /Belle/Main
             RouteTable.Routes.MapRoute(
-                "umbraco-server-side-property-editors",
-                "Belle/PropertyEditors/{controller}/{action}/{id}",
-                new { controller = "ServerSidePropertyEditors", action = "Index", id = UrlParameter.Optional });
+                "umbraco-scripts",
+                "Belle/SystemScripts/{action}/{id}",
+                new { controller = "SystemScripts", action = "Index", id = UrlParameter.Optional });
+
         }
         
     }

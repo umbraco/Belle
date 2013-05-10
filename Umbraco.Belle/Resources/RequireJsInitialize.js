@@ -1,5 +1,6 @@
 ﻿[
     'angular',
     'jquery',
-    'namespaceMgr'
+    'namespaceMgr',
+    'myApp'
 ]

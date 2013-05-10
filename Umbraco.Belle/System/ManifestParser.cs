@@ -12,7 +12,6 @@ using Umbraco.Core;
 
 namespace Umbraco.Belle.System
 {
-    
     /// <summary>
     /// Parses the Main.js file and replaces all tokens accordingly.
     /// </summary>

@@ -1,8 +1,12 @@
 ﻿<!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" >
     <head>
         <meta charset="utf-8" />
         <title>Property Editor Test</title>
+
+        @*This must be loaded in before anything*@
+        <script src="@Url.Action("ServerVariables", "SystemScripts")" type="text/javascript"></script>
+        
         @RenderSection("Headder", false)
     </head>
     <body>
@@ -10,6 +14,9 @@
         @RenderBody()
         
         <script src="~/Belle/lib/require/require-2.1.0.js"></script>
-        <script src="@Url.Action("MainJs", "Main")"></script>
+        <script src="@Url.Action("Application", "SystemScripts")"></script>
+        
+        @RenderSection("Footer", false)
     </body>
 </html>
+    
