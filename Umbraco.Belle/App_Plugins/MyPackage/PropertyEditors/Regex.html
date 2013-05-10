@@ -2,6 +2,6 @@
     <p>
         Value in the format of <span>{{model.config.format}}</span>
     </p>
-    <input type="text" ng-model="model.value" required regex="model.config.format" />
+    <input type="text" ng-model="model.value" required val-regex="model.config.format" />
     <span ng-show="form.$invalid">This is not valid value!</span>
 </div>

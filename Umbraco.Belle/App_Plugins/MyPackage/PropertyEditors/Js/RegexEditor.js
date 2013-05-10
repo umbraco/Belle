@@ -1,64 +1,31 @@
 ﻿'use strict';
 
 define(['angular', 'myApp', 'namespaceMgr'], function (angular, app) {
+    
+    app.directive('valRegex', function () {
 
-    angular.module('time', [])
-        // Register the 'myCurrentTime' directive factory method.
-        // We inject $timeout and dateFilter service since the factory method is DI.
-        .directive('myCurrentTime', function($timeout, dateFilter) {
-            // return the directive link function. (compile function not needed)
-            return function(scope, element, attrs) {
-                var format, // date format
-                    timeoutId; // timeoutId, so that we can cancel the time updates
+        /// <summary>
+        ///     A custom directive to allow for matching a value against a regex string.
+        ///     NOTE: there's already an ng-pattern but this requires that a regex expression is set, not a regex string
+        ///</summary>
 
-                // used to update the UI
-
-                function updateTime() {
-                    element.text(dateFilter(new Date(), format));
-                }
-
-                
-                // watch the expression, and update the UI on change.
-                scope.$watch(attrs.myCurrentTime, function(value) {
-                    format = value;
-                    updateTime();
-                });
-
-                // schedule update in one second
-
-                function updateLater() {
-                    // save the timeoutId for canceling
-                    timeoutId = $timeout(function() {
-                        updateTime(); // update DOM
-                        updateLater(); // schedule another update
-                    }, 1000);
-                }
-
-                // listen on DOM destroy (removal) event, and cancel the next UI update
-                // to prevent updating time after the DOM element was removed.
-                element.bind('$destroy', function() {
-                    $timeout.cancel(timeoutId);
-                });
-
-                updateLater(); // kick off the UI update process.
-            };
-        });
-
-    app.directive('regex', function() {
         return {
             require: 'ngModel',
-            link: function(scope, elm, attrs, ctrl) {
-                ctrl.$parsers.unshift(function(viewValue) {
-                    alert(viewValue);
-                    //if (INTEGER_REGEXP.test(viewValue)) {
-                    //    // it is valid
-                    //    ctrl.$setValidity('integer', true);
-                    //    return viewValue;
-                    //} else {
-                    //    // it is invalid, return undefined (no model update)
-                    //    ctrl.$setValidity('integer', false);
-                    //    return undefined;
-                    //}
+            link: function (scope, elm, attrs, ctrl) {
+
+                var regex = new RegExp(scope.$eval(attrs.valRegex));
+
+                ctrl.$parsers.unshift(function (viewValue) {
+                    if (regex.test(viewValue)) {
+                        // it is valid
+                        ctrl.$setValidity('valRegex', true);
+                        return viewValue;
+                    }
+                    else {
+                        // it is invalid, return undefined (no model update)
+                        ctrl.$setValidity('valRegex', false);
+                        return undefined;
+                    }
                 });
             }
         };

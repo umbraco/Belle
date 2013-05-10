@@ -12,7 +12,7 @@
                 view: "/App_Plugins/MyPackage/PropertyEditors/Regex.html",
                 value: "12345987765",
                 config: {
-                    format: "## #### ####"
+                    format: "^\\d*$"
                 }
             },
             {
