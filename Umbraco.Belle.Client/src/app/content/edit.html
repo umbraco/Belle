@@ -1,0 +1,92 @@
+﻿<div class="umb-panel tabbable" ng-controller="contentEditController">
+<div class="umb-panel-header umb-padded-header">
+    <div class="umb-el-wrap umb-panel-buttons">
+
+            <input type="text" placeholder="Enter a page title" headline ng-model="content.name" />
+            
+            <div class="btn-toolbar umb-btn-toolbar">
+                    <button class="btn" ng-click="save(content)" data-shortcut="ctrl+s">Preview page</button>
+                    
+                    <div class="btn-group">
+
+                      <div class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                        <a href="#" ng-click="saveAndPublish(content)" data-shortcut="ctrl+p">Publish</a>
+                        <span class="caret" ></span>
+                      </div>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">Save draft</a></li>
+                      </ul>
+                    </div>
+            </div>
+
+            <ul class="nav nav-tabs umb-nav-tabs">
+                <li ng-class="{active: $first}" ng-repeat="tab in content.tabs"><a href="#{{tab.alias}}" data-toggle="tab">{{tab.label}}</a></li>
+                <li><a href="#properties" data-toggle="tab">Properties</a></li>
+            </ul>
+    </div>
+</div>
+
+    <div class="umb-panel-body umb-scrollable" auto-scale="1">
+        <div class="tab-content form-horizontal">
+            <div id='{{tab.alias}}' class='umb-tab-pane tab-pane' ng-class="{active: $first}" ng-repeat="tab in content.tabs">
+                <div class='umb-tab-pane-inner'>
+            
+                    <div class="umb-pane" ng-repeat="property in tab.properties">
+                        <div class="control-group umb-control-group"
+                        ng-class="{hidelabel:property.hideLabel}" >
+                            
+                            <div class="umb-el-wrap">
+
+                                <label class="control-label" ng-hide="property.hideLabel" for="{{property.alias}}">
+                                    {{property.label}}
+                                    <small>{{property.description}}</small>
+                                </label>    
+                                
+
+                                <div class="controls controls-row" 
+                                    ng-include="property.view | propertyEditor">
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+
+            <div id='properties' class='umb-tab-pane tab-pane'>
+                <div class='umb-tab-pane-inner'>
+            
+                    <div class="umb-pane">
+                        <div class="control-group umb-control-group">
+                            <div class="umb-el-wrap">
+                                <label class="control-label">Last saved</label>
+                                <div class="controls controls-row">
+                                    {{content.updateDate}}
+                                </div>
+                            </div>
+                            
+                            <div class="umb-el-wrap">
+                                <label class="control-label">Last published</label>
+                                <div class="controls controls-row">
+                                    {{content.publishDate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+<!-- Should be inhanced with: 
+    http://docs.angularjs.org/guide/forms
+    -->                                                                                                   
+
+</div>
