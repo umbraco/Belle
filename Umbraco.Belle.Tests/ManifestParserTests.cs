@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,33 +11,41 @@ using Umbraco.Belle.System;
 namespace Umbraco.Belle.Tests
 {
     [TestFixture]
-    public class ServerVariablesParserTests
-    {
-        [Test]
-        public void Parse()
-        {
-            var d = new Dictionary<string, object>();
-            d.Add("test1", "Test 1");
-            d.Add("test2", "Test 2");
-            d.Add("test3", "Test 3");
-            d.Add("test4", "Test 4");
-            d.Add("test5", "Test 5");
-
-            var output = ServerVariablesParser.Parse(d);
-
-            Assert.IsTrue(output.Contains(@"Umbraco.Sys.ServerVariables = {
-  ""test1"": ""Test 1"",
-  ""test2"": ""Test 2"",
-  ""test3"": ""Test 3"",
-  ""test4"": ""Test 4"",
-  ""test5"": ""Test 5""
-} ;"));
-        }
-    }
-
-    [TestFixture]
     public class ManifestParserTests
     {
+
+        [Test]
+        public void Parse_Property_Editors()
+        {
+            var parser = ManifestParser.GetPropertyEditors(
+                JArray.FromObject(new[]
+                    {
+                        new
+                            {
+                                alias = "Test1",
+                                name = "Test 1",
+                                editor = new
+                                    {
+
+                                    }
+                            },
+                        new
+                            {
+                                alias = "Test2",
+                                name = "Test 2",
+                                editor = new
+                                    {
+
+                                    }
+                            }
+                    }));
+
+            Assert.AreEqual(2, parser.Count());
+            Assert.AreEqual("Test1", parser.ElementAt(0).Alias);
+            Assert.AreEqual("Test 1", parser.ElementAt(0).Name);
+            Assert.AreEqual("Test2", parser.ElementAt(1).Alias);
+            Assert.AreEqual("Test 2", parser.ElementAt(1).Name);
+        }
 
         [Test]
         public void Merge_JArrays()

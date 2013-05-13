@@ -12,11 +12,12 @@ namespace Umbraco.Belle.App_Plugins.MyPackage.System
 {
     public class MyStartupHandler : ApplicationEventHandler
     {
+
+        //TODO: We will remove these when we move to Umbraco core.
         protected override bool ExecuteWhenApplicationNotConfigured
         {
             get { return true; }
         }
-
         protected override bool ExecuteWhenDatabaseNotConfigured
         {
             get { return true; }

@@ -259,6 +259,8 @@
     <Compile Include="Controllers\ApplicationTreeApiController.cs" />
     <Compile Include="Controllers\SystemScriptsController.cs" />
     <Compile Include="Controllers\TestTreeApiController.cs" />
+    <Compile Include="System\ApplicationCacheExtensions.cs" />
+    <Compile Include="System\ManifestBuilder.cs" />
     <Compile Include="System\ManifestParser.cs" />
     <Compile Include="System\PackageManifest.cs" />
     <Compile Include="Resources\JsResources.Designer.cs">
@@ -266,6 +268,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JsResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="System\PropertyEditors\PropertyEditor.cs" />
     <Compile Include="System\ServerVariablesParser.cs" />
     <Compile Include="System\Trees\FormDataCollectionExtensions.cs" />
     <Compile Include="System\Trees\ISearchableTree.cs" />

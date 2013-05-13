@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Umbraco.Belle.Resources;
+using Umbraco.Belle.System.PropertyEditors;
 using Umbraco.Core.IO;
 using Umbraco.Core;
 
@@ -29,18 +30,58 @@ namespace Umbraco.Belle.System
         }
 
         /// <summary>
-        /// Processes all found manifest files and outputs the main.js file containing all plugin manifests
+        /// Parse the property editors from the json array
         /// </summary>
-        public string Process()
+        /// <param name="jsonEditors"></param>
+        /// <returns></returns>
+        internal static IEnumerable<PropertyEditor> GetPropertyEditors(JArray jsonEditors)
+        {
+            var editors = new List<PropertyEditor>();
+            foreach (JObject o in jsonEditors)
+            {
+                ValidatePropertyEditorBlock(o);
+                editors.Add(new PropertyEditor
+                    {
+                        Alias = o["alias"].ToString(),
+                        Name = o["name"].ToString()
+                    });
+            }
+            return editors;
+        }
+
+        private static void ValidatePropertyEditorBlock(JObject o)
+        {
+            var requiredProperties = new[] { "alias", "name", "editor" };
+            foreach (var r in requiredProperties)
+            {
+                if (o[r] == null)
+                {
+                    throw new FormatException(string.Format("The JSON is not formatted correctly, it doesn't contain a {0} property", r));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get all registered manifests
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<PackageManifest> GetManifests()
         {
             //get all Manifest.js files in the appropriate folders
             var manifestFileContents = GetAllManfifestFileContents(_pluginsDir);
-            var manifests = CreateManifests(manifestFileContents.ToArray());
-            
+            return CreateManifests(manifestFileContents.ToArray());
+        }
+
+        /// <summary>
+        /// Processes all found manifest files and outputs the main.js file containing all plugin manifests
+        /// </summary>
+        public string GetJavascriptInitialization()
+        {                       
             //now that we have the manifests we need to combine them with the umbraco manifest
             var umbracoConfig = GetDefaultConfig();
             var umbracoInit = GetDefaultInitialization();
-            foreach (var m in manifests)
+
+            foreach (var m in GetManifests())
             {
                 MergeJObjects(umbracoConfig, m.JavaScriptConfig, true);
                 MergeJArrays(umbracoInit, m.JavaScriptInitialize);
