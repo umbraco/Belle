@@ -33,17 +33,12 @@ define(['angular'], function (angular) {
 	 uiServices.factory('$user', function ($rootScope) {
 	     
 	    var _currentUser = undefined;
-<<<<<<< HEAD
-	    var _authenticated = true; //jQuery.cookie('authed') == "authenticated";	     
-=======
-	    var _authenticated = false;
-	    // var _authenticated = jQuery.cookie('authed') == "authenticated";	     
-	     
->>>>>>> Added new folder: assets
+	    var _authenticated = jQuery.cookie('authed') == "authenticated";	     
+		// var _authenticated = false;
 	    
 	    var _mockedU = { 
 		                	name: "Per Ploug", 
-		                	avatar: "/assets/img/avatar.jpeg", 
+		                	avatar: "assets/img/avatar.jpeg", 
 		                	id: 0,
 		                	authenticated: true,
 		                	locale: 'da-DK' 

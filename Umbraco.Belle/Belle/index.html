@@ -10,14 +10,12 @@
 </head>
 <body ng-controller="MainController" id="umbracoMainPageBody">     
 
-    <div ng-show="authenticated" ng-cloak ng-animate="'fade'" id="layout">
+    <div ng-show="authenticated" ng-cloak ng-animate="'fade'" id="layout" class="clearfix">
 
-        <div id="contentwrapper">
-            <div id="contentcolumn" class="fill"><div ng-view></div></div>
-        </div>
+        
 
-        <div id="leftcolumn" ng-controller="NavigationController"  class="fill" ng-mouseleave="hideSectionTree()">
-            <div id="applications" class="fill" ng-class="{faded:ui.stickyNavigation}">
+        <div id="leftcolumn" ng-controller="NavigationController" ng-mouseleave="hideSectionTree()">
+            <div id="applications" ng-class="{faded:ui.stickyNavigation}">
                 <ul class="sections">
                     <li class="avatar">
                         <a href="#" title="{{user.name}}">
@@ -26,7 +24,7 @@
                     </li>    
                     <li ng-repeat="section in sections">
                         <a href="#/{{section.alias}}" ng-mouseenter="showSectionTree(section)" ng-click="openSection(section)" prevent-default>
-                            <i class="icon-{{section.cssclass}}"></i><span>{{section.name}}</span>
+                            <i class="{{section.cssclass}}"></i><span>{{section.name}}</span>
                         </a>
                     </li>
                     <li class="help">
@@ -38,13 +36,13 @@
                 </ul>
             </div>
 
-
             <!-- navigation container -->
             <div id="navigation" class="fill shadow umb-panel" ng-show="ui.showNavigation" ng-animate="'slide'">
                 <!-- the search -->
                 <div id="search-form" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
                     <div class="umb-panel-header">
                         <form class="form-search" ng-controller="SearchController">
+                            <i class="icon-search"></i>
                             <input type="text" 
                                    ng-model="ui.searchTerm" 
                                    class="umb-search-field search-query" 
@@ -72,7 +70,7 @@
                 </div>
 
                 <!-- the tree -->
-                <div id="tree" class="umb-scrollable umb-panel" auto-scale="0" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
+                <div id="tree" class="span5 umb-scrollable umb-panel" auto-scale="0" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
                     <div ng-include="'views/application/tree.html'"></div>
                 </div>
 
@@ -110,8 +108,12 @@
         </div> 
     </div>
 
+
+    <section id="contentwrapper">
+                <div id="contentcolumn"><div ng-view></div></div>
+    </section>
 </div>
-</div>
+
 
 <!-- Login screen -->
 <div id="login" ng-hide="authenticated" ng-animate="'slide'" ng-cloak>

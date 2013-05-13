@@ -1,17 +1,19 @@
 
 <div class="umb-listview">
-<div class="row-fluid margin-top">
-
-    	<button class="btn dropdown-toggle" >
-      		Create
-</button>
-		<input type="text" class="span5 pull-right" placeholder="Type to filter">
-
-		<!--div class="margin-bottom">
-			<span class="label label-info clearfix">Some node <i class="icon-remove"></i></span>
-			<span class="label label-info clearfix">Some node <i class="icon-remove"></i></span>
-			<span class="label label-info clearfix">Some node <i class="icon-remove"></i></span>
-		</div-->
+<div class="row-fluid">
+<div class="umb-sub-header">
+    	<div class="btn-group">
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    Create
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#"><i class="icon-calendar"></i> Event</a></li>
+    <li><a href="#"><i class="icon-envelope"></i> News</a></li>
+  </ul>
+</div>
+		<input type="text" class="pull-right" placeholder="Type to filter…">
+</div>
 
 <table class="table table-hover">
 		<thead>
@@ -24,8 +26,8 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td class="span1"><input type="checkbox"></td>
-				<td><i class="icon-calendar"></i> Some node</td> 
+				<td><input type="checkbox"></td>
+				<td><i class="icon-envelope"></i> Some node</td> 
 				<td>13:23 3 July 2024 <span class="label label-success">Publish</span></td>
 				<td>Per Ploug Hansen <span class="label">Admin</span></td>
 			</tr>
@@ -37,7 +39,7 @@
 			</tr>
 			<tr>
 				<td><input type="checkbox"></td>
-				<td><i class="icon-calendar"></i> Some node</td> 
+				<td><i class="icon-envelope"></i> Some node</td> 
 				<td>13:23 3 July 2024 <span class="label label-important">Unpublished</span></td>
 				<td>Per Ploug Hansen <span class="label">Admin</span></td>
 			</tr>

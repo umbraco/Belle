@@ -42,13 +42,16 @@
 }
 .umb-tree a {
 	vertical-align: middle;
-	color: #525252;
 	display: inline-block;
+}
+
+.umb-tree a:hover {
+	text-decoration: none
 }
 
 .umb-tree div {
 	vertical-align: middle;
-	padding: 2px 0px 2px 0px;
+	padding: 5px 0 5px 0;
 	position: relative;
 }
 .umb-tree a.noSpr {
@@ -79,6 +82,7 @@
 }
 .umb-tree li:hover ins {
 	visibility: visible;
+	cursor: pointer
 }
 .umb-tree .icon {
 	vertical-align: middle;
@@ -94,7 +98,66 @@
 }
 
 .umb-tree div:hover {
+	background: @grayLighter
+}
+
+i.umb-options {
+	visibility: hidden;	
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+	height: 100%;
+	width: 45px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+
+i.umb-options i {
+	height: 6px !important;
+	width: 6px !important;
+	border-radius: 20px;
+	background: #333;
+	display: inline-block;
+	border: 3px solid @grayLighter;
+	margin: 10px -2px 0 0;
+}
+.umb-icon-item {
+	padding: 2px;
+	padding-left: 55px;
+	display: block;
+	position: relative;
+
+}
+.umb-icon-item:hover {
 	background: #f8f8f8
+}
+.umb-icon-item i.icon {
+	position: absolute;
+	top: 8px;
+	left: 19px;
+}
+.umb-icon-item a:hover div {
+	text-decoration: underline;
+}
+
+.umb-icon-item a {
+	color: #525252;
+	padding-top: 3px;
+	height: 15px;
+	font-size: 12px;
+	text-decoration: none;
+}
+.umb-icon-item small {
+	color: #999;
+	font-size: 10px;
+	display: block
+}
+.umb-icon-item:hover .umb-options {
+	visibility: visible
+}
+.umb-icon-item .umb-spr {
+	float: left
 }
 
 // Tree context menu
@@ -230,6 +293,7 @@
 
 // Search
 // -------------------------
+/*
 .umb-search-field {
 	font-size: 12px;
 	width: 235px;
@@ -239,6 +303,7 @@
 	background: url(../img/applicationIcons/search.png) no-repeat 225px 8px #fff;
 	margin: 27px 20px 20px 20px;
 }
+*/
 #search-results h5 {
 	margin: 0px 0px 7px 20px;
 }
