@@ -1,4 +1,4 @@
-angular.module('umb.services.dialog', [])
+angular.module('umbraco.services.dialog', [])
 .factory('dialog', ['$rootScope', '$compile', '$http', '$timeout', '$q', '$templateCache', function($rootScope, $compile, $http, $timeout, $q, $templateCache) {
 	
 	function _open(options){	

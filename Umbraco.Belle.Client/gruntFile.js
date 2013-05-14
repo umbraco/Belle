@@ -12,7 +12,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-html2js');
 
   // Default task.
-  grunt.registerTask('default', ['jshint','build','testacular:unit']);
+  grunt.registerTask('default', ['jshint:dev','build','testacular:unit']);
   grunt.registerTask('build', ['clean','html2js','concat','recess:build','copy']);
   grunt.registerTask('release', ['clean','html2js','uglify','jshint','testacular:unit','concat:index', 'recess:min','copy','testacular:e2e']);
   grunt.registerTask('test-watch', ['testacular:watch']);
@@ -47,21 +47,30 @@ module.exports = function (grunt) {
         app: ['src/app/**/*.tpl.html'],
         common: ['src/common/**/*.tpl.html']
       },
-      less: ['src/less/belle.less'] // recess:build doesn't accept ** in its file patterns
+      less: ['src/less/belle.less'], // recess:build doesn't accept ** in its file patterns
+      prod: ['<%= distdir %>/js/*.js']
     },
     clean: ['<%= distdir %>/*'],
     copy: {
       assets: {
-        files: [{ dest: '<%= distdir %>', src : '**', expand: true, cwd: 'src/assets/' }]
+        files: [{ dest: '<%= distdir %>/assets', src : '**', expand: true, cwd: 'src/assets/' }]
       },
       vendor: {
-        files: [{ dest: '<%= distdir %>', src : '**', expand: true, cwd: 'vendor/' }]
+        files: [{ dest: '<%= distdir %>/lib', src : '**', expand: true, cwd: 'lib/' }]
+      },
+      views: {
+        files: [{ dest: '<%= distdir %>/views', src : '**/*.html', expand: true, cwd: 'src/views/' }]
+      },
+      app: {
+        files: [
+            { dest: '<%= distdir %>/js', src : 'main.js', expand: true, cwd: 'src/' },
+            { dest: '<%= distdir %>/js', src : 'routes.js', expand: true, cwd: 'src/' }]
       }
     },
     testacular: {
       unit: { options: testacularConfig('test/config/unit.js') },
       e2e: { options: testacularConfig('test/config/e2e.js') },
-      watch: { options: testacularConfig('test/config/unit.js', { singleRun:false, autoWatch: true}) }
+      watch: { options: testacularConfig('test/config/unit.js', {singleRun:false, autoWatch: true}) }
     },
     html2js: {
       app: {
@@ -82,13 +91,14 @@ module.exports = function (grunt) {
       }
     },
     concat:{
+      /*
       dist:{
         options: {
           banner: "<%= banner %>"
         },
         src:['<%= src.js %>'],
-        dest:'<%= distdir %>/<%= pkg.name %>.js'
-      },
+        dest:'<%= distdir %>/js/<%= pkg.name %>.js'
+      },*/
       index: {
         src: ['src/index.html'],
         dest: '<%= distdir %>/index.html',
@@ -96,39 +106,47 @@ module.exports = function (grunt) {
           process: true
         }
       },
+      app: {
+        src: ['src/app.js'],
+        dest: '<%= distdir %>/js/app.js',
+        options:{
+          banner: "<%= banner %>'use strict';\ndefine(['angular'], function (angular) {\n",
+          footer: "\n\nreturn app;\n});"
+        }
+      },
       angular: {
         src:['vendor/angular/angular.min.js'],
         dest: '<%= distdir %>/lib/angular/angular.min.js'
       },
       controllers: {
-        src:['src/app/**/*.js'],
+        src:['src/views/**/*.js'],
         dest: '<%= distdir %>/js/umbraco.controllers.js',
         options:{
-          banner: "'use strict';\ndefine([ 'app','angular'], function (app,angular) {\n",
-          footer: "\n\nreturn app;\n});"
+          banner: "<%= banner %>'use strict';\ndefine(['angular'], function (angular) {\n",
+          footer: "\n\nreturn angular;\n});"
         }
       },
       services: {
         src:['src/common/services/*.js'],
         dest: '<%= distdir %>/js/umbraco.services.js',
         options:{
-          banner: "'use strict';\ndefine([ 'app','angular'], function (app,angular) {\n",
-          footer: "\n\nreturn app;\n});"
+          banner: "<%= banner %>'use strict';\ndefine(['angular'], function (angular) {\n",
+          footer: "\n\nreturn angular;\n});"
         }
       },
       resources: {
         src:['src/common/resources/*.js'],
         dest: '<%= distdir %>/js/umbraco.resources.js',
         options:{
-          banner: "'use strict';\ndefine([ 'app','angular'], function (app,angular) {\n",
-          footer: "\n\nreturn app;\n});"
+          banner: "<%= banner %>'use strict';\ndefine(['angular'], function (angular) {\n",
+          footer: "\n\nreturn angular;\n});"
         }
       },
       directives: {
         src:['src/common/directives/*.js'],
         dest: '<%= distdir %>/js/umbraco.directives.js',
         options:{
-          banner: "'use strict';\ndefine([ 'app','angular'], function (app,angular) {\n",
+          banner: "<%= banner %>'use strict';\ndefine([ 'app','angular'], function (app,angular) {\n",
           footer: "\n\nreturn app;\n});"
         }
       },
@@ -136,7 +154,7 @@ module.exports = function (grunt) {
         src:['src/common/filters/*.js'],
         dest: '<%= distdir %>/js/umbraco.filters.js',
         options:{
-          banner: "'use strict';\ndefine([ 'app','angular'], function (app,angular) {\n",
+          banner: "<%= banner %>'use strict';\ndefine([ 'app','angular'], function (app,angular) {\n",
           footer: "\n\nreturn app;\n});"
         }
       }
@@ -161,7 +179,7 @@ module.exports = function (grunt) {
     recess: {
       build: {
         files: {
-          '<%= distdir %>/<%= pkg.name %>.css':
+          '<%= distdir %>/assets/css/<%= pkg.name %>.css':
           ['<%= src.less %>'] },
         options: {
           compile: true
@@ -169,7 +187,7 @@ module.exports = function (grunt) {
       },
       min: {
         files: {
-          '<%= distdir %>/<%= pkg.name %>.css': ['<%= src.less %>']
+          '<%= distdir %>/assets/css/<%= pkg.name %>.css': ['<%= src.less %>']
         },
         options: {
           compress: true
@@ -183,22 +201,40 @@ module.exports = function (grunt) {
       },
       build: {
         files:['<%= src.js %>', '<%= src.specs %>', '<%= src.less =>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
-        tasks:['build','timestamp']
+        tasks:['default','timestamp']
       }
     },
     jshint:{
-      files:['gruntFile.js', '<%= src.common %>', '<%= src.specs %>', '<%= src.scenarios %>'],
-      options:{
-        curly:true,
-        eqeqeq:true,
-        immed:true,
-        latedef:true,
-        newcap:true,
-        noarg:true,
-        sub:true,
-        boss:true,
-        eqnull:true,
-        globals:{}
+      dev:{
+         files:['<%= src.common %>', '<%= src.specs %>', '<%= src.scenarios %>'],
+         options:{
+           curly:true,
+           eqeqeq:true,
+           immed:true,
+           latedef:true,
+           newcap:true,
+           noarg:true,
+           sub:true,
+           boss:true,
+           eqnull:true,
+           globals:{}
+         } 
+      },
+      build:{
+         files:['<%= src.prod %>'],
+         options:{
+           curly:true,
+           eqeqeq:true,
+           immed:true,
+           latedef:true,
+           newcap:true,
+           noarg:true,
+           sub:true,
+           boss:true,
+           eqnull:true,
+           globalstrict:true,
+           globals:{$:false, jQuery:false,define:false,require:false,window:false}
+         } 
       }
     }
   });

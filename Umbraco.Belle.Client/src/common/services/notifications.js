@@ -1,4 +1,4 @@
-angular.module('umb.services.notifications', [])
+angular.module('umbraco.services.notifications', [])
 .factory('notifications', function ($rootScope) {
 
 	var nArray = [];

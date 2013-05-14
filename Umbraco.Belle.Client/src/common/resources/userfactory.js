@@ -1,15 +1,43 @@
-angular.module('umb.resources.user', [])
+angular.module('umbraco.resources.user', [])
 .factory('userFactory', function () {
 
-    var mediaArray = [];
-    
-    return {
-        rootMedia: function(){
-          return [
-          {id: 1234, src: "/Media/boston.jpg", thumbnail: "/Media/boston.jpg" },
-          {src: "/Media/bird.jpg", thumbnail: "/Media/bird.jpg" },
-          {src: "/Media/frog.jpg", thumbnail: "/Media/frog.jpg" }
-          ];
-      }
+  var _currentUser,_authenticated = true; //jQuery.cookie('authed') == "authenticated";       
+  var _mockedU = { 
+    name: "Per Ploug", 
+    avatar: "img/avatar.jpeg", 
+    id: 0,
+    authenticated: true,
+    locale: 'da-DK' 
   };
+
+
+  if(_authenticated){
+    _currentUser = _mockedU; 
+  }
+
+  return {
+    authenticated: _authenticated,
+    currentUser: _currentUser,
+    
+    authenticate: function(login, password){
+      _authenticated = true;
+      _currentUser = _mockedU;
+      
+      jQuery.cookie('authed', "authenticated");
+      return _authenticated; 
+    },
+    
+    logout: function(){
+      $rootScope.$apply(function() {
+        _authenticated = false;
+        jQuery.cookie('authed', null);
+        _currentUser = undefined;
+      });
+    },
+
+    getCurrentUser: function(){
+      return _currentUser;
+    }
+  };
+  
 });
