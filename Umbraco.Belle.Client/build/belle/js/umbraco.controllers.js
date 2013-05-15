@@ -239,6 +239,24 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
     }*/
 });
 
+
+//used for the macro picker dialog
+angular.module("umbraco").controller("Umbraco.Dialogs.MacroPickerController", function ($scope, macroFactory) {	
+	$scope.macros = macroFactory.all(true);
+	$scope.dialogMode = "list";
+
+	$scope.configureMacro = function(macro){
+		$scope.dialogMode = "configure";
+		$scope.dialogData.macro = macroFactory.getMacro(macro.alias);
+	};
+});
+//used for the media picker dialog
+angular.module("umbraco").controller("Umbraco.Dialogs.MediaPickerController", function ($scope, mediaFactory) {	
+	$scope.images = mediaFactory.rootMedia();
+});
+angular.module('umbraco').controller("Umbraco.Editors.ContentCreateController", function ($scope, $routeParams,contentTypeFactory) {	
+	$scope.allowedTypes  = contentTypeFactory.allowedTypes($scope.currentNode.id);	
+});
 angular.module("umbraco").controller("Umbraco.Editors.ContentEditController", function ($scope, $routeParams, contentFactory) {
 	if($routeParams.create)
 		$scope.content = contentFactory.getContentScaffold($routeParams.parentId, $routeParams.doctype);
