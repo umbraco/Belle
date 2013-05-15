@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
+using Umbraco.Belle.System.Serialization;
 using Umbraco.Core;
 
 namespace Umbraco.Belle.System.PropertyEditors
@@ -13,55 +14,74 @@ namespace Umbraco.Belle.System.PropertyEditors
         /// </summary>
         internal PropertyEditor()
         {
-            //build defaults
-            PreValueEditor = new PreValueEditor();
-            ValueEditor = new ValueEditor();
+            StaticallyDefinedValueEditor = new ValueEditor();
+            StaticallyDefinedPreValueEditor = new PreValueEditor();
 
             //assign properties based on the attribute if it is found
             var att = GetType().GetCustomAttribute<PropertyEditorAttribute>(false);
             if (att != null)
             {
                 Id = Guid.Parse(att.Id);
-                Alias = att.Alias;
                 Name = att.Name;
-                ValueEditor.ValueType = att.ValueType;
-                ValueEditor.View = att.EditorView;
-                PreValueEditor.View = att.PreValueEditorView;
+
+                StaticallyDefinedValueEditor.ValueType = att.ValueType;
+                StaticallyDefinedValueEditor.View = att.EditorView;
+                StaticallyDefinedPreValueEditor.View = att.PreValueEditorView;
             }
         }
+
+        internal ValueEditor StaticallyDefinedValueEditor = null;
+        internal PreValueEditor StaticallyDefinedPreValueEditor = null;
 
         /// <summary>
         /// The id  of the property editor
         /// </summary>
         [JsonProperty("id", Required = Required.Always)]
-        public Guid Id { get; set; }
-
-        /// <summary>
-        /// The alias of the property editor
-        /// </summary>
-        [JsonProperty("alias", Required = Required.Always)]
-        public string Alias { get; set; }
-
+        public Guid Id { get; internal set; }
+        
         /// <summary>
         /// The name of the property editor
         /// </summary>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name { get; set; }
+        public string Name { get; internal set; }
 
-        [JsonProperty("editor", Required = Required.Always)]
-        public ValueEditor ValueEditor { get; set; }
+        [JsonProperty("editor")]        
+        public ValueEditor ValueEditor
+        {
+            get { return CreateValueEditor(); }
+        }
 
         [JsonProperty("preValueEditor")]
-        PreValueEditor PreValueEditor { get; set; }
+        public PreValueEditor PreValueEditor
+        {
+            get { return CreatePreValueEditor(); }
+        }
 
         /// <summary>
-        /// Will be equal if either the alias OR the id are equal!
+        /// Creates a value editor instance
         /// </summary>
-        /// <param name="other"></param>
         /// <returns></returns>
+        protected virtual ValueEditor CreateValueEditor()
+        {
+            if (StaticallyDefinedValueEditor != null && !StaticallyDefinedValueEditor.View.IsNullOrWhiteSpace())
+            {
+                return StaticallyDefinedValueEditor;
+            }
+            throw new NotImplementedException("This method must be implemented if a view is not explicitly set");
+        }
+
+        /// <summary>
+        /// Creates a pre value editor instance
+        /// </summary>
+        /// <returns></returns>
+        protected virtual PreValueEditor CreatePreValueEditor()
+        {
+            return StaticallyDefinedPreValueEditor;
+        }
+
         protected bool Equals(PropertyEditor other)
         {
-            return string.Equals(Alias, other.Alias) || Id.Equals(other.Id);
+            return Id.Equals(other.Id);
         }
 
         public override bool Equals(object obj)
@@ -74,10 +94,7 @@ namespace Umbraco.Belle.System.PropertyEditors
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return (Alias.GetHashCode()*397) ^ Id.GetHashCode();
-            }
+            return Id.GetHashCode();
         }
     }
 }

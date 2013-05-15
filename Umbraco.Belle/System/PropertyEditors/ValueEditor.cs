@@ -14,6 +14,16 @@ namespace Umbraco.Belle.System.PropertyEditors
         }
 
         /// <summary>
+        /// Creates a new editor with the specified view
+        /// </summary>
+        /// <param name="view"></param>
+        public ValueEditor(string view)
+            : this()
+        {
+            View = view;
+        }
+
+        /// <summary>
         /// The full virtual path or the relative path to the current Umbraco folder for the angular view
         /// </summary>
         [JsonProperty("view", Required = Required.Always)]

@@ -25,6 +25,20 @@ namespace Umbraco.Belle.System.PropertyEditors
             ValueType = "string";
         }
 
+        public PropertyEditorAttribute(string id, string @alias, string name)
+        {
+            Mandate.ParameterNotNullOrEmpty(id, "id");
+            Mandate.ParameterNotNullOrEmpty(alias, "alias");
+            Mandate.ParameterNotNullOrEmpty(name, "name");
+
+            Id = id;
+            Alias = alias;
+            Name = name;
+
+            //defaults
+            ValueType = "string";
+        }
+
         public PropertyEditorAttribute(string id, string alias, string name, string valueType, string editorView, string preValueEditorView)
         {
             Mandate.ParameterNotNullOrEmpty(id, "id");

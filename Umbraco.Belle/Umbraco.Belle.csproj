@@ -252,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Plugins\MyPackage\PropertyEditors\PostcodePropertyEditor.cs" />
+    <Compile Include="App_Plugins\MyPackage\PropertyEditors\ServerInfoPropertyEditor.cs" />
     <Compile Include="App_Plugins\MyPackage\System\MyStartupHandler.cs" />
     <Compile Include="Controllers\ContentEditorApiController.cs" />
     <Compile Include="App_Plugins\MyPackage\Controllers\ServerSidePropertyEditorsController.cs" />
@@ -261,6 +262,8 @@
     <Compile Include="Controllers\SystemScriptsController.cs" />
     <Compile Include="Controllers\TestTreeApiController.cs" />
     <Compile Include="Models\ContentItem.cs" />
+    <Compile Include="Models\ContentProperty.cs" />
+    <Compile Include="Models\ContentPropertyCollection.cs" />
     <Compile Include="System\ManifestBuilder.cs" />
     <Compile Include="System\ManifestParser.cs" />
     <Compile Include="System\PackageManifest.cs" />
@@ -283,7 +286,10 @@
     <Compile Include="System\PropertyEditors\ValueTypeValueValidator.cs" />
     <Compile Include="System\PropertyEditors\ValueValidator.cs" />
     <Compile Include="System\PropertyEditors\ValueValidatorAttribute.cs" />
+    <Compile Include="System\Serialization\JsonCreationConverter.cs" />
+    <Compile Include="System\Serialization\PropertyEditorConverter.cs" />
     <Compile Include="System\ServerVariablesParser.cs" />
+    <Compile Include="System\TestContentService.cs" />
     <Compile Include="System\Trees\FormDataCollectionExtensions.cs" />
     <Compile Include="System\Trees\ISearchableTree.cs" />
     <Compile Include="System\Trees\LegacyTreeDataAdapter.cs" />

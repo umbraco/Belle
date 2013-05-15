@@ -10,7 +10,7 @@ using Umbraco.Belle.Controllers;
 using Umbraco.Belle.System;
 
 namespace Umbraco.Belle.Tests
-{
+{    
     [TestFixture]
     public class ManifestParserTests
     {
@@ -22,7 +22,6 @@ namespace Umbraco.Belle.Tests
             var a = JsonConvert.DeserializeObject<JArray>(@"[
     {
         id: '0EEBB7CE-51BA-4F6B-9D9C-78BB3314366C',
-        alias: 'Test1',
         name: 'Test 1',        
         editor: {
             view: '~/App_Plugins/MyPackage/PropertyEditors/MyEditor.html',
@@ -40,7 +39,6 @@ namespace Umbraco.Belle.Tests
     },
     {
         id: '1FCF5C39-5FC7-4BCE-AFBE-6500D9EBA261',
-        alias: 'Test2',
         name: 'Test 2',
         editor: {
             view: '~/App_Plugins/MyPackage/PropertyEditors/CsvEditor.html'
@@ -51,14 +49,12 @@ namespace Umbraco.Belle.Tests
 
             Assert.AreEqual(2, parser.Count());
             Assert.AreEqual(new Guid("0EEBB7CE-51BA-4F6B-9D9C-78BB3314366C"), parser.ElementAt(0).Id);
-            Assert.AreEqual("Test1", parser.ElementAt(0).Alias);
             Assert.AreEqual("Test 1", parser.ElementAt(0).Name);
             Assert.AreEqual("~/App_Plugins/MyPackage/PropertyEditors/MyEditor.html", parser.ElementAt(0).ValueEditor.View);
             Assert.AreEqual("int", parser.ElementAt(0).ValueEditor.ValueType);
             Assert.AreEqual(2, parser.ElementAt(0).ValueEditor.Validators.Count());
 
             Assert.AreEqual(new Guid("1FCF5C39-5FC7-4BCE-AFBE-6500D9EBA261"), parser.ElementAt(1).Id);
-            Assert.AreEqual("Test2", parser.ElementAt(1).Alias);
             Assert.AreEqual("Test 2", parser.ElementAt(1).Name);
         }
 

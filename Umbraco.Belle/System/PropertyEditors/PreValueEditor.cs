@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Umbraco.Belle.System.PropertyEditors
 {
-    internal class PreValueEditor
+    public class PreValueEditor
     {
         /// <summary>
         /// The full virtual path or the relative path to the current Umbraco folder for the angular view

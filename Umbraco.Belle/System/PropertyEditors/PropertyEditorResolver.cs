@@ -26,5 +26,15 @@ namespace Umbraco.Belle.System.PropertyEditors
         {
             get { return Values.Union(ManifestBuilder.PropertyEditors); }
         }
+
+        /// <summary>
+        /// Returns a property editor by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public PropertyEditor GetById(Guid id)
+        {
+            return PropertyEditors.SingleOrDefault(x => x.Id == id);
+        }
     }
 }

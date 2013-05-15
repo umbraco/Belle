@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Umbraco.Belle.Resources;
 using Umbraco.Belle.System.PropertyEditors;
+using Umbraco.Belle.System.Serialization;
 using Umbraco.Core.IO;
 using Umbraco.Core;
 
@@ -36,7 +37,7 @@ namespace Umbraco.Belle.System
         /// <returns></returns>
         internal static IEnumerable<PropertyEditor> GetPropertyEditors(JArray jsonEditors)
         {
-            return JsonConvert.DeserializeObject<IEnumerable<PropertyEditor>>(jsonEditors.ToString());
+            return JsonConvert.DeserializeObject<IEnumerable<PropertyEditor>>(jsonEditors.ToString(), new PropertyEditorConverter());
         }
         
         /// <summary>
@@ -153,6 +154,23 @@ namespace Umbraco.Belle.System
 
                 var jConfig = config.Any() ? (JObject) deserialized["config"] : new JObject();
                 ReplaceVirtualPaths(jConfig);
+
+                //replace virtual paths for each property editor
+                if (deserialized["propertyEditors"] != null)
+                {
+                    foreach (JObject p in deserialized["propertyEditors"])
+                    {
+                        if (p["editor"] != null)
+                        {
+                            ReplaceVirtualPaths((JObject) p["editor"]);
+                        }
+                        if (p["preValues"] != null)
+                        {
+                            ReplaceVirtualPaths((JObject)p["preValues"]);
+                        }
+                    }
+                }
+                
 
                 var manifest = new PackageManifest()
                     {
