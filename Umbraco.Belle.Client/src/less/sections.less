@@ -5,7 +5,6 @@ ul.sections {
 	margin: 0;
 	display: block;
 	background: @blackLight;
-	width: 80px;
 	height: 100%;
 }
 
@@ -23,13 +22,19 @@ ul.sections li a {
 	font-size: 10px;
 	text-align: center;
 	color: @grayLight;
+	-webkit-transition: color .2s linear;
+	-moz-transition: color .2s linear;
+	transition: color .2s linear;
 }
 
 ul.sections a span {
 	display: block;
 	visibility: hidden;
 	font-size: 10px;
-	line-height: 1em
+	line-height: 1em;
+	-webkit-transition: color .2s linear;
+	-moz-transition: color .2s linear;
+	transition: color .2s linear;
 }
 
 ul.sections:hover li a span {
@@ -69,23 +74,23 @@ ul.sections li i {
 }
 
 ul.sections li i.content {
-	background-image: url(../img/applicationIcons/Umbraco_icons-02.svg);
+	background-image: url(../assets/img/applicationIcons/Umbraco_icons-02.svg);
 }
 
 ul.sections li i.media {
-	background-image: url(../img/applicationIcons/Umbraco_icons-03.svg);
+	background-image: url(../assets/img/applicationIcons/Umbraco_icons-03.svg);
 }
 
 ul.sections li i.settings {
-	background-image: url(../img/applicationIcons/Umbraco_icons-05.svg);
+	background-image: url(../assets/img/applicationIcons/Umbraco_icons-05.svg);
 }
 
 ul.sections li i.developer {
-	background-image: url(../img/applicationIcons/Umbraco_icons-01.svg);
+	background-image: url(../assets/img/applicationIcons/Umbraco_icons-01.svg);
 }
 
 ul.sections li i.user {
-	background-image: url(../img/applicationIcons/Umbraco_icons-04.svg);
+	background-image: url(../assets/img/applicationIcons/Umbraco_icons-04.svg);
 }
 
 ul.sections li.help {
