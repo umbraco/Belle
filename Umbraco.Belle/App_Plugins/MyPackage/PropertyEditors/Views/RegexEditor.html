@@ -1,0 +1,7 @@
+﻿<div ng-controller="MyPackage.PropertyEditors.RegexEditor">
+    <p>
+        Value in the format of <span>{{model.config }}</span>
+    </p>
+    <input type="text" ng-model="model.value" required val-regex="model.config" />
+    <span ng-show="form.$invalid">This is not valid value!</span>
+</div>

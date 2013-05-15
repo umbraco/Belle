@@ -251,6 +251,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Plugins\MyPackage\PropertyEditors\PostcodePropertyEditor.cs" />
     <Compile Include="App_Plugins\MyPackage\System\MyStartupHandler.cs" />
     <Compile Include="Controllers\ContentEditorApiController.cs" />
     <Compile Include="App_Plugins\MyPackage\Controllers\ServerSidePropertyEditorsController.cs" />
@@ -259,7 +260,7 @@
     <Compile Include="Controllers\ApplicationTreeApiController.cs" />
     <Compile Include="Controllers\SystemScriptsController.cs" />
     <Compile Include="Controllers\TestTreeApiController.cs" />
-    <Compile Include="System\ApplicationCacheExtensions.cs" />
+    <Compile Include="Models\ContentItem.cs" />
     <Compile Include="System\ManifestBuilder.cs" />
     <Compile Include="System\ManifestParser.cs" />
     <Compile Include="System\PackageManifest.cs" />
@@ -268,6 +269,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JsResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="System\PropertyEditors\MultiValueValidator.cs" />
     <Compile Include="System\PropertyEditors\PluginManagerExtensions.cs" />
     <Compile Include="System\PropertyEditors\PreValueEditor.cs" />
     <Compile Include="System\PropertyEditors\PropertyEditor.cs" />
@@ -293,11 +295,12 @@
     <Compile Include="System\Trees\TreeQueryStringParameters.cs" />
     <Compile Include="System\Trees\UrlHelperExtensions.cs" />
     <Content Include="App_Plugins\MyPackage\Common\Js\MyPackage.js" />
-    <Content Include="App_Plugins\MyPackage\PropertyEditors\CsvEditor.html" />
+    <Content Include="App_Plugins\MyPackage\PropertyEditors\Views\PostcodeEditor.html" />
+    <Content Include="App_Plugins\MyPackage\PropertyEditors\Views\CsvEditor.html" />
     <Content Include="App_Plugins\MyPackage\PropertyEditors\Js\RegexEditor.js" />
     <Content Include="App_Plugins\MyPackage\PropertyEditors\Js\CsvEditor.js" />
     <None Include="App_Plugins\MyPackage\Package.manifest" />
-    <Content Include="App_Plugins\MyPackage\PropertyEditors\Regex.html" />
+    <Content Include="App_Plugins\MyPackage\PropertyEditors\Views\RegexEditor.html" />
     <Content Include="Belle\js\controllers\application.js" />
     <Content Include="Belle\js\controllers\application.min.js" />
     <Content Include="Belle\js\controllers\dialogs.js" />
@@ -925,7 +928,6 @@
     <Folder Include="App_Plugins\MyPackage\Common\Css\" />
     <Folder Include="App_Plugins\MyPackage\PropertyEditors\Css\" />
     <Folder Include="Belle\config\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

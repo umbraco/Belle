@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Hosting;
+using Umbraco.Belle.System.PropertyEditors;
 using Umbraco.Core;
 using Umbraco.Core.IO;
 
@@ -12,35 +15,45 @@ namespace Umbraco.Belle.System
     /// <summary>
     /// This reads in the manifests and stores some definitions in memory so we can look them on the server side
     /// </summary>
-    internal class ManifestBuilder : ApplicationEventHandler
+    internal class ManifestBuilder
     {
 
-        //TODO: We will remove these when we move to Umbraco core.
-        protected override bool ExecuteWhenApplicationNotConfigured
-        {
-            get { return true; }
-        }
-        protected override bool ExecuteWhenDatabaseNotConfigured
-        {
-            get { return true; }
-        }
+        private static readonly ConcurrentDictionary<string, object> StaticCache = new ConcurrentDictionary<string, object>();
+        
+        private const string ManifestKey = "manifests";
+        private const string PropertyEditorsKey = "propertyeditors";
 
         /// <summary>
-        /// Read in the manifests and store the data
+        /// Returns all property editors found in the manfifests
         /// </summary>
-        /// <param name="umbracoApplication"></param>
-        /// <param name="applicationContext"></param>
-        protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
+        internal static IEnumerable<PropertyEditor> PropertyEditors
         {
-            base.ApplicationStarted(umbracoApplication, applicationContext);
+            get
+            {
+                return (IEnumerable<PropertyEditor>) StaticCache.GetOrAdd(
+                    PropertyEditorsKey,
+                    s =>
+                        {
+                            var editors = new List<PropertyEditor>();
+                            foreach (var manifest in GetManifests())
+                            {
+                                editors.AddRange(ManifestParser.GetPropertyEditors(manifest.PropertyEditors));
+                            }
+                            return editors;
+                        });
+            }
+        } 
 
-            var parser = new ManifestParser(new DirectoryInfo(IOHelper.MapPath("~/App_Plugins")));
-            var manifests = parser.GetManifests();
-
-            //ensures that we statically cache all property editors that are resolved
-            var cachedEditors = applicationContext.ApplicationCache.GetStaticCacheItem(
-                typeof (ManifestBuilder).FullName.EnsureEndsWith('.') + "PropertyEditors",
-                () => manifests.SelectMany(x => x.PropertyEditors).ToArray());            
+        /// <summary>
+        /// Ensures the manifests are found and loaded into memory
+        /// </summary>
+        private static IEnumerable<PackageManifest> GetManifests()
+        {
+            return (IEnumerable<PackageManifest>) StaticCache.GetOrAdd(ManifestKey, s =>
+                {
+                    var parser = new ManifestParser(new DirectoryInfo(IOHelper.MapPath("~/App_Plugins")));
+                    return parser.GetManifests();
+                });
         }
 
     }

@@ -8,7 +8,7 @@ namespace Umbraco.Belle.System.PropertyEditors
     /// <summary>
     /// Represents a validator found in a package manifest
     /// </summary>
-    internal class Validator
+    public class Validator
     {
         [JsonProperty("type", Required = Required.Always)]
         public string Type { get; set; }
@@ -42,10 +42,11 @@ namespace Umbraco.Belle.System.PropertyEditors
         /// Validates the object with the resolved ValueValidator found for this type
         /// </summary>
         /// <param name="value"></param>
+        /// <param name="editor">The property editor instance that we are validating for</param>
         /// <returns></returns>
-        public IEnumerable<ValidationResult> Validate(object value)
+        public IEnumerable<ValidationResult> Validate(object value, PropertyEditor editor)
         {
-            return ValidatorInstance.Validate(value, Config);
+            return ValidatorInstance.Validate(value, Config, editor);
         }
     }
 }

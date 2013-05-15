@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Umbraco.Belle.System.PropertyEditors
 {
-    internal class ValueEditor
+    public class ValueEditor
     {
         /// <summary>
         /// assign defaults

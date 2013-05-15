@@ -7,10 +7,10 @@ using Umbraco.Core.ObjectResolution;
 namespace Umbraco.Belle.System.PropertyEditors
 {
     /// <summary>
-    /// A resolver to resolve all property editor server side plugins
+    /// A resolver to resolve all property editors
     /// </summary>
     /// <remarks>
-    /// This resolver will not contain any property editors defined in manifests! Only property editors defined server side.
+    /// This resolver will contain any property editors defined in manifests as well!
     /// </remarks>
     internal class PropertyEditorResolver : LazyManyObjectsResolverBase<PropertyEditorResolver, PropertyEditor>
     {
@@ -24,7 +24,7 @@ namespace Umbraco.Belle.System.PropertyEditors
         /// </summary>
         public IEnumerable<PropertyEditor> PropertyEditors
         {
-            get { return Values; }
+            get { return Values.Union(ManifestBuilder.PropertyEditors); }
         }
     }
 }

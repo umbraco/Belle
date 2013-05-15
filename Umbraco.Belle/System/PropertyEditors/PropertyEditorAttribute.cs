@@ -1,4 +1,5 @@
 ﻿using System;
+using Umbraco.Core;
 
 namespace Umbraco.Belle.System.PropertyEditors
 {
@@ -10,14 +11,29 @@ namespace Umbraco.Belle.System.PropertyEditors
     {
         public PropertyEditorAttribute(string id, string @alias, string name, string editorView)
         {
+            Mandate.ParameterNotNullOrEmpty(id, "id");
+            Mandate.ParameterNotNullOrEmpty(alias, "alias");
+            Mandate.ParameterNotNullOrEmpty(name, "name");
+            Mandate.ParameterNotNullOrEmpty(editorView, "editorView");
+
             Id = id;
             Alias = alias;
             Name = name;
             EditorView = editorView;
+
+            //defaults
+            ValueType = "string";
         }
 
-        public PropertyEditorAttribute(string id, string @alias, string name, string valueType, string editorView, string preValueEditorView)
+        public PropertyEditorAttribute(string id, string alias, string name, string valueType, string editorView, string preValueEditorView)
         {
+            Mandate.ParameterNotNullOrEmpty(id, "id");
+            Mandate.ParameterNotNullOrEmpty(alias, "alias");
+            Mandate.ParameterNotNullOrEmpty(name, "name");
+            Mandate.ParameterNotNullOrEmpty(valueType, "valueType");
+            Mandate.ParameterNotNullOrEmpty(editorView, "editorView");
+            Mandate.ParameterNotNullOrEmpty(preValueEditorView, "preValueEditorView");
+
             Id = id;
             Alias = alias;
             Name = name;
@@ -29,8 +45,8 @@ namespace Umbraco.Belle.System.PropertyEditors
         public string Id { get; private set; }
         public string Alias { get; private set; }
         public string Name { get; private set; }
-        public string ValueType { get; set; }
         public string EditorView { get; private set; }
+        public string ValueType { get; set; }
         public string PreValueEditorView { get; set; }
     }
 }

@@ -4,51 +4,44 @@
 
     System.Controllers.TestController = function($scope, $http, $log, $filter) {
 
-        $scope.properties = [
-            {
-                alias: "numbers",
-                label: "Numeric",
-                description: "Enter a numeric value",
-                view: "/App_Plugins/MyPackage/PropertyEditors/Regex.html",
-                value: "12345987765",
-                config: {
-                    format: "^\\d*$"
-                }
-            },
-            {
-                alias: "serverEnvironment",
-                label: "Server Info",
-                description: "Some server information",
-                view: Umbraco.Sys.ServerVariables.MyPackage.serverEnvironmentView,
-                value: ""
-            },
-            {
-                alias: "complexEditor",
-                label: "Multiple Values",
-                description: "A multi value editor",
-                view: "/App_Plugins/MyPackage/PropertyEditors/CsvEditor.html",
-                value: "My Value 1, My Value 2, My Value 3, My Value 4, My Value 5"
+        //initialize the data model
+        $scope.model = {};
+        //model for updating the UI
+        $scope.ui = {
+            working: false,
+            canSubmit: function() {
+                return $scope.form.$invalid || $scope.ui.working;
             }
-        ];
+        };
 
-        $scope.valueToPost = [];
+        //the url to get the content from
+        var getContentUrl = Umbraco.Sys.ServerVariables.contentEditorApiBaseUrl + "GetContent?id=" + 1;
+        var saveContentUrl = Umbraco.Sys.ServerVariables.contentEditorApiBaseUrl + "PostSaveContent";
+
+        //go get the content from the server
+        $scope.ui.working = true;
+        $http.get(getContentUrl, $scope.valueToPost).
+            success(function(data, status, headers, config) {
+                //set the model to the value returned by the server
+                $scope.model = data;
+                $scope.ui.working = false;
+            }).
+            error(function(data, status, headers, config) {
+                alert("failed!");
+                $scope.ui.working = false;
+            });
 
         $scope.save = function () {
-            $scope.valueToPost = [];
-            for (var p in $scope.properties) {
-                $scope.valueToPost.push({
-                    alias: $scope.properties[p].alias,
-                    value: $scope.properties[p].value
+            $scope.ui.working = true;
+            $http.post(saveContentUrl, $scope.model).
+                success(function(data, status, headers, config) {
+                    alert("success!");
+                    $scope.ui.working = false;
+                }).
+                error(function(data, status, headers, config) {
+                    alert("failed!");
+                    $scope.ui.working = false;
                 });
-            }
-
-            $http.post('@(postSaveUrl)', $scope.valueToPost).
-            success(function (data, status, headers, config) {
-                alert("success!");
-            }).
-            error(function (data, status, headers, config) {
-                alert("failed!");
-            });
         };
 
     };
