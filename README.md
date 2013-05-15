@@ -13,7 +13,7 @@ Setup a webserver and point it at the Umbraco.Belle.Client/build directory. then
 
 To run on *windows*, setup IIS or IIS express to serve the umbraco.belle folder. If you have web matrix installed, you can right-click the folder and open it in web matrix to run it its built-in webserver.
 
-To run on *OS X*, open Terminal in the umbraco.belle folder and run:
+To run on *OS X*, open Terminal in the Umbraco.Belle.Client/build folder and run:
 	
 	python -m SimpleHTTPServer 8080
 
@@ -26,16 +26,16 @@ The current prototype simply uses in-memory storage, so no database dependencies
 
 ##Project Structure
 
-All project files are located in /umbraco.belle which also contains project files for Visual Studio - altho, visual studio is not required 
-at all, they are simply there for convenience.
+All project files are located in /umbraco.belle.client/src which only contains client-side files, everything 
+related to asp.net are in umbraco.bell
 
-Belle files are located in /belle, with all files following AngularJs 
+after building Belle files are located in /belle, with all files following AngularJs 
 conventions:
 
 ###Folders
 - */belle/lib:* Dependencies
 - */belle/js:* Application javascript files
-- */belle/views/application/:* Main application views
+- */belle/views/common/:* Main application views
 - */belle/views/application/editors:* Editors html
 - */belle/views/application/propertyeditors:* Property Editors html
 
@@ -44,8 +44,9 @@ conventions:
 - */belle/js/app.js:* Main umbraco application / modules
 - */belle/js/main.js:* require.js configuration for dependencies
 - */belle/js/routes.js:* Application routes
-- */belle/js/controllers/controllers.application.js:* Application controllers
-- */belle/js/controllers/controllers.propertyeditors.js:* Controllers for individual property editors (temp location)
+- */belle/js/umbraco.controllers.js:* Application controllers
+- */belle/js/umbraco.services.js:* Application services
+- */belle/js/umbraco.resources.js:* Application resources, like content, media, users, members etc
 
 
 ##Getting started
