@@ -88,7 +88,7 @@ define(['angular'], function (angular) {
 
             el.on("blur", function () {
                 el.hide();
-                h1.html(el.val() + "<i class='icon icon-pencil'></i>").show();
+                h1.html(el.val() + " <i class='icon icon-pencil'></i>").show();
             });
 
             h1.on("click", function () {
