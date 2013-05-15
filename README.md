@@ -11,7 +11,7 @@ http://rawgithub.com/umbraco/Belle/master/Presentation/index.html
 ##How to run
 Setup a webserver and point it at the Umbraco.Belle.Client/build directory. then browse to whatever url your webserver has setup for your site.
 
-To run on *windows*, setup IIS or IIS express to serve the umbraco.belle folder. If you have web matrix installed, you can right-click the folder and open it in web matrix to run it its built-in webserver.
+To run on *windows*, setup IIS or IIS express to serve the Umbraco.Belle.Client/build folder. If you have web matrix installed, you can right-click the folder and open it in web matrix to run it its built-in webserver.
 
 To run on *OS X*, open Terminal in the Umbraco.Belle.Client/build folder and run:
 	
