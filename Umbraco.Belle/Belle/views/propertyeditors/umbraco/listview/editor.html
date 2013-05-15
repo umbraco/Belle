@@ -12,49 +12,28 @@
     <li><a href="#"><i class="icon-envelope"></i> News</a></li>
   </ul>
 </div>
-		<input type="text" class="pull-right" placeholder="Type to filter…">
+		<!--input type="text" class="pull-right" placeholder="Type to filter…"-->
 </div>
 
-<table class="table table-hover">
+<table class="table table-striped">
+	<caption>My gridview
+		<form class="pull-right">
+			<i class="icon-search"></i>
+			<input type="text" placeholder="Search…">
+		</form>
+	</caption>
 		<thead>
 			<tr>
 				<td><input type="checkbox"></td>
-				<td><a href="#"><strong>NAME</strong> <i class="icon-sort"></i></a></td>
-				<td><a href="#"><strong>LAST UPDATED</strong>  <i class="icon-sort"></i></a></td> 
-				<td><a href="#"><strong>LAST UPDATED</strong>  <i class="icon-sort"></i></a></td> 
+				<td><a href="#">Name <i class="icon-sort"></i></a></td>
+				<td><a href="#">Last updated  <i class="icon-sort"></i></a></td> 
+				<td><a href="#">Eidtor <i class="icon-sort"></i></a></td> 
 			</tr>
 		</thead>
-		<tbody>
+		<tfoot>
 			<tr>
-				<td><input type="checkbox"></td>
-				<td><i class="icon-envelope"></i> Some node</td> 
-				<td>13:23 3 July 2024 <span class="label label-success">Publish</span></td>
-				<td>Per Ploug Hansen <span class="label">Admin</span></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"></td>
-				<td><i class="icon-calendar"></i> Some node</td> 
-				<td>13:23 3 July 2024 <span class="label label-info">Saved</span></td>
-				<td>Per Ploug Hansen <span class="label">Admin</span></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"></td>
-				<td><i class="icon-envelope"></i> Some node</td> 
-				<td>13:23 3 July 2024 <span class="label label-important">Unpublished</span></td>
-				<td>Per Ploug Hansen <span class="label">Admin</span></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"></td>
-				<td><i class="icon-calendar"></i> Some node</td> 
-				<td>13:23 3 July 2024 <span class="label label-warning">Send to translation</span></td>
-				<td>Per Ploug Hansen <span class="label">Admin</span></td>
-			</tr>
-
-
-		</tbody>
-</table>
-<div class="row-fluid">
-<div class="pagination pull-right">
+				<th colspan="4">
+<div class="pagination pagination-right">
   <ul>
     <li><a href="#">Prev</a></li>
     <li><a href="#">1</a></li>
@@ -65,5 +44,38 @@
     <li><a href="#">Next</a></li>
   </ul>
 </div>
-</div>
+
+				</th>
+			</tr>
+		</tfoot>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td><i class="icon-envelope"></i> Some node</td> 
+				<td>13:23 3 July 2024 <span class="label label-success">Publish</span></td>
+				<td>Per Ploug Hansen <span class="label">Admin</span></td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td><i class="icon-calendar"></i> Some node</td> 
+				<td>13:23 3 July 2024 <span class="label label-info">Saved</span></td>
+				<td>Per Ploug Hansen <span class="label">Admin</span></td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td><i class="icon-envelope"></i> Some node</td> 
+				<td>13:23 3 July 2024 <span class="label label-important">Unpublished</span></td>
+				<td>Per Ploug Hansen <span class="label">Admin</span></td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td><i class="icon-calendar"></i> Some node</td> 
+				<td>13:23 3 July 2024 <span class="label label-warning">Send to translation</span></td>
+				<td>Per Ploug Hansen <span class="label">Admin</span></td>
+			</tr>
+
+
+		</tbody>
+		
+</table>
 </div>
