@@ -1,4 +1,4 @@
-angular.module('umb.resources.content', [])
+angular.module('umbraco.resources.content', [])
 .factory('contentFactory', function () {
     
     var contentArray = [];

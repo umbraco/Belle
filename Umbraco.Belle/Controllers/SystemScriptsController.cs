@@ -25,7 +25,7 @@ namespace Umbraco.Belle.Controllers
         public JavaScriptResult Application()
         {
             var parser = new ManifestParser(new DirectoryInfo(Server.MapPath("~/App_Plugins")));
-            var result = parser.Process();
+            var result = parser.GetJavascriptInitialization();
             return JavaScript(result);
         }
         

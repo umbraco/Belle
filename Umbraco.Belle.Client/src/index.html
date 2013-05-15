@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Umbraco</title>
-    <link rel="stylesheet" href="css/belle.css"  />
+    <link rel="stylesheet" href="assets/css/umbraco.css"  />
 </head>
 <body ng-controller="MainController" id="umbracoMainPageBody">     
 
@@ -16,7 +16,8 @@
             <div id="contentcolumn" class="fill"><div ng-view></div></div>
         </div>
 
-        <div id="leftcolumn" ng-controller="NavigationController"  class="fill" ng-mouseleave="hideSectionTree()">
+        <div id="leftcolumn" ng-controller="NavigationController"  class="fill" 
+            ng-mouseleave="hideSectionTree()">
             <div id="applications" class="fill" ng-class="{faded:ui.stickyNavigation}">
                 <ul class="sections">
                     <li class="avatar">
@@ -31,7 +32,7 @@
                     </li>
                     <li class="help">
                         <a class="help" href="#/help">
-                            <img src="img/applicationIcons/help.svg" style="height: 30px; width: 30px;" />
+                            <img src="assets/img/applicationIcons/help.svg" style="height: 30px; width: 30px;" />
                             <span>help</span>
                         </a>
                     </li>    
@@ -73,7 +74,7 @@
 
                 <!-- the tree -->
                 <div id="tree" class="umb-scrollable umb-panel" auto-scale="0" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
-                    <div ng-include="'views/application/tree.html'"></div>
+                    <div ng-include="'views/common/tree.html'"></div>
                 </div>
 
 
@@ -105,12 +106,12 @@
                 <h1>{{dialogTitle}}</h1>
             </div>
             <div class='umb-panel-body'>
-                
             </div>
         </div> 
     </div>
 
 </div>
+
 </div>
 
 <!-- Login screen -->

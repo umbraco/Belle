@@ -10,7 +10,8 @@ define(['angular'], function (angular) {
   	'umb.resources.media',
   	'umb.resources.template',
   	'umb.resources.user',
-  	'umb.services.notifications',
+  	'umb.services.section',
+    'umb.services.notifications',
   	'umb.services.tree',
   	'umb.services.dialog',
   	'umb.services.search'

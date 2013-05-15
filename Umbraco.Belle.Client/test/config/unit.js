@@ -5,10 +5,13 @@ basePath = '../..';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-  'lib/jquery/jquery-1.8.2.js',
+
+  'lib/jquery/jquery-1.8.2.min.js',
   'lib/angular/angular.min.js',
-  'test/vendor/angular/angular-mocks.js',
+  'test/lib/angular/angular-mocks.js',
+  'src/app.js',
   'src/common/**/*.js',
+  'src/views/**/*.js',
   'test/unit/**/*.spec.js'
 ];
 
@@ -23,8 +26,6 @@ port = 8089;
 
 // cli runner port
 runnerPort = 9109;
-
-urlRoot = '/__testacular/';
 
 // enable / disable colors in the output (reporters and logs)
 colors = true;

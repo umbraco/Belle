@@ -1,5 +1,5 @@
-angular.module('umb.services.tree', [])
-.factory('tree', function ($section) {
+angular.module('umbraco.services.tree', [])
+.factory('tree', function () {
 		//implement this in local storage
 		var treeArray = [];
 		var currentSection = "content";

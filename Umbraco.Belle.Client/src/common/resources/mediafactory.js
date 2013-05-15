@@ -1,4 +1,4 @@
-angular.module('umb.resources.media', [])
+angular.module('umbraco.resources.media', [])
 .factory('mediaFactory', function () {
     var mediaArray = [];
     return {

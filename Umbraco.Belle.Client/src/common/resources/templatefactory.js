@@ -1,4 +1,4 @@
-angular.module('umb.resources.template', [])
+angular.module('umbraco.resources.template', [])
 .factory('templateFactory', function () {
 	return {
 		getTemplate: function (id) {

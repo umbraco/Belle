@@ -4,15 +4,15 @@
 			alias: "regex",
 			name: "Regex",
 			editor: {
-				view: "~/App_Plugins/MyPackage/PropertyEditors/Regex.html",
+				view: "~/App_Plugins/MyPackage/PropertyEditors/Views/RegexEditor.html",
 				validation: [
 					{
 						type: "Required" 
 					},
 					{
 						type: "Regex",
-						value: "\\d*"
-					}					
+						config: "\\d*"
+					}
 				]
 			},
 			preValues: {
@@ -23,7 +23,7 @@
 			alias: "csvEditor",
 			name: "CSV Editor",
 			editor: {
-				view: "~/App_Plugins/MyPackage/PropertyEditors/CsvEditor.html"				
+				view: "~/App_Plugins/MyPackage/PropertyEditors/Views/CsvEditor.html"				
 			}
 		}	
 	],

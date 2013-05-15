@@ -1,4 +1,4 @@
-angular.module('umb.resources.macro', [])
+angular.module('umbraco.resources.macro', [])
 .factory('macroFactory', function () {
     
     return {

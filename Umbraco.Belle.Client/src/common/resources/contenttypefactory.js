@@ -1,4 +1,4 @@
-angular.module('umb.resources.contentType', [])
+angular.module('umbraco.resources.contentType', [])
 .factory('contentTypeFactory', function () {
     return {
 

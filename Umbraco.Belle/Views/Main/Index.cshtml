@@ -5,6 +5,9 @@
 @section Headder
 {
     <style type="text/css">
+        body {
+            font-family: sans-serif;
+        }
         input.ng-invalid.ng-dirty
         {
             background-color: #FA787E;
@@ -14,20 +17,29 @@
         {
             background-color: #78FA89;
         }
+
+        .content-properties {
+            border: 1px dashed orange;
+        }
     </style>    
 }
 
-<form name="form" ng-controller="System.Controllers.TestController" ng-submit="save()" novalidate style="font-family: sans-serif;">
+<form name="form" ng-controller="System.Controllers.TestController" ng-submit="save()" novalidate>
+    
+    <div class="content-properties">
+        <div>ID: <span>{{model.id}}</span></div>
+        <div>Name: <span>{{model.name}}</span></div>
+    </div>
 
-    <div ng-repeat="model in properties" style="background-color: #EEEEEE; margin: 5px; padding: 5px;">
+    <div ng-repeat="model in model.properties" style="background-color: #EEEEEE; margin: 5px; padding: 5px;">
         <div style="font-style: italic;">{{model.label}}</div>
         <div style="font-size: 9px;">{{model.description}}</div>
 
         <div ng-include="model.view"></div>
     </div>
     <hr />
-    <button ng-disabled="form.$invalid">Save</button>
+    <button ng-disabled="ui.canSubmit()">Save</button>
     <hr />
     <div>Posting value:</div>
-    <div>{{valueToPost}}</div>
+    <div>{{model}}</div>
 </form>

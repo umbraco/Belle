@@ -15,6 +15,16 @@ namespace Umbraco.Belle.System.Trees
     /// </summary>    
     public abstract class TreeApiController : UmbracoApiController //UmbracoAuthorizedApiController
     {
+        /// <summary>
+        /// Remove the xml formatter... only support JSON!
+        /// </summary>
+        /// <param name="controllerContext"></param>
+        protected override void Initialize(global::System.Web.Http.Controllers.HttpControllerContext controllerContext)
+        {
+            base.Initialize(controllerContext);
+            controllerContext.Configuration.Formatters.Remove(controllerContext.Configuration.Formatters.XmlFormatter);
+        }
+
         protected TreeApiController()
         {           
             //Locate the tree attribute

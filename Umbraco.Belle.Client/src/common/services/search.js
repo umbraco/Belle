@@ -1,4 +1,4 @@
-angular.module('umb.services.search', [])
+angular.module('umbraco.services.search', [])
 .factory('search', function () {
 	return {
 		search: function(term, section){
