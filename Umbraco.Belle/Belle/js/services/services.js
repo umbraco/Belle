@@ -21,6 +21,13 @@ define(['app'], function (app) {
                     id: id,
                     parentId: 1234,
                     tabs: [
+                    {
+                            label: "Media",
+                            alias: "media",
+                            properties: [
+                                { alias: "media", label: "Media picker", view: "umbraco.mediapicker", controller: "umbraco.mediapicker", value: "" }
+                              ]
+                        },
                         {
                             label: "Tab 0",
                             alias: "tab00",
