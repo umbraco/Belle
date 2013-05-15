@@ -25,6 +25,6 @@ namespace Umbraco.Belle.System.PropertyEditors
         public IEnumerable<PropertyEditor> PropertyEditors
         {
             get { return Values; }
-        } 
+        }
     }
 }

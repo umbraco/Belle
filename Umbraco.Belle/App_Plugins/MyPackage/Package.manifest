@@ -11,7 +11,7 @@
 					},
 					{
 						type: "Regex",
-						value: "\\d*"
+						config: "\\d*"
 					}					
 				]
 			},
