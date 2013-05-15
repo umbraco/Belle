@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
+using System.Web.Http.ModelBinding;
+
 using System.Web.Routing;
 using Newtonsoft.Json.Linq;
 using Umbraco.Belle.Models;
 using Umbraco.Belle.System;
+using Umbraco.Belle.System.Mvc;
 using Umbraco.Web.Mvc;
 using Umbraco.Web.WebApi;
 
 namespace Umbraco.Belle.Controllers
 {
     [PluginController("UmbracoEditors")]
+    [ValidationFilter]
     public class ContentEditorApiController : UmbracoApiController
     {
 
@@ -35,16 +37,29 @@ namespace Umbraco.Belle.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         public object GetContent(int id)
-        {
-            return TestContentService.GetContentItem(id);
+        {            
+            var foundContent = TestContentService.GetContentItem(id);
+            if (foundContent == null)
+            {
+                ModelState.AddModelError("id", string.Format("content with id: {0} was not found", id));
+
+                var errorResponse = Request.CreateErrorResponse(
+                    HttpStatusCode.NotFound,
+                    ModelState);
+                throw new HttpResponseException(errorResponse);
+            }
+            return foundContent;
         }
 
         /// <summary>
         /// Saves content
         /// </summary>
         /// <returns></returns>
+        [ContentItemValidationFilter]
         public HttpResponseMessage PostSaveContent(ContentItem contentItem)
         {
+            //NOTE: Validation is done in the filter
+
             return Request.CreateResponse(HttpStatusCode.OK, "success!");
         }
 

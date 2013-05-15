@@ -257,6 +257,7 @@
     <Compile Include="Controllers\ContentEditorApiController.cs" />
     <Compile Include="App_Plugins\MyPackage\Controllers\ServerSidePropertyEditorsController.cs" />
     <Compile Include="App_Plugins\MyPackage\Trees\LegacyTestTree.cs" />
+    <Compile Include="Controllers\ContentItemValidationFilterAttribute.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ApplicationTreeApiController.cs" />
     <Compile Include="Controllers\SystemScriptsController.cs" />
@@ -264,6 +265,7 @@
     <Compile Include="Models\ContentItem.cs" />
     <Compile Include="Models\ContentProperty.cs" />
     <Compile Include="Models\ContentPropertyCollection.cs" />
+    <Compile Include="System\Mvc\UnhandledExceptionFilterAttribute.cs" />
     <Compile Include="System\ManifestBuilder.cs" />
     <Compile Include="System\ManifestParser.cs" />
     <Compile Include="System\PackageManifest.cs" />

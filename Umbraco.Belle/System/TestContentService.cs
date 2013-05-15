@@ -116,6 +116,9 @@ namespace Umbraco.Belle.System
 
         internal static ContentItem GetContentItem(int id)
         {
+            //we'll only allow 10 items... for testing
+            if (id > 10) return null;
+
             return new ContentItem
             {
                 Id = id,
