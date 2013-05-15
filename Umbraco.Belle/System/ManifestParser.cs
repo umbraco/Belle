@@ -36,31 +36,9 @@ namespace Umbraco.Belle.System
         /// <returns></returns>
         internal static IEnumerable<PropertyEditor> GetPropertyEditors(JArray jsonEditors)
         {
-            var editors = new List<PropertyEditor>();
-            foreach (JObject o in jsonEditors)
-            {
-                ValidatePropertyEditorBlock(o);
-                editors.Add(new PropertyEditor
-                    {
-                        Alias = o["alias"].ToString(),
-                        Name = o["name"].ToString()
-                    });
-            }
-            return editors;
+            return JsonConvert.DeserializeObject<IEnumerable<PropertyEditor>>(jsonEditors.ToString());
         }
-
-        private static void ValidatePropertyEditorBlock(JObject o)
-        {
-            var requiredProperties = new[] { "alias", "name", "editor" };
-            foreach (var r in requiredProperties)
-            {
-                if (o[r] == null)
-                {
-                    throw new FormatException(string.Format("The JSON is not formatted correctly, it doesn't contain a {0} property", r));
-                }
-            }
-        }
-
+        
         /// <summary>
         /// Get all registered manifests
         /// </summary>

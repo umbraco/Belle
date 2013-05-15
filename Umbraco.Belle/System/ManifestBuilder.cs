@@ -36,11 +36,11 @@ namespace Umbraco.Belle.System
 
             var parser = new ManifestParser(new DirectoryInfo(IOHelper.MapPath("~/App_Plugins")));
             var manifests = parser.GetManifests();
-            foreach (var m in manifests)
-            {
-                //m.PropertyEditors
-            }
 
+            //ensures that we statically cache all property editors that are resolved
+            var cachedEditors = applicationContext.ApplicationCache.GetStaticCacheItem(
+                typeof (ManifestBuilder).FullName.EnsureEndsWith('.') + "PropertyEditors",
+                () => manifests.SelectMany(x => x.PropertyEditors).ToArray());            
         }
 
     }

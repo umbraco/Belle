@@ -268,7 +268,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JsResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="System\PropertyEditors\PluginManagerExtensions.cs" />
+    <Compile Include="System\PropertyEditors\PreValueEditor.cs" />
     <Compile Include="System\PropertyEditors\PropertyEditor.cs" />
+    <Compile Include="System\PropertyEditors\PropertyEditorResolver.cs" />
+    <Compile Include="System\PropertyEditors\Validator.cs" />
+    <Compile Include="System\PropertyEditors\ValueEditor.cs" />
     <Compile Include="System\ServerVariablesParser.cs" />
     <Compile Include="System\Trees\FormDataCollectionExtensions.cs" />
     <Compile Include="System\Trees\ISearchableTree.cs" />

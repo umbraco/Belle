@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+using Umbraco.Belle.System.PropertyEditors;
 using Umbraco.Belle.System.Trees;
 using Umbraco.Core;
 using Umbraco.Web;
@@ -30,6 +31,9 @@ namespace Umbraco.Belle
             CreateRoutes();
             
             base.OnApplicationStarting(sender, e);
+
+            //setup custom resolvers... this is only temporary until we move into the umbraco core
+            PropertyEditorResolver.Current = new PropertyEditorResolver(() => PluginManager.Current.ResolvePropertyEditors());
         }
 
         private void CreateRoutes()
