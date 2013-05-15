@@ -4900,7 +4900,7 @@ body {
   width: 100%;
   height: 100%;
   color: #ffffff;
-  background: #303030 url(../assets/img/application/logo.png) no-repeat 10px 10px fixed !important;
+  background: #303030 url(../img/application/logo.png) no-repeat 10px 10px fixed !important;
 }
 
 #login .form {
@@ -6866,23 +6866,23 @@ ul.sections li i {
 }
 
 ul.sections li i.content {
-  background-image: url(../assets/img/applicationIcons/Umbraco_icons-02.svg);
+  background-image: url(../img/applicationIcons/Umbraco_icons-02.svg);
 }
 
 ul.sections li i.media {
-  background-image: url(../assets/img/applicationIcons/Umbraco_icons-03.svg);
+  background-image: url(../img/applicationIcons/Umbraco_icons-03.svg);
 }
 
 ul.sections li i.settings {
-  background-image: url(../assets/img/applicationIcons/Umbraco_icons-05.svg);
+  background-image: url(../img/applicationIcons/Umbraco_icons-05.svg);
 }
 
 ul.sections li i.developer {
-  background-image: url(../assets/img/applicationIcons/Umbraco_icons-01.svg);
+  background-image: url(../img/applicationIcons/Umbraco_icons-01.svg);
 }
 
 ul.sections li i.user {
-  background-image: url(../assets/img/applicationIcons/Umbraco_icons-04.svg);
+  background-image: url(../img/applicationIcons/Umbraco_icons-04.svg);
 }
 
 ul.sections li.help {
@@ -7349,8 +7349,8 @@ table thead a {
   font-family: 'FontAwesome';
   font-style: normal;
   font-weight: normal;
-  src: url('../assets/fonts/fontawesome/fontawesome-webfont.eot?v=3.0.1');
-  src: url('../assets/fonts/fontawesome/fontawesome-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'), url('../assets/fonts/fontawesome/fontawesome-webfont.woff?v=3.0.1') format('woff'), url('../assets/fonts/fontawesome/fontawesome-webfont.ttf?v=3.0.1') format('truetype');
+  src: url('../fonts/fontawesome/fontawesome-webfont.eot?v=3.0.1');
+  src: url('../fonts/fontawesome/fontawesome-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'), url('../fonts/fontawesome/fontawesome-webfont.woff?v=3.0.1') format('woff'), url('../fonts/fontawesome/fontawesome-webfont.ttf?v=3.0.1') format('truetype');
 }
 
 [class^="icon-"],

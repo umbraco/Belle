@@ -1,6 +1,6 @@
 ﻿<script type="text/ng-template"  id="tree_item_renderer.html">
     <div ng-style="setTreePadding(node)">
-        <ins class="toggle" ng-click="getTreeChildren(node)"></ins>
+        <ins class="icon-caret-right" ng-click="getTreeChildren(node)"></ins>
         <i class="icon umb-tree-icon sprTree {{node.icon}}"></i>
 
         <a ng-href="#{{node.view}}">{{node.name}}</a>
