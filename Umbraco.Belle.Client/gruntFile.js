@@ -10,11 +10,12 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-recess');
   grunt.loadNpmTasks('grunt-testacular');
   grunt.loadNpmTasks('grunt-html2js');
+  grunt.loadNpmTasks('grunt-markdown');
 
   // Default task.
   grunt.registerTask('default', ['jshint:dev','build','testacular:unit']);
-  grunt.registerTask('build', ['clean','html2js','concat','recess:build','copy']);
-  grunt.registerTask('release', ['clean','html2js','uglify','jshint','testacular:unit','concat:index', 'recess:min','copy','testacular:e2e']);
+  grunt.registerTask('build', ['clean','html2js','concat','recess:build','copy', 'docs']);
+  grunt.registerTask('docs', ['markdown']);
   grunt.registerTask('test-watch', ['testacular:watch']);
 
   // Print a timestamp (useful for when watching)
@@ -30,7 +31,7 @@ module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    distdir: 'belle',
+    distdir: 'build/belle',
     pkg: grunt.file.readJSON('package.json'),
     banner:
     '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
@@ -51,6 +52,7 @@ module.exports = function (grunt) {
       prod: ['<%= distdir %>/js/*.js']
     },
     clean: ['<%= distdir %>/*'],
+
     copy: {
       assets: {
         files: [{ dest: '<%= distdir %>/assets', src : '**', expand: true, cwd: 'src/assets/' }]
@@ -67,11 +69,13 @@ module.exports = function (grunt) {
             { dest: '<%= distdir %>/js', src : 'routes.js', expand: true, cwd: 'src/' }]
       }
     },
+
     testacular: {
       unit: { options: testacularConfig('test/config/unit.js') },
       e2e: { options: testacularConfig('test/config/e2e.js') },
       watch: { options: testacularConfig('test/config/unit.js', {singleRun:false, autoWatch: true}) }
     },
+
     html2js: {
       app: {
         options: {
@@ -90,6 +94,7 @@ module.exports = function (grunt) {
         module: 'templates.common'
       }
     },
+
     concat:{
       /*
       dist:{
@@ -159,6 +164,7 @@ module.exports = function (grunt) {
         }
       }
     },
+
     uglify: {
       dist:{
         options: {
@@ -176,6 +182,7 @@ module.exports = function (grunt) {
         dest: '<%= distdir %>/jquery.js'
       }
     },
+
     recess: {
       build: {
         files: {
@@ -194,6 +201,7 @@ module.exports = function (grunt) {
         }
       }
     },
+
     watch:{
       all: {
         files:['<%= src.common %>', '<%= src.specs %>', '<%= src.less =>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
@@ -204,6 +212,14 @@ module.exports = function (grunt) {
         tasks:['default','timestamp']
       }
     },
+
+    markdown: {
+        all: {
+          files: ['docs/src/*.md'],
+          dest: 'docs/html/'
+        }  
+    },  
+
     jshint:{
       dev:{
          files:['<%= src.common %>', '<%= src.specs %>', '<%= src.scenarios %>'],

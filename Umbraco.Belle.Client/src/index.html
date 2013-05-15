@@ -6,19 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Umbraco</title>
-    <link rel="stylesheet" href="assets/css/umbraco.css"  />
+    <link rel="stylesheet" href="css/belle.css"  />
 </head>
 <body ng-controller="MainController" id="umbracoMainPageBody">     
 
-    <div ng-show="authenticated" ng-cloak ng-animate="'fade'" id="layout">
+    <div ng-show="authenticated" ng-cloak ng-animate="'fade'" id="layout" class="clearfix">
 
-        <div id="contentwrapper">
-            <div id="contentcolumn" class="fill"><div ng-view></div></div>
-        </div>
+        
 
-        <div id="leftcolumn" ng-controller="NavigationController"  class="fill" 
-            ng-mouseleave="hideSectionTree()">
-            <div id="applications" class="fill" ng-class="{faded:ui.stickyNavigation}">
+        <div id="leftcolumn" ng-controller="NavigationController" ng-mouseleave="hideSectionTree()">
+            <div id="applications" ng-class="{faded:ui.stickyNavigation}">
                 <ul class="sections">
                     <li class="avatar">
                         <a href="#" title="{{user.name}}">
@@ -39,13 +36,13 @@
                 </ul>
             </div>
 
-
             <!-- navigation container -->
             <div id="navigation" class="fill shadow umb-panel" ng-show="ui.showNavigation" ng-animate="'slide'">
                 <!-- the search -->
                 <div id="search-form" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
                     <div class="umb-panel-header">
                         <form class="form-search" ng-controller="SearchController">
+                            <i class="icon-search"></i>
                             <input type="text" 
                                    ng-model="ui.searchTerm" 
                                    class="umb-search-field search-query" 
@@ -73,8 +70,8 @@
                 </div>
 
                 <!-- the tree -->
-                <div id="tree" class="umb-scrollable umb-panel" auto-scale="0" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
-                    <div ng-include="'views/common/tree.html'"></div>
+                <div id="tree" class="span5 umb-scrollable umb-panel" auto-scale="0" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
+                    <div ng-include="'views/application/tree.html'"></div>
                 </div>
 
 
@@ -106,13 +103,17 @@
                 <h1>{{dialogTitle}}</h1>
             </div>
             <div class='umb-panel-body'>
+                
             </div>
         </div> 
     </div>
 
+
+    <section id="contentwrapper">
+                <div id="contentcolumn"><div ng-view></div></div>
+    </section>
 </div>
 
-</div>
 
 <!-- Login screen -->
 <div id="login" ng-hide="authenticated" ng-animate="'slide'" ng-cloak>
