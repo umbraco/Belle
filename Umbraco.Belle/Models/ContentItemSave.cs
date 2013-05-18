@@ -3,7 +3,7 @@
     /// <summary>
     /// A model representing a content item to be saved
     /// </summary>
-    public class ContentItemSave : ContentItemBase<ContentProperty>
+    public class ContentItemSave : ContentItemBase<ContentPropertyBase>
     {
     }
 }

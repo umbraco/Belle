@@ -25,6 +25,7 @@ namespace Umbraco.Belle.System.Serialization
             {
                 //we need to specify the view value for the editor here otherwise we'll get an exception
                 target.StaticallyDefinedValueEditor.View = jObject["editor"]["view"].ToString();
+                target.StaticallyDefinedValueEditor.Validators = new List<Validator>();
             }
 
             base.Deserialize(jObject, target, serializer);

@@ -13,6 +13,37 @@ namespace Umbraco.Belle.System
     /// </summary>
     internal class TestContentService
     {
+        private static readonly IEnumerable<ContentPropertyDto> PropertyRepo = new ContentPropertyDto[]
+            {
+                new ContentPropertyDto
+                    {
+                        Alias = "numbers",
+                        Id = 10,
+                        Label = "Numbers",
+                        Description = "Enter a numeric value",
+                        DataType = GetDataType(90),
+                        Value = "12345987765"
+                    },
+                new ContentPropertyDto
+                    {
+                        Alias = "serverEnvironment",
+                        Id = 11,
+                        Label = "Server Info",
+                        Description = "Some server information",
+                        DataType = GetDataType(91),
+                        Value = ""
+                    },
+                new ContentPropertyDto
+                    {
+                        Alias = "complexEditor",
+                        Id = 12,
+                        Label = "Multiple Values",
+                        Description = "A multi value editor",
+                        DataType = GetDataType(92),
+                        Value = "My Value 1, My Value 2, My Value 3, My Value 4, My Value 5"
+                    }
+            };
+
         internal static string GetPreValue(int dataTypeId)
         {
             switch (dataTypeId)
@@ -56,40 +87,9 @@ namespace Umbraco.Belle.System
             return dataTypeRepo.SingleOrDefault(x => x.Id == id);
         }
 
-        internal static ContentPropertyDisplay GetContentProperty(int id)
+        internal static ContentPropertyDisplay GetContentPropertyForDisplay(int id)
         {
-            var propertyRepo = new[]
-                {
-                    new
-                        {
-                            Alias = "numbers",
-                            Id = 10,
-                            Label = "Numbers",
-                            Description = "Enter a numeric value",
-                            DataType = GetDataType(90),
-                            Value = "12345987765"
-                        },
-                    new
-                        {
-                            Alias = "serverEnvironment",
-                            Id = 11,
-                            Label = "Server Info",
-                            Description = "Some server information",
-                            DataType = GetDataType(91),
-                            Value = ""
-                        },
-                    new
-                        {
-                            Alias = "complexEditor",
-                            Id = 12,
-                            Label = "Multiple Values",
-                            Description = "A multi value editor",
-                            DataType = GetDataType(92),
-                            Value = "My Value 1, My Value 2, My Value 3, My Value 4, My Value 5"
-                        }
-                };
-
-            var found = propertyRepo.SingleOrDefault(x => x.Id == id);
+            var found = PropertyRepo.SingleOrDefault(x => x.Id == id);
             if (found == null)
             {
                 throw new ApplicationException("Could not find property with the specified id " + id);
@@ -99,22 +99,47 @@ namespace Umbraco.Belle.System
             var propEditor = PropertyEditorResolver.Current.GetById(found.DataType.ControlId);
             if (propEditor == null)
             {
-                throw new ApplicationException("Could not find the property editor with the id " + found.DataType.ControlId); 
+                throw new ApplicationException("Could not find the property editor with the id " + found.DataType.ControlId);
             }
 
-            return new ContentPropertyDisplay
-                {
-                    Alias = found.Alias,
-                    Id = found.Id,
-                    Label = found.Label,
-                    Description = found.Description,
-                    Value = found.Value,
-                    Config = GetPreValue(found.DataType.Id),
-                    View = propEditor.ValueEditor.View
-                };
+            return new ContentPropertyDto
+            {
+                Alias = found.Alias,
+                Id = found.Id,
+                Label = found.Label,
+                Description = found.Description,
+                Value = found.Value
+            }.ForDisplay(GetPreValue(found.DataType.Id), propEditor.ValueEditor.View);
         }
 
-        internal static ContentItemDisplay GetContentItem(int id)
+        internal static ContentPropertyDto GetContentProperty(int id)
+        {
+            var found = PropertyRepo.SingleOrDefault(x => x.Id == id);
+            if (found == null)
+            {
+                throw new ApplicationException("Could not find property with the specified id " + id);
+            }
+            return found;
+        }
+
+        internal static ContentItemDto GetContentItem(int id)
+        {
+            //we'll only allow 10 items... for testing
+            if (id > 10) return null;
+
+            return new ContentItemDto
+            {
+                Id = id,
+                Properties = new List<ContentPropertyDto>
+                        {
+                            GetContentProperty(10),
+                            GetContentProperty(11),
+                            GetContentProperty(12)
+                        }
+            };
+        }
+
+        internal static ContentItemDisplay GetContentItemForDisplay(int id)
         {
             //we'll only allow 10 items... for testing
             if (id > 10) return null;
@@ -125,9 +150,9 @@ namespace Umbraco.Belle.System
                 Name = "Test Item " + id,
                 Properties = new List<ContentPropertyDisplay>
                         {
-                            GetContentProperty(10),
-                            GetContentProperty(11),
-                            GetContentProperty(12)
+                            GetContentPropertyForDisplay(10),
+                            GetContentPropertyForDisplay(11),
+                            GetContentPropertyForDisplay(12)
                         }
             };
         }

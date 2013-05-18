@@ -2,9 +2,46 @@
 
 define(['angular', 'namespaceMgr'], function (angular) {
 
+    // declare and return the app module
+    var app = angular.module('myApp', ['uModules.Content.Helpers']);
+
     Umbraco.Sys.registerNamespace("Umbraco.Content");
 
     var contentHelpers = angular.module('uModules.Content.Helpers', []);
+
+    app.directive('valForm', [
+        function() {
+            return {
+                link: function(scope, element, attr) {
+                    var form = element.inheritedData('$formController');
+                    // no need to validate if form doesn't exists
+                    if (!form) return;
+                    // validation model
+                    var errorCollection = attr.valForm;
+                    // watch validate changes to display validation
+                    scope.$watch(errorCollection, function (errors) {
+
+                        // every server validation should reset others
+                        // note that this is form level and NOT field level validation
+                        form.$serverError = {};
+
+                        // if errors is undefined or null just set invalid to false and return
+                        if (!errors) {
+                            form.$serverInvalid = false;
+                            return;
+                        }
+                        // set $serverInvalid to true|false
+                        form.$serverInvalid = (errors.length > 0);
+
+                        // loop through errors
+                        angular.forEach(errors, function(error, i) {
+                            form.$serverError[error.key] = { $invalid: true, message: error.value };
+                        });
+                    }, true);
+                }
+            };
+        }
+    ]);
 
     contentHelpers.factory('u$ContentHelper', function () {
 
@@ -32,6 +69,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
     
     Umbraco.Content.ContentController = function ($scope, $http, u$ContentHelper) {
 
+        //**** Create the models for the scope ****
         //initialize the data model
         $scope.model = {};
         //model for updating the UI
@@ -40,6 +78,45 @@ define(['angular', 'namespaceMgr'], function (angular) {
             canSubmit: function () {
                 return $scope.form.$invalid || $scope.ui.working;
             }
+        };
+        //error object/collection
+        $scope.errors = {
+            addError: function (contentProperty, errorMsg) {
+                if (!contentProperty) return;
+                //only add the item if it doesn't exist                
+                if (!this.hasError(contentProperty)) {
+                    this.items.push({
+                        alias: contentProperty.alias,
+                        errorMsg: errorMsg
+                    });
+                }
+            },
+            removeError: function(contentProperty) {
+                if (!contentProperty) return;
+                for (var i = 0; i < this.items.length; i++) {
+                    if (this.items[i].alias == contentProperty.alias) {
+                        this.items.splice(i, 1); //remove the item
+                        break;
+                    }
+                } 
+            },
+            getError: function(contentProperty) {
+                for (var i = 0; i < this.items.length; i++) {
+                    if (this.items[i].alias == contentProperty.alias) {
+                        return this.items[i].errorMsg;
+                    }
+                }
+                return null;
+            },
+            hasError: function(contentProperty) {
+                for (var i = 0; i < this.items.length; i++) {
+                    if (this.items[i].alias == contentProperty.alias) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+            items: []
         };
 
         //the url to get the content from
@@ -75,8 +152,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
     };
 
 
-    // declare and return the app module
-    var myAppModule = angular.module('myApp', ['uModules.Content.Helpers']);
-    return myAppModule;
+    //return the module
+    return app;
     
 });

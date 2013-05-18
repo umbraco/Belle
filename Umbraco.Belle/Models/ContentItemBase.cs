@@ -9,7 +9,7 @@ namespace Umbraco.Belle.Models
     /// </summary>
     [DataContract(Name = "content", Namespace = "")]
     public abstract class ContentItemBase<T>
-        where T: ContentProperty
+        where T: ContentPropertyBase
     {
         protected ContentItemBase()
         {

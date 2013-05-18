@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Umbraco.Belle.System.PropertyEditors
@@ -11,6 +12,8 @@ namespace Umbraco.Belle.System.PropertyEditors
         public ValueEditor()
         {
             ValueType = "string";
+            //set a default for validators
+            Validators = Enumerable.Empty<Validator>();
         }
 
         /// <summary>

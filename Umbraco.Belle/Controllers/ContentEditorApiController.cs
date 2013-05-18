@@ -38,7 +38,7 @@ namespace Umbraco.Belle.Controllers
         /// <returns></returns>
         public object GetContent(int id)
         {            
-            var foundContent = TestContentService.GetContentItem(id);
+            var foundContent = TestContentService.GetContentItemForDisplay(id);
             if (foundContent == null)
             {
                 ModelState.AddModelError("id", string.Format("content with id: {0} was not found", id));

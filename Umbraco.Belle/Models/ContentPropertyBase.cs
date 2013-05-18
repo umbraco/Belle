@@ -7,7 +7,7 @@ namespace Umbraco.Belle.Models
     /// Represents a content property to be saved
     /// </summary>
     [DataContract(Name = "property", Namespace = "")]
-    public class ContentProperty
+    public class ContentPropertyBase
     {
         [DataMember(Name = "id", IsRequired = true)]
         [Required]
@@ -16,7 +16,7 @@ namespace Umbraco.Belle.Models
         [DataMember(Name = "value")]
         public string Value { get; set; }
 
-        protected bool Equals(ContentPropertyDisplay other)
+        protected bool Equals(ContentPropertyBase other)
         {
             return Id == other.Id;
         }
@@ -25,8 +25,8 @@ namespace Umbraco.Belle.Models
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((ContentPropertyDisplay)obj);
+            var other = obj as ContentPropertyBase;
+            return other != null && Equals(other);
         }
 
         public override int GetHashCode()

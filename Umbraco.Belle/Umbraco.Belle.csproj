@@ -265,7 +265,7 @@
     <Compile Include="Models\ContentItemBase.cs" />
     <Compile Include="Models\ContentItemDisplay.cs" />
     <Compile Include="Models\ContentItemSave.cs" />
-    <Compile Include="Models\ContentProperty.cs" />
+    <Compile Include="Models\ContentPropertyBase.cs" />
     <Compile Include="Models\ContentPropertyDisplay.cs" />
     <Compile Include="Models\ContentPropertyCollection.cs" />
     <Compile Include="System\Mvc\UnhandledExceptionFilterAttribute.cs" />

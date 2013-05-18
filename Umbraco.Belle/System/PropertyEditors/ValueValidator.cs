@@ -31,7 +31,11 @@ namespace Umbraco.Belle.System.PropertyEditors
         /// expression if the validator was a regex validator. 
         /// </param>
         /// <param name="editor">The property editor instance that is being validated</param>
-        /// <returns></returns>
+        /// <returns>
+        /// Returns a list of validation results. If a result does not have a field name applied to it then then we assume that 
+        /// the validation message applies to the entire property type being validated. If there is a field name applied to a 
+        /// validation result we will try to match that field name up with a field name on the item itself.
+        /// </returns>
         public abstract IEnumerable<ValidationResult> Validate(object value, string config, PropertyEditor editor);
     }
 }

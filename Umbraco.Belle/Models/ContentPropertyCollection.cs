@@ -5,7 +5,7 @@ namespace Umbraco.Belle.Models
 {
     [CollectionDataContract(Name = "properties", Namespace = "")]
     public class ContentPropertyCollection<T> : List<T>
-        where T : ContentProperty
+        where T : ContentPropertyBase
     {        
     }
 }

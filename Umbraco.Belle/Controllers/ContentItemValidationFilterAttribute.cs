@@ -5,6 +5,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using Umbraco.Belle.Models;
 using Umbraco.Belle.System;
+using Umbraco.Belle.System.PropertyEditors;
 
 namespace Umbraco.Belle.Controllers
 {
@@ -31,9 +32,10 @@ namespace Umbraco.Belle.Controllers
             }
 
             //now do each validation step
-            ContentItemDisplay existingContent;
+            ContentItemDto existingContent;
             if (!ValidateExistingContent(contentItem, actionContext, out existingContent)) return;
             if (!ValidateProperties(contentItem, existingContent, actionContext)) return;
+            if (!ValidateData(contentItem, existingContent, actionContext)) return;
         }
 
         /// <summary>
@@ -43,7 +45,7 @@ namespace Umbraco.Belle.Controllers
         /// <param name="actionContext"></param>
         /// <param name="found"></param>
         /// <returns></returns>
-        private bool ValidateExistingContent(ContentItemSave postedItem, HttpActionContext actionContext, out ContentItemDisplay found)
+        private bool ValidateExistingContent(ContentItemSave postedItem, HttpActionContext actionContext, out ContentItemDto found)
         {
             //TODO: We need to of course change this to the real umbraco api
             found = TestContentService.GetContentItem(postedItem.Id);
@@ -63,7 +65,7 @@ namespace Umbraco.Belle.Controllers
         /// <param name="actionContext"></param>
         /// <param name="realItem"></param>
         /// <returns></returns>
-        private bool ValidateProperties(ContentItemSave postedItem, ContentItemDisplay realItem, HttpActionContext actionContext)
+        private bool ValidateProperties(ContentItemSave postedItem, ContentItemDto realItem, HttpActionContext actionContext)
         {
             foreach (var p in postedItem.Properties)
             {
@@ -81,9 +83,51 @@ namespace Umbraco.Belle.Controllers
             return true;
         }
 
-        //TODO: Validate that the property types exist
-
         //TODO: Validate the property type data
+        private bool ValidateData(ContentItemSave postedItem, ContentItemDto realItem, HttpActionContext actionContext)
+        {
+            foreach (var p in realItem.Properties)
+            {
+                var editor = PropertyEditorResolver.Current.GetById(p.DataType.ControlId);
+                if (editor == null)
+                {
+                    var message = string.Format("The property editor with id: {0} was not found for property with id {1}", p.DataType.ControlId, p.Id);
+                    actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+                    return false;
+                }
+
+                foreach (var v in editor.ValueEditor.Validators)
+                {
+                    foreach (var result in v.Validate(p.Value, editor))
+                    {
+                        //if there are no member names supplied then we assume that the validation message is for the overall property
+                        // not a sub field on the property editor
+                        if (!result.MemberNames.Any())
+                        {
+                            //add a model state error for the entire property
+                            actionContext.ModelState.AddModelError(p.Alias, result.ErrorMessage);
+                        }
+                        else
+                        {
+                            //there's assigned field names so we'll combine the field name with the property name
+                            // so that we can try to match it up to a real sub field of this editor
+                            foreach (var field in result.MemberNames)
+                            {
+                                actionContext.ModelState.AddModelError(string.Format("{0}.{1}", p.Alias, field), result.ErrorMessage);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //create the response if there any errors
+            if (!actionContext.ModelState.IsValid)
+            {
+                actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.Forbidden, actionContext.ModelState);
+            }
+
+            return actionContext.ModelState.IsValid;
+        }
 
     }
 }

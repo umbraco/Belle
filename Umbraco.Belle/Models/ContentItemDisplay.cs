@@ -16,4 +16,10 @@ namespace Umbraco.Belle.Models
         [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
     }
+    
+    internal class ContentItemDto : ContentItemBase<ContentPropertyDto>
+    {
+        
+    }
+
 }

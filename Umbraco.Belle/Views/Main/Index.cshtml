@@ -1,4 +1,5 @@
 ﻿@using Umbraco.Belle.Controllers
+@using Umbraco.Belle.Models
 @using Umbraco.Web
 @model dynamic
 
@@ -21,19 +22,56 @@
         .content-properties {
             border: 1px dashed orange;
         }
+
+        .property-validation {
+            color: #FA787E;
+            float: right;
+        }
+
+        .validation-summary {
+            padding: 5px;
+            background-color: #EEEEEE;
+            border: #FA787E solid 2px;
+            margin: 5px;
+            color: #fa787e;
+            
+        }
+
+        .validation-summary span {
+            font-style: italic;
+        }
+
+        .content-property {
+            background-color: #EEEEEE;
+            margin: 5px;
+            padding: 5px;
+        }
+
     </style>    
 }
 
-<form name="form" ng-controller="Umbraco.Content.ContentController" ng-submit="save()" novalidate>
+<form name="form" ng-controller="Umbraco.Content.ContentController" ng-submit="save()" val-form="errors" novalidate>
     
     <div class="content-properties">
         <div>ID: <span>{{model.id}}</span></div>
         <div>Name: <span>{{model.name}}</span></div>
     </div>
+    
+    <ul class="validation-summary" ng-show="errors.items.length > 0">
+        <li ng-repeat="model in errors.items">
+            Property <span>{{model.alias}}</span> has an error: <span>{{model.errorMsg}}</span>
+        </li> 
+    </ul>
 
-    <div ng-repeat="model in model.properties" style="background-color: #EEEEEE; margin: 5px; padding: 5px;">
-        <div style="font-style: italic;">{{model.label}}</div>
-        <div style="font-size: 9px;">{{model.description}}</div>
+    <div ng-repeat="model in model.properties" class="content-property">
+        <div>
+            <div ng-show="$parent.errors.hasError(model)" class="property-validation">
+                {{$parent.errors.getError(model)}}
+            </div>
+
+            <div style="font-style: italic;">{{model.label}}</div>
+            <div style="font-size: 9px;">{{model.description}}</div>            
+        </div>
 
         <div ng-include="model.view"></div>
     </div>
