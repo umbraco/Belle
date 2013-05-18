@@ -56,7 +56,7 @@ namespace Umbraco.Belle.Controllers
         /// </summary>
         /// <returns></returns>
         [ContentItemValidationFilter]
-        public HttpResponseMessage PostSaveContent(ContentItem contentItem)
+        public HttpResponseMessage PostSaveContent(ContentItemSave contentItem)
         {
             //NOTE: Validation is done in the filter
 

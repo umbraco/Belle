@@ -262,8 +262,11 @@
     <Compile Include="Controllers\ApplicationTreeApiController.cs" />
     <Compile Include="Controllers\SystemScriptsController.cs" />
     <Compile Include="Controllers\TestTreeApiController.cs" />
-    <Compile Include="Models\ContentItem.cs" />
+    <Compile Include="Models\ContentItemBase.cs" />
+    <Compile Include="Models\ContentItemDisplay.cs" />
+    <Compile Include="Models\ContentItemSave.cs" />
     <Compile Include="Models\ContentProperty.cs" />
+    <Compile Include="Models\ContentPropertyDisplay.cs" />
     <Compile Include="Models\ContentPropertyCollection.cs" />
     <Compile Include="System\Mvc\UnhandledExceptionFilterAttribute.cs" />
     <Compile Include="System\ManifestBuilder.cs" />
@@ -919,6 +922,7 @@
     <Content Include="Belle\less\variables.less" />
     <Content Include="App_Plugins\MyPackage\Views\ServerSidePropertyEditors\ServerEnvironment.cshtml" />
     <Content Include="App_Plugins\MyPackage\Views\Web.config" />
+    <Content Include="Content\JavaScript\Content.ContentController.js" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

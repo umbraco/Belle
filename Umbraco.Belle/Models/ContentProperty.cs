@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace Umbraco.Belle.Models
 {
+    /// <summary>
+    /// Represents a content property to be saved
+    /// </summary>
     [DataContract(Name = "property", Namespace = "")]
     public class ContentProperty
     {
@@ -10,28 +13,10 @@ namespace Umbraco.Belle.Models
         [Required]
         public int Id { get; set; }
 
-        [DataMember(Name = "label", IsRequired = true)]
-        [Required]
-        public string Label { get; set; }
-
-        [DataMember(Name = "alias", IsRequired = true)]
-        [Required(AllowEmptyStrings = false)]
-        public string Alias { get; set; }
-
-        [DataMember(Name = "description")]
-        public string Description { get; set; }
-
         [DataMember(Name = "value")]
         public string Value { get; set; }
 
-        [DataMember(Name = "view", IsRequired = true)]
-        [Required(AllowEmptyStrings = false)]
-        public string View { get; set; }
-
-        [DataMember(Name = "config")]
-        public string Config { get; set; }
-
-        protected bool Equals(ContentProperty other)
+        protected bool Equals(ContentPropertyDisplay other)
         {
             return Id == other.Id;
         }
@@ -41,7 +26,7 @@ namespace Umbraco.Belle.Models
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((ContentProperty) obj);
+            return Equals((ContentPropertyDisplay)obj);
         }
 
         public override int GetHashCode()

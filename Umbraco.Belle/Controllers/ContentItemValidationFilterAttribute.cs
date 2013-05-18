@@ -23,15 +23,15 @@ namespace Umbraco.Belle.Controllers
         /// <param name="actionContext"></param>
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            var contentItem = actionContext.ActionArguments["contentItem"] as ContentItem;
+            var contentItem = actionContext.ActionArguments["contentItem"] as ContentItemSave;
             if (contentItem == null)
             {
-                actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No " + typeof(ContentItem) + " found in request");
+                actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No " + typeof(ContentItemSave) + " found in request");
                 return;
             }
 
             //now do each validation step
-            ContentItem existingContent;
+            ContentItemDisplay existingContent;
             if (!ValidateExistingContent(contentItem, actionContext, out existingContent)) return;
             if (!ValidateProperties(contentItem, existingContent, actionContext)) return;
         }
@@ -41,8 +41,9 @@ namespace Umbraco.Belle.Controllers
         /// </summary>
         /// <param name="postedItem"></param>
         /// <param name="actionContext"></param>
+        /// <param name="found"></param>
         /// <returns></returns>
-        private bool ValidateExistingContent(ContentItem postedItem, HttpActionContext actionContext, out ContentItem found)
+        private bool ValidateExistingContent(ContentItemSave postedItem, HttpActionContext actionContext, out ContentItemDisplay found)
         {
             //TODO: We need to of course change this to the real umbraco api
             found = TestContentService.GetContentItem(postedItem.Id);
@@ -62,7 +63,7 @@ namespace Umbraco.Belle.Controllers
         /// <param name="actionContext"></param>
         /// <param name="realItem"></param>
         /// <returns></returns>
-        private bool ValidateProperties(ContentItem postedItem, ContentItem realItem, HttpActionContext actionContext)
+        private bool ValidateProperties(ContentItemSave postedItem, ContentItemDisplay realItem, HttpActionContext actionContext)
         {
             foreach (var p in postedItem.Properties)
             {

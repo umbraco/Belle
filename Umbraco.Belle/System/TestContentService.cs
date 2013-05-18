@@ -56,7 +56,7 @@ namespace Umbraco.Belle.System
             return dataTypeRepo.SingleOrDefault(x => x.Id == id);
         }
 
-        internal static ContentProperty GetContentProperty(int id)
+        internal static ContentPropertyDisplay GetContentProperty(int id)
         {
             var propertyRepo = new[]
                 {
@@ -102,7 +102,7 @@ namespace Umbraco.Belle.System
                 throw new ApplicationException("Could not find the property editor with the id " + found.DataType.ControlId); 
             }
 
-            return new ContentProperty
+            return new ContentPropertyDisplay
                 {
                     Alias = found.Alias,
                     Id = found.Id,
@@ -114,16 +114,16 @@ namespace Umbraco.Belle.System
                 };
         }
 
-        internal static ContentItem GetContentItem(int id)
+        internal static ContentItemDisplay GetContentItem(int id)
         {
             //we'll only allow 10 items... for testing
             if (id > 10) return null;
 
-            return new ContentItem
+            return new ContentItemDisplay
             {
                 Id = id,
                 Name = "Test Item " + id,
-                Properties = new List<ContentProperty>
+                Properties = new List<ContentPropertyDisplay>
                         {
                             GetContentProperty(10),
                             GetContentProperty(11),

@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-define(['angular', 'myApp', 'namespaceMgr'], function (angular, app) {
+define(['myApp'], function (app) {
     
     app.directive('valRegex', function () {
 
