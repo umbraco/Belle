@@ -100,10 +100,10 @@ define(['angular', 'namespaceMgr'], function (angular) {
         }
     ]);
 
-    //This directive will show an error based on:
+    //This directive will show/hide an error based on:
     // * is the value + the given validator invalid
     // * AND, has the form been submitted ?
-    app.directive('valShowError', [
+    app.directive('valToggleError', [
         function () {
             return {
                 restrict: "A",
@@ -111,16 +111,14 @@ define(['angular', 'namespaceMgr'], function (angular) {
 
                     //we'll validate a bunch of inputs here to ensure this directive can execute.
                     if (!scope.$parent || !scope.$parent.formName)
-                        throw "valShowError must exist within a scope of a content editor";
-                    if (!scope.model)
-                        throw "valShowError must exist within a scope that declares a 'model' property";
-                    var parts = attr.valShowError.split(";");
+                        throw "valToggleError must exist within a scope of a content editor";                    
+                    var parts = attr.valToggleError.split(";");
                     if (parts.length != 2)
-                        throw "valShowError value must have 2 parts delimited by a semi colon";
+                        throw "valToggleError value must have 2 parts delimited by a semi colon";
                     var currentForm = scope.$parent[scope.$parent.formName];
                     var value = currentForm[parts[0]];
                     if (!value)
-                        throw "valShowError could not find the value " + parts[0];
+                        throw "valToggleError could not find the value " + parts[0];
                     
                     //create a flag for us to be able to reference in the below closures for watching.
                     var showValidation = false;
@@ -152,6 +150,47 @@ define(['angular', 'namespaceMgr'], function (angular) {
             };
         }
     ]);
+    
+    //This directive will bubble up a notification via an emit event (upwards)
+    // describing the state of the validation element. This is useful for 
+    // parent elements to know about child element validation state.
+    app.directive('valBubble', [
+        function () {
+            return {
+                restrict: "A",
+                link: function (scope, element, attr, ctrl) {
+
+                    //we'll validate a bunch of inputs here to ensure this directive can execute.
+                    if (!scope.$parent || !scope.$parent.formName)
+                        throw "valBubble must exist within a scope of a content editor";
+                   
+                    if (!attr.name) {
+                        throw "valBubble must be set on an input element that has a 'name' attribute";
+                    }
+
+                    //we're going to add a watch to all potential validators based on the attributes applied
+                    //one the element itself (ignoring any attributes in the collection starting with '$')
+                    for (var a in attr) {
+                        //add a watch to the validator for the value (i.e. $parent.myForm.value.$error.required )
+                        //NOTE: we are not hard coding the form name, we'll get it from the parent scope
+                        if (a.substr(0, 1) != "$") {
+                            scope.$watch("$parent[$parent.formName]." + attr.name + ".$error." + a, function (newValue, lastValue) {
+                                if (newValue) {
+                                    //emit an event upwards 
+                                    scope.$emit("valBubble", {
+                                        element: element,       // the element that the validation applies to
+                                        expression: this.exp,   // the expression that was watched to check validity
+                                        scope: scope,           // the current scope
+                                        ctrl: ctrl              // the current controller
+                                    });
+                                }
+                            });
+                        }
+                    }
+                }
+            };
+        }
+    ]);
 
     //This directive will display a validation summary for the current form based on the 
     //content properties of the current content item.
@@ -171,32 +210,76 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     //create a property on our scope
                     scope.validationSummary = [];
 
-                    //listen for form invalidation
-                    //NOTE: we are not hard coding the form name, we'll get it from the parent scope
-                    scope.$watch("$parent[$parent.formName].$error", function (errors) {
-                        //clear the summary
-                        scope.validationSummary = [];
-                        for (var err in errors) {
-                            for (var i in errors[err]) {
-                                if (errors[err].length && errors[err].length > 0) {
-                                    scope.validationSummary.push("The value '"
-                                        + errors[err][0].$viewValue
-                                        + "' is invalid for field '"
-                                        + errors[err][0].$name
-                                        + "'"
-                                    );
+                    if (!attr.behavior || attr.behavior == "properties") {
+                        //if we are to show field property based errors.
+                        //this requires listening for bubbled events from valBubble directive.
+                                                
+                        scope.$parent.$on("valBubble", function (evt, args) {
+                            //In order to show that a property has an error, we need to check where the element exists in the DOM
+                            // for the validation error that occurred.
+                            var contentPropElement = args.element.closest(".content-property");
+                            //now get the scope for that property
+                            var contentPropScope = contentPropElement.scope();
+                            //with the scope we can get all of the props of the model like alias/label
+                            var exists = false;
+                            var msg = "The value assigned for the property " + contentPropScope.model.label + " is invalid";
+                            for (var v in scope.validationSummary) {
+                                if (msg == v) {
+                                    exists = true;
                                 }
                             }
-                        }
-                        
-                        if (scope.validationSummary.length > 0) {
+                            if (!exists) {
+                                scope.validationSummary.push(msg);
+                            }
                             element.show();
-                        }
-                        else {
-                            element.hide();
-                        }
-                        
-                    }, true);
+                        });
+                        //listen for form invalidation so we know when to hide it
+                        //NOTE: we are not hard coding the form name, we'll get it from the parent scope
+                        scope.$watch("$parent[$parent.formName].$error", function(errors) {
+                            //check if there is an error and hide the summary if not
+                            var hasError = false;
+                            for (var err in errors) {
+                                for (var i in errors[err]) {
+                                    if (errors[err].length && errors[err].length > 0) {
+                                        hasError = true;
+                                    }
+                                }
+                            }
+                            if (!hasError) {
+                                element.hide();
+                            }
+                        }, true);                        
+                    }                    
+                    else if (attr.behavior && attr.behavior == "fields") {
+                        //if we are to show field based errors
+
+                        //listen for form invalidation
+                        //NOTE: we are not hard coding the form name, we'll get it from the parent scope
+                        scope.$watch("$parent[$parent.formName].$error", function (errors) {
+                            //clear the summary
+                            scope.validationSummary = [];
+                            for (var err in errors) {
+                                for (var i in errors[err]) {
+                                    if (errors[err].length && errors[err].length > 0) {
+                                        scope.validationSummary.push("The value '"
+                                            + errors[err][0].$viewValue
+                                            + "' is invalid for field '"
+                                            + errors[err][0].$name
+                                            + "'"
+                                        );
+                                    }
+                                }
+                            }
+
+                            if (scope.validationSummary.length > 0) {
+                                element.show();
+                            }
+                            else {
+                                element.hide();
+                            }
+
+                        }, true);
+                    }                    
                     
                 }
             };

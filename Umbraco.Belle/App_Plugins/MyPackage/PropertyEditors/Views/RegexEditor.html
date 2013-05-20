@@ -4,10 +4,11 @@
     </p>
     
     <input name="value" type="text" ng-model="model.value" 
-            required 
-            val-regex="model.config" 
-            val-server-property="value" />
+           required 
+           val-regex="model.config" 
+           val-server-property="value"
+           val-bubble />
 
-    <span val-show-error="value;required">Required!</span>
-    <span val-show-error="value;valRegex">This is not valid value!</span>
+    <span val-toggle-error="value;required">Required!</span>
+    <span val-toggle-error="value;valRegex">This is not valid value!</span>
 </div>
