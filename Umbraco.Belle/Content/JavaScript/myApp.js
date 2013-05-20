@@ -210,6 +210,20 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     //create a property on our scope
                     scope.validationSummary = [];
 
+                    //create a flag for us to be able to reference in the below closures for watching.
+                    var showValidation = false;
+                    
+                    //add a watch to update our waitingOnValidation flag for use in the below closures
+                    scope.$watch("$parent.ui.waitingOnValidation", function (isWaiting, oldValue) {
+                        showValidation = isWaiting;
+                        if (scope.validationSummary.length > 0 && showValidation) {
+                            element.show();
+                        }
+                        else {
+                            element.hide();
+                        }
+                    });
+
                     if (!attr.behavior || attr.behavior == "properties") {
                         //if we are to show field property based errors.
                         //this requires listening for bubbled events from valBubble directive.
@@ -224,14 +238,16 @@ define(['angular', 'namespaceMgr'], function (angular) {
                             var exists = false;
                             var msg = "The value assigned for the property " + contentPropScope.model.label + " is invalid";
                             for (var v in scope.validationSummary) {
-                                if (msg == v) {
+                                if (msg == scope.validationSummary[v]) {
                                     exists = true;
                                 }
                             }
                             if (!exists) {
                                 scope.validationSummary.push(msg);
                             }
-                            element.show();
+                            if (showValidation) {
+                                element.show();
+                            }                            
                         });
                         //listen for form invalidation so we know when to hide it
                         //NOTE: we are not hard coding the form name, we'll get it from the parent scope
@@ -239,10 +255,8 @@ define(['angular', 'namespaceMgr'], function (angular) {
                             //check if there is an error and hide the summary if not
                             var hasError = false;
                             for (var err in errors) {
-                                for (var i in errors[err]) {
-                                    if (errors[err].length && errors[err].length > 0) {
-                                        hasError = true;
-                                    }
+                                if (errors[err].length && errors[err].length > 0) {
+                                    hasError = true;
                                 }
                             }
                             if (!hasError) {
@@ -259,19 +273,17 @@ define(['angular', 'namespaceMgr'], function (angular) {
                             //clear the summary
                             scope.validationSummary = [];
                             for (var err in errors) {
-                                for (var i in errors[err]) {
-                                    if (errors[err].length && errors[err].length > 0) {
-                                        scope.validationSummary.push("The value '"
-                                            + errors[err][0].$viewValue
-                                            + "' is invalid for field '"
-                                            + errors[err][0].$name
-                                            + "'"
-                                        );
-                                    }
+                                if (errors[err].length && errors[err].length > 0) {
+                                    scope.validationSummary.push("The value '"
+                                        + errors[err][0].$viewValue
+                                        + "' is invalid for field '"
+                                        + errors[err][0].$name
+                                        + "'"
+                                    );
                                 }
                             }
 
-                            if (scope.validationSummary.length > 0) {
+                            if (scope.validationSummary.length > 0 && showValidation) {
                                 element.show();
                             }
                             else {
