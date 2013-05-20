@@ -320,9 +320,7 @@
     <Content Include="Belle\js\controllers\propertyeditor.js" />
     <Content Include="Belle\js\controllers\propertyeditor.min.js" />
     <Content Include="Belle\js\main.min.js" />
-    <Content Include="Belle\js\services\services.min.js" />
     <Content Include="Belle\js\services\ui.services.js" />
-    <Content Include="Belle\js\services\ui.services.min.js" />
     <Content Include="Belle\lib\bootstrap\css\bootstrap.cosmo.min.css" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -922,7 +920,6 @@
     <Content Include="Belle\less\variables.less" />
     <Content Include="App_Plugins\MyPackage\Views\ServerSidePropertyEditors\ServerEnvironment.cshtml" />
     <Content Include="App_Plugins\MyPackage\Views\Web.config" />
-    <Content Include="Content\JavaScript\Content.ContentController.js" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

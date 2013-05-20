@@ -9,7 +9,7 @@
         jqueryCookie: '../lib/jquery/jquery.cookie',
         bootstrap: '../lib/bootstrap/js/bootstrap',
         underscore: '../lib/underscore/underscore',
-        angular: '../lib/angular/angular.min',
+        angular: '../lib/angular/angular',
         angularResource: '../lib/angular/angular-resource',
         statemanager: '../lib/angular/statemanager',
         text: '../lib/require/text',

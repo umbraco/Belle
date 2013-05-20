@@ -9,35 +9,99 @@ define(['angular', 'namespaceMgr'], function (angular) {
 
     var contentHelpers = angular.module('uModules.Content.Helpers', []);
 
-    app.directive('valForm', [
+    //TODO: Need to create a directive for fields to subscribe to that invalidates the field based on 
+    // the property's $parent erorrs collection (based on alias)
+    // This will allow us to automatically invalidate the particular field on alias which will work based
+    // on our server side ModelState collection with field names.
+
+    app.directive('valServerProperty', [
         function() {
             return {
-                link: function(scope, element, attr) {
-                    var form = element.inheritedData('$formController');
-                    // no need to validate if form doesn't exists
-                    if (!form) return;
-                    // validation model
-                    var errorCollection = attr.valForm;
-                    // watch validate changes to display validation
-                    scope.$watch(errorCollection, function (errors) {
-
-                        // every server validation should reset others
-                        // note that this is form level and NOT field level validation
-                        form.$serverError = {};
-
-                        // if errors is undefined or null just set invalid to false and return
-                        if (!errors) {
-                            form.$serverInvalid = false;
-                            return;
-                        }
-                        // set $serverInvalid to true|false
-                        form.$serverInvalid = (errors.length > 0);
-
-                        // loop through errors
-                        angular.forEach(errors, function(error, i) {
-                            form.$serverError[error.key] = { $invalid: true, message: error.value };
-                        });
+                link: function(scope, element, attr, ctrl) {
+                    if (!scope.model || !scope.model.alias)
+                        throw "valServerProperty can only be used with a content property object";
+                    var parentErrors = scope.$parent.errors;
+                    if (!parentErrors) return;
+                    var fieldName = attr.valServerProperty;
+                    if (!fieldName)
+                        throw "valServerProperty must have a field name specified";
+                    parentErrors.subscribe(scope.model, fieldName, function (errors) {
+                        var asdf = "";
                     }, true);
+                }
+            };
+        }
+    ]);
+    
+    app.directive('valContentProperty', [
+        function () {
+            return {
+                link: function (scope, element, attr, ctrl) {
+
+                    //copy local to use in the watch
+                    var _element = element;
+                    var _scope = scope;
+
+                    //listen for form invalidation, NOTE: we must use the 'string' value of 'form.$valid', we cannot
+                    // listen on the real object like scope.form.$valid... this doesn't work for some reason.
+                    //NOTE: we get the form element containing this element so we are not hard coding the reference 
+                    // to our form.
+                    var formName = element.closest("form").attr("name");
+                    
+                    scope.$watch(formName + '.$valid', function (newValue, oldValue) {
+                        if (newValue === false) {                        
+                            $(_element).show();
+                        }
+                        else {
+                            $(_element).hide();
+                        }
+                    });
+
+                }
+            };
+        }
+    ]);
+
+    app.directive('valSummary', [
+        function () {
+            return {
+                link: function (scope, element, attr, ctrl) {
+
+                    var valSummary = [];
+                    //assign this model to the scope
+                    scope.validationSummary = valSummary;
+
+                    //copy local to use in the watch
+                    var _element = element;
+                    var _scope = scope;
+                    
+                    //listen for form invalidation, NOTE: we must use the 'string' value of 'form.$valid', we cannot
+                    // listen on the real object like scope.form.$valid... this doesn't work for some reason.
+                    //NOTE: we get the form element containing this element so we are not hard coding the reference 
+                    // to our form.
+                    var formName = element.closest("form").attr("name");
+                    scope.$watch(formName + '.$valid', function (newValue, oldValue) {
+                        if (newValue === false) {                            
+                            //clear the summary
+                            valSummary = [];
+                            var processed = [];
+                            for (var err in _scope[formName].$error) {
+                                for (var i in err) {
+                                    //TODO: We should check here if we've processed the error, if not add it to the valSummary.
+                                    
+                                    // each err[i] has a $name and a $viewValue so we will check for this in our processed object
+                                    // then we can update the valSummary item to say something like: 
+                                    // 'value {$viewValue} is invalid for field {$name}
+                                    
+                                }
+                            }                            
+                            $(_element).show();
+                        }
+                        else {
+                            $(_element).hide();
+                        }
+                    });
+                    
                 }
             };
         }
@@ -67,50 +131,70 @@ define(['angular', 'namespaceMgr'], function (angular) {
         };
     });
     
-    Umbraco.Content.ContentController = function ($scope, $http, u$ContentHelper) {
+    contentHelpers.factory('u$ValidationManager', function () {
 
-        //**** Create the models for the scope ****
-        //initialize the data model
-        $scope.model = {};
-        //model for updating the UI
-        $scope.ui = {
-            working: false,
-            canSubmit: function () {
-                return $scope.form.$invalid || $scope.ui.working;
-            }
-        };
-        //error object/collection
-        $scope.errors = {
-            addError: function (contentProperty, errorMsg) {
+        return {
+            _callbacks: [],
+            subscribe: function (contentProperty, fieldName, callback) {
+                /// <summary>
+                /// Adds a callback method that is executed whenever validation changes for the field name + property specified.
+                /// This is generally used for server side validation in order to match up a server side validation error with 
+                /// a particular field, otherwise we can only pinpoint that there is an error for a content property, not the 
+                /// property's specific field. This is used with the val-server directive in which the directive specifies the 
+                /// field alias to listen for.
+                /// </summary>
+                
+                for (var c in this._callbacks) {
+                    if (this._callbacks[c].propertyAlias == contentProperty.alias && this._callbacks[c].fieldName == fieldName) {
+                        throw "A subscription has already been made for content alias " + contentProperty.alias + " and field name " + fieldName;
+                    }                    
+                }
+                this._callbacks.push({ propertyAlias: contentProperty.alias, fieldName: fieldName, callback: callback });
+            },
+            getCallback: function (contentProperty, fieldName) {
+                /// <summary>Gets a callback that has been registered using the subscribe method</summary>
+                for (var c in this._callbacks) {
+                    if (this._callbacks[c].propertyAlias == contentProperty.alias && this._callbacks[c].fieldName == fieldName) {
+                        return this._callbacks[c].callback;
+                    }
+                }
+                return null;
+            },
+            addError: function (contentProperty, fieldName, errorMsg) {
+                /// <summary>Adds an error message for the content property</summary>
+                
                 if (!contentProperty) return;
                 //only add the item if it doesn't exist                
                 if (!this.hasError(contentProperty)) {
                     this.items.push({
-                        alias: contentProperty.alias,
+                        propertyAlias: contentProperty.alias,
+                        fieldName: fieldName,
                         errorMsg: errorMsg
-                    });
+                    });                    
                 }
             },
-            removeError: function(contentProperty) {
+            removeError: function (contentProperty, fieldName) {
+                /// <summary>Removes an error message for the content property</summary>
+
                 if (!contentProperty) return;
                 for (var i = 0; i < this.items.length; i++) {
-                    if (this.items[i].alias == contentProperty.alias) {
+                    if (this.items[i].propertyAlias == contentProperty.alias && this.items[i].fieldName == fieldName) {
                         this.items.splice(i, 1); //remove the item
                         break;
                     }
-                } 
+                }
             },
-            getError: function(contentProperty) {
+            getError: function (contentProperty) {
                 for (var i = 0; i < this.items.length; i++) {
-                    if (this.items[i].alias == contentProperty.alias) {
+                    if (this.items[i].propertyAlias == contentProperty.alias) {
                         return this.items[i].errorMsg;
                     }
                 }
                 return null;
             },
-            hasError: function(contentProperty) {
+            hasError: function (contentProperty) {
                 for (var i = 0; i < this.items.length; i++) {
-                    if (this.items[i].alias == contentProperty.alias) {
+                    if (this.items[i].propertyAlias == contentProperty.alias) {
                         return true;
                     }
                 }
@@ -118,10 +202,32 @@ define(['angular', 'namespaceMgr'], function (angular) {
             },
             items: []
         };
+    });
+    
+    Umbraco.Content.ContentController = function ($scope, $element, $http, u$ContentHelper, u$ValidationManager) {
+        
+        //initialize the data model
+        $scope.model = {};
+        //expose the current form name
+        $scope.formName = $element.closest("form").attr("name");
+        //model for updating the UI
+        $scope.ui = {
+            working: false,
+            canSubmit: function () {
+                //NOTE: we're getting the form element for the current element so we're not hard coding
+                // the reference to the form name here.
+                return $scope[$element.closest("form").attr("name")].$invalid || $scope.ui.working;
+            }
+        };
+        //wire up validation manager
+        $scope.errors = u$ValidationManager;        
 
         //the url to get the content from
         var getContentUrl = Umbraco.Sys.ServerVariables.contentEditorApiBaseUrl + "GetContent?id=" + 1;
         var saveContentUrl = Umbraco.Sys.ServerVariables.contentEditorApiBaseUrl + "PostSaveContent";
+
+        //copy local so we can use in the http callback below (NOTE: This is a jquery element)
+        var elem = $($element);
 
         //go get the content from the server
         $scope.ui.working = true;

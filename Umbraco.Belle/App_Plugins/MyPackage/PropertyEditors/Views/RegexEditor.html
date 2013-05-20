@@ -2,6 +2,7 @@
     <p>
         Value in the format of <span>{{model.config }}</span>
     </p>
-    <input type="text" ng-model="model.value" required val-regex="model.config" />
-    <span ng-show="form.$invalid">This is not valid value!</span>
+    <input name="value" type="text" ng-model="model.value" required val-regex="model.config" val-server-property="value" />
+    <span ng-show="$parent[$parent.formName].value.$error.required">Required!</span>
+    <span ng-show="$parent[$parent.formName].value.$error.valRegex">This is not valid value!</span>
 </div>

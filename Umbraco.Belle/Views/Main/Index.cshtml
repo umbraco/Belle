@@ -50,23 +50,22 @@
     </style>    
 }
 
-<form name="form" ng-controller="Umbraco.Content.ContentController" ng-submit="save()" val-form="errors" novalidate>
+<form name="myform" ng-controller="Umbraco.Content.ContentController" ng-submit="save()" novalidate>
     
     <div class="content-properties">
         <div>ID: <span>{{model.id}}</span></div>
         <div>Name: <span>{{model.name}}</span></div>
     </div>
     
-    <ul class="validation-summary" ng-show="errors.items.length > 0">
-        <li ng-repeat="model in errors.items">
-            Property <span>{{model.alias}}</span> has an error: <span>{{model.errorMsg}}</span>
-        </li> 
+    <ul class="validation-summary" val-summary>
+        <li ng-repeat="model in validationSummary">{{model}}</li> 
     </ul>
 
     <div ng-repeat="model in model.properties" class="content-property">
         <div>
-            <div ng-show="$parent.errors.hasError(model)" class="property-validation">
-                {{$parent.errors.getError(model)}}
+            <div val-content-property="model.alias" class="property-validation">
+                Property has errors
+                @*{{$parent.errors.getError(model)}}*@
             </div>
 
             <div style="font-style: italic;">{{model.label}}</div>
