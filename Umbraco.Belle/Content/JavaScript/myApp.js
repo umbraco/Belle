@@ -26,17 +26,18 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     var parentErrors = scope.$parent.errors;
                     if (!parentErrors) return;
                     var fieldName = attr.valServerProperty;
-                    if (!fieldName)
-                        throw "valServerProperty must have a field name specified";
-                    parentErrors.subscribe(scope.model, fieldName, function (errors) {
-                        var asdf = "";
+                    parentErrors.subscribe(scope.model, fieldName, function (propertyErrors, allErrors) {
+                        alert("ERROR!");
                     }, true);
                 }
             };
         }
     ]);
     
-    //This directive is used to control the display of the property level validation message
+    //This directive is used to control the display of the property level validation message.
+    // We will listen for server side validation changes based on the parent scope's error collection
+    // and when an error is detected for this property we'll show the error message and then we need 
+    // to emit the valBubble event so that any parent listening can update it's UI (like the validation summary)
     app.directive('valContentProperty', [
         function () {
             return {
@@ -50,7 +51,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     //create flags for us to be able to reference in the below closures for watching.
                     var showValidation = false;
                     var hasError = false;
-
+                    
                     //listen for form validation
                     //NOTE: we are not hard coding the form name, we'll get it from the parent scope
                     scope.$watch("$parent[$parent.formName].$valid", function (isValid, oldValue) {
@@ -84,16 +85,21 @@ define(['angular', 'namespaceMgr'], function (angular) {
                         }
                     });
                     
-                    ////listen for changes to the parent's error collection, this is used for showing server validation messages
-                    //if (!scope.model || !scope.model.alias)
-                    //    throw "valContentProperty can only be used in the scope of a content property object";
-                    //var parentErrors = scope.$parent.errors;
-                    //if (!parentErrors) return;
-                    ////NOTE: we pass in "" in order to listen for all validation changes to the content property, not just for
-                    //// validation changes to fields in the property.
-                    //parentErrors.subscribe(scope.model, "", function (errors) {
-                    //    alert("Changed!");
-                    //}, true);
+                    var parentErrors = scope.$parent.errors;
+                    if (!parentErrors) return;
+                    //NOTE: we pass in "" in order to listen for all validation changes to the content property, not for
+                    // validation changes to fields in the property this is because some server side validators may not
+                    // return the field name for which the error belongs too, just the property for which it belongs.
+                    parentErrors.subscribe(scope.model, "", function (propertyErrors, allErrors) {
+                        hasError = true;
+                        element.show();
+                        //emit an event upwards 
+                        scope.$emit("valBubble", {
+                            element: element,       // the element that the validation applies to
+                            scope: scope,           // the current scope
+                            ctrl: ctrl              // the current controller
+                        });
+                    }, true);
 
                 }
             };
@@ -335,16 +341,10 @@ define(['angular', 'namespaceMgr'], function (angular) {
                 /// field alias to listen for.
                 /// </summary>
                 
-                //for (var c in this._callbacks) {
-                //    if (this._callbacks[c].propertyAlias == contentProperty.alias && this._callbacks[c].fieldName == fieldName) {
-                //        throw "A subscription has already been made for content alias " + contentProperty.alias + " and field name " + fieldName;
-                //    }                    
-                //}
-                
                 this._callbacks.push({ propertyAlias: contentProperty.alias, fieldName: fieldName, callback: callback });
             },
             getCallbacks: function (contentProperty, fieldName) {
-                /// <summary>Gets all callbacks that has been registered using the subscribe method</summary>
+                /// <summary>Gets all callbacks that has been registered using the subscribe method for the contentProperty + fieldName combo</summary>
                 var found = [];
                 for (var c in this._callbacks) {
                     if (this._callbacks[c].propertyAlias == contentProperty.alias && this._callbacks[c].fieldName == fieldName) {
@@ -368,8 +368,14 @@ define(['angular', 'namespaceMgr'], function (angular) {
                 
                 //we should now call all of the call backs registered for this error
                 var callbacks = this.getCallbacks(contentProperty, fieldName);
+                var errorsForCallback = [];
+                for (var e in this.items) {
+                    if (this.items[e].propertyAlias == contentProperty.alias && this.items[e].fieldName == fieldName) {
+                        errorsForCallback.push(this.items[e]);
+                    }
+                }
                 for (var cb in callbacks) {
-                    callbacks[cb].apply(this, this.items);
+                    callbacks[cb].apply(this, errorsForCallback, this.items);
                 }
             },
             removeError: function (contentProperty, fieldName) {
@@ -384,6 +390,14 @@ define(['angular', 'namespaceMgr'], function (angular) {
                 }
             },
             getError: function (contentProperty) {
+                
+                //TODO: we somehow need to display the server error message after posting, but then
+                // after re-validation on the client side what do we display ?
+                // perhaps we need to figure out a way to handle the bubble up event of the field error and
+                // display that error instead? 
+                // TODO: Currently we are not bubbling up the error message... how can we do this nicely ?
+                //  how can we get the error message from the element which simply just displays text when validation changes... it is not bound to the element being validated.
+
                 for (var i = 0; i < this.items.length; i++) {
                     if (this.items[i].propertyAlias == contentProperty.alias) {
                         return this.items[i].errorMsg;
@@ -461,7 +475,39 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     $scope.ui.waitingOnValidation = false;
                 }).
                 error(function (data, status, headers, config) {
-                    alert("failed!");
+                    //When the status is a 403 status, we have validation errors.
+                    //Otherwise the error is probably due to invalid data (i.e. someone mucking around with the ids or something).
+                    //Or, some strange server error
+                    if (status == 403) {
+                        //now we need to look through all the validation errors
+                        if (data && data.ModelState) {
+                            for (var e in data.ModelState) {
+
+                                //find the content property for the current error
+                                var contentProperty = null;
+                                for (var p in $scope.model.properties) {
+                                    if ($scope.model.properties[p].alias == e) {
+                                        contentProperty = $scope.model.properties[p];
+                                        break;
+                                    }
+                                }
+                                if (contentProperty != null) {
+                                    //if it contains a '.' then we will wire it up to a property's field
+                                    if (e.indexOf(".") >= 0) {
+                                        $scope.errors.addError(contentProperty, "", data.ModelState[e][0]);
+                                    }
+                                    else {
+                                        $scope.errors.addError(contentProperty, "", data.ModelState[e][0]);
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                    else {
+                        alert("failed!");
+                    }
+                    
                     $scope.ui.working = false;
                     $scope.ui.waitingOnValidation = true;
                 });
