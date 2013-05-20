@@ -9,12 +9,12 @@
         body {
             font-family: sans-serif;
         }
-        input.ng-invalid.ng-dirty
+        .formSubmitted input.ng-invalid.ng-dirty
         {
             background-color: #FA787E;
         }
 
-        input.ng-valid.ng-dirty
+        .formSubmitted input.ng-valid.ng-dirty
         {
             background-color: #78FA89;
         }
@@ -50,22 +50,19 @@
     </style>    
 }
 
-<form name="myform" ng-controller="Umbraco.Content.ContentController" ng-submit="save()" novalidate>
+<form name="myform" ng-controller="Umbraco.Content.ContentController" ng-class="{formFailed:ui.formSubmitted}" ng-submit="save()" novalidate>
     
     <div class="content-properties">
         <div>ID: <span>{{model.id}}</span></div>
         <div>Name: <span>{{model.name}}</span></div>
     </div>
     
-    <ul class="validation-summary" val-summary>
-        <li ng-repeat="model in validationSummary">{{model}}</li> 
-    </ul>
+    <val-summary></val-summary>
 
     <div ng-repeat="model in model.properties" class="content-property">
         <div>
-            <div val-content-property="model.alias" class="property-validation">
-                Property has errors
-                @*{{$parent.errors.getError(model)}}*@
+            <div val-content-property="model.alias" class="property-validation">                
+                {{$parent.errors.getError(model)}}
             </div>
 
             <div style="font-style: italic;">{{model.label}}</div>
@@ -75,7 +72,7 @@
         <div ng-include="model.view"></div>
     </div>
     <hr />
-    <button ng-disabled="ui.canSubmit()">Save</button>
+    <button ng-disabled="!ui.canSubmit()">Save</button>
     <hr />
     <div>Posting value:</div>
     <div>{{model}}</div>

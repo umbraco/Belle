@@ -7,7 +7,7 @@ define(['angular'], function (angular) {
     /* Directives */
     var umbDir = angular.module('umbraco.directives', []);
 
-    umbDir.directive('val-regex', function () {
+    app.directive('valRegex', function () {
 
         /// <summary>
         ///     A custom directive to allow for matching a value against a regex string.
@@ -20,18 +20,24 @@ define(['angular'], function (angular) {
 
                 var regex = new RegExp(scope.$eval(attrs.valRegex));
 
-                ctrl.$parsers.unshift(function (viewValue) {
-                    if (regex.test(viewValue)) {
+                var patternValidator = function (viewValue) {
+                    //NOTE: we don't validate on empty values, use required validator for that
+                    if (!viewValue || regex.test(viewValue)) {
                         // it is valid
-                        ctrl.$setValidity('val-regex', true);
+                        scope.$parent.errors.removeError(scope.model, "");
+                        ctrl.$setValidity('valRegex', true);
                         return viewValue;
                     }
                     else {
                         // it is invalid, return undefined (no model update)
-                        ctrl.$setValidity('val-regex', false);
+                        scope.$parent.errors.addError(scope.model, "", "Invalid value");
+                        ctrl.$setValidity('valRegex', false);
                         return undefined;
                     }
-                });
+                };
+
+                ctrl.$formatters.push(patternValidator);
+                ctrl.$parsers.push(patternValidator);
             }
         };
     });
