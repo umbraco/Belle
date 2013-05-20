@@ -1,4 +1,4 @@
-angular.module('umbraco').controller("RichTextEditorController", function($rootScope, $scope, dialog, $log){
+angular.module("umbraco").controller("Umbraco.Editors.RTEController", function($rootScope, $scope, dialog, $log){
     require(
         [
             'tinymce'
@@ -8,7 +8,7 @@ angular.module('umbraco').controller("RichTextEditorController", function($rootS
             tinymce.DOM.events.domLoaded = true;
 
             tinymce.init({
-               selector: "#" + $scope.property.alias,
+               selector: "#" + $scope.model.alias,
                handle_event_callback : "myHandleEvent" 
              });
         
@@ -20,7 +20,7 @@ angular.module('umbraco').controller("RichTextEditorController", function($rootS
                 $log.log("woot");
 
                 $scope.$apply(function(){
-                    $scope.property.value = inst.getBody().innerHTML;
+                    $scope.model.value = inst.getBody().innerHTML;
                 })
             }
 
@@ -29,7 +29,7 @@ angular.module('umbraco').controller("RichTextEditorController", function($rootS
             }
 
             function populate(data){
-                $scope.property.value = data.selection;    
+                $scope.model.value = data.selection;    
             }
 
         });

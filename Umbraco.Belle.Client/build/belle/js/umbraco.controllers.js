@@ -1,9 +1,10 @@
+'use strict';
 /*! umbraco - v0.0.1-SNAPSHOT - 2013-05-15
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
  */
-'use strict';
+
 define(['angular'], function (angular) {
 //Handles the section area of the app
 angular.module('umbraco').controller("NavigationController", function ($scope, $window, tree, section, $rootScope, $routeParams, dialog) {
@@ -239,47 +240,50 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
 });
 
 
+//used for the macro picker dialog
+angular.module("umbraco").controller("Umbraco.Dialogs.MacroPickerController", function ($scope, macroFactory) {	
+	$scope.macros = macroFactory.all(true);
+	$scope.dialogMode = "list";
+
+	$scope.configureMacro = function(macro){
+		$scope.dialogMode = "configure";
+		$scope.dialogData.macro = macroFactory.getMacro(macro.alias);
+	};
+});
 //used for the media picker dialog
-angular.module('umbraco').controller("mediaPickerDialogController", function ($scope, mediaFactory) {	
+angular.module("umbraco").controller("Umbraco.Dialogs.MediaPickerController", function ($scope, mediaFactory) {	
 	$scope.images = mediaFactory.rootMedia();
 });
-angular.module('umbraco').controller("contentCreateController", function ($scope, $routeParams,contentTypeFactory) {	
+angular.module('umbraco').controller("Umbraco.Editors.ContentCreateController", function ($scope, $routeParams,contentTypeFactory) {	
 	$scope.allowedTypes  = contentTypeFactory.allowedTypes($scope.currentNode.id);	
 });
-angular.module('umbraco').controller("contentEditController", function ($scope, $routeParams, contentFactory, notifications) {
-
+angular.module("umbraco").controller("Umbraco.Editors.ContentEditController", function ($scope, $routeParams, contentFactory) {
 	if($routeParams.create)
 		$scope.content = contentFactory.getContentScaffold($routeParams.parentId, $routeParams.doctype);
 	else
 		$scope.content = contentFactory.getContent($routeParams.id);
 
-
 	$scope.saveAndPublish = function (cnt) {
 		cnt.publishDate = new Date();
 		contentFactory.publishContent(cnt);
-
-		notifications.success(cnt.name + " published", "");
 	};
 
 	$scope.save = function (cnt) {
 		cnt.updateDate = new Date();
 		contentFactory.saveContent(cnt);
-
-		notifications.success(cnt.name + " saved", "");
 	};
-	
 });
-angular.module('umbraco').controller("CodeMirrorEditorController", function ($scope, $rootScope) {
+angular.module("umbraco").controller("Umbraco.Editors.CodeMirrorController", function ($scope, $rootScope) {
     require(
         [
             'css!../lib/codemirror/js/lib/codemirror.css',
             'css!../lib/codemirror/css/umbracoCustom.css',
-            'codemirrorHtml',
+            'codemirrorHtml'
         ],
         function () {
 
             var editor = CodeMirror.fromTextArea(
-                                    document.getElementById($scope.property.alias), 
+                                    document.getElementById($scope.model.alias), 
                                     {
                                         mode: CodeMirror.modes.htmlmixed, 
                                         tabMode: "indent"
@@ -287,123 +291,72 @@ angular.module('umbraco').controller("CodeMirrorEditorController", function ($sc
 
             editor.on("change", function(cm) {
                 $rootScope.$apply(function(){
-                    $scope.property.value = cm.getValue();   
+                    $scope.model.value = cm.getValue();   
                 });
             });
 
         });
 });
+angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", function ($rootScope, $scope, notifications) {
+    require(
+        [
+            'async!http://maps.google.com/maps/api/js?sensor=false'
+        ],
+        function () {
+            //Google maps is available and all components are ready to use.
+            var valueArray = $scope.model.value.split(',');
+            var latLng = new google.maps.LatLng(valueArray[0], valueArray[1]);
+            
+            var mapDiv = document.getElementById($scope.model.alias + '_map');
+            var mapOptions = {
+                zoom: $scope.model.config.zoom,
+                center: latLng,
+                mapTypeId: google.maps.MapTypeId[$scope.model.config.mapType]
+            };
 
-angular.module('umbraco').controller("GoogleMapsEditorController", function ($rootScope, $scope, notifications) {
-require(
-    [
-        'async!http://maps.google.com/maps/api/js?sensor=false'
-    ],
-    function () {
-        //Google maps is available and all components are ready to use.
-        var valueArray = $scope.property.value.split(',');
-        var latLng = new google.maps.LatLng(valueArray[0], valueArray[1]);
-        
-        var mapDiv = document.getElementById($scope.property.alias + '_map');
-        var mapOptions = {
-            zoom: $scope.property.config.zoom,
-            center: latLng,
-            mapTypeId: google.maps.MapTypeId[$scope.property.config.mapType]
-        };
-
-        var map = new google.maps.Map(mapDiv, mapOptions);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: latLng,
-            draggable: true
-        });
-        
-        google.maps.event.addListener(marker, "dragend", function(e){
-            var newLat = marker.getPosition().lat();
-            var newLng = marker.getPosition().lng();
-        
-            //here we will set the value
-            $scope.property.value = newLat + "," + newLng;
-
-            //call the notication engine
-            $rootScope.$apply(function () {
-                notifications.warning("Your dragged a marker to", $scope.property.value);
+            var map = new google.maps.Map(mapDiv, mapOptions);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: latLng,
+                draggable: true
             });
-        });
-    }
-);    
+            
+            google.maps.event.addListener(marker, "dragend", function(e){
+                var newLat = marker.getPosition().lat();
+                var newLng = marker.getPosition().lng();
+            
+                //here we will set the value
+                $scope.model.value = newLat + "," + newLng;
+
+                //call the notication engine
+                $rootScope.$apply(function () {
+                    notifications.warning("Your dragged a marker to", $scope.model.value);
+                });
+            });
+        }
+    );    
 });
+'use strict';
 //this controller simply tells the dialogs service to open a mediaPicker window
 //with a specified callback, this callback will receive an object with a selection on it
-angular.module('umbraco').controller("GridEditorController", function($rootScope, $scope, dialog, $log, macroFactory){
+angular.module("umbraco").controller("Umbraco.Editors.GridController", function($rootScope, $scope, dialog, $log){
     //we most likely will need some iframe-motherpage interop here
+    $log.log("loaded");
+
     $scope.openMediaPicker =function(){
-            var d = dialog.mediaPicker({scope: $scope, callback: renderImages});
+            var d = dialog.mediaPicker({scope: $scope, callback: populate});
     };
 
-    $scope.openPropertyDialog =function(){
-            var d = dialog.property({scope: $scope, callback: renderProperty});
-    };
-
-    $scope.openMacroDialog =function(){
-            var d = dialog.macroPicker({scope: $scope, callback: renderMacro});
-    };
-
-    function renderProperty(data){
-       $scope.currentElement.html("<h1>boom, property!</h1>"); 
+    function populate(data){
+        //notify iframe to render something.. 
     }
 
-    function renderMacro(data){
-       $scope.currentElement.html( macroFactory.renderMacro(data.macro, -1) ); 
-    }
-   
-    function renderImages(data){
-        var list = $("<ul class='thumbnails'></ul>")
-        $.each(data.selection, function(i, image) {
-            list.append( $("<li class='span2'><img class='thumbnail' src='" + image.src + "'></li>") );
+    $(window).bind("umbraco.grid.click", function(event) {
+        $scope.$apply(function() {
+            $scope.openMediaPicker();
         });
-
-        $scope.currentElement.html( list[0].outerHTML); 
-    }
-
-    $(window).bind("umbraco.grid.click", function(event){
-
-        $scope.$apply(function () {
-            $scope.currentEditor = event.editor;
-            $scope.currentElement = $(event.element);
-
-            if(event.editor == "macro")
-                $scope.openMacroDialog();
-            else if(event.editor == "image")
-                $scope.openMediaPicker();
-            else
-                $scope.propertyDialog();
-        });
-    })
-});
-$(function(){
-
-if(parent.$ !== undefined){
-
-    var editors = $('[data-editor]');
-    var p = parent.$(parent.document);
-    editors.addClass("editor");
-
-    editors.on("click", function (event) {
-        event.preventDefault();
-
-      //  parent.document.fire("umbraco.grid.click");
-      	var el = this;
-      	var e = jQuery.Event("umbraco.grid.click", {editor: $(el).data("editor"), element: el});
-        p.trigger( e );
     });
-  }
-
 });
-
-
-
-
 //this controller simply tells the dialogs service to open a mediaPicker window
 //with a specified callback, this callback will receive an object with a selection on it
 angular.module('umbraco').controller("mediaPickerController", function($rootScope, $scope, dialog){
@@ -412,10 +365,10 @@ angular.module('umbraco').controller("mediaPickerController", function($rootScop
     };
 
     function populate(data){
-        $scope.property.value = data.selection;    
+        $scope.model.value = data.selection;    
     }
 });
-angular.module('umbraco').controller("RichTextEditorController", function($rootScope, $scope, dialog, $log){
+angular.module("umbraco").controller("Umbraco.Editors.RTEController", function($rootScope, $scope, dialog, $log){
     require(
         [
             'tinymce'
@@ -425,7 +378,7 @@ angular.module('umbraco').controller("RichTextEditorController", function($rootS
             tinymce.DOM.events.domLoaded = true;
 
             tinymce.init({
-               selector: "#" + $scope.property.alias,
+               selector: "#" + $scope.model.alias,
                handle_event_callback : "myHandleEvent" 
              });
         
@@ -437,7 +390,7 @@ angular.module('umbraco').controller("RichTextEditorController", function($rootS
                 $log.log("woot");
 
                 $scope.$apply(function(){
-                    $scope.property.value = inst.getBody().innerHTML;
+                    $scope.model.value = inst.getBody().innerHTML;
                 })
             }
 
@@ -446,7 +399,7 @@ angular.module('umbraco').controller("RichTextEditorController", function($rootS
             }
 
             function populate(data){
-                $scope.property.value = data.selection;    
+                $scope.model.value = data.selection;    
             }
 
         });

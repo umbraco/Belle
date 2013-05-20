@@ -51,6 +51,7 @@ module.exports = function (grunt) {
       less: ['src/less/belle.less'], // recess:build doesn't accept ** in its file patterns
       prod: ['<%= distdir %>/js/*.js']
     },
+
     clean: ['<%= distdir %>/*'],
 
     copy: {
@@ -61,7 +62,7 @@ module.exports = function (grunt) {
         files: [{ dest: '<%= distdir %>/lib', src : '**', expand: true, cwd: 'lib/' }]
       },
       views: {
-        files: [{ dest: '<%= distdir %>/views', src : '**/*.html', expand: true, cwd: 'src/views/' }]
+        files: [{ dest: '<%= distdir %>/views', src : '**/*.*', expand: true, cwd: 'src/views/' }]
       },
       app: {
         files: [
@@ -124,10 +125,10 @@ module.exports = function (grunt) {
         dest: '<%= distdir %>/lib/angular/angular.min.js'
       },
       controllers: {
-        src:['src/views/**/*.js'],
+        src:['src/views/**/*.controller.js'],
         dest: '<%= distdir %>/js/umbraco.controllers.js',
         options:{
-          banner: "<%= banner %>'use strict';\ndefine(['angular'], function (angular) {\n",
+          banner: "'use strict';\n<%= banner %>\ndefine(['angular'], function (angular) {\n",
           footer: "\n\nreturn angular;\n});"
         }
       },
@@ -135,7 +136,7 @@ module.exports = function (grunt) {
         src:['src/common/services/*.js'],
         dest: '<%= distdir %>/js/umbraco.services.js',
         options:{
-          banner: "<%= banner %>'use strict';\ndefine(['angular'], function (angular) {\n",
+          banner: "'use strict';\ndefine(['angular'], function (angular) {\n",
           footer: "\n\nreturn angular;\n});"
         }
       },

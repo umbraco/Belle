@@ -1,18 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <base href="/Belle/" />
+    <base href="/belle/" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Umbraco</title>
-    <link rel="stylesheet" href="css/belle.css"  />
+    <link rel="stylesheet" href="assets/css/umbraco.css"  />
 </head>
 <body ng-controller="MainController" id="umbracoMainPageBody">     
 
     <div ng-show="authenticated" ng-cloak ng-animate="'fade'" id="layout" class="clearfix">
-
-        
 
         <div id="leftcolumn" ng-controller="NavigationController" ng-mouseleave="hideSectionTree()">
             <div id="applications" ng-class="{faded:ui.stickyNavigation}">
@@ -71,7 +69,7 @@
 
                 <!-- the tree -->
                 <div id="tree" class="span5 umb-scrollable umb-panel" auto-scale="0" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
-                    <div ng-include="'views/application/tree.html'"></div>
+                    <div ng-include="'views/common/tree.html'"></div>
                 </div>
 
 

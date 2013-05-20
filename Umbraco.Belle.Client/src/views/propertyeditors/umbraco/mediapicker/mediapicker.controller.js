@@ -6,6 +6,6 @@ angular.module('umbraco').controller("mediaPickerController", function($rootScop
     };
 
     function populate(data){
-        $scope.property.value = data.selection;    
+        $scope.model.value = data.selection;    
     }
 });

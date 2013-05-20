@@ -1,50 +1,56 @@
-﻿<div class="umb-panel tabbable" ng-controller="contentEditController">
-<div class="umb-panel-header umb-padded-header">
-    <div class="umb-el-wrap umb-panel-buttons">
-
+﻿<div class="umb-panel tabbable" ng-controller="Umbraco.Editors.ContentEditController">
+<div class="umb-panel-header">
+    <div class="row-fluid">
+<div class="span4">
             <input type="text" placeholder="Enter a page title" headline ng-model="content.name" />
-            
-            <div class="btn-toolbar umb-btn-toolbar">
-                    <button class="btn" ng-click="save(content)" data-shortcut="ctrl+s">Preview page</button>
-                    
-                    <div class="btn-group">
-
-                      <div class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                        <a href="#" ng-click="saveAndPublish(content)" data-shortcut="ctrl+p">Publish</a>
-                        <span class="caret" ></span>
-                      </div>
-                      <ul class="dropdown-menu">
-                        <li><a href="#">Save draft</a></li>
-                      </ul>
+        </div>
+            <div class="span8">
+            <div class="btn-toolbar pull-right umb-btn-toolbar">
+                <div class="btn-group">
+                    <a class="btn" ng-click="save(content)" data-shortcut="ctrl+s">Preview page</a>
                     </div>
-            </div>
 
-            <ul class="nav nav-tabs umb-nav-tabs">
+                    <div class="btn-group">
+  <a class="btn btn-success" href="#" ng-click="saveAndPublish(content)" data-shortcut="ctrl+p">Publish</a>
+  <a class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+  </a>
+  <div class="dropdown-menu">
+    <small>
+        This was saved xx ago
+    </small>
+   <a class="btn btn-primary" href="#">Save draft</a>
+  </div>
+</div>
+</div>
+            </div>
+</div>
+            <ul class="nav nav-tabs umb-nav-tabs span12">
                 <li ng-class="{active: $first}" ng-repeat="tab in content.tabs"><a href="#{{tab.alias}}" data-toggle="tab">{{tab.label}}</a></li>
                 <li><a href="#properties" data-toggle="tab">Properties</a></li>
             </ul>
     </div>
-</div>
 
-    <div class="umb-panel-body umb-scrollable" auto-scale="1">
+
+    <div class="umb-panel-body umb-scrollable row-fluid" auto-scale="1">
         <div class="tab-content form-horizontal">
             <div id='{{tab.alias}}' class='umb-tab-pane tab-pane' ng-class="{active: $first}" ng-repeat="tab in content.tabs">
                 <div class='umb-tab-pane-inner'>
             
-                    <div class="umb-pane" ng-repeat="property in tab.properties">
+                    <div class="umb-pane" ng-repeat="model in tab.properties">
                         <div class="control-group umb-control-group"
-                        ng-class="{hidelabel:property.hideLabel}" >
+                        ng-class="{hidelabel:model.hideLabel}" >
                             
                             <div class="umb-el-wrap">
 
-                                <label class="control-label" ng-hide="property.hideLabel" for="{{property.alias}}">
-                                    {{property.label}}
-                                    <small>{{property.description}}</small>
+                                <label class="control-label" ng-hide="model.hideLabel" for="{{model.alias}}">
+                                    {{model.label}}
+                                    <small>{{model.description}}</small>
                                 </label>    
                                 
 
                                 <div class="controls controls-row" 
-                                    ng-include="property.view | propertyEditor">
+                                    ng-include="model.view | propertyEditor">
                                 </div>
 
                             </div>
