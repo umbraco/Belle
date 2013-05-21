@@ -148,8 +148,6 @@ define(['angular'], function (angular) {
                 } else {
                     scope.editorView = editor;
                 }
-
-
             }
         };
     });

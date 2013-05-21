@@ -94,7 +94,7 @@ namespace Umbraco.Belle.Controllers
                     var message = string.Format("The property editor with id: {0} was not found for property with id {1}", p.DataType.ControlId, p.Id);
                     actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
                     return false;
-                }
+                } 
 
                 foreach (var v in editor.ValueEditor.Validators)
                 {

@@ -67,8 +67,9 @@
             <div style="font-style: italic;">{{model.label}}</div>
             <div style="font-size: 9px;">{{model.description}}</div>            
         </div>
-
-        <div ng-include="model.view"></div>
+        
+        <umb-content-property></umb-content-property>
+                
     </div>
     <hr />
     <button ng-disabled="!ui.canSubmit()">Save</button>

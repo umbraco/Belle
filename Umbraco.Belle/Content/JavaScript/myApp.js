@@ -28,6 +28,115 @@ define(['angular', 'namespaceMgr'], function (angular) {
             };
         }
     ]);
+
+    app.directive('umbContentProperty', [
+        function() {
+            return {
+                replace: true,      //replace the element with the template
+                restrict: "E",      //restrict to element
+                template: "<div ng-include='editorView'></div>",
+                link: function(scope, element, attr, ctrl) {
+
+                    scope.editorView = "";
+
+                    //let's make a requireJs call to try and retrieve the associated js 
+                    // for this view
+                    if (scope.model.view && scope.model.view != "") {
+                        //get the js file which exists at ../Js/EditorName.js
+                        var lastSlash = scope.model.view.lastIndexOf("/");
+                        var fullViewName = scope.model.view.substring(lastSlash + 1, scope.model.view.length);
+                        var viewName = fullViewName.indexOf(".") > 0 
+                            ? fullViewName.substring(0, fullViewName.indexOf("."))
+                            : fullViewName;
+                        var jsPath = scope.model.view.substring(0, lastSlash + 1) + "../Js/" + viewName + ".js";
+                        require([jsPath],
+                            function () {
+                                //the script loaded so load the view
+                                //NOTE: The use of $apply because we're operating outside of the angular scope with this callback.
+                                scope.$apply(function() {
+                                    scope.editorView = scope.model.view;
+                                });
+                            }, function (err) {
+                                //an error occurred... most likely there is no JS file to load for this editor
+                                //NOTE: The use of $apply because we're operating outside of the angular scope with this callback.
+                                scope.$apply(function () {
+                                    scope.editorView = scope.model.view;
+                                });                                
+                            });
+                    }
+                    else {
+                        scope.editorView = editor;
+                    }
+
+
+                    //scope.$parent.$on("$includeContentLoaded", function () {
+                    //    var controller = element.attr("ng-controller");
+                    //});
+                    
+                },
+                //compile: function (tElement, tAttrs, transclude) {
+
+                //}
+            };
+        }
+    ]);
+
+    ////This is a highly specialized directive used to load in a property editor. 
+    //// It is similar to ngInclude, however ngInclude does not emit an event before it compiles the 
+    //// output whereas before we compile the view after we've retreived it from http, we want to check 
+    //// for an ngController attribute and if we find one, then we'll make a request to load in the JS.
+    //app.directive('umbContentProperty', ['$http', '$templateCache', '$anchorScroll', '$compile',
+    //    function($http, $templateCache, $anchorScroll, $compile) {
+    //        return {
+    //            replace: true,      //replace the element with the template
+    //            restrict: "E",      //restrict to element
+    //            terminal: true,
+    //            compile: function(element, attr) {
+    //                var srcExp = attr.ngInclude || attr.src;
+
+    //                return function(scope, element) {
+    //                    var changeCounter = 0,
+    //                        childScope;
+
+    //                    var clearContent = function() {
+    //                        if (childScope) {
+    //                            childScope.$destroy();
+    //                            childScope = null;
+    //                        }
+
+    //                        element.html('');
+    //                    };
+
+    //                    scope.$watch(srcExp, function ngIncludeWatchAction(src) {
+    //                        var thisChangeId = ++changeCounter;
+
+    //                        if (src) {
+    //                            $http.get(src, { cache: $templateCache }).success(function(response) {
+    //                                if (thisChangeId !== changeCounter) return;
+
+    //                                if (childScope) childScope.$destroy();
+    //                                childScope = scope.$new();
+
+    //                                element.html(response);
+    //                                $compile(element.contents())(childScope);
+
+    //                                if (isDefined(autoScrollExp) && (!autoScrollExp || scope.$eval(autoScrollExp))) {
+    //                                    $anchorScroll();
+    //                                }
+
+    //                                childScope.$emit('$includeContentLoaded');
+    //                                scope.$eval(onloadExp);
+    //                            }).error(function() {
+    //                                if (thisChangeId === changeCounter) clearContent();
+    //                            });
+    //                        }
+    //                        else clearContent();
+    //                    });
+    //                };
+    //            }
+    //        };
+    //    }]);
+
     
     //This directive is used to control the display of the property level validation message.
     // We will listen for server side validation changes based on the parent scope's error collection

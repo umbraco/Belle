@@ -41,6 +41,15 @@ namespace Umbraco.Belle.System
                         Description = "A multi value editor",
                         DataType = GetDataType(92),
                         Value = "My Value 1, My Value 2, My Value 3, My Value 4, My Value 5"
+                    },
+                new ContentPropertyDto
+                    {
+                        Alias = "postcode",
+                        Id = 13,
+                        Label = "Postal code",
+                        Description = "An Australian postcode",
+                        DataType = GetDataType(93),
+                        Value = "2034"
                     }
             };
 
@@ -134,7 +143,8 @@ namespace Umbraco.Belle.System
                         {
                             GetContentProperty(10),
                             GetContentProperty(11),
-                            GetContentProperty(12)
+                            GetContentProperty(12),
+                            GetContentProperty(13)
                         }
             };
         }
@@ -152,7 +162,8 @@ namespace Umbraco.Belle.System
                         {
                             GetContentPropertyForDisplay(10),
                             GetContentPropertyForDisplay(11),
-                            GetContentPropertyForDisplay(12)
+                            GetContentPropertyForDisplay(12),
+                            GetContentPropertyForDisplay(13)
                         }
             };
         }

@@ -2,7 +2,6 @@
 	propertyEditors: [
 		{
 			id: "0BA0F832-D759-4526-9B3E-94BBFC98F92E",
-			alias: "regex",
 			name: "Regex",
 			editor: {
 				view: "~/App_Plugins/MyPackage/PropertyEditors/Views/RegexEditor.html",
@@ -22,28 +21,10 @@
 		},
 		{
 			id: "A24C4A00-29BF-4A57-BDE6-B1E305A96A4C",
-			alias: "csvEditor",
 			name: "CSV Editor",
 			editor: {
 				view: "~/App_Plugins/MyPackage/PropertyEditors/Views/CsvEditor.html"				
 			}
 		}	
-	],
-    config: {
-        paths: {
-            myPackageCommon: '~/App_Plugins/MyPackage/Common/Js/MyPackage',
-            csvPropertyEditor: '~/App_Plugins/MyPackage/PropertyEditors/Js/CsvEditor',
-			regexPropertyEditor: '~/App_Plugins/MyPackage/PropertyEditors/Js/RegexEditor'
-        },
-        shim: {
-            'myPackageCommon': { 'exports': 'myPackageCommon' },
-            'csvPropertyEditor': { deps: ['myPackageCommon'] },
-			'regexPropertyEditor': { deps: ['myPackageCommon'] }
-        }
-    },
-    init: [
-        'myPackageCommon',
-        'csvPropertyEditor',
-		'regexPropertyEditor'
-    ]
+	]
 }

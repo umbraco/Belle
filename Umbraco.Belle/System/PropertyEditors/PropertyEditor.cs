@@ -4,6 +4,7 @@ using System.Web;
 using Newtonsoft.Json;
 using Umbraco.Belle.System.Serialization;
 using Umbraco.Core;
+using Umbraco.Core.IO;
 
 namespace Umbraco.Belle.System.PropertyEditors
 {
@@ -65,6 +66,12 @@ namespace Umbraco.Belle.System.PropertyEditors
         {
             if (StaticallyDefinedValueEditor != null && !StaticallyDefinedValueEditor.View.IsNullOrWhiteSpace())
             {
+                //detect if the view is a virtual path (in most cases, yes) then convert it
+                if (StaticallyDefinedValueEditor.View.StartsWith("~/"))
+                {
+                    StaticallyDefinedValueEditor.View = IOHelper.ResolveUrl(StaticallyDefinedValueEditor.View);
+                }
+
                 return StaticallyDefinedValueEditor;
             }
             throw new NotImplementedException("This method must be implemented if a view is not explicitly set");
