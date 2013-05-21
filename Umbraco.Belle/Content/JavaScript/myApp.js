@@ -14,6 +14,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
     app.directive('valServerProperty', [
         function() {
             return {
+                require: 'ngModel',
                 restrict: "A",
                 link: function(scope, element, attr, ctrl) {
                     if (!scope.model || !scope.model.alias)
@@ -28,6 +29,64 @@ define(['angular', 'namespaceMgr'], function (angular) {
             };
         }
     ]);
+    
+    ////A directive which ensures that the input field name / id are auto-generated based on what 
+    //// property the field belongs to.
+    //app.directive('umbGenName', function (u$ContentHelper) {
+
+    //    return {
+    //        priority: 100,              //a high priority as this should execute first!
+    //        restrict: "A",              //limit only to attributes
+    //        link: function (scope, elm, attrs, ctrl) {
+    //            if (!scope.model.alias || !scope.model.id)
+    //                throw "umbGenName can only be set on an input element that has a scope of a content property";
+
+    //            //this can be a comma delimited list of attribute names to auto-gen a name/id for.
+    //            //we'll loop through the delimited items and update any matching attributes in the collection and on the element.
+    //            var toGenerateFor = attrs.umbGenName.split(",");
+    //            for (var i in toGenerateFor) {
+    //                var generated = u$ContentHelper.generateHtmlName(scope.model.alias, attrs[toGenerateFor[i]]);
+    //                attrs[toGenerateFor[i]] = generated;
+    //                //use the inner $attr property which contains the snake-case attribute names
+    //                elm.attr(attrs.$attr[toGenerateFor[i]], generated);
+    //            }
+    //        }
+    //    };
+    //});
+
+    app.directive('valRegex', function () {
+
+        /// <summary>
+        /// A custom directive to allow for matching a value against a regex string.
+        /// NOTE: there's already an ng-pattern but this requires that a regex expression is set, not a regex string
+        ///</summary>
+
+        return {
+            require: 'ngModel',
+            restrict: "A",
+            link: function (scope, elm, attrs, ctrl) {
+
+                var regex = new RegExp(scope.$eval(attrs.valRegex));
+
+                var patternValidator = function (viewValue) {
+                    //NOTE: we don't validate on empty values, use required validator for that
+                    if (!viewValue || regex.test(viewValue)) {
+                        // it is valid
+                        ctrl.$setValidity('valRegex', true);
+                        return viewValue;
+                    }
+                    else {
+                        // it is invalid, return undefined (no model update)
+                        ctrl.$setValidity('valRegex', false);
+                        return undefined;
+                    }
+                };
+
+                ctrl.$formatters.push(patternValidator);
+                ctrl.$parsers.push(patternValidator);
+            }
+        };
+    });
 
     app.directive('umbContentProperty', [
         function() {
@@ -67,16 +126,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     else {
                         scope.editorView = editor;
                     }
-
-
-                    //scope.$parent.$on("$includeContentLoaded", function () {
-                    //    var controller = element.attr("ng-controller");
-                    //});
-                    
-                },
-                //compile: function (tElement, tAttrs, transclude) {
-
-                //}
+                }                
             };
         }
     ]);
@@ -151,9 +201,8 @@ define(['angular', 'namespaceMgr'], function (angular) {
                 template: "<div class='property-validation'>{{errorMsg}}</div>",
                 link: function (scope, element, attr, ctrl) {
 
-                    //we'll validate a bunch of inputs here to ensure this directive can execute.
-                    if (!scope.$parent.$parent || !scope.$parent.$parent.formName)
-                        throw "valPropertyMessage must exist within a scope of a content editor";
+                    if (!scope.propertyForm)
+                        throw "valPropertyMessage must exist within a form called propertyForm";
 
                     //flags for use in the below closures
                     var showValidation = false;
@@ -163,8 +212,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     scope.errorMsg = "";
                     
                     //listen for form validation
-                    //NOTE: we are not hard coding the form name, we'll get it from the parent scope
-                    scope.$watch("$parent.$parent[$parent.$parent.formName].$valid", function (isValid, oldValue) {
+                    scope.$watch("$parent.propertyForm.$valid", function (isValid, oldValue) {
                         if (!isValid) {
                             //check if it's one of the properties that is invalid in the current content property
                             if (element.closest(".content-property").find(".ng-invalid").length > 0) {
@@ -217,7 +265,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                         //emit an event upwards 
                         scope.$emit("valBubble", {
                             element: element,       // the element that the validation applies to
-                            scope: scope,           // the current scope
+                            scope: scope.$parent,   // the parent scope since we've creaed a new one for this directive
                             ctrl: ctrl              // the current controller
                         });
                     }, true);
@@ -227,33 +275,45 @@ define(['angular', 'namespaceMgr'], function (angular) {
         }
     ]);
 
+    //This directive is used for validation messages to associate them with a field that the message is for.
+    // It is referenced from valToggleMsg.
+    app.directive('valMsgFor', [
+        function () {
+            return {
+                restrict: "A",
+                link: function (scope, element, attr, ctrl) {
+                    //if (!scope.propertyForm)
+                    //    throw "valBubble must exist within a form called propertyForm";
+                    
+                    
+                    //This directive doesn't actually do anything though, it's referenced from valToggleMsg
+                }
+            };
+        }
+    ]);
+
     //This directive will show/hide an error based on:
     // * is the value + the given validator invalid
     // * AND, has the form been submitted ?
-    app.directive('valToggleError', [
+    app.directive('valToggleMsg', [
         function () {
             return {
                 restrict: "A",
                 link: function (scope, element, attr, ctrl) {
 
-                    //we'll validate a bunch of inputs here to ensure this directive can execute.
-                    if (!scope.$parent || !scope.$parent.formName)
-                        throw "valToggleError must exist within a scope of a content editor";                    
-                    var parts = attr.valToggleError.split(";");
-                    if (parts.length != 2)
-                        throw "valToggleError value must have 2 parts delimited by a semi colon";
-                    var currentForm = scope.$parent[scope.$parent.formName];
-                    var value = currentForm[parts[0]];
-                    if (!value)
-                        throw "valToggleError could not find the value " + parts[0];
-                    
+                    if (!scope.propertyForm)
+                        throw "valToggleMsg must exist within a form called propertyForm";
+                    if (!attr.valToggleMsg)
+                        throw "valToggleMsg requires that a reference to a validator is specified";
+                    if (!attr.valMsgFor)
+                        throw "valToggleMsg requires that the attribute valMsgFor exists on the element";
+
                     //create a flag for us to be able to reference in the below closures for watching.
                     var showValidation = false;
                     var hasError = false;
 
                     //add a watch to the validator for the value (i.e. $parent.myForm.value.$error.required )
-                    //NOTE: we are not hard coding the form name, we'll get it from the parent scope
-                    scope.$watch("$parent[$parent.formName]." + parts[0] + ".$error." + parts[1], function (isInvalid, oldValue) {
+                    scope.$watch("$parent.propertyForm." + attr.valMsgFor + ".$error." + attr.valToggleMsg, function (isInvalid, oldValue) {
                         hasError = isInvalid;
                         if (hasError && showValidation) {
                             element.show();
@@ -284,36 +344,49 @@ define(['angular', 'namespaceMgr'], function (angular) {
     app.directive('valBubble', [
         function () {
             return {
+                require: 'ngModel',
                 restrict: "A",
                 link: function (scope, element, attr, ctrl) {
-
-                    //we'll validate a bunch of inputs here to ensure this directive can execute.
-                    if (!scope.$parent || !scope.$parent.formName)
-                        throw "valBubble must exist within a scope of a content editor";
+                    
+                    if (!scope.propertyForm)
+                        throw "valBubble must exist within a form called propertyForm";
                    
                     if (!attr.name) {
                         throw "valBubble must be set on an input element that has a 'name' attribute";
                     }
-
-                    //we're going to add a watch to all potential validators based on the attributes applied
-                    //one the element itself (ignoring any attributes in the collection starting with '$')
-                    for (var a in attr) {
-                        //add a watch to the validator for the value (i.e. $parent.myForm.value.$error.required )
-                        //NOTE: we are not hard coding the form name, we'll get it from the parent scope
-                        if (a.substr(0, 1) != "$") {
-                            scope.$watch("$parent[$parent.formName]." + attr.name + ".$error." + a, function (newValue, lastValue) {
-                                if (newValue) {
-                                    //emit an event upwards 
-                                    scope.$emit("valBubble", {
-                                        element: element,       // the element that the validation applies to
-                                        expression: this.exp,   // the expression that was watched to check validity
-                                        scope: scope,           // the current scope
-                                        ctrl: ctrl              // the current controller
-                                    });
-                                }
+                  
+                    //watch the current form's validation for the current field name
+                    scope.$watch("$parent.propertyForm." + ctrl.$name + ".$valid", function (newValue, lastValue) {
+                        if (newValue != undefined && newValue === false) {
+                            //emit an event upwards 
+                            scope.$emit("valBubble", {
+                                element: element,       // the element that the validation applies to
+                                expression: this.exp,   // the expression that was watched to check validity
+                                scope: scope,           // the current scope
+                                ctrl: ctrl              // the current controller
                             });
                         }
-                    }
+                    });
+                    
+                    ////we're going to add a watch to all potential validators based on the attributes applied
+                    ////one the element itself (ignoring any attributes in the collection starting with '$')
+                    //for (var a in attr) {
+                    //    //add a watch to the validator for the value (i.e. $parent.myForm.value.$error.required )
+                    //    //NOTE: we are not hard coding the form name, we'll get it from the parent scope
+                    //    if (a.substr(0, 1) != "$") {
+                    //        scope.$watch("$parent[$parent.formName]." + attr.name + ".$error." + a, function (newValue, lastValue) {
+                    //            if (newValue) {
+                    //                //emit an event upwards 
+                    //                scope.$emit("valBubble", {
+                    //                    element: element,       // the element that the validation applies to
+                    //                    expression: this.exp,   // the expression that was watched to check validity
+                    //                    scope: scope,           // the current scope
+                    //                    ctrl: ctrl              // the current controller
+                    //                });
+                    //            }
+                    //        });
+                    //    }
+                    //}
                 }
             };
         }
@@ -329,11 +402,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                 restrict:   "E",    // restrict to an element
                 template:   '<ul class="validation-summary"><li ng-repeat="model in validationSummary">{{model}}</li></ul>',
                 link: function (scope, element, attr, ctrl) {
-
-                    //we'll validate a bunch of inputs here to ensure this directive can execute.
-                    if (!scope.$parent || !scope.$parent.formName)
-                        throw "valSummary must exist within a scope of an editor";
-
+                    
                     //create properties on our custom scope so we can use it in our template
                     scope.validationSummary = [];
 
@@ -355,15 +424,9 @@ define(['angular', 'namespaceMgr'], function (angular) {
                         //if we are to show field property based errors.
                         //this requires listening for bubbled events from valBubble directive.
                                                 
-                        scope.$parent.$on("valBubble", function (evt, args) {
-                            //In order to show that a property has an error, we need to check where the element exists in the DOM
-                            // for the validation error that occurred.
-                            var contentPropElement = args.element.closest(".content-property");
-                            //now get the scope for that property
-                            var contentPropScope = contentPropElement.scope();
-                            //with the scope we can get all of the props of the model like alias/label
+                        scope.$parent.$on("valBubble", function (evt, args) {                            
                             var exists = false;
-                            var msg = "The value assigned for the property " + contentPropScope.model.label + " is invalid";
+                            var msg = "The value assigned for the property " + args.scope.model.label + " is invalid";
                             for (var v in scope.validationSummary) {
                                 if (msg == scope.validationSummary[v]) {
                                     exists = true;
@@ -378,7 +441,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                         });
                         //listen for form invalidation so we know when to hide it
                         //NOTE: we are not hard coding the form name, we'll get it from the parent scope
-                        scope.$watch("$parent[$parent.formName].$error", function(errors) {
+                        scope.$watch("$parent.contentForm.$error", function(errors) {
                             //check if there is an error and hide the summary if not
                             var hasError = false;
                             for (var err in errors) {
@@ -396,7 +459,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
 
                         //listen for form invalidation
                         //NOTE: we are not hard coding the form name, we'll get it from the parent scope
-                        scope.$watch("$parent[$parent.formName].$error", function (errors) {
+                        scope.$watch("$parent.contentForm.$error", function (errors) {
                             //clear the summary
                             scope.validationSummary = [];
                             for (var err in errors) {
@@ -425,8 +488,8 @@ define(['angular', 'namespaceMgr'], function (angular) {
         }
     ]);
 
+    //A helper class for dealing with content
     contentHelpers.factory('u$ContentHelper', function () {
-
         return {
             formatPostData: function (displayModel) {
                 /// <summary>formats the display model used to display the content to the model used to save the content</summary>
@@ -445,6 +508,10 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     });
                 }
                 return saveModel;
+            },
+            generateHtmlName: function(propertyAlias, fieldName) {
+                /// <summary>Generates an html name or id for input fields based on the current property being rendered</summary>
+                return propertyAlias + "_" + fieldName;
             }
         };
     });
@@ -541,8 +608,6 @@ define(['angular', 'namespaceMgr'], function (angular) {
         
         //initialize the data model
         $scope.model = {};
-        //expose the current form name
-        $scope.formName = $element.closest("form").attr("name");
         //model for updating the UI
         $scope.ui = {
             working: false,
@@ -555,15 +620,20 @@ define(['angular', 'namespaceMgr'], function (angular) {
             }
         };
         //wire up validation manager
-        $scope.errors = u$ValidationManager;        
+        $scope.errors = u$ValidationManager;
+
+        ////wire up generate methods
+        //$scope.generateName = function(fieldName) {
+        //    var asdf = "";
+        //};
+        //$scope.generateId = function (fieldName) {
+        //    var asdf = "";
+        //};
 
         //the url to get the content from
         var getContentUrl = Umbraco.Sys.ServerVariables.contentEditorApiBaseUrl + "GetContent?id=" + 1;
         var saveContentUrl = Umbraco.Sys.ServerVariables.contentEditorApiBaseUrl + "PostSaveContent";
-
-        //copy local so we can use in the http callback below (NOTE: This is a jquery element)
-        var elem = $($element);
-
+        
         //go get the content from the server
         $scope.ui.working = true;
         $http.get(getContentUrl, $scope.valueToPost).
@@ -583,7 +653,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
             $scope.ui.waitingOnValidation = true;
             
             //don't continue if the form is invalid
-            if ($scope[$scope.formName].$invalid) return;
+            if ($scope.contentForm.$invalid) return;
             
             $scope.ui.working = true;
             

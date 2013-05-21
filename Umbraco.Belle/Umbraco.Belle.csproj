@@ -306,6 +306,7 @@
     <Compile Include="System\Trees\TreeQueryStringParameters.cs" />
     <Compile Include="System\Trees\UrlHelperExtensions.cs" />
     <Content Include="App_Plugins\MyPackage\Common\Js\MyPackage.js" />
+    <Content Include="App_Plugins\MyPackage\PropertyEditors\Js\PostcodeEditor.js" />
     <Content Include="App_Plugins\MyPackage\PropertyEditors\Views\PostcodeEditor.html" />
     <Content Include="App_Plugins\MyPackage\PropertyEditors\Views\CsvEditor.html" />
     <Content Include="App_Plugins\MyPackage\PropertyEditors\Js\RegexEditor.js" />

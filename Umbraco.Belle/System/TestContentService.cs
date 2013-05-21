@@ -50,7 +50,16 @@ namespace Umbraco.Belle.System
                         Description = "An Australian postcode",
                         DataType = GetDataType(93),
                         Value = "2034"
-                    }
+                    },
+                new ContentPropertyDto
+                    {
+                        Alias = "moreNumbers",
+                        Id = 14,
+                        Label = "More Numbers",
+                        Description = "Enter a numeric value",
+                        DataType = GetDataType(90),
+                        Value = "987654321"
+                    },
             };
 
         internal static string GetPreValue(int dataTypeId)
@@ -58,7 +67,9 @@ namespace Umbraco.Belle.System
             switch (dataTypeId)
             {
                 case 90:
-                    return "^\\d*$";                
+                    return "^\\d*$";
+                case 93:
+                    return "{country: 'Australia'}";
                 default:
                     return "";
             }
@@ -144,7 +155,8 @@ namespace Umbraco.Belle.System
                             GetContentProperty(10),
                             GetContentProperty(11),
                             GetContentProperty(12),
-                            GetContentProperty(13)
+                            GetContentProperty(13),
+                            GetContentProperty(14)
                         }
             };
         }
@@ -163,7 +175,8 @@ namespace Umbraco.Belle.System
                             GetContentPropertyForDisplay(10),
                             GetContentPropertyForDisplay(11),
                             GetContentPropertyForDisplay(12),
-                            GetContentPropertyForDisplay(13)
+                            GetContentPropertyForDisplay(13),
+                            GetContentPropertyForDisplay(14)
                         }
             };
         }

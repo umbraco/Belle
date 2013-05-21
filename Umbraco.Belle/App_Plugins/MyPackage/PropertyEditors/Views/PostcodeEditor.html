@@ -1,6 +1,8 @@
-﻿<div >
+﻿<div ng-controller="MyPackage.PropertyEditors.PostcodeEditor">
     <p>
-        Enter a postcode for country<span>{{model.config.country}}</span>
+        Enter a postcode for country <span>{{model.config.country}}</span>
     </p>
-    <input type="text" ng-model="model.value" />    
+    <input name="myPackage_postcode" type="text" ng-model="model.value"
+           val-postcode="model.config.country"
+           val-bubble />
 </div>

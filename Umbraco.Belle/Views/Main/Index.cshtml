@@ -50,7 +50,7 @@
     </style>    
 }
 
-<form name="myform" ng-controller="Umbraco.Content.ContentController" ng-class="{formFailed:ui.formSubmitted}" ng-submit="save()" novalidate>
+<form name="contentForm" ng-controller="Umbraco.Content.ContentController" ng-class="{formFailed:ui.formSubmitted}" ng-submit="save()" novalidate>
     
     <div class="content-properties">
         <div>ID: <span>{{model.id}}</span></div>
@@ -60,16 +60,17 @@
     <val-summary behavior="properties"></val-summary>
 
     <div ng-repeat="model in model.properties" class="content-property">
-        <div>
+        <ng-form name="propertyForm">
+            <div>
             
-            <val-property-message></val-property-message>
+                <val-property-message></val-property-message>
 
-            <div style="font-style: italic;">{{model.label}}</div>
-            <div style="font-size: 9px;">{{model.description}}</div>            
-        </div>
+                <div style="font-style: italic;">{{model.label}}</div>
+                <div style="font-size: 9px;">{{model.description}}</div>            
+            </div>
         
-        <umb-content-property></umb-content-property>
-                
+            <umb-content-property></umb-content-property>
+        </ng-form>
     </div>
     <hr />
     <button ng-disabled="!ui.canSubmit()">Save</button>

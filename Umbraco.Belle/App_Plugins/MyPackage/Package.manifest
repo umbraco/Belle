@@ -26,5 +26,16 @@
 				view: "~/App_Plugins/MyPackage/PropertyEditors/Views/CsvEditor.html"				
 			}
 		}	
-	]
+	],
+    config: {
+        paths: {
+            myPackageCommon: '~/App_Plugins/MyPackage/Common/Js/MyPackage'
+        },
+        shim: {
+            'myPackageCommon': { 'exports': 'myPackageCommon' }
+        }
+    },
+    init: [
+        'myPackageCommon'
+    ]
 }

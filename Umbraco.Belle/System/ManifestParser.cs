@@ -176,7 +176,7 @@ namespace Umbraco.Belle.System
                     {
                         JavaScriptConfig = jConfig,
                         JavaScriptInitialize = init.Any() ? (JArray)deserialized["init"] : new JArray(),
-                        PropertyEditors = init.Any() ? (JArray)deserialized["propertyEditors"] : new JArray(),
+                        PropertyEditors = propEditors.Any() ? (JArray)deserialized["propertyEditors"] : new JArray(),
                     };
                 result.Add(manifest);
             }
