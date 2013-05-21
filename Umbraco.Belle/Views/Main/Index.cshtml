@@ -61,9 +61,8 @@
 
     <div ng-repeat="model in model.properties" class="content-property">
         <div>
-            <div val-content-property="model.alias" class="property-validation">                
-                {{$parent.errors.getError(model)}}
-            </div>
+            
+            <val-property-message></val-property-message>
 
             <div style="font-style: italic;">{{model.label}}</div>
             <div style="font-size: 9px;">{{model.description}}</div>            

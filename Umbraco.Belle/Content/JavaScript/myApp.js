@@ -9,11 +9,6 @@ define(['angular', 'namespaceMgr'], function (angular) {
 
     var contentHelpers = angular.module('uModules.Content.Helpers', []);
 
-    //TODO: Need to create a directive for fields to subscribe to that invalidates the field based on 
-    // the property's $parent erorrs collection (based on alias)
-    // This will allow us to automatically invalidate the particular field on alias which will work based
-    // on our server side ModelState collection with field names.
-
     //This directive is used to associate a field with a server-side validation response
     // so that the validators in angular are updated based on server-side feedback.
     app.directive('valServerProperty', [
@@ -22,7 +17,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                 restrict: "A",
                 link: function(scope, element, attr, ctrl) {
                     if (!scope.model || !scope.model.alias)
-                        throw "valContentProperty can only be used in the scope of a content property object";
+                        throw "valServerProperty can only be used in the scope of a content property object";
                     var parentErrors = scope.$parent.errors;
                     if (!parentErrors) return;
                     var fieldName = attr.valServerProperty;
@@ -38,28 +33,36 @@ define(['angular', 'namespaceMgr'], function (angular) {
     // We will listen for server side validation changes based on the parent scope's error collection
     // and when an error is detected for this property we'll show the error message and then we need 
     // to emit the valBubble event so that any parent listening can update it's UI (like the validation summary)
-    app.directive('valContentProperty', [
+    app.directive('valPropertyMessage', [
         function () {
             return {
-                restrict: "A",
+                scope: true,        // create a new scope for this directive
+                replace: true,      //replace the element with the template
+                restrict: "E",      //restrict to element
+                template: "<div class='property-validation'>{{errorMsg}}</div>",
                 link: function (scope, element, attr, ctrl) {
 
                     //we'll validate a bunch of inputs here to ensure this directive can execute.
-                    if (!scope.$parent || !scope.$parent.formName)
-                        throw "valContentProperty must exist within a scope of a content editor";
+                    if (!scope.$parent.$parent || !scope.$parent.$parent.formName)
+                        throw "valPropertyMessage must exist within a scope of a content editor";
 
-                    //create flags for us to be able to reference in the below closures for watching.
+                    //flags for use in the below closures
                     var showValidation = false;
                     var hasError = false;
                     
+                    //create properties on our custom scope so we can use it in our template
+                    scope.errorMsg = "";
+                    
                     //listen for form validation
                     //NOTE: we are not hard coding the form name, we'll get it from the parent scope
-                    scope.$watch("$parent[$parent.formName].$valid", function (isValid, oldValue) {
+                    scope.$watch("$parent.$parent[$parent.$parent.formName].$valid", function (isValid, oldValue) {
                         if (!isValid) {
                             //check if it's one of the properties that is invalid in the current content property
                             if (element.closest(".content-property").find(".ng-invalid").length > 0) {
-                                hasError = true;
+                                hasError = true;                                
                                 if (showValidation) {
+                                    //update the validation message
+                                    scope.errorMsg = scope.$parent.$parent.errors.getError(scope.$parent.model, '');
                                     element.show();
                                 }                                
                             }
@@ -75,9 +78,11 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     });
                     
                     //add a watch to update our waitingOnValidation flag for use in the above closure
-                    scope.$watch("$parent.ui.waitingOnValidation", function (isWaiting, oldValue) {
+                    scope.$watch("$parent.$parent.ui.waitingOnValidation", function (isWaiting, oldValue) {
                         showValidation = isWaiting;
                         if (hasError && showValidation) {
+                            //update the validation message
+                            scope.errorMsg = scope.$parent.$parent.errors.getError(scope.$parent.model, '');
                             element.show();
                         }
                         else {
@@ -85,13 +90,20 @@ define(['angular', 'namespaceMgr'], function (angular) {
                         }
                     });
                     
-                    var parentErrors = scope.$parent.errors;
+                    var parentErrors = scope.$parent.$parent.errors;
                     if (!parentErrors) return;
                     //NOTE: we pass in "" in order to listen for all validation changes to the content property, not for
                     // validation changes to fields in the property this is because some server side validators may not
                     // return the field name for which the error belongs too, just the property for which it belongs.
                     parentErrors.subscribe(scope.model, "", function (propertyErrors, allErrors) {
                         hasError = true;
+                        //set the error message to the server message
+                        scope.errorMsg = propertyErrors[0].errorMsg;
+                        //now that we've used the server validation message, we need to remove it from the 
+                        //error collection... it is a 'one-time' usage so that when the field is invalidated 
+                        //again, the message we display is the client side message.
+                        //NOTE: 'this' in the subscribe callback context is the validation manager object.
+                        this.removeError(scope.model, "");
                         element.show();
                         //emit an event upwards 
                         scope.$emit("valBubble", {
@@ -213,7 +225,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     if (!scope.$parent || !scope.$parent.formName)
                         throw "valSummary must exist within a scope of an editor";
 
-                    //create a property on our scope
+                    //create properties on our custom scope so we can use it in our template
                     scope.validationSummary = [];
 
                     //create a flag for us to be able to reference in the below closures for watching.
@@ -328,6 +340,8 @@ define(['angular', 'namespaceMgr'], function (angular) {
         };
     });
     
+    //This service is used to wire up all server-side valiation messages
+    // back into the UI in a consistent format.
     contentHelpers.factory('u$ValidationManager', function () {
 
         return {
@@ -375,7 +389,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     }
                 }
                 for (var cb in callbacks) {
-                    callbacks[cb].apply(this, errorsForCallback, this.items);
+                    callbacks[cb].apply(this, [errorsForCallback, this.items]);
                 }
             },
             removeError: function (contentProperty, fieldName) {
@@ -389,26 +403,22 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     }
                 }
             },
-            getError: function (contentProperty) {
-                
-                //TODO: we somehow need to display the server error message after posting, but then
-                // after re-validation on the client side what do we display ?
-                // perhaps we need to figure out a way to handle the bubble up event of the field error and
-                // display that error instead? 
-                // TODO: Currently we are not bubbling up the error message... how can we do this nicely ?
-                //  how can we get the error message from the element which simply just displays text when validation changes... it is not bound to the element being validated.
+            getError: function (contentProperty, fieldName) {
+                /// <summary>
+                /// Gets the error message for the content property
+                /// </summary>
 
                 for (var i = 0; i < this.items.length; i++) {
-                    if (this.items[i].propertyAlias == contentProperty.alias) {
-                        return this.items[i].errorMsg;
+                    if (this.items[i].propertyAlias == contentProperty.alias && this.items[i].fieldName == fieldName) {
+                        return this.items[i].errorMsg;                        
                     }
                 }
                 //return generic property error message
                 return "Property has errors";
             },
-            hasError: function (contentProperty) {
+            hasError: function (contentProperty, fieldName) {
                 for (var i = 0; i < this.items.length; i++) {
-                    if (this.items[i].propertyAlias == contentProperty.alias) {
+                    if (this.items[i].propertyAlias == contentProperty.alias && this.items[i].fieldName == fieldName) {
                         return true;
                     }
                 }
