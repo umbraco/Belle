@@ -356,37 +356,18 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     }
                   
                     //watch the current form's validation for the current field name
-                    scope.$watch("$parent.propertyForm." + ctrl.$name + ".$valid", function (newValue, lastValue) {
-                        if (newValue != undefined && newValue === false) {
+                    scope.$watch("$parent.propertyForm." + ctrl.$name + ".$valid", function (isValid, lastValue) {
+                        if (isValid != undefined) {
                             //emit an event upwards 
                             scope.$emit("valBubble", {
+                                isValid: isValid,       // if the field is valid
                                 element: element,       // the element that the validation applies to
                                 expression: this.exp,   // the expression that was watched to check validity
                                 scope: scope,           // the current scope
                                 ctrl: ctrl              // the current controller
                             });
                         }
-                    });
-                    
-                    ////we're going to add a watch to all potential validators based on the attributes applied
-                    ////one the element itself (ignoring any attributes in the collection starting with '$')
-                    //for (var a in attr) {
-                    //    //add a watch to the validator for the value (i.e. $parent.myForm.value.$error.required )
-                    //    //NOTE: we are not hard coding the form name, we'll get it from the parent scope
-                    //    if (a.substr(0, 1) != "$") {
-                    //        scope.$watch("$parent[$parent.formName]." + attr.name + ".$error." + a, function (newValue, lastValue) {
-                    //            if (newValue) {
-                    //                //emit an event upwards 
-                    //                scope.$emit("valBubble", {
-                    //                    element: element,       // the element that the validation applies to
-                    //                    expression: this.exp,   // the expression that was watched to check validity
-                    //                    scope: scope,           // the current scope
-                    //                    ctrl: ctrl              // the current controller
-                    //                });
-                    //            }
-                    //        });
-                    //    }
-                    //}
+                    });                    
                 }
             };
         }
@@ -425,17 +406,21 @@ define(['angular', 'namespaceMgr'], function (angular) {
                         //this requires listening for bubbled events from valBubble directive.
                                                 
                         scope.$parent.$on("valBubble", function (evt, args) {                            
-                            var exists = false;
                             var msg = "The value assigned for the property " + args.scope.model.label + " is invalid";
-                            for (var v in scope.validationSummary) {
-                                if (msg == scope.validationSummary[v]) {
-                                    exists = true;
-                                }
+                            var exists = _.contains(scope.validationSummary, msg);
+                            
+                            if (args.isValid && exists) {
+                                //it is valid but we have a val msg for it so we'll need to remove the message
+                                scope.validationSummary = _.reject(scope.validationSummary, function(item) {
+                                    return item == msg;
+                                });
                             }
-                            if (!exists) {
+                            else if (!args.isValid) {
+                                //add the message
                                 scope.validationSummary.push(msg);
                             }
-                            if (showValidation) {
+                            
+                            if (showValidation && scope.validationSummary.length > 0) {
                                 element.show();
                             }                            
                         });
@@ -508,10 +493,6 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     });
                 }
                 return saveModel;
-            },
-            generateHtmlName: function(propertyAlias, fieldName) {
-                /// <summary>Generates an html name or id for input fields based on the current property being rendered</summary>
-                return propertyAlias + "_" + fieldName;
             }
         };
     });
@@ -535,12 +516,9 @@ define(['angular', 'namespaceMgr'], function (angular) {
             },
             getCallbacks: function (contentProperty, fieldName) {
                 /// <summary>Gets all callbacks that has been registered using the subscribe method for the contentProperty + fieldName combo</summary>
-                var found = [];
-                for (var c in this._callbacks) {
-                    if (this._callbacks[c].propertyAlias == contentProperty.alias && this._callbacks[c].fieldName == fieldName) {
-                        found.push(this._callbacks[c].callback);
-                    }
-                }
+                var found = _.filter(this._callbacks, function (item) {
+                    return (item.propertyAlias == contentProperty.alias && item.fieldName == fieldName);
+                });                
                 return found;
             },
             addError: function (contentProperty, fieldName, errorMsg) {
@@ -558,47 +536,41 @@ define(['angular', 'namespaceMgr'], function (angular) {
                 
                 //we should now call all of the call backs registered for this error
                 var callbacks = this.getCallbacks(contentProperty, fieldName);
-                var errorsForCallback = [];
-                for (var e in this.items) {
-                    if (this.items[e].propertyAlias == contentProperty.alias && this.items[e].fieldName == fieldName) {
-                        errorsForCallback.push(this.items[e]);
-                    }
-                }
+                //find all errors for this item
+                var errorsForCallback = _.filter(callbacks, function (item) {
+                    return (item.propertyAlias == contentProperty.alias && item.fieldName == fieldName);
+                });
+                //call each callback for this error
                 for (var cb in callbacks) {
-                    callbacks[cb].apply(this, [errorsForCallback, this.items]);
+                    callbacks[cb].callback.apply(this, [
+                        errorsForCallback,      //pass in the errors for this item
+                        this.items]);           //pass in all errors in total
                 }
             },
             removeError: function (contentProperty, fieldName) {
                 /// <summary>Removes an error message for the content property</summary>
 
                 if (!contentProperty) return;
-                for (var i = 0; i < this.items.length; i++) {
-                    if (this.items[i].propertyAlias == contentProperty.alias && this.items[i].fieldName == fieldName) {
-                        this.items.splice(i, 1); //remove the item
-                        break;
-                    }
-                }
+                //remove the item
+                this.items = _.reject(this.items, function(item) {
+                    return (item.propertyAlias == contentProperty.alias && item.fieldName == fieldName);
+                });                
             },
             getError: function (contentProperty, fieldName) {
                 /// <summary>
                 /// Gets the error message for the content property
                 /// </summary>
-
-                for (var i = 0; i < this.items.length; i++) {
-                    if (this.items[i].propertyAlias == contentProperty.alias && this.items[i].fieldName == fieldName) {
-                        return this.items[i].errorMsg;                        
-                    }
-                }
-                //return generic property error message
-                return "Property has errors";
+                var err = _.find(this.items, function(item) {
+                    return (item.propertyAlias == contentProperty.alias && item.fieldName == fieldName);
+                });
+                //return generic property error message if the error doesn't exist
+                return err ? err : "Property has errors";
             },
             hasError: function (contentProperty, fieldName) {
-                for (var i = 0; i < this.items.length; i++) {
-                    if (this.items[i].propertyAlias == contentProperty.alias && this.items[i].fieldName == fieldName) {
-                        return true;
-                    }
-                }
-                return false;
+                var err = _.find(this.items, function (item) {
+                    return (item.propertyAlias == contentProperty.alias && item.fieldName == fieldName);
+                });
+                return err ? true : false;
             },
             items: []
         };
@@ -621,14 +593,6 @@ define(['angular', 'namespaceMgr'], function (angular) {
         };
         //wire up validation manager
         $scope.errors = u$ValidationManager;
-
-        ////wire up generate methods
-        //$scope.generateName = function(fieldName) {
-        //    var asdf = "";
-        //};
-        //$scope.generateId = function (fieldName) {
-        //    var asdf = "";
-        //};
 
         //the url to get the content from
         var getContentUrl = Umbraco.Sys.ServerVariables.contentEditorApiBaseUrl + "GetContent?id=" + 1;
