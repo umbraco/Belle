@@ -278,7 +278,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JsResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="System\PropertyEditors\MultiValueValidator.cs" />
+    <Compile Include="System\PropertyEditors\DelimitedValueValidator.cs" />
     <Compile Include="System\PropertyEditors\PluginManagerExtensions.cs" />
     <Compile Include="System\PropertyEditors\PreValueEditor.cs" />
     <Compile Include="System\PropertyEditors\PropertyEditor.cs" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
+using Umbraco.Belle.System.Serialization;
 
 namespace Umbraco.Belle.System.PropertyEditors
 {
@@ -38,6 +39,7 @@ namespace Umbraco.Belle.System.PropertyEditors
         /// This is NOT the pre-value for this data type
         /// </remarks>
         [JsonProperty("config")]
+        [JsonConverter(typeof(JsonToStringConverter))]
         public string Config { get; set; }
 
         private ManifestValueValidator _validatorInstance;

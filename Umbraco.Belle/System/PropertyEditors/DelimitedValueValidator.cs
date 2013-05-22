@@ -11,8 +11,8 @@ namespace Umbraco.Belle.System.PropertyEditors
     /// <summary>
     /// A validator that validates a delimited set of values against a common regex
     /// </summary>
-    [ValueValidator("MultiValue")]
-    internal sealed class MultiValueValidator : ManifestValueValidator
+    [ValueValidator("Delimited")]
+    internal sealed class DelimitedValueValidator : ManifestValueValidator
     {
         /// <summary>
         /// Performs the validation
@@ -47,23 +47,22 @@ namespace Umbraco.Belle.System.PropertyEditors
                 }
             }
 
-            var valueTypeValidator = new ValueTypeValueValidator();
             var stringVal = (string) value;
             var split = stringVal.Split(new[] {delimiter}, StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < split.Length; i++)
             {
-                var s = split[i];
-                //validate each item, first start with the value type
-                foreach (var v in valueTypeValidator.Validate(s, "", preValues, editor))
-                {
-                    yield return v;
-                }
+                var s = split[i];                
                 //next if we have a regex statement validate with that
                 if (regex != null)
                 {
                     if (!regex.IsMatch(s))
                     {
-                        yield return new ValidationResult("The item at index " + i + " did not match the expression " + regex);
+                        yield return new ValidationResult("The item at index " + i + " did not match the expression " + regex,
+                            new[]
+                                {
+                                    //make the field name called 'value0' where 0 is the index
+                                    "value" + i
+                                });
                     }
                 }
             }

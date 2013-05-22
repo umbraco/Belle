@@ -23,7 +23,16 @@
 			id: "A24C4A00-29BF-4A57-BDE6-B1E305A96A4C",
 			name: "CSV Editor",
 			editor: {
-				view: "~/App_Plugins/MyPackage/PropertyEditors/Views/CsvEditor.html"				
+				view: "~/App_Plugins/MyPackage/PropertyEditors/Views/CsvEditor.html",
+				validation: [
+					{
+						type: "Delimited",
+						config: {
+							delimiter: ",",
+							pattern: "^[a-zA-Z]*$"
+						}
+					},
+				]				
 			}
 		}	
 	],

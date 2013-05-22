@@ -22,7 +22,7 @@ namespace Umbraco.Belle.System.PropertyEditors
 
             var regex = new Regex((string) config);
             
-            if (regex.IsMatch((string)value))
+            if (!regex.IsMatch((string)value))
             {
                 yield return new ValidationResult("Value is invalid, it does not match the correct pattern");
             }            
