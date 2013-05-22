@@ -28,15 +28,15 @@ define(['angular', 'namespaceMgr'], function (angular) {
                 // resubmitted. So once a field is changed that has a server error assigned to it
                 // we need to re-validate it for the server side validator so the user can resubmit
                 // the form. Of course normal client-side validators will continue to execute.
-                element.keydown(function() {
-                    ctrl.$setValidity('valServer', true);
-                    //reset the error message
-                    ctrl.errorMsg = "";
+                element.keydown(function () {
+                    if (ctrl.$invalid) {
+                        ctrl.$setValidity('valServer', true);
+                    }                    
                 });
                 element.change(function() {
-                    ctrl.$setValidity('valServer', true);
-                    //reset the error message
-                    ctrl.errorMsg = "";
+                    if (ctrl.$invalid) {
+                        ctrl.$setValidity('valServer', true);
+                    }
                 });
                 //TODO: DO we need to watch for other changes on the element ?
 
