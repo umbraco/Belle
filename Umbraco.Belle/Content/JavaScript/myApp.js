@@ -451,6 +451,23 @@ define(['angular', 'namespaceMgr'], function (angular) {
         };
     });
 
+    app.directive('umbFileUpload', function () {
+        return {            
+            //scope: {
+            //    file: '='
+            //},
+            link: function (scope, el, attrs) {
+                el.bind('change', function (event) {
+                    var files = event.target.files;
+                    var file = files[0];                    
+                    scope.$apply(function() {
+                        scope.file = file ? file.name : undefined;
+                    });
+                });
+            }
+        };
+    });
+
     //A helper class for dealing with content
     contentHelpers.factory('u$ContentHelper', function () {
         return {
@@ -649,6 +666,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     alert("success!");
                     $scope.ui.working = false;
                     $scope.ui.waitingOnValidation = false;
+                    $scope.serverErrors.reset();
                 }).
                 error(function (data, status, headers, config) {
                     //When the status is a 403 status, we have validation errors.

@@ -60,6 +60,15 @@ namespace Umbraco.Belle.System
                         DataType = GetDataType(90),
                         Value = "987654321"
                     },
+                new ContentPropertyDto
+                    {
+                        Alias = "fileUpload",
+                        Id = 15,
+                        Label = "File Upload",
+                        Description = "Select a file to upload",
+                        DataType = GetDataType(94),
+                        Value = "MyFile.jpg"
+                    },
             };
 
         internal static string GetPreValue(int dataTypeId)
@@ -103,6 +112,12 @@ namespace Umbraco.Belle.System
                             Id = 93,
                             DatabaseType = DataTypeDatabaseType.Nvarchar
                         },
+                     new DataTypeDefinition(-1, new Guid("23A66468-30E2-4537-8039-625F8BC5CA1E"))
+                        {
+                            Name = "File uploader",
+                            Id = 94,
+                            DatabaseType = DataTypeDatabaseType.Nvarchar
+                        }
                 };
             return dataTypeRepo.SingleOrDefault(x => x.Id == id);
         }
@@ -156,7 +171,8 @@ namespace Umbraco.Belle.System
                             GetContentProperty(11),
                             GetContentProperty(12),
                             GetContentProperty(13),
-                            GetContentProperty(14)
+                            GetContentProperty(14),
+                            GetContentProperty(15)
                         }
             };
         }
@@ -176,7 +192,8 @@ namespace Umbraco.Belle.System
                             GetContentPropertyForDisplay(11),
                             GetContentPropertyForDisplay(12),
                             GetContentPropertyForDisplay(13),
-                            GetContentPropertyForDisplay(14)
+                            GetContentPropertyForDisplay(14),
+                            GetContentPropertyForDisplay(15)
                         }
             };
         }
