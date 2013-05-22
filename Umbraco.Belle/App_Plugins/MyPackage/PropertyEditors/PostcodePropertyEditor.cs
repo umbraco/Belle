@@ -10,5 +10,17 @@ namespace Umbraco.Belle.App_Plugins.MyPackage.PropertyEditors
         "~/App_Plugins/MyPackage/PropertyEditors/Views/PostcodeEditor.html")]
     public class PostcodePropertyEditor : PropertyEditor
     {
+        /// <summary>
+        /// Creates the value editor with custom validators
+        /// </summary>
+        /// <returns></returns>
+        protected override ValueEditor CreateValueEditor()
+        {
+            var editor = base.CreateValueEditor();
+
+            editor.Validators = new List<ValidatorBase> { new PostcodeValidator() };
+
+            return editor;
+        }
     }
 }

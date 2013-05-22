@@ -13,7 +13,7 @@ namespace Umbraco.Belle.System.PropertyEditors
         {
             ValueType = "string";
             //set a default for validators
-            Validators = Enumerable.Empty<Validator>();
+            Validators = Enumerable.Empty<ValidatorBase>();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Umbraco.Belle.System.PropertyEditors
         /// A collection of validators for the pre value editor
         /// </summary>
         [JsonProperty("validation")]
-        public IEnumerable<Validator> Validators { get; set; }
+        public IEnumerable<ValidatorBase> Validators { get; set; }
 
     }
 }

@@ -252,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Plugins\MyPackage\PropertyEditors\PostcodePropertyEditor.cs" />
+    <Compile Include="App_Plugins\MyPackage\PropertyEditors\PostcodeValidator.cs" />
     <Compile Include="App_Plugins\MyPackage\PropertyEditors\ServerInfoPropertyEditor.cs" />
     <Compile Include="App_Plugins\MyPackage\System\MyStartupHandler.cs" />
     <Compile Include="Controllers\ContentEditorApiController.cs" />
@@ -285,11 +286,11 @@
     <Compile Include="System\PropertyEditors\PropertyEditorResolver.cs" />
     <Compile Include="System\PropertyEditors\RegexValueValidator.cs" />
     <Compile Include="System\PropertyEditors\RequiredValueValidator.cs" />
-    <Compile Include="System\PropertyEditors\Validator.cs" />
+    <Compile Include="System\PropertyEditors\ManifestValidator.cs" />
     <Compile Include="System\PropertyEditors\ValidatorsResolver.cs" />
     <Compile Include="System\PropertyEditors\ValueEditor.cs" />
     <Compile Include="System\PropertyEditors\ValueTypeValueValidator.cs" />
-    <Compile Include="System\PropertyEditors\ValueValidator.cs" />
+    <Compile Include="System\PropertyEditors\ManifestValueValidator.cs" />
     <Compile Include="System\PropertyEditors\ValueValidatorAttribute.cs" />
     <Compile Include="System\Serialization\JsonCreationConverter.cs" />
     <Compile Include="System\Serialization\PropertyEditorConverter.cs" />

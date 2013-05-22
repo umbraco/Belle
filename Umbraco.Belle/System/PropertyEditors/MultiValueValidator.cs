@@ -12,16 +12,17 @@ namespace Umbraco.Belle.System.PropertyEditors
     /// A validator that validates a delimited set of values against a common regex
     /// </summary>
     [ValueValidator("MultiValue")]
-    internal sealed class MultiValueValidator : ValueValidator
+    internal sealed class MultiValueValidator : ManifestValueValidator
     {
         /// <summary>
         /// Performs the validation
         /// </summary>
         /// <param name="value"></param>
         /// <param name="config">Can be a json formatted string containing properties: 'delimiter' and 'pattern'</param>
+        /// <param name="preValues">The current pre-values stored for the data type</param>
         /// <param name="editor"></param>
         /// <returns></returns>
-        public override IEnumerable<ValidationResult> Validate(object value, string config, PropertyEditor editor)
+        public override IEnumerable<ValidationResult> Validate(object value, string config, string preValues, PropertyEditor editor)
         {
             //TODO: localize these!
 
@@ -53,7 +54,7 @@ namespace Umbraco.Belle.System.PropertyEditors
             {
                 var s = split[i];
                 //validate each item, first start with the value type
-                foreach (var v in valueTypeValidator.Validate(s, "", editor))
+                foreach (var v in valueTypeValidator.Validate(s, "", preValues, editor))
                 {
                     yield return v;
                 }

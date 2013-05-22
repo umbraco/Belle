@@ -96,9 +96,19 @@ namespace Umbraco.Belle.Controllers
                     return false;
                 } 
 
+                //get the posted value for this property
+                var postedValue = postedItem.Properties.Single(x => x.Id == p.Id).Value;
+
+                //get the pre-values for this property
+                var preValues = TestContentService.GetPreValue(p.DataType.Id);
+
+                //TODO: when we figure out how to 'override' certain pre-value properties we'll either need to:
+                // * Combine the preValues with the overridden values stored with the document type property (but how to combine?)
+                // * Or, pass in the overridden values stored with the doc type property separately
+
                 foreach (var v in editor.ValueEditor.Validators)
                 {
-                    foreach (var result in v.Validate(p.Value, editor))
+                    foreach (var result in v.Validate(postedValue, preValues, editor))
                     {
                         //if there are no member names supplied then we assume that the validation message is for the overall property
                         // not a sub field on the property editor

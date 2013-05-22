@@ -9,9 +9,9 @@ namespace Umbraco.Belle.System.PropertyEditors
     /// A validator that validates that the value against a Regex expression
     /// </summary>
     [ValueValidator("Regex")]
-    internal sealed class RegexValueValidator : ValueValidator
+    internal sealed class RegexValueValidator : ManifestValueValidator
     {
-        public override IEnumerable<ValidationResult> Validate(object value, string config, PropertyEditor editor)
+        public override IEnumerable<ValidationResult> Validate(object value, string config, string preValues, PropertyEditor editor)
         {
             //TODO: localize these!
 

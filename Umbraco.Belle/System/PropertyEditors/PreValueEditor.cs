@@ -15,6 +15,6 @@ namespace Umbraco.Belle.System.PropertyEditors
         /// A collection of validators for the pre value editor
         /// </summary>
         [JsonProperty("validation")]
-        public IEnumerable<Validator> Validators { get; set; }
+        public IEnumerable<ValidatorBase> Validators { get; set; }
     }
 }

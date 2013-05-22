@@ -6,11 +6,11 @@ using Umbraco.Core;
 namespace Umbraco.Belle.System.PropertyEditors
 {
     /// <summary>
-    /// A validator used to validate a value
+    /// A validator used to validate a value based on a validator name defined in a package manifest
     /// </summary>
-    internal abstract class ValueValidator
+    internal abstract class ManifestValueValidator
     {
-        protected ValueValidator()
+        protected ManifestValueValidator()
         {
             var att = this.GetType().GetCustomAttribute<ValueValidatorAttribute>(false);
             if (att == null)
@@ -28,14 +28,16 @@ namespace Umbraco.Belle.System.PropertyEditors
         /// <param name="value"></param>
         /// <param name="config">
         /// An object that is used to configure the validator. An example could be a regex 
-        /// expression if the validator was a regex validator. 
+        /// expression if the validator was a regex validator. This is defined in the manifest along with
+        /// the definition of the validator.
         /// </param>
+        /// <param name="preValues">The current pre-values stored for the data type</param>
         /// <param name="editor">The property editor instance that is being validated</param>
         /// <returns>
         /// Returns a list of validation results. If a result does not have a field name applied to it then then we assume that 
         /// the validation message applies to the entire property type being validated. If there is a field name applied to a 
         /// validation result we will try to match that field name up with a field name on the item itself.
         /// </returns>
-        public abstract IEnumerable<ValidationResult> Validate(object value, string config, PropertyEditor editor);
+        public abstract IEnumerable<ValidationResult> Validate(object value, string config, string preValues, PropertyEditor editor);
     }
 }

@@ -22,38 +22,15 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     var parentErrors = scope.$parent.errors;
                     if (!parentErrors) return;
                     var fieldName = attr.valServerProperty;
-                    parentErrors.subscribe(scope.model, fieldName, function (propertyErrors, allErrors) {
-                        alert("ERROR!");
+                    
+                    parentErrors.subscribe(scope.model, fieldName, function (isValid, propertyErrors, allErrors) {
+                        
                     }, true);
                 }
             };
         }
     ]);
     
-    ////A directive which ensures that the input field name / id are auto-generated based on what 
-    //// property the field belongs to.
-    //app.directive('umbGenName', function (u$ContentHelper) {
-
-    //    return {
-    //        priority: 100,              //a high priority as this should execute first!
-    //        restrict: "A",              //limit only to attributes
-    //        link: function (scope, elm, attrs, ctrl) {
-    //            if (!scope.model.alias || !scope.model.id)
-    //                throw "umbGenName can only be set on an input element that has a scope of a content property";
-
-    //            //this can be a comma delimited list of attribute names to auto-gen a name/id for.
-    //            //we'll loop through the delimited items and update any matching attributes in the collection and on the element.
-    //            var toGenerateFor = attrs.umbGenName.split(",");
-    //            for (var i in toGenerateFor) {
-    //                var generated = u$ContentHelper.generateHtmlName(scope.model.alias, attrs[toGenerateFor[i]]);
-    //                attrs[toGenerateFor[i]] = generated;
-    //                //use the inner $attr property which contains the snake-case attribute names
-    //                elm.attr(attrs.$attr[toGenerateFor[i]], generated);
-    //            }
-    //        }
-    //    };
-    //});
-
     app.directive('valRegex', function () {
 
         /// <summary>
@@ -198,7 +175,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                 scope: true,        // create a new scope for this directive
                 replace: true,      //replace the element with the template
                 restrict: "E",      //restrict to element
-                template: "<div class='property-validation'>{{errorMsg}}</div>",
+                template: "<div class='property-validation' ng-show=\"errorMsg != ''\">{{errorMsg}}</div>",
                 link: function (scope, element, attr, ctrl) {
 
                     if (!scope.propertyForm)
@@ -220,17 +197,16 @@ define(['angular', 'namespaceMgr'], function (angular) {
                                 if (showValidation) {
                                     //update the validation message
                                     scope.errorMsg = scope.$parent.$parent.errors.getError(scope.$parent.model, '');
-                                    element.show();
                                 }                                
                             }
                             else {
                                 hasError = false;
-                                element.hide();
+                                scope.errorMsg = "";
                             }
                         }
                         else {
                             hasError = false;
-                            element.hide();
+                            scope.errorMsg = "";
                         }
                     });
                     
@@ -240,10 +216,9 @@ define(['angular', 'namespaceMgr'], function (angular) {
                         if (hasError && showValidation) {
                             //update the validation message
                             scope.errorMsg = scope.$parent.$parent.errors.getError(scope.$parent.model, '');
-                            element.show();
                         }
                         else {
-                            element.hide();
+                            scope.errorMsg = "";
                         }
                     });
                     
@@ -252,22 +227,34 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     //NOTE: we pass in "" in order to listen for all validation changes to the content property, not for
                     // validation changes to fields in the property this is because some server side validators may not
                     // return the field name for which the error belongs too, just the property for which it belongs.
-                    parentErrors.subscribe(scope.model, "", function (propertyErrors, allErrors) {
-                        hasError = true;
-                        //set the error message to the server message
-                        scope.errorMsg = propertyErrors[0].errorMsg;
-                        //now that we've used the server validation message, we need to remove it from the 
-                        //error collection... it is a 'one-time' usage so that when the field is invalidated 
-                        //again, the message we display is the client side message.
-                        //NOTE: 'this' in the subscribe callback context is the validation manager object.
-                        this.removeError(scope.model, "");
-                        element.show();
-                        //emit an event upwards 
-                        scope.$emit("valBubble", {
-                            element: element,       // the element that the validation applies to
-                            scope: scope.$parent,   // the parent scope since we've creaed a new one for this directive
-                            ctrl: ctrl              // the current controller
-                        });
+                    parentErrors.subscribe(scope.model, "", function (isValid, propertyErrors, allErrors) {
+                        hasError = !isValid;
+                        if (hasError) {
+                            //set the error message to the server message
+                            scope.errorMsg = propertyErrors[0].errorMsg;
+                            //now that we've used the server validation message, we need to remove it from the 
+                            //error collection... it is a 'one-time' usage so that when the field is invalidated 
+                            //again, the message we display is the client side message.
+                            //NOTE: 'this' in the subscribe callback context is the validation manager object.
+                            this.removeError(scope.model, "");
+                            //emit an event upwards 
+                            scope.$emit("valBubble", {
+                                isValid: false,         // it is INVALID
+                                element: element,       // the element that the validation applies to
+                                scope: scope.$parent,   // the parent scope since we've creaed a new one for this directive
+                                ctrl: ctrl              // the current controller
+                            });
+                        }
+                        else {
+                            scope.errorMsg = "";
+                            //emit an event upwards 
+                            scope.$emit("valBubble", {
+                                isValid: true,          // it is VALID
+                                element: element,       // the element that the validation applies to
+                                scope: scope.$parent,   // the parent scope since we've creaed a new one for this directive
+                                ctrl: ctrl              // the current controller
+                            });
+                        }
                     }, true);
 
                 }
@@ -401,73 +388,39 @@ define(['angular', 'namespaceMgr'], function (angular) {
                         }
                     });
 
-                    if (!attr.behavior || attr.behavior == "properties") {
-                        //if we are to show field property based errors.
-                        //this requires listening for bubbled events from valBubble directive.
-                                                
-                        scope.$parent.$on("valBubble", function (evt, args) {                            
-                            var msg = "The value assigned for the property " + args.scope.model.label + " is invalid";
-                            var exists = _.contains(scope.validationSummary, msg);
-                            
-                            if (args.isValid && exists) {
-                                //it is valid but we have a val msg for it so we'll need to remove the message
-                                scope.validationSummary = _.reject(scope.validationSummary, function(item) {
-                                    return item == msg;
-                                });
-                            }
-                            else if (!args.isValid) {
-                                //add the message
-                                scope.validationSummary.push(msg);
-                            }
-                            
-                            if (showValidation && scope.validationSummary.length > 0) {
-                                element.show();
-                            }                            
+                    //if we are to show field property based errors.
+                    //this requires listening for bubbled events from valBubble directive.
+
+                    scope.$parent.$on("valBubble", function (evt, args) {
+                        var msg = "The value assigned for the property " + args.scope.model.label + " is invalid";
+                        var exists = _.contains(scope.validationSummary, msg);
+
+                        if (args.isValid && exists) {
+                            //it is valid but we have a val msg for it so we'll need to remove the message
+                            scope.validationSummary = _.reject(scope.validationSummary, function (item) {
+                                return item == msg;
+                            });
+                        }
+                        else if (!args.isValid && !exists) {
+                            //it is invalid and we don't have a msg for it already
+                            scope.validationSummary.push(msg);
+                        }
+
+                        //show the summary if there are errors and the form has been submitted
+                        if (showValidation && scope.validationSummary.length > 0) {
+                            element.show();
+                        }
+                    });
+                    //listen for form invalidation so we know when to hide it
+                    scope.$watch("$parent.contentForm.$error", function (errors) {
+                        //check if there is an error and hide the summary if not
+                        var hasError = _.find(errors, function (err) {
+                            return (err.length && err.length > 0);
                         });
-                        //listen for form invalidation so we know when to hide it
-                        //NOTE: we are not hard coding the form name, we'll get it from the parent scope
-                        scope.$watch("$parent.contentForm.$error", function(errors) {
-                            //check if there is an error and hide the summary if not
-                            var hasError = false;
-                            for (var err in errors) {
-                                if (errors[err].length && errors[err].length > 0) {
-                                    hasError = true;
-                                }
-                            }
-                            if (!hasError) {
-                                element.hide();
-                            }
-                        }, true);                        
-                    }                    
-                    else if (attr.behavior && attr.behavior == "fields") {
-                        //if we are to show field based errors
-
-                        //listen for form invalidation
-                        //NOTE: we are not hard coding the form name, we'll get it from the parent scope
-                        scope.$watch("$parent.contentForm.$error", function (errors) {
-                            //clear the summary
-                            scope.validationSummary = [];
-                            for (var err in errors) {
-                                if (errors[err].length && errors[err].length > 0) {
-                                    scope.validationSummary.push("The value '"
-                                        + errors[err][0].$viewValue
-                                        + "' is invalid for field '"
-                                        + errors[err][0].$name
-                                        + "'"
-                                    );
-                                }
-                            }
-
-                            if (scope.validationSummary.length > 0 && showValidation) {
-                                element.show();
-                            }
-                            else {
-                                element.hide();
-                            }
-
-                        }, true);
-                    }                    
-                    
+                        if (!hasError) {
+                            element.hide();
+                        }
+                    }, true);
                 }
             };
         }
@@ -534,15 +487,17 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     });                    
                 }
                 
-                //we should now call all of the call backs registered for this error
-                var callbacks = this.getCallbacks(contentProperty, fieldName);
+                
                 //find all errors for this item
-                var errorsForCallback = _.filter(callbacks, function (item) {
+                var errorsForCallback = _.filter(this.items, function (item) {
                     return (item.propertyAlias == contentProperty.alias && item.fieldName == fieldName);
                 });
+                //we should now call all of the call backs registered for this error
+                var callbacks = this.getCallbacks(contentProperty, fieldName);
                 //call each callback for this error
                 for (var cb in callbacks) {
                     callbacks[cb].callback.apply(this, [
+                        false,                  //pass in a value indicating it is invalid
                         errorsForCallback,      //pass in the errors for this item
                         this.items]);           //pass in all errors in total
                 }
@@ -555,6 +510,16 @@ define(['angular', 'namespaceMgr'], function (angular) {
                 this.items = _.reject(this.items, function(item) {
                     return (item.propertyAlias == contentProperty.alias && item.fieldName == fieldName);
                 });                
+            },
+            reset: function() {
+                /// <summary>Clears all errors and notifies all callbacks that all server errros are now valid - used when submitting a form</summary>
+                this.items = [];
+                for (var cb in this._callbacks) {
+                    this._callbacks[cb].callback.apply(this, [
+                            true,       //pass in a value indicating it is VALID
+                            [],         //pass in empty collection
+                            []]);       //pass in empty collection
+                }
             },
             getError: function (contentProperty, fieldName) {
                 /// <summary>
@@ -615,7 +580,10 @@ define(['angular', 'namespaceMgr'], function (angular) {
 
             //flag that is set informing the validation controls to be displayed if any are in error
             $scope.ui.waitingOnValidation = true;
-            
+
+            //reset all errors and listeners
+            $scope.errors.reset();
+
             //don't continue if the form is invalid
             if ($scope.contentForm.$invalid) return;
             
@@ -635,16 +603,12 @@ define(['angular', 'namespaceMgr'], function (angular) {
                         //now we need to look through all the validation errors
                         if (data && data.ModelState) {
                             for (var e in data.ModelState) {
-
+                                
                                 //find the content property for the current error
-                                var contentProperty = null;
-                                for (var p in $scope.model.properties) {
-                                    if ($scope.model.properties[p].alias == e) {
-                                        contentProperty = $scope.model.properties[p];
-                                        break;
-                                    }
-                                }
-                                if (contentProperty != null) {
+                                var contentProperty = _.find($scope.model.properties, function(item) {
+                                    return (item.alias == e);
+                                });                                                                
+                                if (contentProperty) {
                                     //if it contains a '.' then we will wire it up to a property's field
                                     if (e.indexOf(".") >= 0) {
                                         $scope.errors.addError(contentProperty, "", data.ModelState[e][0]);
