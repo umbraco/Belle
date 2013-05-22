@@ -11,20 +11,29 @@ define(['angular', 'namespaceMgr'], function (angular) {
 
     //This directive is used to associate a field with a server-side validation response
     // so that the validators in angular are updated based on server-side feedback.
-    app.directive('valServerProperty', [
+    app.directive('valServer', [
         function() {
             return {
                 require: 'ngModel',
                 restrict: "A",
                 link: function(scope, element, attr, ctrl) {
                     if (!scope.model || !scope.model.alias)
-                        throw "valServerProperty can only be used in the scope of a content property object";
+                        throw "valServer can only be used in the scope of a content property object";
                     var parentErrors = scope.$parent.errors;
                     if (!parentErrors) return;
-                    var fieldName = attr.valServerProperty;
+                    var fieldName = attr.valServer;
                     
                     parentErrors.subscribe(scope.model, fieldName, function (isValid, propertyErrors, allErrors) {
-                        
+                        if (!isValid) {
+                            ctrl.$setValidity('valServer', false);
+                            //assign an error msg property to the current validator
+                            ctrl.errorMsg = propertyErrors[0].errorMsg;
+                        }
+                        else {
+                            ctrl.$setValidity('valServer', true);
+                            //reset the error message
+                            ctrl.errorMsg = "";
+                        }
                     }, true);
                 }
             };
@@ -50,11 +59,15 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     if (!viewValue || regex.test(viewValue)) {
                         // it is valid
                         ctrl.$setValidity('valRegex', true);
+                        //assign a message to the validator
+                        ctrl.errorMsg = "";
                         return viewValue;
                     }
                     else {
                         // it is invalid, return undefined (no model update)
                         ctrl.$setValidity('valRegex', false);
+                        //assign a message to the validator
+                        ctrl.errorMsg = "Value is invalid, it does not match the correct pattern";
                         return undefined;
                     }
                 };
@@ -581,12 +594,12 @@ define(['angular', 'namespaceMgr'], function (angular) {
             //flag that is set informing the validation controls to be displayed if any are in error
             $scope.ui.waitingOnValidation = true;
 
-            //reset all errors and listeners
-            $scope.errors.reset();
-
             //don't continue if the form is invalid
             if ($scope.contentForm.$invalid) return;
             
+            //reset all errors and listeners
+            $scope.errors.reset();
+
             $scope.ui.working = true;
             
             $http.post(saveContentUrl, u$ContentHelper.formatPostData($scope.model)).
@@ -604,16 +617,24 @@ define(['angular', 'namespaceMgr'], function (angular) {
                         if (data && data.ModelState) {
                             for (var e in data.ModelState) {
                                 
+                                //the alias in model state can be in dot notation which indicates
+                                // * the first part is the content property alias
+                                // * the second part is the field to which the valiation msg is associated with
+                                var parts = e.split(".");
+                                var propertyAlias = parts[0];
+
                                 //find the content property for the current error
                                 var contentProperty = _.find($scope.model.properties, function(item) {
-                                    return (item.alias == e);
+                                    return (item.alias == propertyAlias);
                                 });                                                                
                                 if (contentProperty) {
                                     //if it contains a '.' then we will wire it up to a property's field
-                                    if (e.indexOf(".") >= 0) {
-                                        $scope.errors.addError(contentProperty, "", data.ModelState[e][0]);
+                                    if (parts.length > 1) {
+                                        //add an error with a reference to the field for which the validation belongs too
+                                        $scope.errors.addError(contentProperty, parts[1], data.ModelState[e][0]);
                                     }
                                     else {
+                                        //add a generic error for the property, no reference to a specific field
                                         $scope.errors.addError(contentProperty, "", data.ModelState[e][0]);
                                     }
                                 }

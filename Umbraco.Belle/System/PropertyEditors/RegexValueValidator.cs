@@ -24,7 +24,7 @@ namespace Umbraco.Belle.System.PropertyEditors
             
             if (regex.IsMatch((string)value))
             {
-                yield return new ValidationResult("Value cannot be null");
+                yield return new ValidationResult("Value is invalid, it does not match the correct pattern");
             }            
         }
     }

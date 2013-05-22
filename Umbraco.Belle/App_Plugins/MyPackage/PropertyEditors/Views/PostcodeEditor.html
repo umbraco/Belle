@@ -3,6 +3,10 @@
         Enter a postcode for country <span>{{model.config.country}}</span>
     </p>
     <input name="myPackage_postcode" type="text" ng-model="model.value"
+           val-server="value"
            
            val-bubble />
+    
+    <span class="validation-message" val-msg-for="myPackage_postcode" val-toggle-msg="valServer">{{propertyForm.$error.valServer[0].errorMsg}}</span>
+    <span class="validation-message" val-msg-for="myPackage_postcode" val-toggle-msg="valPostcode">{{propertyForm.$error.valPostcode[0].errorMsg}}</span>
 </div>

@@ -23,11 +23,15 @@ define(['myApp'], function (app) {
                             case "Australia":
                                 if (/^\d{4}$/.test(viewValue)) {
                                     ctrl.$setValidity('valPostcode', true);
+                                    //reset the error msg
+                                    ctrl.errorMsg = "";
                                     return viewValue;
                                 }
                                 else {
                                     // it is invalid, return undefined (no model update)
                                     ctrl.$setValidity('valPostcode', false);
+                                    //assign an error msg property to the current validator
+                                    ctrl.errorMsg = "Australian postcodes must be a 4 digit number";
                                     return undefined;
                                 }
 

@@ -25,7 +25,13 @@ namespace Umbraco.Belle.App_Plugins.MyPackage.PropertyEditors
             {
                 if (!Regex.IsMatch(stringVal, "^\\d{4}$"))
                 {
-                    yield return new ValidationResult("Australian postcodes must be a 4 digit number");
+                    yield return new ValidationResult("Australian postcodes must be a 4 digit number", 
+                        new[]
+                            {
+                                //we only store a single value for this editor so the 'member' or 'field' 
+                                // we'll associate this error with will simply be called 'value'
+                                "value" 
+                            });
                 }
             }
             else

@@ -7,9 +7,9 @@
            type="text" ng-model="model.value" 
            required 
            val-regex="model.config" 
-           val-server-property="value"
+           val-server="value"
            val-bubble />
         
-    <span val-msg-for="regex" val-toggle-msg="required">Required!</span>
-    <span val-msg-for="regex" val-toggle-msg="valRegex">This is not valid value!</span>
+    <span class="validation-message" val-msg-for="regex" val-toggle-msg="required">Required!</span>
+    <span class="validation-message" val-msg-for="regex" val-toggle-msg="valRegex">{{propertyForm.$error.valRegex[0].errorMsg}}</span>
 </div>
