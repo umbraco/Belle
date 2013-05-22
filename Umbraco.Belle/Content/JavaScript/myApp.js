@@ -23,6 +23,24 @@ define(['angular', 'namespaceMgr'], function (angular) {
 
                 var fieldName = scope.$eval(attr.valServer);
 
+                //subscribe to the changed event of the element. This is required because when we
+                // have a server error we actually invalidate the form which means it cannot be 
+                // resubmitted. So once a field is changed that has a server error assigned to it
+                // we need to re-validate it for the server side validator so the user can resubmit
+                // the form. Of course normal client-side validators will continue to execute.
+                element.keydown(function() {
+                    ctrl.$setValidity('valServer', true);
+                    //reset the error message
+                    ctrl.errorMsg = "";
+                });
+                element.change(function() {
+                    ctrl.$setValidity('valServer', true);
+                    //reset the error message
+                    ctrl.errorMsg = "";
+                });
+                //TODO: DO we need to watch for other changes on the element ?
+
+                //subscribe to the server validation changes
                 parentErrors.subscribe(scope.model, fieldName, function (isValid, propertyErrors, allErrors) {
                     if (!isValid) {
                         ctrl.$setValidity('valServer', false);
@@ -398,7 +416,12 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     var msg = "The value assigned for the property " + args.scope.model.label + " is invalid";
                     var exists = _.contains(scope.validationSummary, msg);
 
-                    if (args.isValid && exists) {
+                    //we need to check if the entire property is valid, even though the args says this field is valid there
+                    // may be multiple values attached to a content property. The easiest way to do this is check the DOM
+                    // just like we are doing for the property level validation message.
+                    var propertyHasErrors = args.element.closest(".content-property").find(".ng-invalid").length > 0;
+
+                    if (args.isValid && exists && !propertyHasErrors) {
                         //it is valid but we have a val msg for it so we'll need to remove the message
                         scope.validationSummary = _.reject(scope.validationSummary, function (item) {
                             return item == msg;

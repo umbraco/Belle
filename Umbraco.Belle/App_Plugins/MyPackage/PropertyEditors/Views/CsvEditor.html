@@ -3,7 +3,8 @@
     <div ng-repeat="item in values">
         <ng-form name="multiFormVal">
             <input name="myPackage_multiVal" type="text" ng-model="item.value" 
-                   val-server="'value' + $index"/>
+                   val-bubble   
+                   val-server="'value' + $index" />
         
             <span class="validation-message" val-msg-for="myPackage_multiVal" val-toggle-msg="valServer">{{multiFormVal.myPackage_multiVal.errorMsg}}</span>
 
