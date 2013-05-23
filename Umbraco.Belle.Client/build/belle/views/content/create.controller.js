@@ -1,3 +1,3 @@
 angular.module('umbraco').controller("Umbraco.Editors.ContentCreateController", function ($scope, $routeParams,contentTypeFactory) {	
-	$scope.allowedTypes  = contentTypeFactory.allowedTypes($scope.currentNode.id);	
+	$scope.allowedTypes  = contentTypeFactory.getAllowedTypes($scope.currentNode.id);	
 });

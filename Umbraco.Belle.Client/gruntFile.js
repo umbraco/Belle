@@ -14,6 +14,7 @@ module.exports = function (grunt) {
 
   // Default task.
   grunt.registerTask('default', ['jshint:dev','build','testacular:unit']);
+  grunt.registerTask('watch-build', ['jshint:dev','recess:build','testacular:unit','concat','copy']);
   grunt.registerTask('build', ['clean','html2js','concat','recess:build','copy', 'docs']);
   grunt.registerTask('docs', ['markdown']);
   grunt.registerTask('test-watch', ['testacular:watch']);
@@ -45,7 +46,7 @@ module.exports = function (grunt) {
       scenarios: ['test/**/*.scenario.js'],
       html: ['src/index.html'],
       tpl: {
-        app: ['src/app/**/*.tpl.html'],
+        app: ['src/views/**/*.html'],
         common: ['src/common/**/*.tpl.html']
       },
       less: ['src/less/belle.less'], // recess:build doesn't accept ** in its file patterns
@@ -68,7 +69,10 @@ module.exports = function (grunt) {
         files: [
             { dest: '<%= distdir %>/js', src : 'main.js', expand: true, cwd: 'src/' },
             { dest: '<%= distdir %>/js', src : 'routes.js', expand: true, cwd: 'src/' }]
-      }
+      },
+      media: {
+        files: [{ dest: 'build/media', src : '*.*', expand: true, cwd: 'legacy_/media/' }]
+      },
     },
 
     testacular: {
@@ -206,11 +210,11 @@ module.exports = function (grunt) {
     watch:{
       all: {
         files:['<%= src.common %>', '<%= src.specs %>', '<%= src.less =>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
-        tasks:['default','timestamp']
+        tasks:['watch-build','timestamp']
       },
       build: {
         files:['<%= src.js %>', '<%= src.specs %>', '<%= src.less =>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
-        tasks:['default','timestamp']
+        tasks:['watch-build','timestamp']
       }
     },
 

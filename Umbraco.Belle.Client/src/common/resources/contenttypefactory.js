@@ -2,6 +2,17 @@ angular.module('umbraco.resources.contentType', [])
 .factory('contentTypeFactory', function () {
     return {
 
+        //return a content type with a given ID
+        getContentType: function(id){
+
+          return {
+              name: "News Article",
+              alias: "newsArticle",
+              id: id,
+              tabs:[]
+          };
+
+        },
         //return all availabel types
         all: function(){
             return [];
@@ -18,12 +29,13 @@ angular.module('umbraco.resources.contentType', [])
         },
 
         //return all types allowed under given document
-        allowedTypes: function(documentId){
+        getAllowedTypes: function(documentId){
           return [
           {name: "News Article", description: "Standard news article", alias: "newsArticle", id: 1234, cssClass:"file"},
           {name: "News Area", description: "Area to hold all news articles, there should be only one", alias: "newsArea", id: 1234, cssClass:"suitcase"},
           {name: "Employee", description: "Employee profile information page",  alias: "employee", id: 1234, cssClass:"user"}
           ];
-      }
-  };
+        }
+
+      };
 });

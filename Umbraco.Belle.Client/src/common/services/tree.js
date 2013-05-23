@@ -19,9 +19,9 @@ angular.module('umbraco.services.tree', [])
 
 						children: [
 						{ name: "Data types", id: 1234, icon: "icon-folder-close", view: section + "/edit/" + 1234, children: [], expanded: false, level: 1 },
-						{ name: "Macros", id: 1235, icon: "icon-folder-close blue", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1 },
-						{ name: "Pacakges", id: 1236, icon: "icon-folder-close green", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1 },
-						{ name: "XSLT Files", id: 1237, icon: "icon-folder-close red", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 },
+						{ name: "Macros", id: 1235, icon: "icon-folder-close", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1 },
+						{ name: "Pacakges", id: 1236, icon: "icon-folder-close", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1 },
+						{ name: "XSLT Files", id: 1237, icon: "icon-folder-close", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 },
 						{ name: "Razor Files", id: 1237, icon: "icon-folder-close", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 }
 						]
 					};
@@ -109,9 +109,9 @@ angular.module('umbraco.services.tree', [])
 				var iLevel = treeItem.level + 1;
 				return [
 					{ name: "child-of-" + treeItem.name, id: iLevel + "" + 1234, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1234, children: [], expanded: false, level: iLevel },
-					{ name: "random-name-" + section, id: iLevel + "" + 1235, icon: "icon-file-alt blue", view: section + "/edit/" + iLevel + "" + 1235, children: [], expanded: false, level: iLevel },
-					{ name: "random-name-" + section, id: iLevel + "" + 1236, icon: "icon-file-alt green", view: section + "/edit/" + iLevel + "" + 1236, children: [], expanded: false, level: iLevel },
-					{ name: "random-name-" + section, id: iLevel + "" + 1237, icon: "icon-file-alt purple", view: section + "/edit/" + iLevel + "" + 1237, children: [], expanded: false, level: iLevel }
+					{ name: "random-name-" + section, id: iLevel + "" + 1235, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1235, children: [], expanded: false, level: iLevel },
+					{ name: "random-name-" + section, id: iLevel + "" + 1236, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1236, children: [], expanded: false, level: iLevel },
+					{ name: "random-name-" + section, id: iLevel + "" + 1237, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1237, children: [], expanded: false, level: iLevel }
 				];
 			}
 		};
