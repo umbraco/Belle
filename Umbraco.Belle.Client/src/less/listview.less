@@ -1,0 +1,74 @@
+// Listview
+// -------------------------
+
+.umb-sub-header {
+	padding: 0 0 20px 0;
+}
+
+.umb-listview table {
+	border: 1px solid @grayLight;
+}
+
+.umb-listview table caption {
+  background: @grayLighter;
+  border-top: 1px solid @grayLight;
+  border-right: 1px solid @grayLight;
+  border-left: 1px solid @grayLight;
+  text-align: left;
+  padding: 20px 20px 0 20px;
+  vertical-align: middle;
+}
+
+.umb-listview table caption form {
+  position: relative
+}
+
+.umb-listview table caption form .icon-search {
+  position: absolute;
+  top: 8px;
+  left:5px;
+  color: @gray
+}
+
+.umb-listview table caption input[type="text"] {
+  background: none;
+  border: none;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
+  width: 60px;
+  padding: 4px 0 4px 20px;
+  border: 1px solid @grayLighter
+}
+
+.umb-listview table caption input::-webkit-input-placeholder {
+   color: @gray;
+}
+
+.umb-listview table caption input:-moz-placeholder {
+   color: @gray;
+}
+
+.umb-listview table caption input::-moz-placeholder {
+   color: @gray;
+}
+
+.umb-listview table caption input:-ms-input-placeholder
+ {
+   color: @gray;
+}
+
+.umb-listview table caption input[type="text"]:focus {
+  width: 200px;
+  border: 1px solid @grayLight;
+  background: @white;
+  color: @black
+}
+
+.umb-listview table tfoot {
+	background: @grayLighter;
+}
+
+.umb-listview table tfoot th {
+	padding: 0 20px;
+}

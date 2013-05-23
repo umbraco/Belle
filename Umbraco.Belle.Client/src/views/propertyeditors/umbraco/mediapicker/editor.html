@@ -1,0 +1,17 @@
+<div ng-controller="mediaPickerController">
+	<ul class="thumbnails">
+		<li class="span6" ng-repeat="image in property.value">
+			<a href="#" class="thumbnail" prevent-default>
+				<img ng-src="{{image.thumbnail}}" />
+			</a>
+		</li>
+
+		<li class="span6 umb-plus-btn">
+			<a href="#" ng-click="openMediaPicker(property.value)" prevent-default>
+				<i class="icon icon-plus"></i>
+			</a>
+		</li>
+	</ul>
+
+	<br/><br/>
+</div>
