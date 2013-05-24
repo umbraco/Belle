@@ -662,15 +662,6 @@ define(['angular', 'namespaceMgr'], function (angular) {
 
             $scope.ui.working = true;
 
-            //var formData = new FormData();
-            //formData.append("contentItem", u$ContentHelper.formatPostData($scope.model));
-            //for (var f in $scope.files) {
-            //    //each item has a property id and the file object, we'll ensure that the id is suffixed to the key
-            //    // so we know which property it belongs to on the server side
-            //    formData.append("file_" + $scope.files[f].id, $scope.files[f].file);
-            //}
-            
-
             $http({
                 method: 'POST',
                 url: saveContentUrl,
@@ -682,27 +673,16 @@ define(['angular', 'namespaceMgr'], function (angular) {
                 transformRequest: function (data) {
                     var formData = new FormData();
                     //need to convert our json object to a string version of json
-                    formData.append("contentItem", angular.toJson(u$ContentHelper.formatPostData(data)));
+                    formData.append("model", angular.toJson(u$ContentHelper.formatPostData(data.model)));
                     //now add all of the assigned files
-                    for (var f in $scope.files) {
+                    for (var f in data.files) {
                         //each item has a property id and the file object, we'll ensure that the id is suffixed to the key
                         // so we know which property it belongs to on the server side
-                        formData.append("file_" + $scope.files[f].id, $scope.files[f].file);
+                        formData.append("file_" + data.files[f].id, data.files[f].file);
                     }
                     return formData;
-                    //var fd = new FormData();
-                    //angular.forEach(data, function(value, key) {
-                    //    fd.append(key, value);
-                    //});
-                    //return fd;
                 },
-                //transformRequest: function(obj) {
-                //    var str = [];
-                //    for (var p in obj)
-                //        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                //    return str.join("&");
-                //},
-                data: $scope.model
+                data: { model: $scope.model, files: $scope.files }
             }).
                 success(function(data, status, headers, config) {
                     alert("success!");

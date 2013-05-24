@@ -6,7 +6,7 @@ using Umbraco.Belle.System.PropertyEditors;
 
 namespace Umbraco.Belle.App_Plugins.MyPackage.PropertyEditors
 {
-    [PropertyEditor("AD056473-492B-47F8-9613-5A4936666C67", "serverInfo", "Server Info")]
+    [PropertyEditor("AD056473-492B-47F8-9613-5A4936666C67", "Server Info")]
     public class ServerInfoPropertyEditor : PropertyEditor
     {
         protected override ValueEditor CreateValueEditor()

@@ -26,6 +26,14 @@ namespace Umbraco.Belle.Controllers
     internal class ContentItemValidationFilterAttribute : ActionFilterAttribute
     {
         /// <summary>
+        /// Returns true so that other filters can execute along with this one
+        /// </summary>
+        public override bool AllowMultiple
+        {
+            get { return true; }
+        }
+
+        /// <summary>
         /// Performs the validation
         /// </summary>
         /// <param name="actionContext"></param>

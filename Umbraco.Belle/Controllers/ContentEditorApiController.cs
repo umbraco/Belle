@@ -62,6 +62,11 @@ namespace Umbraco.Belle.Controllers
             [ModelBinder(typeof(ContentItemBinder))]
             ContentItemSave contentItem)
         {
+            //If we've reached here it means:
+            // * Our model has been bound
+            // * and validated
+            // * any file attachments have been saved to their temporary location for us to use
+
             return Request.CreateResponse(HttpStatusCode.OK, "success!");
         }
 

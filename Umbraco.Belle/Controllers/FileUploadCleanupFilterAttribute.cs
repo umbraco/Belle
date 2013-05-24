@@ -10,6 +10,14 @@ namespace Umbraco.Belle.Controllers
     /// </summary>
     internal class FileUploadCleanupFilterAttribute : ActionFilterAttribute
     {
+        /// <summary>
+        /// Returns true so that other filters can execute along with this one
+        /// </summary>
+        public override bool AllowMultiple
+        {
+            get { return true; }
+        }
+
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
             base.OnActionExecuted(actionExecutedContext);

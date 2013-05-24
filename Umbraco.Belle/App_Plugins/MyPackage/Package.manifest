@@ -34,14 +34,7 @@
 					},
 				]				
 			}
-		},	
-		{
-			id: "23A66468-30E2-4537-8039-625F8BC5CA1E",
-			name: "File Upload",
-			editor: {
-				view: "~/App_Plugins/MyPackage/PropertyEditors/Views/FileUploadEditor.html"				
-			}
-		}	
+		}
 	],
     config: {
         paths: {
