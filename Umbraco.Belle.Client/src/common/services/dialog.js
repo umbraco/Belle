@@ -15,7 +15,10 @@ angular.module('umbraco.services.dialog', [])
 
 					// Build modal object
 					var id = templateUrl.replace('.html', '').replace(/[\/|\.|:]/g, "-") + '-' + scope.$id;
-					var $modal = $('<div class="modal umb-modal hide" tabindex="-1"></div>').attr('id', id).addClass('fade').html(template);
+					var $modal = $('<div class="modal umb-modal hide" data-backdrop="false" tabindex="-1"></div>')
+									.attr('id', id)
+									.addClass('fade')
+									.html(template);
 
 					if(options.modalClass){ 
 						$modal.addClass(options.modalClass);
@@ -28,6 +31,7 @@ angular.module('umbraco.services.dialog', [])
 						$compile($modal)(scope);
 					});
 
+					//Scope to handle data from the modal form
 					scope.dialogData = {};
 					scope.dialogData.selection = [];
 
@@ -87,29 +91,29 @@ return{
 		return _open({
 			scope: options.scope, 
 			callback: options.callback, 
-			template: 'app/common/dialogs/mediaPicker.html', 
-			show: true, backdrop: 'static'});
+			template: 'views/common/dialogs/mediaPicker.html', 
+			show: true});
 	},
 	contentPicker: function(options){
 		return _open({
 			scope: options.scope, 
 			callback: options.callback, 
-			template: 'app/common/dialogs/contentPicker.html', 
-			show: true, backdrop: 'static'});
+			template: 'views/common/dialogs/contentPicker.html', 
+			show: true});
 	},
 	macroPicker: function(options){
 		return _open({
 			scope: options.scope, 
 			callback: options.callback, 
-			template: 'app/common/dialogs/macroPicker.html', 
-			show: true, backdrop: 'static'});
+			template: 'views/common/dialogs/macroPicker.html', 
+			show: true});
 	},
 	propertyDialog: function(options){
 		return _open({
 			scope: options.scope, 
 			callback: options.callback, 
-			template: 'app/common/dialogs/property.html', 
-			show: true, backdrop: 'static'});
+			template: 'views/common/dialogs/property.html', 
+			show: true});
 	},
 	append : function(options){
 		var scope = options.scope || $rootScope.$new(), 

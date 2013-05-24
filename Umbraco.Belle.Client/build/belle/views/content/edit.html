@@ -37,7 +37,9 @@
             <div id='{{tab.alias}}' class='umb-tab-pane tab-pane' ng-class="{active: $first}" ng-repeat="tab in content.tabs">
                 <div class='umb-tab-pane-inner'>
             
+
                     <div class="umb-pane" ng-repeat="model in tab.properties">
+                        
                         <div class="control-group umb-control-group"
                         ng-class="{hidelabel:model.hideLabel}" >
                             

@@ -1,9 +1,10 @@
 angular.module('umbraco.resources.content', [])
 .factory('contentFactory', function () {
-    
+
     var contentArray = [];
 
-    return {
+    var factory = {
+        _cachedItems: contentArray,
         getContent: function (id) {
 
             if (contentArray[id] !== undefined){
@@ -16,6 +17,10 @@ angular.module('umbraco.resources.content', [])
                 publishDate: new Date(),
                 id: id,
                 parentId: 1234,
+                icon: "icon-file-alt",
+                owner: {name: "Administrator", id: 0},
+                updater: {name: "Per Ploug Krogslund", id: 1},
+
                 tabs: [
                 {
                     label: "Tab 0",
@@ -42,8 +47,7 @@ angular.module('umbraco.resources.content', [])
                     { alias: "metaText", label: "Meta Text", view: "umbraco.rte", value: "<p>askjdkasj lasjd</p>" },
                     { alias: "textarea", label: "Description", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 7 } },
                     { alias: "dropdown", label: "Keywords", view: "umbraco.dropdown", value: "aksjdkasjdkj" },
-                    { alias: "upload", label: "Upload file", view: "umbraco.fileupload", value: "" },
-                    { alias: "code", label: "Codemirror", view: "umbraco.code", controller: "umbraco.code", value: "test" }
+                    { alias: "upload", label: "Upload file", view: "umbraco.fileupload", value: "" }                    
                     ]
                 },
                 {
@@ -77,6 +81,44 @@ angular.module('umbraco.resources.content', [])
             return c;
         },
 
+        getChildren: function(parentId, options){
+
+            if(options === undefined){
+                options = {
+                    take: 10,
+                    offset: 0,
+                    filter: ''
+                };
+            }  
+
+            var collection = {take: 10, total: 68, pages: 7, currentPage: options.offset, filter: options.filter};    
+            collection.total = 56 - (options.filter.length);
+            collection.pages = Math.round(collection.total / collection.take);
+            collection.resultSet = [];
+            
+            if(collection.total < options.take){
+                collection.take = collection.total;
+            }else{
+                collection.take = options.take;    
+            }
+
+
+            var _id = 0;
+            for (var i = 0; i < collection.take; i++) {
+                _id = (parentId + i) * options.offset;
+                var cnt = this.getContent(_id);
+                
+                //here we fake filtering    
+                if(options.filter !== ''){
+                    cnt.name = options.filter + cnt.name;
+                }
+
+                collection.resultSet.push(cnt);
+            }
+
+            return collection;
+        },
+
         //saves or updates a content object
         saveContent: function (content) {
             contentArray[content.id] = content;
@@ -88,4 +130,6 @@ angular.module('umbraco.resources.content', [])
         }
 
     };
+
+    return factory;
 });

@@ -1,4 +1,6 @@
-angular.module("umbraco").controller("Umbraco.Editors.RTEController", function($rootScope, $scope, dialog, $log){
+angular.module("umbraco")
+    .controller("Umbraco.Editors.RTEController", 
+    function($rootScope, $scope, dialog, $log){
     require(
         [
             'tinymce'
@@ -6,10 +8,10 @@ angular.module("umbraco").controller("Umbraco.Editors.RTEController", function($
         function (tinymce) {
 
             tinymce.DOM.events.domLoaded = true;
+            $log.log("dom loaded");
 
             tinymce.init({
-               selector: "#" + $scope.model.alias,
-               handle_event_callback : "myHandleEvent" 
+               selector: "#" + $scope.model.alias + "_rte"
              });
         
             $scope.openMediaPicker =function(value){

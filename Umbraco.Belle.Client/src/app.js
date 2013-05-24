@@ -1,5 +1,5 @@
 var app = angular.module('umbraco', [
-  	'umbraco.filters', 
+  	'umbraco.filters',
   	'umbraco.directives',
   	'umbraco.resources.content',
   	'umbraco.resources.contentType',

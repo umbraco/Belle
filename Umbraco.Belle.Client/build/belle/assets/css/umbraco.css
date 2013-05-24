@@ -4850,8 +4850,8 @@ body {
 #dialog {
   position: absolute;
   top: 0;
-  left: 72px;
-  z-index: 200;
+  left: 100%;
+  z-index: 50;
   display: inline-block;
   min-width: 500px;
 }
@@ -6343,6 +6343,11 @@ legend + .control-group {
   border-color: red !important;
 }
 
+.umb-modal {
+  border: none;
+  border-radius: none;
+}
+
 .umb-modal.fade {
   top: 0 !important;
   left: -100% !important;
@@ -6386,7 +6391,7 @@ legend + .control-group {
 
 .umb-tree li.current > div a,
 .umb-tree li.current > div i.icon {
-  color: red !important;
+  color: white !important;
   background: #2e8aea;
   border-color: #2e8aea;
 }
@@ -6704,6 +6709,10 @@ i.umb-options i {
 
 #seach-results ul li.selected {
   background: #ff0000;
+}
+
+.umb-panel {
+  background: white;
 }
 
 .umb-panel-header {
