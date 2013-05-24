@@ -1,21 +1,51 @@
 'use strict';
 //this controller simply tells the dialogs service to open a mediaPicker window
 //with a specified callback, this callback will receive an object with a selection on it
-angular.module("umbraco").controller("Umbraco.Editors.GridController", function($rootScope, $scope, dialog, $log){
+angular.module("umbraco").controller("Umbraco.Editors.GridController", function($rootScope, $scope, dialog, $log, macroFactory){
     //we most likely will need some iframe-motherpage interop here
-    $log.log("loaded");
+    
+    //we most likely will need some iframe-motherpage interop here
+       $scope.openMediaPicker =function(){
+               var d = dialog.mediaPicker({scope: $scope, callback: renderImages});
+       };
 
-    $scope.openMediaPicker =function(){
-            var d = dialog.mediaPicker({scope: $scope, callback: populate});
-    };
+       $scope.openPropertyDialog =function(){
+               var d = dialog.property({scope: $scope, callback: renderProperty});
+       };
 
-    function populate(data){
-        //notify iframe to render something.. 
-    }
+       $scope.openMacroDialog =function(){
+               var d = dialog.macroPicker({scope: $scope, callback: renderMacro});
+       };
 
-    $(window).bind("umbraco.grid.click", function(event) {
-        $scope.$apply(function() {
-            $scope.openMediaPicker();
-        });
-    });
+       function renderProperty(data){
+          $scope.currentElement.html("<h1>boom, property!</h1>"); 
+       }
+
+       function renderMacro(data){
+          $scope.currentElement.html( macroFactory.renderMacro(data.macro, -1) ); 
+       }
+      
+       function renderImages(data){
+           var list = $("<ul class='thumbnails'></ul>")
+           $.each(data.selection, function(i, image) {
+               list.append( $("<li class='span2'><img class='thumbnail' src='" + image.src + "'></li>") );
+           });
+
+           $scope.currentElement.html( list[0].outerHTML); 
+       }
+
+       $(window).bind("umbraco.grid.click", function(event){
+
+           $scope.$apply(function () {
+               $scope.currentEditor = event.editor;
+               $scope.currentElement = $(event.element);
+
+               if(event.editor == "macro")
+                   $scope.openMacroDialog();
+               else if(event.editor == "image")
+                   $scope.openMediaPicker();
+               else
+                   $scope.propertyDialog();
+           });
+       })
 });

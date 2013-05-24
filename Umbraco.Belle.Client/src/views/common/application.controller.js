@@ -6,8 +6,8 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
     $scope.selectedId = $routeParams.id;
     $scope.sections = section.all();
 
-    $scope.setMode = setMode;
-    $scope.setMode("default");
+    $scope.ui.mode = setMode;
+    $scope.ui.mode("default");
 
 
     $scope.openSection = function (selectedSection) {
@@ -24,12 +24,12 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
         if(!$scope.ui.stickyNavigation){
             $("#search-form input").focus();
             loadTree(section.alias);
-            $scope.setMode("tree");
+            $scope.ui.mode("tree");
         }
     };
     $scope.hideSectionTree = function () {
         if(!$scope.ui.stickyNavigation){
-            $scope.setMode("default");
+            $scope.ui.mode("default");
         }
     };
 
@@ -47,18 +47,18 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
             $scope.currentNode = item;
             $scope.menuTitle = item.name;
             $scope.selectedId = item.id;
-            $scope.setMode("menu");
+            $scope.ui.mode("menu");
         }
     };
 
     $scope.hideContextMenu = function () {
         $scope.selectedId = $routeParams.id;
         $scope.contextMenu = [];
-        $scope.setMode("tree");
+        $scope.ui.mode("tree");
     };
 
     $scope.showContextDialog = function (item, action) {
-        $scope.setMode("dialog");
+        $scope.ui.mode("dialog");
 
         $scope.currentNode = item;
         $scope.dialogTitle = action.name;
@@ -72,7 +72,7 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
     };    
 
     $scope.hideNavigation = function () {
-        $scope.setMode("default");
+        $scope.ui.mode("default");
     };
 
     $scope.setTreePadding = function(item) {
@@ -106,7 +106,7 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
                 $scope.ui.showNavigation = true;
                 $scope.ui.showContextMenu = true;
                 $scope.ui.showContextMenuDialog = false;
-                $scope.ui.stickyNavigation = false;
+                $scope.ui.stickyNavigation = true;
                 break;
             case 'dialog':
                 $scope.ui.stickyNavigation = true;
@@ -187,7 +187,8 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
 
     $scope.ui = {
         showTree: false,
-        showSearchResults: false
+        showSearchResults: false,
+        mode: undefined
     };
 
     $scope.signin = function () {
@@ -223,10 +224,18 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
         notifications.remove(index);
     };
 
-/*
+    $scope.closeDialogs = function(event){
+        if($(event.target).parents(".umb-modalcolumn").size() == 0){ 
+            $scope.ui.mode("default");
+            //jQuery(".umb-modalcolumn").hide();
+        }
+    };
+
     if ($scope.authenticated) {
+        $scope.user = userFactory.getCurrentUser();
+    }else{    
         $scope.$on('$viewContentLoaded', function() {
             $scope.signin();
         });
-    }*/
+    }
 });

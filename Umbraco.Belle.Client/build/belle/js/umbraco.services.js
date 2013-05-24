@@ -17,7 +17,10 @@ angular.module('umbraco.services.dialog', [])
 
 					// Build modal object
 					var id = templateUrl.replace('.html', '').replace(/[\/|\.|:]/g, "-") + '-' + scope.$id;
-					var $modal = $('<div class="modal umb-modal hide" tabindex="-1"></div>').attr('id', id).addClass('fade').html(template);
+					var $modal = $('<div class="modal umb-modal hide" data-backdrop="false" tabindex="-1"></div>')
+									.attr('id', id)
+									.addClass('fade')
+									.html(template);
 
 					if(options.modalClass){ 
 						$modal.addClass(options.modalClass);
@@ -30,6 +33,7 @@ angular.module('umbraco.services.dialog', [])
 						$compile($modal)(scope);
 					});
 
+					//Scope to handle data from the modal form
 					scope.dialogData = {};
 					scope.dialogData.selection = [];
 
@@ -89,29 +93,29 @@ return{
 		return _open({
 			scope: options.scope, 
 			callback: options.callback, 
-			template: 'app/common/dialogs/mediaPicker.html', 
-			show: true, backdrop: 'static'});
+			template: 'views/common/dialogs/mediaPicker.html', 
+			show: true});
 	},
 	contentPicker: function(options){
 		return _open({
 			scope: options.scope, 
 			callback: options.callback, 
-			template: 'app/common/dialogs/contentPicker.html', 
-			show: true, backdrop: 'static'});
+			template: 'views/common/dialogs/contentPicker.html', 
+			show: true});
 	},
 	macroPicker: function(options){
 		return _open({
 			scope: options.scope, 
 			callback: options.callback, 
-			template: 'app/common/dialogs/macroPicker.html', 
-			show: true, backdrop: 'static'});
+			template: 'views/common/dialogs/macroPicker.html', 
+			show: true});
 	},
 	propertyDialog: function(options){
 		return _open({
 			scope: options.scope, 
 			callback: options.callback, 
-			template: 'app/common/dialogs/property.html', 
-			show: true, backdrop: 'static'});
+			template: 'views/common/dialogs/property.html', 
+			show: true});
 	},
 	append : function(options){
 		var scope = options.scope || $rootScope.$new(), 
@@ -259,9 +263,9 @@ angular.module('umbraco.services.tree', [])
 
 						children: [
 						{ name: "Data types", id: 1234, icon: "icon-folder-close", view: section + "/edit/" + 1234, children: [], expanded: false, level: 1 },
-						{ name: "Macros", id: 1235, icon: "icon-folder-close blue", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1 },
-						{ name: "Pacakges", id: 1236, icon: "icon-folder-close green", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1 },
-						{ name: "XSLT Files", id: 1237, icon: "icon-folder-close red", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 },
+						{ name: "Macros", id: 1235, icon: "icon-folder-close", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1 },
+						{ name: "Pacakges", id: 1236, icon: "icon-folder-close", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1 },
+						{ name: "XSLT Files", id: 1237, icon: "icon-folder-close", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 },
 						{ name: "Razor Files", id: 1237, icon: "icon-folder-close", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 }
 						]
 					};
@@ -349,9 +353,9 @@ angular.module('umbraco.services.tree', [])
 				var iLevel = treeItem.level + 1;
 				return [
 					{ name: "child-of-" + treeItem.name, id: iLevel + "" + 1234, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1234, children: [], expanded: false, level: iLevel },
-					{ name: "random-name-" + section, id: iLevel + "" + 1235, icon: "icon-file-alt blue", view: section + "/edit/" + iLevel + "" + 1235, children: [], expanded: false, level: iLevel },
-					{ name: "random-name-" + section, id: iLevel + "" + 1236, icon: "icon-file-alt green", view: section + "/edit/" + iLevel + "" + 1236, children: [], expanded: false, level: iLevel },
-					{ name: "random-name-" + section, id: iLevel + "" + 1237, icon: "icon-file-alt purple", view: section + "/edit/" + iLevel + "" + 1237, children: [], expanded: false, level: iLevel }
+					{ name: "random-name-" + section, id: iLevel + "" + 1235, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1235, children: [], expanded: false, level: iLevel },
+					{ name: "random-name-" + section, id: iLevel + "" + 1236, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1236, children: [], expanded: false, level: iLevel },
+					{ name: "random-name-" + section, id: iLevel + "" + 1237, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1237, children: [], expanded: false, level: iLevel }
 				];
 			}
 		};

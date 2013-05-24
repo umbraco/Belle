@@ -1,8 +1,10 @@
 angular.module("umbraco").controller("Umbraco.Editors.ContentEditController", function ($scope, $routeParams, contentFactory) {
+	
 	if($routeParams.create)
 		$scope.content = contentFactory.getContentScaffold($routeParams.parentId, $routeParams.doctype);
 	else
 		$scope.content = contentFactory.getContent($routeParams.id);
+
 
 	$scope.saveAndPublish = function (cnt) {
 		cnt.publishDate = new Date();
@@ -13,4 +15,5 @@ angular.module("umbraco").controller("Umbraco.Editors.ContentEditController", fu
 		cnt.updateDate = new Date();
 		contentFactory.saveContent(cnt);
 	};
+	
 });
