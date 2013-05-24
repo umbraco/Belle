@@ -335,6 +335,7 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
             
             //fixes the maps resize issue due to dynamic loading
             google.maps.event.trigger(map, "resize");    
+
             google.maps.event.addListener(marker, "dragend", function(e){
                 var newLat = marker.getPosition().lat();
                 var newLng = marker.getPosition().lng();
@@ -346,6 +347,10 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
                 $rootScope.$apply(function () {
                     notifications.warning("Your dragged a marker to", $scope.model.value);
                 });
+            });
+
+            google.maps.event.addListenerOnce(map, 'idle', function() {
+                google.maps.event.trigger(map, 'resize');
             });
         }
     );    
@@ -489,10 +494,17 @@ angular.module("umbraco")
             tinymce.DOM.events.domLoaded = true;
             $log.log("dom loaded");
 
+            
             tinymce.init({
-               selector: "#" + $scope.model.alias + "_rte"
-             });
-        
+                selector: "#" + $scope.model.alias + "_rte",
+                skin: "umbraco",
+                menubar : false,
+                statusbar: false,
+                height: 340,
+                toolbar: "bold italic | styleselect | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent | link image"
+            });
+
+
             $scope.openMediaPicker =function(value){
                     var d = dialog.mediaPicker({scope: $scope, callback: populate});
             };

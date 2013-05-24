@@ -8737,3 +8737,25 @@ ul.icons li [class*=" icon-"] {
 #mapCanvas img {
   max-width: none !important;
 }
+
+/* TINYMCE OVERRIDES */
+
+.mce-tinymce {
+  border: 1px solid #d9d9d9 !important;
+}
+
+.mce-panel {
+  background: #f8f8f8 !important;
+  border-color: #d9d9d9 !important;
+}
+
+.mce-btn-group,
+.mce-btn {
+  background: none !important;
+  border: none !important;
+}
+
+.mce-ico {
+  font-size: 12px !important;
+  color: #1d1d1d !important;
+}

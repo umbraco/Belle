@@ -10,10 +10,17 @@ angular.module("umbraco")
             tinymce.DOM.events.domLoaded = true;
             $log.log("dom loaded");
 
+            
             tinymce.init({
-               selector: "#" + $scope.model.alias + "_rte"
-             });
-        
+                selector: "#" + $scope.model.alias + "_rte",
+                skin: "umbraco",
+                menubar : false,
+                statusbar: false,
+                height: 340,
+                toolbar: "bold italic | styleselect | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent | link image"
+            });
+
+
             $scope.openMediaPicker =function(value){
                     var d = dialog.mediaPicker({scope: $scope, callback: populate});
             };

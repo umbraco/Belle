@@ -24,6 +24,7 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
             
             //fixes the maps resize issue due to dynamic loading
             google.maps.event.trigger(map, "resize");    
+
             google.maps.event.addListener(marker, "dragend", function(e){
                 var newLat = marker.getPosition().lat();
                 var newLng = marker.getPosition().lng();
@@ -35,6 +36,10 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
                 $rootScope.$apply(function () {
                     notifications.warning("Your dragged a marker to", $scope.model.value);
                 });
+            });
+
+            google.maps.event.addListenerOnce(map, 'idle', function() {
+                google.maps.event.trigger(map, 'resize');
             });
         }
     );    
