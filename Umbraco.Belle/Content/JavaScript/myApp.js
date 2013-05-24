@@ -451,18 +451,18 @@ define(['angular', 'namespaceMgr'], function (angular) {
         };
     });
 
+    //A directive applied to a file input box so that outer scopes can listen for when a file is selected
     app.directive('umbFileUpload', function () {
-        return {            
-            //scope: {
-            //    file: '='
-            //},
+        return {
+            scope: true,        //create a new scope
             link: function (scope, el, attrs) {
                 el.bind('change', function (event) {
                     var files = event.target.files;
-                    var file = files[0];                    
-                    scope.$apply(function() {
-                        scope.file = file ? file.name : undefined;
-                    });
+                    //iterate files since 'multiple' may be specified on the element
+                    for (var i = 0;i<files.length;i++) {
+                        //emit event upward
+                        scope.$emit("fileSelected", { file: files[i] });
+                    }                                       
                 });
             }
         };
@@ -617,6 +617,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
         
         //initialize the data model
         $scope.model = {};
+        $scope.files = [];
         //model for updating the UI
         $scope.ui = {
             working: false,
@@ -660,15 +661,56 @@ define(['angular', 'namespaceMgr'], function (angular) {
             $scope.serverErrors.reset();
 
             $scope.ui.working = true;
+
+            //var formData = new FormData();
+            //formData.append("contentItem", u$ContentHelper.formatPostData($scope.model));
+            //for (var f in $scope.files) {
+            //    //each item has a property id and the file object, we'll ensure that the id is suffixed to the key
+            //    // so we know which property it belongs to on the server side
+            //    formData.append("file_" + $scope.files[f].id, $scope.files[f].file);
+            //}
             
-            $http.post(saveContentUrl, u$ContentHelper.formatPostData($scope.model)).
-                success(function (data, status, headers, config) {
+
+            $http({
+                method: 'POST',
+                url: saveContentUrl,
+                //IMPORTANT!!! You might think this should be set to 'multipart/form-data' but this is not true because when we are sending up files
+                // the request needs to include a 'boundary' parameter which identifies the boundary name between parts in this multi-part request
+                // and setting the Content-type manually will not set this boundary parameter. For whatever reason, setting the Content-type to 'false'
+                // will force the request to automatically populate the headers properly including the boundary parameter.
+                headers: { 'Content-Type': false },
+                transformRequest: function (data) {
+                    var formData = new FormData();
+                    //need to convert our json object to a string version of json
+                    formData.append("contentItem", angular.toJson(u$ContentHelper.formatPostData(data)));
+                    //now add all of the assigned files
+                    for (var f in $scope.files) {
+                        //each item has a property id and the file object, we'll ensure that the id is suffixed to the key
+                        // so we know which property it belongs to on the server side
+                        formData.append("file_" + $scope.files[f].id, $scope.files[f].file);
+                    }
+                    return formData;
+                    //var fd = new FormData();
+                    //angular.forEach(data, function(value, key) {
+                    //    fd.append(key, value);
+                    //});
+                    //return fd;
+                },
+                //transformRequest: function(obj) {
+                //    var str = [];
+                //    for (var p in obj)
+                //        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                //    return str.join("&");
+                //},
+                data: $scope.model
+            }).
+                success(function(data, status, headers, config) {
                     alert("success!");
                     $scope.ui.working = false;
                     $scope.ui.waitingOnValidation = false;
                     $scope.serverErrors.reset();
                 }).
-                error(function (data, status, headers, config) {
+                error(function(data, status, headers, config) {
                     //When the status is a 403 status, we have validation errors.
                     //Otherwise the error is probably due to invalid data (i.e. someone mucking around with the ids or something).
                     //Or, some strange server error
@@ -676,7 +718,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                         //now we need to look through all the validation errors
                         if (data && data.ModelState) {
                             for (var e in data.ModelState) {
-                                
+
                                 //the alias in model state can be in dot notation which indicates
                                 // * the first part is the content property alias
                                 // * the second part is the field to which the valiation msg is associated with
@@ -686,7 +728,7 @@ define(['angular', 'namespaceMgr'], function (angular) {
                                 //find the content property for the current error
                                 var contentProperty = _.find($scope.model.properties, function(item) {
                                     return (item.alias == propertyAlias);
-                                });                                                                
+                                });
                                 if (contentProperty) {
                                     //if it contains a '.' then we will wire it up to a property's field
                                     if (parts.length > 1) {
@@ -705,10 +747,59 @@ define(['angular', 'namespaceMgr'], function (angular) {
                     else {
                         alert("failed!");
                     }
-                    
+
                     $scope.ui.working = false;
                     $scope.ui.waitingOnValidation = true;
                 });
+
+            //$http.post(saveContentUrl, u$ContentHelper.formatPostData($scope.model)).
+            //    success(function (data, status, headers, config) {
+            //        alert("success!");
+            //        $scope.ui.working = false;
+            //        $scope.ui.waitingOnValidation = false;
+            //        $scope.serverErrors.reset();
+            //    }).
+            //    error(function (data, status, headers, config) {
+            //        //When the status is a 403 status, we have validation errors.
+            //        //Otherwise the error is probably due to invalid data (i.e. someone mucking around with the ids or something).
+            //        //Or, some strange server error
+            //        if (status == 403) {
+            //            //now we need to look through all the validation errors
+            //            if (data && data.ModelState) {
+            //                for (var e in data.ModelState) {
+                                
+            //                    //the alias in model state can be in dot notation which indicates
+            //                    // * the first part is the content property alias
+            //                    // * the second part is the field to which the valiation msg is associated with
+            //                    var parts = e.split(".");
+            //                    var propertyAlias = parts[0];
+
+            //                    //find the content property for the current error
+            //                    var contentProperty = _.find($scope.model.properties, function(item) {
+            //                        return (item.alias == propertyAlias);
+            //                    });                                                                
+            //                    if (contentProperty) {
+            //                        //if it contains a '.' then we will wire it up to a property's field
+            //                        if (parts.length > 1) {
+            //                            //add an error with a reference to the field for which the validation belongs too
+            //                            $scope.serverErrors.addError(contentProperty, parts[1], data.ModelState[e][0]);
+            //                        }
+            //                        else {
+            //                            //add a generic error for the property, no reference to a specific field
+            //                            $scope.serverErrors.addError(contentProperty, "", data.ModelState[e][0]);
+            //                        }
+            //                    }
+            //                }
+
+            //            }
+            //        }
+            //        else {
+            //            alert("failed!");
+            //        }
+                    
+            //        $scope.ui.working = false;
+            //        $scope.ui.waitingOnValidation = true;
+            //    });
         };
 
     };

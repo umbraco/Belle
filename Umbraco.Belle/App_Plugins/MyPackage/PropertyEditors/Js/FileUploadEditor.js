@@ -9,10 +9,12 @@ define(['namespaceMgr'], function () {
         
         $scope.file = null;
 
-        //set up listeners for the object to write back to our comma delimited property value
-        $scope.$watch('file', function (newValue, oldValue) {
-            $scope.model.value = $scope.file;
-        });
+        $scope.$on("fileSelected", function(event, args) {
+            //assign the file name to the model property
+            $scope.model.value = args.file.name;
+            //save the file object to the scope's files collection
+            $scope.files.push({ id: $scope.model.id, file: args.file });
+        });        
 
     };
     

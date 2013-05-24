@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
@@ -56,10 +57,11 @@ namespace Umbraco.Belle.Controllers
         /// </summary>
         /// <returns></returns>
         [ContentItemValidationFilter]
-        public HttpResponseMessage PostSaveContent(ContentItemSave contentItem)
+        [FileUploadCleanupFilter]
+        public HttpResponseMessage PostSaveContent(
+            [ModelBinder(typeof(ContentItemBinder))]
+            ContentItemSave contentItem)
         {
-            //NOTE: Validation is done in the filter
-
             return Request.CreateResponse(HttpStatusCode.OK, "success!");
         }
 
