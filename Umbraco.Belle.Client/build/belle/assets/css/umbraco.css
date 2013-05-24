@@ -7152,22 +7152,40 @@ table thead a {
   color: #333333;
 }
 
+.umb-listview .dropdown-menu {
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0);
+     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0);
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-submenu:focus > a {
+  color: #000000;
+  background: #f8f8f8;
+}
+
 .umb-sub-header {
   padding: 0 0 20px 0;
 }
 
 .umb-listview table {
-  border: 1px solid #d9d9d9;
+  border-top: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
 }
 
 .umb-listview table caption {
-  padding: 20px 20px 0 20px;
+  padding: 0 0 20px 0;
   text-align: left;
   vertical-align: middle;
-  background: #f8f8f8;
-  border-top: 1px solid #d9d9d9;
-  border-right: 1px solid #d9d9d9;
-  border-left: 1px solid #d9d9d9;
+  background: #ffffff;
 }
 
 .umb-listview table caption form {
@@ -7186,7 +7204,7 @@ table thead a {
   padding: 4px 0 4px 20px;
   background: none;
   border: none;
-  border: 1px solid #f8f8f8;
+  border: 1px solid #ffffff;
   -webkit-transition: all .5s;
      -moz-transition: all .5s;
           transition: all .5s;
@@ -7215,12 +7233,79 @@ table thead a {
   border: 1px solid #d9d9d9;
 }
 
+.umb-listview .icon-star {
+  color: #d9d9d9;
+}
+
+.umb-listview table thead {
+  font-size: 11px;
+  font-weight: 600;
+  background-color: #f8f8f8;
+}
+
 .umb-listview table tfoot {
   background: #f8f8f8;
 }
 
+.umb-listview table tfoot td:last-child {
+  border-left: none;
+}
+
 .umb-listview table tfoot th {
   padding: 0 20px;
+}
+
+.umb-listview .label {
+  font-size: 11px;
+  font-weight: 400;
+  color: #000000;
+  text-shadow: none;
+  background: #f8f8f8;
+  border: 1px solid #d9d9d9;
+}
+
+.table-striped tbody > tr:nth-child(even) > td,
+.table-striped tbody > tr:nth-child(even) > th {
+  background-color: #f8f8f8;
+}
+
+.table-striped tbody > tr:nth-child(odd) > td,
+.table-striped tbody > tr:nth-child(odd) > th {
+  background: none;
+}
+
+.umb-listview .pagination {
+  margin: 0;
+}
+
+.umb-listview .table th {
+  font-weight: normal;
+}
+
+.umb-listview .showing {
+  padding: 8px 4px 2px 4px;
+  font-size: 11px;
+  color: #b0b0b0;
+  background: none;
+}
+
+.umb-listview .pagination ul {
+  background: none;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0);
+     -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0);
+}
+
+.umb-listview .pagination ul > li > a,
+.pagination ul > li > span {
+  padding: 8px 4px 2px 4px;
+  font-size: 11px;
+  color: #b0b0b0;
+  background: none;
+  border: none;
 }
 
 .editor {
