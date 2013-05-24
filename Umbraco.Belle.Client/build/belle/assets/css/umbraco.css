@@ -4900,7 +4900,7 @@ body {
   width: 100%;
   height: 100%;
   color: #ffffff;
-  background: #303030 url(../img/application/logo.png) no-repeat 10px 10px fixed !important;
+  background: #1d1d1d url(../img/application/logo.png) no-repeat 20px 30px fixed !important;
 }
 
 #login .form {
@@ -6322,7 +6322,7 @@ legend + .control-group {
 }
 
 .umb-modalcolumn h1 {
-  padding-top: 35px !important;
+  padding-top: 10px !important;
   text-transform: capitalize !important;
 }
 
@@ -6733,7 +6733,7 @@ i.umb-options i {
   font-weight: 400;
 }
 
-.umb-panel-header h1:hover {
+.umb-panel-header h1.umb-headline-editor:hover {
   padding: 4px 0 4px 6px;
   margin: 4px 0 0 -7px;
   font-size: 17.5px;
@@ -6744,7 +6744,7 @@ i.umb-options i {
   border: 1px solid #d9d9d9;
 }
 
-.umb-panel-header h1:hover i {
+.umb-panel-header h1:hover {
   display: none;
 }
 
@@ -8647,4 +8647,8 @@ ul.icons li [class*=" icon-"] {
 
 .thumbnail img {
   max-width: 100% !important;
+}
+
+#mapCanvas img {
+  max-width: none !important;
 }

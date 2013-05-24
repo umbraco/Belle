@@ -22,6 +22,8 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
                 draggable: true
             });
             
+            //fixes the maps resize issue due to dynamic loading
+            google.maps.event.trigger(map, "resize");    
             google.maps.event.addListener(marker, "dragend", function(e){
                 var newLat = marker.getPosition().lat();
                 var newLng = marker.getPosition().lng();

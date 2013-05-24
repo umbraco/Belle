@@ -1,5 +1,5 @@
 'use strict';
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-23
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-24
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -20,7 +20,7 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
 
     $scope.openSection = function (selectedSection) {
         //reset everything
-        $scope.setMode("default");
+        $scope.ui.mode("default");
         $("#search-form input").focus();
 
         section.setCurrent(selectedSection.alias);
@@ -333,6 +333,8 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
                 draggable: true
             });
             
+            //fixes the maps resize issue due to dynamic loading
+            google.maps.event.trigger(map, "resize");    
             google.maps.event.addListener(marker, "dragend", function(e){
                 var newLat = marker.getPosition().lat();
                 var newLng = marker.getPosition().lng();
@@ -465,12 +467,13 @@ angular.module("umbraco")
 });
 //this controller simply tells the dialogs service to open a mediaPicker window
 //with a specified callback, this callback will receive an object with a selection on it
-angular.module('umbraco').controller("mediaPickerController", function($rootScope, $scope, dialog){
+angular.module('umbraco').controller("mediaPickerController", function($rootScope, $scope, dialog, $log){
     $scope.openMediaPicker =function(value){
             var d = dialog.mediaPicker({scope: $scope, callback: populate});
     };
 
     function populate(data){
+    	$log.log(data.selection);
         $scope.model.value = data.selection;    
     }
 });

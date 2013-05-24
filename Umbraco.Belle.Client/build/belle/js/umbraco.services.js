@@ -256,6 +256,21 @@ angular.module('umbraco.services.tree', [])
 			
 				var t;
 				switch(section){
+
+					case "content":
+					t = {
+						name: section,
+						alias: section,
+
+						children: [
+							{ name: "My website", id: 1234, icon: "icon-home", view: section + "/edit/" + 1234, children: [], expanded: false, level: 1 },
+							{ name: "Components", id: 1235, icon: "icon-cogs", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1 },
+							{ name: "Archieve", id: 1236, icon: "icon-folder-close", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1 },
+							{ name: "Recycle Bin", id: 1237, icon: "icon-trash", view: section + "/trash/view/", children: [], expanded: false, level: 1 }
+						]
+					};
+					break;
+
 					case "developer":
 					t = {
 						name: section,
