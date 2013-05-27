@@ -6338,11 +6338,6 @@ legend + .control-group {
   border-top: #efefef 1px solid;
 }
 
-.selected {
-  background: red !important;
-  border-color: red !important;
-}
-
 .umb-modal {
   border: none;
   border-radius: none;
@@ -6705,10 +6700,6 @@ i.umb-options i {
   margin: 0;
   list-style: none;
   border-bottom: 1px solid #efefef;
-}
-
-#seach-results ul li.selected {
-  background: #ff0000;
 }
 
 .umb-panel {

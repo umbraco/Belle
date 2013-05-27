@@ -136,7 +136,7 @@ return{
 };
 }]);	
 angular.module('umbraco.services.notifications', [])
-.factory('notifications', function ($rootScope) {
+.factory('notifications', function ($rootScope, $timeout) {
 
 	var nArray = [];
 
@@ -144,7 +144,8 @@ angular.module('umbraco.services.notifications', [])
 		var index = nArray.length;
 		nArray.push(item);
 
-		setTimeout(function () {
+
+		$timeout(function () {
 			$rootScope.$apply(function() {
 				nArray.splice(index, 1);
 			});
