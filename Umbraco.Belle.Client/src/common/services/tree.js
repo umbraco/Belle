@@ -12,6 +12,21 @@ angular.module('umbraco.services.tree', [])
 			
 				var t;
 				switch(section){
+
+					case "content":
+					t = {
+						name: section,
+						alias: section,
+
+						children: [
+							{ name: "My website", id: 1234, icon: "icon-home", view: section + "/edit/" + 1234, children: [], expanded: false, level: 1, defaultAction: "create" },
+							{ name: "Components", id: 1235, icon: "icon-cogs", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1, defaultAction: "create"  },
+							{ name: "Archieve", id: 1236, icon: "icon-folder-close", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1, defaultAction: "create"  },
+							{ name: "Recycle Bin", id: 1237, icon: "icon-trash", view: section + "/trash/view/", children: [], expanded: false, level: 1, defaultAction: "create"  }
+						]
+					};
+					break;
+
 					case "developer":
 					t = {
 						name: section,
@@ -19,9 +34,9 @@ angular.module('umbraco.services.tree', [])
 
 						children: [
 						{ name: "Data types", id: 1234, icon: "icon-folder-close", view: section + "/edit/" + 1234, children: [], expanded: false, level: 1 },
-						{ name: "Macros", id: 1235, icon: "icon-folder-close blue", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1 },
-						{ name: "Pacakges", id: 1236, icon: "icon-folder-close green", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1 },
-						{ name: "XSLT Files", id: 1237, icon: "icon-folder-close red", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 },
+						{ name: "Macros", id: 1235, icon: "icon-folder-close", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1 },
+						{ name: "Pacakges", id: 1236, icon: "icon-folder-close", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1 },
+						{ name: "XSLT Files", id: 1237, icon: "icon-folder-close", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 },
 						{ name: "Razor Files", id: 1237, icon: "icon-folder-close", view: section + "/edit/" + 1237, children: [], expanded: false, level: 1 }
 						]
 					};
@@ -107,11 +122,18 @@ angular.module('umbraco.services.tree', [])
 
 			getChildren: function (treeItem, section) {
 				var iLevel = treeItem.level + 1;
+
+				//hack to have create as default content action
+				var action;
+				if(section === "content"){
+					action = "create";
+				}
+
 				return [
-					{ name: "child-of-" + treeItem.name, id: iLevel + "" + 1234, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1234, children: [], expanded: false, level: iLevel },
-					{ name: "random-name-" + section, id: iLevel + "" + 1235, icon: "icon-file-alt blue", view: section + "/edit/" + iLevel + "" + 1235, children: [], expanded: false, level: iLevel },
-					{ name: "random-name-" + section, id: iLevel + "" + 1236, icon: "icon-file-alt green", view: section + "/edit/" + iLevel + "" + 1236, children: [], expanded: false, level: iLevel },
-					{ name: "random-name-" + section, id: iLevel + "" + 1237, icon: "icon-file-alt purple", view: section + "/edit/" + iLevel + "" + 1237, children: [], expanded: false, level: iLevel }
+					{ name: "child-of-" + treeItem.name, id: iLevel + "" + 1234, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1234, children: [], expanded: false, level: iLevel, defaultAction: action },
+					{ name: "random-name-" + section, id: iLevel + "" + 1235, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1235, children: [], expanded: false, level: iLevel, defaultAction: action  },
+					{ name: "random-name-" + section, id: iLevel + "" + 1236, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1236, children: [], expanded: false, level: iLevel, defaultAction: action  },
+					{ name: "random-name-" + section, id: iLevel + "" + 1237, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1237, children: [], expanded: false, level: iLevel, defaultAction: action  }
 				];
 			}
 		};

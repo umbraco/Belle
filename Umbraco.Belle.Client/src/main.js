@@ -55,6 +55,8 @@ require( [
   'umbraco.filters',
   'umbraco.services',
   'umbraco.controllers',
+  'sample.propertyeditor.controller',
+  'sampletwo.propertyeditor.controller',
   'routes'
   ], function(angular, app) {
   //This function will be called when all the dependencies

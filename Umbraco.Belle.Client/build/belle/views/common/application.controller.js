@@ -6,13 +6,13 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
     $scope.selectedId = $routeParams.id;
     $scope.sections = section.all();
 
-    $scope.setMode = setMode;
-    $scope.setMode("default");
+    $scope.ui.mode = setMode;
+    $scope.ui.mode("default");
 
 
     $scope.openSection = function (selectedSection) {
         //reset everything
-        $scope.setMode("default");
+        $scope.ui.mode("default");
         $("#search-form input").focus();
 
         section.setCurrent(selectedSection.alias);
@@ -24,12 +24,12 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
         if(!$scope.ui.stickyNavigation){
             $("#search-form input").focus();
             loadTree(section.alias);
-            $scope.setMode("tree");
+            $scope.ui.mode("tree");
         }
     };
     $scope.hideSectionTree = function () {
         if(!$scope.ui.stickyNavigation){
-            $scope.setMode("default");
+            $scope.ui.mode("default");
         }
     };
 
@@ -47,18 +47,18 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
             $scope.currentNode = item;
             $scope.menuTitle = item.name;
             $scope.selectedId = item.id;
-            $scope.setMode("menu");
+            $scope.ui.mode("menu");
         }
     };
 
     $scope.hideContextMenu = function () {
         $scope.selectedId = $routeParams.id;
         $scope.contextMenu = [];
-        $scope.setMode("tree");
+        $scope.ui.mode("tree");
     };
 
     $scope.showContextDialog = function (item, action) {
-        $scope.setMode("dialog");
+        $scope.ui.mode("dialog");
 
         $scope.currentNode = item;
         $scope.dialogTitle = action.name;
@@ -72,16 +72,17 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
     };    
 
     $scope.hideNavigation = function () {
-        $scope.setMode("default");
+        $scope.ui.mode("default");
     };
 
     $scope.setTreePadding = function(item) {
         return { 'padding-left': (item.level * 20) + "px" };
     };
     $scope.getTreeChildren = function (node) {
-        if (node.expanded)
+        if (node.expanded){
             node.expanded = false;
-        else {
+            node.children = [];
+        }else {
             node.children =  tree.getChildren(node, $scope.currentSection);
             node.expanded = true;
         }   
@@ -106,7 +107,7 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
                 $scope.ui.showNavigation = true;
                 $scope.ui.showContextMenu = true;
                 $scope.ui.showContextMenuDialog = false;
-                $scope.ui.stickyNavigation = false;
+                $scope.ui.stickyNavigation = true;
                 break;
             case 'dialog':
                 $scope.ui.stickyNavigation = true;
@@ -144,7 +145,7 @@ angular.module('umbraco').controller("SearchController", function ($scope, searc
         if(term != undefined && term != currentTerm){
             if(term.length > 3){
                 $scope.ui.selectedSearchResult = -1;
-                $scope.setMode("search");
+                $scope.ui.mode("search");
 
                 currentTerm = term;
                 $scope.ui.searchResults = search.search(term, $scope.currentSection);
@@ -156,7 +157,7 @@ angular.module('umbraco').controller("SearchController", function ($scope, searc
     };    
 
     $scope.hideSearch = function () {
-       $scope.setMode("default");
+       $scope.ui.mode("default");
     };
 
     $scope.iterateResults = function (direction) {
@@ -187,7 +188,8 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
 
     $scope.ui = {
         showTree: false,
-        showSearchResults: false
+        showSearchResults: false,
+        mode: undefined
     };
 
     $scope.signin = function () {
@@ -223,10 +225,18 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
         notifications.remove(index);
     };
 
-/*
+    $scope.closeDialogs = function(event){
+        if($(event.target).parents(".umb-modalcolumn").size() == 0){ 
+            $scope.ui.mode("default");
+            //jQuery(".umb-modalcolumn").hide();
+        }
+    };
+
     if ($scope.authenticated) {
+        $scope.user = userFactory.getCurrentUser();
+    }else{    
         $scope.$on('$viewContentLoaded', function() {
             $scope.signin();
         });
-    }*/
+    }
 });

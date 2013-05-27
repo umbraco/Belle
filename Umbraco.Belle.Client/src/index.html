@@ -10,7 +10,7 @@
 </head>
 <body ng-controller="MainController" id="umbracoMainPageBody">     
 
-    <div ng-show="authenticated" ng-cloak ng-animate="'fade'" id="layout" class="clearfix">
+    <div ng-show="authenticated" ng-cloak ng-animate="'fade'" id="layout" class="clearfix" ng-click="closeDialogs($event)">
 
         <div id="leftcolumn" ng-controller="NavigationController" ng-mouseleave="hideSectionTree()">
             <div id="applications" ng-class="{faded:ui.stickyNavigation}">
@@ -35,9 +35,11 @@
             </div>
 
             <!-- navigation container -->
-            <div id="navigation" class="fill shadow umb-panel" ng-show="ui.showNavigation" ng-animate="'slide'">
+            <div id="navigation" class="fill shadow umb-panel umb-modalcolumn" 
+            ng-show="ui.showNavigation" 
+            ng-animate="'slide'">
                 <!-- the search -->
-                <div id="search-form" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
+                <div id="search-form" ng-animate="'slide'">
                     <div class="umb-panel-header">
                         <form class="form-search" ng-controller="SearchController">
                             <i class="icon-search"></i>
@@ -52,9 +54,11 @@
                 </div>
 
                 <!-- Search results -->
-                <div id="search-results" class="umb-scrollable" auto-scale="0" ng-show="ui.showSearchResults" ng-animate="'slide'">
+                <div id="search-results" class="umb-scrollable umb-panel" auto-scale="0" 
+                ng-show="ui.showSearchResults" ng-animate="'slide'">
 
                     <h5>Search results</h5>
+                    
                     <ul class="searchResults" ng-repeat="resultGroup in ui.searchResults" >
                         <li class="umb-icon-item" ng-class="{selected:$index==ui.selectedSearchResult}" ng-repeat="result in resultGroup.matches">
                             <i class="icon umb-tree-icon sprTree {{result.icon}}" ng-show="$first"></i>
@@ -68,13 +72,15 @@
                 </div>
 
                 <!-- the tree -->
-                <div id="tree" class="span5 umb-scrollable umb-panel" auto-scale="0" ng-hide="ui.showContextMenuDialog" ng-animate="'slide'">
+                <div id="tree" class="span5 umb-scrollable umb-panel" auto-scale="0" 
+                ng-animate="'slide'">
                     <div ng-include="'views/common/tree.html'"></div>
                 </div>
 
 
                 <!-- The context menu -->
-                <div id='contextMenu' class="umb-modalcolumn fill shadow umb-panel" ng-show="ui.showContextMenu" ng-animate="'slide'">
+                <div id='contextMenu' class="umb-modalcolumn fill shadow umb-panel" 
+                ng-show="ui.showContextMenu" ng-animate="'slide'">
 
                     <div class='umb-panel-header'>
                         <h1>{{menuTitle}}</h1>
@@ -91,19 +97,24 @@
                         </li>
                     </ul>
                 </div>
+
+               
             </div>
+
+                <!-- Tree dialogs -->
+                <div id="dialog" class='umb-modalcolumn fill shadow umb-panel' 
+                ng-show="ui.showContextMenuDialog" ng-animate="'slide'">
+                    <div class='umb-panel-header'>
+                        <h1>{{dialogTitle}}</h1>
+                    </div>
+                    <div class='umb-panel-body'>
+                        
+                    </div>
+                </div> 
         </div>
 
 
-        <!-- Tree dialogs -->
-        <div id="dialog" class='umb-modalcolumn fill shadow umb-panel' ng-show="ui.showContextMenuDialog" ng-animate="'slide'">
-            <div class='umb-panel-header'>
-                <h1>{{dialogTitle}}</h1>
-            </div>
-            <div class='umb-panel-body'>
-                
-            </div>
-        </div> 
+        
     </div>
 
 
@@ -114,8 +125,8 @@
 
 
 <!-- Login screen -->
-<div id="login" ng-hide="authenticated" ng-animate="'slide'" ng-cloak>
-    <div class="form">
+<div id="login" ng-hide="authenticated" ng-animate="'slide'">
+    <div class="form" ng-cloak>
         <h1>Happy {{today}}!, log in below</h1>
         <div class="control-group"><input type="text" ng-model="login" class="input-xlarge" placeholder="Enter your username"/></div>
         <div class="control-group"><input type="password" ng-model="password" class="input-xlarge" placeholder="Enter your password"/></div>

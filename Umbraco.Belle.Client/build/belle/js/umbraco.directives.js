@@ -1,10 +1,10 @@
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-15
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-27
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
  */
 'use strict';
-define([ 'app','angular'], function (app,angular) {
+define(['angular'], function (angular) {
 angular.module('umbraco.directives', [])
 .directive('val-regex', function () {
 
@@ -88,7 +88,7 @@ angular.module('umbraco.directives', [])
 
         el.on("blur", function () {
             el.hide();
-            h1.html(el.val() + "<i class='icon icon-pencil'></i>").show();
+            h1.html(el.val()).show();
         });
 
         h1.on("click", function () {
@@ -107,21 +107,6 @@ angular.module('umbraco.directives', [])
         });
     };
 })
-
-
-.directive('requireController', function ($parse) {
-    return function (scope, elm, attrs) {
-        var path = scope.$eval(attrs.requireController);
-
-        if (path !== undefined && path !== "") {
-            path = "views/propertyeditors/" + path.replace('.', '/') + "/controller.js";
-            require([path]);
-        }
-
-            //scope.$apply(attrs.requireController);
-        };
-    })
-
 
 .directive('propertyEditor', function () {
     return {
@@ -172,9 +157,98 @@ angular.module('umbraco.directives', [])
             scope.$apply(attrs.onFocus);
         });
     };
+})
+
+.directive('include', function($compile, $http, $templateCache, $interpolate, $log) {
+  
+  $log.log("loading view");
+
+  // Load a template, possibly from the $templateCache, and instantiate a DOM element from it
+  function loadTemplate(template) {
+    return $http.get(template, {cache:$templateCache}).then(function(response) {
+      return angular.element(response.data);
+    }, function(response) {
+      throw new Error('Template not found: ' + template);
+    });
+  }
+
+  return {
+    restrict:'E',
+    priority: 100,        // We need this directive to happen before ng-model
+    terminal: false,       // We are going to deal with this element
+    compile: function(element, attrs) {
+      
+      $log.log("compiling view");
+      // Extract the label and validation message info from the directive's original element
+      //var validationMessages = getValidationMessageMap(element);
+      //var labelContent = getLabelContent(element);
+
+      // Clear the directive's original element now that we have extracted what we need from it
+      element.html('');
+
+      return function postLink(scope, element, attrs) {
+
+        var path = scope.$eval(attrs.template);
+
+        // Load up the template for this kind of field, default to the simple input if none given
+        loadTemplate(path || 'error.html').then(function(templateElement) {
+          // Set up the scope - the template will have its own scope, which is a child of the directive's scope
+          var childScope = scope.$new();
+          // Attach a copy of the message map to the scope
+          //childScope.$validationMessages = angular.copy(validationMessages);
+          // Generate an id for the field from the ng-model expression and the current scope
+          // We replace dots with underscores to work with browsers and ngModel lookup on the FormController
+          // We couldn't do this in the compile function as we need to be able to calculate the unique id from the scope
+          //childScope.$fieldId = attrs.ngModel.replace('.', '_').toLowerCase() + '_' + childScope.$id;
+          //childScope.$fieldLabel = labelContent;
+
+          // Update the $fieldErrors array when the validity of the field changes
+          /*childScope.$watch('$field.$dirty && $field.$error', function(errorList) {
+            childScope.$fieldErrors = [];
+            angular.forEach(errorList, function(invalid, key) {
+              if ( invalid ) {
+                childScope.$fieldErrors.push(key);
+              }
+            });
+          }, true);
+          */
+
+          // Copy over all left over attributes to the input element
+          /* We can't use interpolation in the template for directives such as ng-model
+          var inputElement = findInputElement(templateElement);
+          angular.forEach(attrs.$attr, function (original, normalized) {
+            var value = element.attr(original);
+            inputElement.attr(original, value);
+          });*/
+
+          // Wire up the input (id and name) and its label (for).
+          // We need to set the input element's name here before we compile the template.
+          /* If we leave it to be interpolated at the next $digest the formController doesn't pick it up
+          inputElement.attr('name', childScope.$fieldId);
+          inputElement.attr('id', childScope.$fieldId);
+          var labelElement = templateElement.find('label');
+          labelElement.attr('for', childScope.$fieldId);
+          // Update the label's contents
+          labelElement.html(labelContent);
+          */
+
+          // Place our template as a child of the original element.
+          // This needs to be done before compilation to ensure that it picks up any containing form.
+          element.append(templateElement);
+
+          // We now compile and link our template here in the postLink function
+          // This allows the ng-model directive on our template's <input> element to access the ngFormController
+          $compile(templateElement)(childScope);
+
+          // Now that our template has been compiled and linked we can access the <input> element's ngModelController
+          //childScope.$field = inputElement.controller('ngModel');
+        });
+      };
+    }
+  };
 });
 
 
 
-return app;
+return angular;
 });

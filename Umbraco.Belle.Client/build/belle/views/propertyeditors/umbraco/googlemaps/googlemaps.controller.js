@@ -1,4 +1,4 @@
-angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", function ($rootScope, $scope, notifications) {
+angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", function ($rootScope, $scope, notifications, $timeout) {
     require(
         [
             'async!http://maps.google.com/maps/api/js?sensor=false'
@@ -22,6 +22,7 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
                 draggable: true
             });
             
+             
             google.maps.event.addListener(marker, "dragend", function(e){
                 var newLat = marker.getPosition().lat();
                 var newLng = marker.getPosition().lng();
@@ -34,6 +35,13 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
                     notifications.warning("Your dragged a marker to", $scope.model.value);
                 });
             });
+
+            //hack to hook into tab switching for map resizing
+            $('a[data-toggle="tab"]').on('shown', function (e) {
+                google.maps.event.trigger(map, 'resize');
+            })
+
+
         }
     );    
 });

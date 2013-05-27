@@ -251,6 +251,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Plugins\MyPackage\PropertyEditors\FileUploadPropertyEditor.cs" />
     <Compile Include="App_Plugins\MyPackage\PropertyEditors\PostcodePropertyEditor.cs" />
     <Compile Include="App_Plugins\MyPackage\PropertyEditors\PostcodeValidator.cs" />
     <Compile Include="App_Plugins\MyPackage\PropertyEditors\ServerInfoPropertyEditor.cs" />
@@ -258,7 +259,9 @@
     <Compile Include="Controllers\ContentEditorApiController.cs" />
     <Compile Include="App_Plugins\MyPackage\Controllers\ServerSidePropertyEditorsController.cs" />
     <Compile Include="App_Plugins\MyPackage\Trees\LegacyTestTree.cs" />
+    <Compile Include="Controllers\ContentItemBinder.cs" />
     <Compile Include="Controllers\ContentItemValidationFilterAttribute.cs" />
+    <Compile Include="Controllers\FileUploadCleanupFilterAttribute.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ApplicationTreeApiController.cs" />
     <Compile Include="Controllers\SystemScriptsController.cs" />
@@ -307,6 +310,7 @@
     <Compile Include="System\Trees\TreeQueryStringParameters.cs" />
     <Compile Include="System\Trees\UrlHelperExtensions.cs" />
     <Content Include="App_Plugins\MyPackage\Common\Js\MyPackage.js" />
+    <Content Include="App_Plugins\MyPackage\PropertyEditors\Js\FileUploadEditor.js" />
     <Content Include="App_Plugins\MyPackage\PropertyEditors\Js\PostcodeEditor.js" />
     <Content Include="App_Plugins\MyPackage\PropertyEditors\Views\FileUploadEditor.html" />
     <Content Include="App_Plugins\MyPackage\PropertyEditors\Views\PostcodeEditor.html" />
@@ -937,6 +941,7 @@
     <Content Include="Belle\font\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\Blah\" />
     <Folder Include="App_Plugins\MyPackage\Common\Css\" />
     <Folder Include="App_Plugins\MyPackage\PropertyEditors\Css\" />
     <Folder Include="Belle\config\" />

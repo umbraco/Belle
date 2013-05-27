@@ -1,6 +1,8 @@
 ﻿<script type="text/ng-template"  id="tree_item_renderer.html">
     <div ng-style="setTreePadding(node)">
-        <ins class="icon-caret-right" ng-click="getTreeChildren(node)"></ins>
+        <ins ng-class="{'icon-caret-right': !node.expanded, 'icon-caret-down': node.expanded}" 
+             ng-click="getTreeChildren(node)"></ins>
+
         <i class="icon umb-tree-icon sprTree {{node.icon}}"></i>
 
         <a ng-href="#{{node.view}}">{{node.name}}</a>
@@ -17,10 +19,12 @@
 
 <ul class="umb-tree">
     <li class="root">
-        <div>   
-            <a class="root-link">{{tree.name}}</a><i class="umb-options"><i></i><i></i><i></i></i>
+        <div>
+            <h5>
+                <a class="root-link">{{tree.name}}</a><i class="umb-options"><i></i><i></i><i></i></i>
+            </h5>
         </div>
-    
+
         <ul>
             <li class="file" ng-repeat="node in tree.children" 
              ng-class="{current:node.id == selectedId}" 

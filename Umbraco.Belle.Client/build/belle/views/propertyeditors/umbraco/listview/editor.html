@@ -1,81 +1,70 @@
 
-<div class="umb-listview">
-<div class="row-fluid">
-<div class="umb-sub-header">
-    	<div class="btn-group">
-  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-    Create
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a href="#"><i class="icon-calendar"></i> Event</a></li>
-    <li><a href="#"><i class="icon-envelope"></i> News</a></li>
-  </ul>
-</div>
-		<!--input type="text" class="pull-right" placeholder="Type to filter…"-->
-</div>
+<div class="umb-listview" ng-controller="Umbraco.Editors.ListViewController">
+	<div class="row-fluid">
+		<div class="umb-sub-header">
+			<div class="btn-group">
+				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					Create
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li ng-repeat="contentType in listViewAllowedTypes">
+						<a href="#/content/edit/{{content.id}}?doctype={{contentType.alias}}&create=true">
+							<i class="icon-{{contentType.cssClass}}"></i> {{contentType.name}}</a>
+					</li>
+				</ul>
+			</div>
+			<!--input type="text" class="pull-right" placeholder="Type to filter…"-->
+		</div>
 
-<table class="table table-striped">
-	<caption>My gridview
-		<form class="pull-right">
-			<i class="icon-search"></i>
-			<input type="text" placeholder="Search…">
-		</form>
-	</caption>
-		<thead>
-			<tr>
-				<td><input type="checkbox"></td>
-				<td><a href="#">Name <i class="icon-sort"></i></a></td>
-				<td><a href="#">Last updated  <i class="icon-sort"></i></a></td> 
-				<td><a href="#">Eidtor <i class="icon-sort"></i></a></td> 
-			</tr>
-		</thead>
-		<tfoot>
-			<tr>
-				<th colspan="4">
-<div class="pagination pagination-right">
-  <ul>
-    <li><a href="#">Prev</a></li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">Next</a></li>
-  </ul>
-</div>
+		<table class="table table-striped">
+			<caption>
+				<form class="pull-right">
+					<i class="icon-search"></i>
+					<input type="text" ng-model="options.filter" on-keyup="reloadView()" placeholder="Search…">
+				</form>
+			</caption>
+			<thead>
+				<tr>
+					<td><input type="checkbox"></td>
+					<td><a href="#" ng-click="sort('name')" prevent-default>Name <i class="icon-sort"></i></a></td>
+					<td><a href="#" ng-click="sort('updateDate')" prevent-default>Last updated  <i class="icon-sort"></i></a></td> 
+					<td><a href="#" ng-click="sort('owner')" prevent-default>Editor <i class="icon-sort"></i></a></td> 
+				</tr>
+			</thead>
 
-				</th>
-			</tr>
-		</tfoot>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td><i class="icon-envelope"></i> Some node</td> 
-				<td>13:23 3 July 2024 <span class="label label-success">Publish</span></td>
-				<td>Per Ploug Hansen <span class="label">Admin</span></td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td><i class="icon-calendar"></i> Some node</td> 
-				<td>13:23 3 July 2024 <span class="label label-info">Saved</span></td>
-				<td>Per Ploug Hansen <span class="label">Admin</span></td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td><i class="icon-envelope"></i> Some node</td> 
-				<td>13:23 3 July 2024 <span class="label label-important">Unpublished</span></td>
-				<td>Per Ploug Hansen <span class="label">Admin</span></td>
-			</tr>
-			<tr>
-				<td>4</td>
-				<td><i class="icon-calendar"></i> Some node</td> 
-				<td>13:23 3 July 2024 <span class="label label-warning">Send to translation</span></td>
-				<td>Per Ploug Hansen <span class="label">Admin</span></td>
-			</tr>
+			<tbody>
+				<tr ng-repeat="result in listViewResultSet.resultSet">
+					<td><i class="{{result.icon}}"></i></td> 
+					<td><a href="#/content/edit/{{result.id}}">{{result.name}}</a></td> 
+					<td>{{result.updateDate|date:'medium'}} 
+						<span class="label label-success">Publish</span>
+					</td>
+					<td>{{result.owner.name}} <span class="label">Admin</span></td>
+				</tr>
+			</tbody>
 
+			<tfoot ng-show="pagination.length > 0">
+				<tr>
+					<th colspan="4">
+						<div class="pull-left">
+							
+						</div>
+						<div class="pagination pagination-right">
+							<ul>
+								<li><a href="#" ng-click="prev()" prevent-default>Prev</a></li>
 
-		</tbody>
-		
-</table>
-</div>
+								<li ng-repeat="pgn in pagination" 
+									ng-class="{active:$index==options.offset}">
+									<a href="#" ng-click="goToOffset($index)"  prevent-default>{{$index + 1}}</a>
+								</li>
+
+								<li><a href="#" ng-click="next()" prevent-default>Next</a></li>
+							</ul>
+						</div>
+
+					</th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>

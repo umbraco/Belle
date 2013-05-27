@@ -1,5 +1,5 @@
 'use strict';
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-15
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-27
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -14,13 +14,13 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
     $scope.selectedId = $routeParams.id;
     $scope.sections = section.all();
 
-    $scope.setMode = setMode;
-    $scope.setMode("default");
+    $scope.ui.mode = setMode;
+    $scope.ui.mode("default");
 
 
     $scope.openSection = function (selectedSection) {
         //reset everything
-        $scope.setMode("default");
+        $scope.ui.mode("default");
         $("#search-form input").focus();
 
         section.setCurrent(selectedSection.alias);
@@ -32,12 +32,12 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
         if(!$scope.ui.stickyNavigation){
             $("#search-form input").focus();
             loadTree(section.alias);
-            $scope.setMode("tree");
+            $scope.ui.mode("tree");
         }
     };
     $scope.hideSectionTree = function () {
         if(!$scope.ui.stickyNavigation){
-            $scope.setMode("default");
+            $scope.ui.mode("default");
         }
     };
 
@@ -55,18 +55,18 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
             $scope.currentNode = item;
             $scope.menuTitle = item.name;
             $scope.selectedId = item.id;
-            $scope.setMode("menu");
+            $scope.ui.mode("menu");
         }
     };
 
     $scope.hideContextMenu = function () {
         $scope.selectedId = $routeParams.id;
         $scope.contextMenu = [];
-        $scope.setMode("tree");
+        $scope.ui.mode("tree");
     };
 
     $scope.showContextDialog = function (item, action) {
-        $scope.setMode("dialog");
+        $scope.ui.mode("dialog");
 
         $scope.currentNode = item;
         $scope.dialogTitle = action.name;
@@ -80,16 +80,17 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
     };    
 
     $scope.hideNavigation = function () {
-        $scope.setMode("default");
+        $scope.ui.mode("default");
     };
 
     $scope.setTreePadding = function(item) {
         return { 'padding-left': (item.level * 20) + "px" };
     };
     $scope.getTreeChildren = function (node) {
-        if (node.expanded)
+        if (node.expanded){
             node.expanded = false;
-        else {
+            node.children = [];
+        }else {
             node.children =  tree.getChildren(node, $scope.currentSection);
             node.expanded = true;
         }   
@@ -114,7 +115,7 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
                 $scope.ui.showNavigation = true;
                 $scope.ui.showContextMenu = true;
                 $scope.ui.showContextMenuDialog = false;
-                $scope.ui.stickyNavigation = false;
+                $scope.ui.stickyNavigation = true;
                 break;
             case 'dialog':
                 $scope.ui.stickyNavigation = true;
@@ -152,7 +153,7 @@ angular.module('umbraco').controller("SearchController", function ($scope, searc
         if(term != undefined && term != currentTerm){
             if(term.length > 3){
                 $scope.ui.selectedSearchResult = -1;
-                $scope.setMode("search");
+                $scope.ui.mode("search");
 
                 currentTerm = term;
                 $scope.ui.searchResults = search.search(term, $scope.currentSection);
@@ -164,7 +165,7 @@ angular.module('umbraco').controller("SearchController", function ($scope, searc
     };    
 
     $scope.hideSearch = function () {
-       $scope.setMode("default");
+       $scope.ui.mode("default");
     };
 
     $scope.iterateResults = function (direction) {
@@ -195,7 +196,8 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
 
     $scope.ui = {
         showTree: false,
-        showSearchResults: false
+        showSearchResults: false,
+        mode: undefined
     };
 
     $scope.signin = function () {
@@ -231,12 +233,20 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
         notifications.remove(index);
     };
 
-/*
+    $scope.closeDialogs = function(event){
+        if($(event.target).parents(".umb-modalcolumn").size() == 0){ 
+            $scope.ui.mode("default");
+            //jQuery(".umb-modalcolumn").hide();
+        }
+    };
+
     if ($scope.authenticated) {
+        $scope.user = userFactory.getCurrentUser();
+    }else{    
         $scope.$on('$viewContentLoaded', function() {
             $scope.signin();
         });
-    }*/
+    }
 });
 
 
@@ -255,23 +265,30 @@ angular.module("umbraco").controller("Umbraco.Dialogs.MediaPickerController", fu
 	$scope.images = mediaFactory.rootMedia();
 });
 angular.module('umbraco').controller("Umbraco.Editors.ContentCreateController", function ($scope, $routeParams,contentTypeFactory) {	
-	$scope.allowedTypes  = contentTypeFactory.allowedTypes($scope.currentNode.id);	
+	$scope.allowedTypes  = contentTypeFactory.getAllowedTypes($scope.currentNode.id);	
 });
-angular.module("umbraco").controller("Umbraco.Editors.ContentEditController", function ($scope, $routeParams, contentFactory) {
+angular.module("umbraco").controller("Umbraco.Editors.ContentEditController", function ($scope, $routeParams, contentFactory, notifications) {
+	
 	if($routeParams.create)
 		$scope.content = contentFactory.getContentScaffold($routeParams.parentId, $routeParams.doctype);
 	else
 		$scope.content = contentFactory.getContent($routeParams.id);
 
+
 	$scope.saveAndPublish = function (cnt) {
 		cnt.publishDate = new Date();
 		contentFactory.publishContent(cnt);
+
+		notifications.success("Published", "Content has been saved and published");
 	};
 
 	$scope.save = function (cnt) {
 		cnt.updateDate = new Date();
+
 		contentFactory.saveContent(cnt);
+		notifications.success("Saved", "Content has been saved");
 	};
+	
 });
 angular.module("umbraco").controller("Umbraco.Editors.CodeMirrorController", function ($scope, $rootScope) {
     require(
@@ -297,7 +314,7 @@ angular.module("umbraco").controller("Umbraco.Editors.CodeMirrorController", fun
 
         });
 });
-angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", function ($rootScope, $scope, notifications) {
+angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", function ($rootScope, $scope, notifications, $timeout) {
     require(
         [
             'async!http://maps.google.com/maps/api/js?sensor=false'
@@ -321,6 +338,7 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
                 draggable: true
             });
             
+             
             google.maps.event.addListener(marker, "dragend", function(e){
                 var newLat = marker.getPosition().lat();
                 var newLng = marker.getPosition().lng();
@@ -333,42 +351,146 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
                     notifications.warning("Your dragged a marker to", $scope.model.value);
                 });
             });
+
+            //hack to hook into tab switching for map resizing
+            $('a[data-toggle="tab"]').on('shown', function (e) {
+                google.maps.event.trigger(map, 'resize');
+            })
+
+
         }
     );    
 });
 'use strict';
 //this controller simply tells the dialogs service to open a mediaPicker window
 //with a specified callback, this callback will receive an object with a selection on it
-angular.module("umbraco").controller("Umbraco.Editors.GridController", function($rootScope, $scope, dialog, $log){
+angular.module("umbraco").controller("Umbraco.Editors.GridController", function($rootScope, $scope, dialog, $log, macroFactory){
     //we most likely will need some iframe-motherpage interop here
-    $log.log("loaded");
+    
+    //we most likely will need some iframe-motherpage interop here
+       $scope.openMediaPicker =function(){
+               var d = dialog.mediaPicker({scope: $scope, callback: renderImages});
+       };
 
-    $scope.openMediaPicker =function(){
-            var d = dialog.mediaPicker({scope: $scope, callback: populate});
-    };
+       $scope.openPropertyDialog =function(){
+               var d = dialog.property({scope: $scope, callback: renderProperty});
+       };
 
-    function populate(data){
-        //notify iframe to render something.. 
-    }
+       $scope.openMacroDialog =function(){
+               var d = dialog.macroPicker({scope: $scope, callback: renderMacro});
+       };
 
-    $(window).bind("umbraco.grid.click", function(event) {
-        $scope.$apply(function() {
-            $scope.openMediaPicker();
-        });
-    });
+       function renderProperty(data){
+          $scope.currentElement.html("<h1>boom, property!</h1>"); 
+       }
+
+       function renderMacro(data){
+          $scope.currentElement.html( macroFactory.renderMacro(data.macro, -1) ); 
+       }
+      
+       function renderImages(data){
+           var list = $("<ul class='thumbnails'></ul>")
+           $.each(data.selection, function(i, image) {
+               list.append( $("<li class='span2'><img class='thumbnail' src='" + image.src + "'></li>") );
+           });
+
+           $scope.currentElement.html( list[0].outerHTML); 
+       }
+
+       $(window).bind("umbraco.grid.click", function(event){
+
+           $scope.$apply(function () {
+               $scope.currentEditor = event.editor;
+               $scope.currentElement = $(event.element);
+
+               if(event.editor == "macro")
+                   $scope.openMacroDialog();
+               else if(event.editor == "image")
+                   $scope.openMediaPicker();
+               else
+                   $scope.propertyDialog();
+           });
+       })
+});
+angular.module("umbraco")
+    .controller("Umbraco.Editors.ListViewController", function ($rootScope, $scope, contentFactory, contentTypeFactory) {
+        $scope.options = {
+            take: 10,
+            offset: 0,
+            filter: '',
+            sortby: 'id',
+            order: "desc"
+        };
+
+        $scope.pagination = new Array(100);
+        $scope.listViewAllowedTypes = contentTypeFactory.getAllowedTypes($scope.content.id);
+        
+        $scope.next = function(){
+            if($scope.options.offset < $scope.listViewResultSet.pages){
+                $scope.options.offset++;
+                $scope.reloadView();    
+            }
+        };
+
+        $scope.goToOffset = function(offset){
+            $scope.options.offset = offset;
+            $scope.reloadView();
+        };
+
+        $scope.sort = function(field){
+            $scope.options.sortby = field;
+            
+            if(field !== $scope.options.sortby){
+                if($scope.options.order === "desc"){
+                    $scope.options.order = "asc";
+                }else{
+                    $scope.options.order = "desc";    
+                }
+            }
+            $scope.reloadView();
+        };
+
+        $scope.prev = function(){
+            if($scope.options.offset > 0){
+                $scope.options.offset--;    
+                
+                $scope.reloadView();
+            }
+        };
+
+        /*Loads the search results, based on parameters set in prev,next,sort and so on*/
+        /*Pagination is done by an array of objects, due angularJS's funky way of monitoring state
+        with simple values */
+        $scope.reloadView = function(){
+                $scope.listViewResultSet = contentFactory.getChildren($scope.content.id, $scope.options);
+                
+                $scope.pagination = [];
+                for (var i = $scope.listViewResultSet.pages - 1; i >= 0; i--) {
+                        $scope.pagination[i] = {index: i, name: i+1};
+                };
+                
+                if($scope.options.offset > $scope.listViewResultSet.pages){
+                    $scope.options.offset = $scope.listViewResultSet.pages;
+                }        
+        };
+
+        $scope.reloadView();
 });
 //this controller simply tells the dialogs service to open a mediaPicker window
 //with a specified callback, this callback will receive an object with a selection on it
-angular.module('umbraco').controller("mediaPickerController", function($rootScope, $scope, dialog){
+angular.module('umbraco').controller("mediaPickerController", function($rootScope, $scope, dialog, $log){
     $scope.openMediaPicker =function(value){
             var d = dialog.mediaPicker({scope: $scope, callback: populate});
     };
 
     function populate(data){
+    	$log.log(data.selection);
         $scope.model.value = data.selection;    
     }
 });
-angular.module("umbraco").controller("Umbraco.Editors.RTEController", function($rootScope, $scope, dialog, $log){
+angular.module("umbraco")
+    .controller("Umbraco.Editors.RTEController", 
+    function($rootScope, $scope, dialog, $log){
     require(
         [
             'tinymce'
@@ -376,12 +498,51 @@ angular.module("umbraco").controller("Umbraco.Editors.RTEController", function($
         function (tinymce) {
 
             tinymce.DOM.events.domLoaded = true;
-
             tinymce.init({
-               selector: "#" + $scope.model.alias,
-               handle_event_callback : "myHandleEvent" 
-             });
-        
+                selector: "#" + $scope.model.alias + "_rte",
+                skin: "umbraco",
+                menubar : false,
+                statusbar: false,
+                height: 340,
+                toolbar: "bold italic | styleselect | alignleft aligncenter alignright | bullist numlist | outdent indent | link image mediapicker",
+                setup : function(editor) {
+                        
+                        editor.on('blur', function(e) {
+                            $scope.$apply(function(){
+                                //$scope.model.value = e.getBody().innerHTML;
+                                $scope.model.value = editor.getContent();
+                            })
+                        });
+
+                        editor.addButton('mediapicker', {
+                            icon: 'media',
+                            tooltip: 'Media Picker',
+                            onclick: function(){
+                                dialog.mediaPicker({scope: $scope, callback: function(data){
+                                 
+                                    //really simple example on how to intergrate a service with tinyMCE
+                                    $(data.selection).each(function(i,img){
+                                            var data = {
+                                                src: img.thumbnail,
+                                                style: 'width: 100px; height: 100px',
+                                                id : '__mcenew'
+                                            };
+                                            
+                                            editor.insertContent(editor.dom.createHTML('img', data));
+                                            var imgElm = editor.dom.get('__mcenew');
+                                            editor.dom.setAttrib(imgElm, 'id', null);
+                                    });    
+                                       
+
+                                }});
+                            }
+                        });
+
+            
+                  }
+            });
+
+
             $scope.openMediaPicker =function(value){
                     var d = dialog.mediaPicker({scope: $scope, callback: populate});
             };
