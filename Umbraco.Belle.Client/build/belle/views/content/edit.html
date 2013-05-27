@@ -43,7 +43,7 @@
                     <div class="umb-pane" ng-repeat="model in tab.properties">
                         
                         <div class="control-group umb-control-group"
-                        ng-class="{hidelabel:model.hideLabel}" >
+                            ng-class="{hidelabel:model.hideLabel}" >
                             
                             <div class="umb-el-wrap">
 
@@ -52,11 +52,9 @@
                                     <small>{{model.description}}</small>
                                 </label>    
                                 
-
-                                <div class="controls controls-row" 
-                                    ng-include="model.view | propertyEditor">
-                                </div>
-
+                                <div class="controls controls-row">    
+                                    <include template="model.view | propertyEditor" />
+                                </div>    
                             </div>
 
 

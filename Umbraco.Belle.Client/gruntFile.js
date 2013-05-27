@@ -6,16 +6,14 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-recess');
   grunt.loadNpmTasks('grunt-testacular');
-  grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-markdown');
 
   // Default task.
   grunt.registerTask('default', ['jshint:dev','build','testacular:unit']);
   grunt.registerTask('watch-build', ['jshint:dev','recess:build','testacular:unit','concat','copy']);
-  grunt.registerTask('build', ['clean','html2js','concat','recess:build','copy', 'docs']);
+  grunt.registerTask('build', ['clean','concat','recess:build','copy', 'docs']);
   grunt.registerTask('docs', ['markdown']);
   grunt.registerTask('test-watch', ['testacular:watch']);
 
@@ -44,6 +42,7 @@ module.exports = function (grunt) {
       common: ['src/common/**/*.js'],
       specs: ['test/**/*.spec.js'],
       scenarios: ['test/**/*.scenario.js'],
+      samples: ['sample files/*.js'],
       html: ['src/index.html'],
       tpl: {
         app: ['src/views/**/*.html'],
@@ -73,31 +72,15 @@ module.exports = function (grunt) {
       media: {
         files: [{ dest: 'build/media', src : '*.*', expand: true, cwd: 'legacy_/media/' }]
       },
+      sampleFiles: {
+        files: [{ dest: '<%= distdir %>/js', src : '*.js', expand: true, cwd: 'src/sample files/' }]
+      }
     },
 
     testacular: {
       unit: { options: testacularConfig('test/config/unit.js') },
       e2e: { options: testacularConfig('test/config/e2e.js') },
       watch: { options: testacularConfig('test/config/unit.js', {singleRun:false, autoWatch: true}) }
-    },
-
-    html2js: {
-      app: {
-        options: {
-          base: 'src/app'
-        },
-        src: ['<%= src.tpl.app %>'],
-        dest: '<%= distdir %>/templates/app.js',
-        module: 'templates.app'
-      },
-      common: {
-        options: {
-          base: 'src/common'
-        },
-        src: ['<%= src.tpl.common %>'],
-        dest: '<%= distdir %>/templates/common.js',
-        module: 'templates.common'
-      }
     },
 
     concat:{
@@ -156,8 +139,8 @@ module.exports = function (grunt) {
         src:['src/common/directives/*.js'],
         dest: '<%= distdir %>/js/umbraco.directives.js',
         options:{
-          banner: "<%= banner %>'use strict';\ndefine([ 'app','angular'], function (app,angular) {\n",
-          footer: "\n\nreturn app;\n});"
+          banner: "<%= banner %>'use strict';\ndefine(['angular'], function (angular) {\n",
+          footer: "\n\nreturn angular;\n});"
         }
       },
       filters: {
@@ -227,7 +210,7 @@ module.exports = function (grunt) {
 
     jshint:{
       dev:{
-         files:['<%= src.common %>', '<%= src.specs %>', '<%= src.scenarios %>'],
+         files:['<%= src.common %>', '<%= src.specs %>', '<%= src.scenarios %>', '<%= src.samples %>'],
          options:{
            curly:true,
            eqeqeq:true,

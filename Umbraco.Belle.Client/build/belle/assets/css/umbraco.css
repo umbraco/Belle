@@ -6439,13 +6439,12 @@ legend + .control-group {
   visibility: visible;
 }
 
-/*
 .umb-tree li.root > div a {
-	text-transform: uppercase;
-	color: #b3b3b3;
-	font-weight: bold;
-	font-size: 13px;
-}*/
+  font-size: 13px;
+  font-weight: bold;
+  color: #b3b3b3;
+  text-transform: uppercase;
+}
 
 .umb-tree ins {
   display: inline-block;

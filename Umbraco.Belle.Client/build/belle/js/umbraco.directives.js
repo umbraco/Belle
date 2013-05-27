@@ -1,10 +1,10 @@
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-24
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-27
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
  */
 'use strict';
-define([ 'app','angular'], function (app,angular) {
+define(['angular'], function (angular) {
 angular.module('umbraco.directives', [])
 .directive('val-regex', function () {
 
@@ -157,12 +157,12 @@ angular.module('umbraco.directives', [])
             scope.$apply(attrs.onFocus);
         });
     };
-});
+})
 
-
-angular.module('umbraco.directives')
-.directive('umbInclude', function($compile, $http, $templateCache, $interpolate) {
+.directive('include', function($compile, $http, $templateCache, $interpolate, $log) {
   
+  $log.log("loading view");
+
   // Load a template, possibly from the $templateCache, and instantiate a DOM element from it
   function loadTemplate(template) {
     return $http.get(template, {cache:$templateCache}).then(function(response) {
@@ -172,53 +172,13 @@ angular.module('umbraco.directives')
     });
   }
 
-  // Find the "input" element in the template.  It will be one of input, select or textarea.
-  // We need to ensure it is wrapped in jqLite\jQuery
-  function findInputElement(templateElement) {
-    return angular.element(templateElement.find('input')[0] || templateElement.find('select')[0] || templateElement.find('textarea')[0]);
-  }
-
-  function findLabelElement(templateElement) {
-    return templateElement.find('label');
-  }
-
-  // Search through the originalDirective's element for elements that contain information about how to map
-  // validation keys to messages
-  function getValidationMessageMap(originalElement) {
-    // Find all the <validator> child elements and extract their (key, message) info
-    var validationMessages = {};
-    angular.forEach(originalElement.find('validator'), function(element) {
-      // Wrap the element in jqLite/jQuery
-      element = angular.element(element);
-      // Store the message info to be provided to the scope later
-      // The content of the validation element may include interpolation {{}}
-      // so we will actually store a function created by the $interpolate service
-      // To get the interpolated message we will call this function with the scope. e.g.
-      //   var messageString = getMessage(scope);
-      validationMessages[element.attr('key')] = $interpolate(element.text());
-    });
-    return validationMessages;
-  }
-
-  // Find the content that will go into the new label
-  // Label is provided as a <label> child element of the original element
-  function getLabelContent(element) {
-    var label = element.find('label');
-    return label[0] && label.html();
-  }
-
   return {
     restrict:'E',
     priority: 100,        // We need this directive to happen before ng-model
     terminal: false,       // We are going to deal with this element
     compile: function(element, attrs) {
-      if ( attrs.ngRepeat || attrs.ngSwitch || attrs.uiIf ) {
-        throw new Error('The ng-repeat, ng-switch and ui-if directives are not supported on the same element as the field directive.');
-      }
-      if ( !attrs.ngModel ) {
-        throw new Error('The ng-model directive must appear on the field element');
-      }
-
+      
+      $log.log("compiling view");
       // Extract the label and validation message info from the directive's original element
       //var validationMessages = getValidationMessageMap(element);
       //var labelContent = getLabelContent(element);
@@ -227,8 +187,11 @@ angular.module('umbraco.directives')
       element.html('');
 
       return function postLink(scope, element, attrs) {
+
+        var path = scope.$eval(attrs.template);
+
         // Load up the template for this kind of field, default to the simple input if none given
-        loadTemplate(attrs.template || 'error.html').then(function(templateElement) {
+        loadTemplate(path || 'error.html').then(function(templateElement) {
           // Set up the scope - the template will have its own scope, which is a child of the directive's scope
           var childScope = scope.$new();
           // Attach a copy of the message map to the scope
@@ -285,5 +248,7 @@ angular.module('umbraco.directives')
   };
 });
 
-return app;
+
+
+return angular;
 });
