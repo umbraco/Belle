@@ -30,21 +30,21 @@ angular.module('umbraco.resources.content', [])
 
                 tabs: [
                 {
-                    label: "Tab 0",
+                    label: "Child documents",
                     alias: "tab00",
                     properties: [
                     { alias: "list", label: "List", view: "umbraco.listview", value: "", hideLabel: true }
                     ]
                 },
                 {
-                    label: "Tab 1",
+                    label: "Content",
                     alias: "tab01",
                     properties: [
-                    { alias: "bodyText", label: "Body Text", description:"Here you enter the primary article contents", view: "umbraco.rte", value: "<p>askjdkasj lasjd</p>" },
-                    { alias: "textarea", label: "textarea", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 4 } },
-                    { alias: "map", label: "Map", view: "umbraco.googlemaps", value: "37.4419,-122.1419", config: { mapType: "ROADMAP", zoom: 4 } },
-                    { alias: "upload", label: "Upload file", view: "umbraco.fileupload", value: "" },
-                    { alias: "media", label: "Media picker", view: "umbraco.mediapicker", value: "" }
+                        { alias: "bodyText", label: "Body Text", description:"Here you enter the primary article contents", view: "umbraco.rte", value: "<p>askjdkasj lasjd</p>" },
+                        { alias: "textarea", label: "textarea", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 4 } },
+                        { alias: "map", label: "Map", view: "umbraco.googlemaps", value: "37.4419,-122.1419", config: { mapType: "ROADMAP", zoom: 4 } },
+                        { alias: "upload", label: "Upload file", view: "umbraco.fileupload", value: "" },
+                        { alias: "media", label: "Media picker", view: "umbraco.mediapicker", value: "" }
                     ]
                 },
                 {
