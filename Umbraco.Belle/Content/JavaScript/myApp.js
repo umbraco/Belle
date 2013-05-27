@@ -348,39 +348,36 @@ define(['angular', 'namespaceMgr'], function (angular) {
     //This directive will bubble up a notification via an emit event (upwards)
     // describing the state of the validation element. This is useful for 
     // parent elements to know about child element validation state.
-    app.directive('valBubble', function (u$AngularHelper) {
-        return {
-            require: 'ngModel',
-            restrict: "A",
-            link: function (scope, element, attr, ctrl) {
+app.directive('valBubble', function (u$AngularHelper) {
+    return {
+        require: 'ngModel',
+        restrict: "A",
+        link: function (scope, element, attr, ctrl) {
 
-                //if (!scope.propertyForm)
-                //    throw "valBubble must exist within a form called propertyForm";
-
-                if (!attr.name) {
-                    throw "valBubble must be set on an input element that has a 'name' attribute";
-                }
-                
-                var currentForm = u$AngularHelper.getCurrentForm(scope);
-                if (!currentForm || !currentForm.$name)
-                    throw "valToggleMsg requires that a name is assigned to the ng-form containing the validated input";
-
-                //watch the current form's validation for the current field name
-                scope.$watch(currentForm.$name + "." + ctrl.$name + ".$valid", function (isValid, lastValue) {
-                    if (isValid != undefined) {
-                        //emit an event upwards 
-                        scope.$emit("valBubble", {
-                            isValid: isValid,       // if the field is valid
-                            element: element,       // the element that the validation applies to
-                            expression: this.exp,   // the expression that was watched to check validity
-                            scope: scope,           // the current scope
-                            ctrl: ctrl              // the current controller
-                        });
-                    }
-                });
+            if (!attr.name) {
+                throw "valBubble must be set on an input element that has a 'name' attribute";
             }
-        };
-    });
+                
+            var currentForm = u$AngularHelper.getCurrentForm(scope);
+            if (!currentForm || !currentForm.$name)
+                throw "valBubble requires that a name is assigned to the ng-form containing the validated input";
+
+            //watch the current form's validation for the current field name
+            scope.$watch(currentForm.$name + "." + ctrl.$name + ".$valid", function (isValid, lastValue) {
+                if (isValid != undefined) {
+                    //emit an event upwards 
+                    scope.$emit("valBubble", {
+                        isValid: isValid,       // if the field is valid
+                        element: element,       // the element that the validation applies to
+                        expression: this.exp,   // the expression that was watched to check validity
+                        scope: scope,           // the current scope
+                        ctrl: ctrl              // the current controller
+                    });
+                }
+            });
+        }
+    };
+});
 
     //This directive will display a validation summary for the current form based on the 
     //content properties of the current content item.
@@ -493,34 +490,34 @@ define(['angular', 'namespaceMgr'], function (angular) {
     });
     
     //This service is some helper methods for extending angular
-    contentHelpers.factory('u$AngularHelper', function() {
-        return {
-            getCurrentForm: function(scope) {
-                /// <summary>Returns the current form object applied to the scope or null if one is not found</summary>
-                //NOTE: There isn't a way in angular to get a reference to the current form object since the form object
-                // is just defined as a property of the scope when it is named but you'll always need to know the name which
-                // isn't very convenient. If we want to watch for validation changes we need to get a form reference.
-                // The way that we detect the form object is a bit hackerific in that we detect all of the required properties 
-                // that exist on a form object.
+contentHelpers.factory('u$AngularHelper', function() {
+    return {
+        getCurrentForm: function(scope) {
+            /// <summary>Returns the current form object applied to the scope or null if one is not found</summary>
+            //NOTE: There isn't a way in angular to get a reference to the current form object since the form object
+            // is just defined as a property of the scope when it is named but you'll always need to know the name which
+            // isn't very convenient. If we want to watch for validation changes we need to get a form reference.
+            // The way that we detect the form object is a bit hackerific in that we detect all of the required properties 
+            // that exist on a form object.
 
-                var form = null;
-                var requiredFormProps = ["$error", "$name", "$dirty", "$pristine", "$valid", "$invalid", "$addControl", "$removeControl", "$setValidity", "$setDirty"];
-                for (var p in scope) {
-                    if (_.isObject(scope[p]) && !_.isFunction(scope[p]) && !_.isArray(scope[p]) && p.substr(0, 1) != "$") {
-                        var props = _.keys(scope[p]);
-                        if (props.length < requiredFormProps.length) continue;
-                        if (_.every(requiredFormProps, function(item) {
-                            return _.contains(props, item);
-                        })) {
-                            form = scope[p];
-                            break;
-                        }
+            var form = null;
+            var requiredFormProps = ["$error", "$name", "$dirty", "$pristine", "$valid", "$invalid", "$addControl", "$removeControl", "$setValidity", "$setDirty"];
+            for (var p in scope) {
+                if (_.isObject(scope[p]) && !_.isFunction(scope[p]) && !_.isArray(scope[p]) && p.substr(0, 1) != "$") {
+                    var props = _.keys(scope[p]);
+                    if (props.length < requiredFormProps.length) continue;
+                    if (_.every(requiredFormProps, function(item) {
+                        return _.contains(props, item);
+                    })) {
+                        form = scope[p];
+                        break;
                     }
                 }
-                return form;
-            }  
-        };
-    });
+            }
+            return form;
+        }  
+    };
+});
 
     //This service is used to wire up all server-side valiation messages
     // back into the UI in a consistent format.
