@@ -54,10 +54,11 @@
                 </div>
 
                 <!-- Search results -->
-                <div id="search-results" class="umb-scrollable" auto-scale="0" 
+                <div id="search-results" class="umb-scrollable umb-panel" auto-scale="0" 
                 ng-show="ui.showSearchResults" ng-animate="'slide'">
 
                     <h5>Search results</h5>
+                    
                     <ul class="searchResults" ng-repeat="resultGroup in ui.searchResults" >
                         <li class="umb-icon-item" ng-class="{selected:$index==ui.selectedSearchResult}" ng-repeat="result in resultGroup.matches">
                             <i class="icon umb-tree-icon sprTree {{result.icon}}" ng-show="$first"></i>

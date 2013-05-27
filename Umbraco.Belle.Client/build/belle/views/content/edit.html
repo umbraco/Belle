@@ -6,12 +6,14 @@
         </div>
             <div class="span8">
             <div class="btn-toolbar pull-right umb-btn-toolbar">
-                <div class="btn-group">
-                    <a class="btn" ng-click="save(content)" data-shortcut="ctrl+s">Preview page</a>
-                    </div>
 
-                    <div class="btn-group">
-  <a class="btn btn-success" href="#" ng-click="saveAndPublish(content)" data-shortcut="ctrl+p">Publish</a>
+                <div class="btn-group">
+                  <a class="btn" ng-click="save(content)" data-shortcut="ctrl+s">Preview page</a>
+                </div>
+
+                <div class="btn-group">
+  <a class="btn btn-success" href="#" ng-click="saveAndPublish(content)" prevent-default data-shortcut="ctrl+p">Publish</a>
+
   <a class="btn btn-success dropdown-toggle" data-toggle="dropdown">
     <span class="caret"></span>
   </a>

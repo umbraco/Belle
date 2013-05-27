@@ -79,9 +79,10 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
         return { 'padding-left': (item.level * 20) + "px" };
     };
     $scope.getTreeChildren = function (node) {
-        if (node.expanded)
+        if (node.expanded){
             node.expanded = false;
-        else {
+            node.children = [];
+        }else {
             node.children =  tree.getChildren(node, $scope.currentSection);
             node.expanded = true;
         }   
@@ -144,7 +145,7 @@ angular.module('umbraco').controller("SearchController", function ($scope, searc
         if(term != undefined && term != currentTerm){
             if(term.length > 3){
                 $scope.ui.selectedSearchResult = -1;
-                $scope.setMode("search");
+                $scope.ui.mode("search");
 
                 currentTerm = term;
                 $scope.ui.searchResults = search.search(term, $scope.currentSection);
@@ -156,7 +157,7 @@ angular.module('umbraco').controller("SearchController", function ($scope, searc
     };    
 
     $scope.hideSearch = function () {
-       $scope.setMode("default");
+       $scope.ui.mode("default");
     };
 
     $scope.iterateResults = function (direction) {

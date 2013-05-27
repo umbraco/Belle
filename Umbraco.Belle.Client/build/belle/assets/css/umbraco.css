@@ -6439,12 +6439,13 @@ legend + .control-group {
   visibility: visible;
 }
 
+/*
 .umb-tree li.root > div a {
-  font-size: 13px;
-  font-weight: bold;
-  color: #b3b3b3;
-  text-transform: uppercase;
-}
+	text-transform: uppercase;
+	color: #b3b3b3;
+	font-weight: bold;
+	font-size: 13px;
+}*/
 
 .umb-tree ins {
   display: inline-block;
@@ -6929,6 +6930,13 @@ ul.sections li.help a span {
   margin-bottom: 15px;
   font-size: 14px;
   color: #b3b3b3;
+}
+
+h5 {
+  font-size: 13px;
+  font-weight: bold;
+  color: #b3b3b3;
+  text-transform: uppercase;
 }
 
 /* STYLES FOR SPECIFIC EDITOR COMPONENTS - for all property editors and other reusable editing components*/
