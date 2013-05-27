@@ -8,23 +8,26 @@
             <div class="btn-toolbar pull-right umb-btn-toolbar">
 
                 <div class="btn-group">
-                  <a class="btn" ng-click="save(content)" data-shortcut="ctrl+s">Preview page</a>
+                  <a class="btn" ng-click="preview(content)" data-shortcut="ctrl+s">Preview page</a>
                 </div>
 
-                <div class="btn-group">
-  <a class="btn btn-success" href="#" ng-click="saveAndPublish(content)" prevent-default data-shortcut="ctrl+p">Publish</a>
 
-  <a class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
-  </a>
-  <div class="dropdown-menu">
-    <small>
-        This was saved xx ago
-    </small>
-   <a class="btn btn-primary" href="#">Save draft</a>
-  </div>
-</div>
-</div>
+                <div class="btn-group">
+
+                      <a class="btn btn-success" href="#" ng-click="saveAndPublish(content)" 
+                      prevent-default data-shortcut="ctrl+p">Publish</a>
+
+                      <a class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                      </a>
+
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <li><a href="#" ng-click="save(content)" 
+                               prevent-default data-shortcut="ctrl+s">Save draft</a></li>
+                      </ul>  
+                </div>
+
+            </div>
             </div>
 </div>
             <ul class="nav nav-tabs umb-nav-tabs span12">
