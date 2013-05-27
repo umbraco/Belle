@@ -272,7 +272,7 @@
     <Compile Include="Models\ContentPropertyBase.cs" />
     <Compile Include="Models\ContentPropertyDisplay.cs" />
     <Compile Include="Models\ContentPropertyCollection.cs" />
-    <Compile Include="System\Mvc\UnhandledExceptionFilterAttribute.cs" />
+    <Compile Include="System\ValidationFilterAttribute.cs" />
     <Compile Include="System\ManifestBuilder.cs" />
     <Compile Include="System\ManifestParser.cs" />
     <Compile Include="System\PackageManifest.cs" />
