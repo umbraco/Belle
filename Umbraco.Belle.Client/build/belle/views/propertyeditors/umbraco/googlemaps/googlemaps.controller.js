@@ -36,15 +36,12 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
                 });
             });
 
-            google.maps.event.addListenerOnce(map, 'idle', function() {
+            //hack to hook into tab switching for map resizing
+            $('a[data-toggle="tab"]').on('shown', function (e) {
                 google.maps.event.trigger(map, 'resize');
-            });
+            })
 
 
-            $timeout(function(){
-                //fixes the maps resize issue due to dynamic loading
-                google.maps.event.trigger(map, "resize");   
-            }, 2000);
         }
     );    
 });

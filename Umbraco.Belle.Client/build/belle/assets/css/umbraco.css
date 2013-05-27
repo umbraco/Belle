@@ -6434,7 +6434,8 @@ legend + .control-group {
   visibility: visible;
 }
 
-.umb-tree li.root > div a {
+.umb-tree li.root > div a,
+.umb-tree li.root h5 {
   font-size: 13px;
   font-weight: bold;
   color: #b3b3b3;
