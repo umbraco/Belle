@@ -1,5 +1,5 @@
 'use strict';
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-24
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-27
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -87,9 +87,10 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
         return { 'padding-left': (item.level * 20) + "px" };
     };
     $scope.getTreeChildren = function (node) {
-        if (node.expanded)
+        if (node.expanded){
             node.expanded = false;
-        else {
+            node.children = [];
+        }else {
             node.children =  tree.getChildren(node, $scope.currentSection);
             node.expanded = true;
         }   
@@ -152,7 +153,7 @@ angular.module('umbraco').controller("SearchController", function ($scope, searc
         if(term != undefined && term != currentTerm){
             if(term.length > 3){
                 $scope.ui.selectedSearchResult = -1;
-                $scope.setMode("search");
+                $scope.ui.mode("search");
 
                 currentTerm = term;
                 $scope.ui.searchResults = search.search(term, $scope.currentSection);
@@ -164,7 +165,7 @@ angular.module('umbraco').controller("SearchController", function ($scope, searc
     };    
 
     $scope.hideSearch = function () {
-       $scope.setMode("default");
+       $scope.ui.mode("default");
     };
 
     $scope.iterateResults = function (direction) {
@@ -266,7 +267,7 @@ angular.module("umbraco").controller("Umbraco.Dialogs.MediaPickerController", fu
 angular.module('umbraco').controller("Umbraco.Editors.ContentCreateController", function ($scope, $routeParams,contentTypeFactory) {	
 	$scope.allowedTypes  = contentTypeFactory.getAllowedTypes($scope.currentNode.id);	
 });
-angular.module("umbraco").controller("Umbraco.Editors.ContentEditController", function ($scope, $routeParams, contentFactory) {
+angular.module("umbraco").controller("Umbraco.Editors.ContentEditController", function ($scope, $routeParams, contentFactory, notifications) {
 	
 	if($routeParams.create)
 		$scope.content = contentFactory.getContentScaffold($routeParams.parentId, $routeParams.doctype);
@@ -277,11 +278,15 @@ angular.module("umbraco").controller("Umbraco.Editors.ContentEditController", fu
 	$scope.saveAndPublish = function (cnt) {
 		cnt.publishDate = new Date();
 		contentFactory.publishContent(cnt);
+
+		notifications.success("Published", "Content has been saved and published");
 	};
 
 	$scope.save = function (cnt) {
 		cnt.updateDate = new Date();
+
 		contentFactory.saveContent(cnt);
+		notifications.success("Saved", "Content has been saved");
 	};
 	
 });
@@ -492,16 +497,51 @@ angular.module("umbraco")
         function (tinymce) {
 
             tinymce.DOM.events.domLoaded = true;
-            $log.log("dom loaded");
-
-            
             tinymce.init({
                 selector: "#" + $scope.model.alias + "_rte",
                 skin: "umbraco",
                 menubar : false,
                 statusbar: false,
                 height: 340,
-                toolbar: "bold italic | styleselect | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent | link image"
+                toolbar: "bold italic | styleselect | alignleft aligncenter alignright | bullist numlist | outdent indent | link image mediapicker",
+                setup : function(editor) {
+                        
+                        editor.on('blur', function(e) {
+                            
+//                            alert(editor.getContent());
+
+                            $scope.$apply(function(){
+                                //$scope.model.value = e.getBody().innerHTML;
+                                $scope.model.value = editor.getContent();
+                            })
+
+                        });
+
+                        editor.addButton('mediapicker', {
+                            icon: 'media',
+                            tooltip: 'Media Picker',
+                            onclick: function(){
+                                dialog.mediaPicker({scope: $scope, callback: function(data){
+                                 
+                                    //really simple exemple on how to intergrate a service with tinyMCE
+                                    $(data.selection).each(function(i,img){
+                                            var data = {
+                                                src: img.thumbnail,
+                                                style: 'width: 100px; height: 100px',
+                                                id : '__mcenew'
+                                            };
+                                            editor.insertContent(editor.dom.createHTML('img', data));
+                                            var imgElm = editor.dom.get('__mcenew');
+                                            editor.dom.setAttrib(imgElm, 'id', null);
+                                    });    
+                                       
+
+                                }});
+                            }
+                        });
+
+            
+                  }
             });
 
 

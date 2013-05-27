@@ -41,13 +41,11 @@ angular.module('umbraco.resources.content', [])
                     ]
                 },
                 {
-                    label: "Tab 2",
+                    label: "Sample Editor",
                     alias: "tab02",
                     properties: [
-                    { alias: "metaText", label: "Meta Text", view: "umbraco.rte", value: "<p>askjdkasj lasjd</p>" },
-                    { alias: "textarea", label: "Description", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 7 } },
-                    { alias: "dropdown", label: "Keywords", view: "umbraco.dropdown", value: "aksjdkasjdkj" },
-                    { alias: "upload", label: "Upload file", view: "umbraco.fileupload", value: "" }                    
+                        { alias: "sampleProperty", label: "Sample 1", view: "umbraco.sample", value: "Hello World" },
+                        { alias: "samplePropertyTwo", label: "Sample 2", view: "umbraco.sampletwo", value: 1234, config: { rows: 7 } }
                     ]
                 },
                 {

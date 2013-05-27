@@ -6931,6 +6931,13 @@ ul.sections li.help a span {
   color: #b3b3b3;
 }
 
+h5 {
+  font-size: 13px;
+  font-weight: bold;
+  color: #b3b3b3;
+  text-transform: uppercase;
+}
+
 /* STYLES FOR SPECIFIC EDITOR COMPONENTS - for all property editors and other reusable editing components*/
 
 /* content picker */
