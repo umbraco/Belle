@@ -12,7 +12,7 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
 
     $scope.openSection = function (selectedSection) {
         //reset everything
-        $scope.setMode("default");
+        $scope.ui.mode("default");
         $("#search-form input").focus();
 
         section.setCurrent(selectedSection.alias);

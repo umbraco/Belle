@@ -81,7 +81,7 @@ angular.module('umbraco.directives', [])
 
         el.on("blur", function () {
             el.hide();
-            h1.html(el.val() + "<i class='icon icon-pencil'></i>").show();
+            h1.html(el.val()).show();
         });
 
         h1.on("click", function () {
@@ -100,21 +100,6 @@ angular.module('umbraco.directives', [])
         });
     };
 })
-
-
-.directive('requireController', function ($parse) {
-    return function (scope, elm, attrs) {
-        var path = scope.$eval(attrs.requireController);
-
-        if (path !== undefined && path !== "") {
-            path = "views/propertyeditors/" + path.replace('.', '/') + "/controller.js";
-            require([path]);
-        }
-
-            //scope.$apply(attrs.requireController);
-        };
-    })
-
 
 .directive('propertyEditor', function () {
     return {

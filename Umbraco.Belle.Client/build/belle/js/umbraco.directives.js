@@ -1,4 +1,4 @@
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-23
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-24
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -88,7 +88,7 @@ angular.module('umbraco.directives', [])
 
         el.on("blur", function () {
             el.hide();
-            h1.html(el.val() + "<i class='icon icon-pencil'></i>").show();
+            h1.html(el.val()).show();
         });
 
         h1.on("click", function () {
@@ -107,21 +107,6 @@ angular.module('umbraco.directives', [])
         });
     };
 })
-
-
-.directive('requireController', function ($parse) {
-    return function (scope, elm, attrs) {
-        var path = scope.$eval(attrs.requireController);
-
-        if (path !== undefined && path !== "") {
-            path = "views/propertyeditors/" + path.replace('.', '/') + "/controller.js";
-            require([path]);
-        }
-
-            //scope.$apply(attrs.requireController);
-        };
-    })
-
 
 .directive('propertyEditor', function () {
     return {
