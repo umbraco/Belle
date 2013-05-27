@@ -114,20 +114,30 @@ div.umb-codeeditor .umb-btn-toolbar {
 
 
 /*BUTTONS */
-.umb-plus-btn {
-    border: 2px dashed #dbdbdb;
-    height: 136px;
-    text-align: center;
-    font-size: 50px;
-}
+
+
 .umb-plus-btn a {
-    height: 136px;
-    color: #dbdbdb;
-    vertical-align: middle !important;
-    text-decoration: none;
-    background: #fff;
-    display: block
+  border: 2px dashed @grayLight;
+  width: 136px;
+  height: 136px;
+  line-height: 136px;
+  text-align: center;
+  font-size: 50px;
+  display: block;
+  color: @grayLight;
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
+
+.umb-plus-btn a:hover {
+  border: 2px dashed @black;
+  color: @black
+}
+
 .umb-plus-btn i {
     vertical-align: middle;
     margin: auto

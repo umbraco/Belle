@@ -7023,20 +7023,26 @@ div.umb-codeeditor .umb-btn-toolbar {
 
 /*BUTTONS */
 
-.umb-plus-btn {
-  height: 136px;
-  font-size: 50px;
-  text-align: center;
-  border: 2px dashed #dbdbdb;
-}
-
 .umb-plus-btn a {
   display: block;
+  width: 136px;
   height: 136px;
-  color: #dbdbdb;
+  font-size: 50px;
+  line-height: 136px;
+  color: #d9d9d9;
+  text-align: center;
   text-decoration: none;
-  vertical-align: middle !important;
-  background: #fff;
+  border: 2px dashed #d9d9d9;
+  -webkit-transition: all 0.3s ease-in-out;
+     -moz-transition: all 0.3s ease-in-out;
+      -ms-transition: all 0.3s ease-in-out;
+       -o-transition: all 0.3s ease-in-out;
+          transition: all 0.3s ease-in-out;
+}
+
+.umb-plus-btn a:hover {
+  color: #000000;
+  border: 2px dashed #000000;
 }
 
 .umb-plus-btn i {
