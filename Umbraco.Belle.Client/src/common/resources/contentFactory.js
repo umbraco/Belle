@@ -6,7 +6,7 @@ angular.module('umbraco.resources.content', [])
     var factory = {
         _cachedItems: contentArray,
         getContent: function (id) {
-            
+
 
             if (contentArray[id] !== undefined){
                 return contentArray[id];
@@ -45,7 +45,8 @@ angular.module('umbraco.resources.content', [])
                     alias: "tab02",
                     properties: [
                         { alias: "sampleProperty", label: "Sample 1", view: "umbraco.sample", value: "Hello World" },
-                        { alias: "datepicker", label: "date picker", view: "umbraco.datepicker", config: { rows: 7 } },
+                        { alias: "samplePropertyTwo", label: "Sample 2", view: "umbraco.sampletwo", value: 1234, config: { rows: 7 } },
+                        { alias: "datepicker", label: "Datepicker", view: "umbraco.datepicker", config: { rows: 7 } },
                         { alias: "tags", label: "Tags", view: "umbraco.tags", value: ""}
                     ]
                 },
@@ -72,7 +73,7 @@ angular.module('umbraco.resources.content', [])
 
             var c = this.getContent(parentId);
             c.name = "empty name";
-            
+
             $.each(c.tabs, function(index, tab){
                 $.each(tab.properties,function(index, property){
                     property.value = "";
@@ -90,17 +91,17 @@ angular.module('umbraco.resources.content', [])
                     offset: 0,
                     filter: ''
                 };
-            }  
+            }
 
-            var collection = {take: 10, total: 68, pages: 7, currentPage: options.offset, filter: options.filter};    
+            var collection = {take: 10, total: 68, pages: 7, currentPage: options.offset, filter: options.filter};
             collection.total = 56 - (options.filter.length);
             collection.pages = Math.round(collection.total / collection.take);
             collection.resultSet = [];
-            
+
             if(collection.total < options.take){
                 collection.take = collection.total;
             }else{
-                collection.take = options.take;    
+                collection.take = options.take;
             }
 
 
@@ -108,8 +109,8 @@ angular.module('umbraco.resources.content', [])
             for (var i = 0; i < collection.take; i++) {
                 _id = (parentId + i) * options.offset;
                 var cnt = this.getContent(_id);
-                
-                //here we fake filtering    
+
+                //here we fake filtering
                 if(options.filter !== ''){
                     cnt.name = options.filter + cnt.name;
                 }

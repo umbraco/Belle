@@ -152,8 +152,49 @@ angular.module('umbraco.directives', [])
     };
 })
 
+
+.directive('umbPanel', function(){
+    return {
+        restrict: 'E',
+        replace: true,
+        transclude: 'true',
+        templateUrl: '/belle/views/directives/umb-panel.html'
+    };
+})
+
+.directive('umbTabView', function(){
+    return {
+        restrict: 'E',
+        replace: true,
+        transclude: 'true',
+        templateUrl: '/belle/views/directives/umb-tab-view.html'
+    };
+})
+
+.directive('umbTab', function(){
+    return {
+        restrict: 'E',
+        replace: true,
+        transclude: 'true',
+        templateUrl: '/belle/views/directives/umb-tab.html'
+    };
+})
+
+.directive('umbProperty', function(){
+    return {
+        restrict: 'E',
+        replace: true,
+        transclude: 'true',
+        templateUrl: '/belle/views/directives/umb-property.html',
+        link: function(scope, elem, attrs) {
+            scope.$eval(attrs.model);
+        }
+    };
+})
+
+
 .directive('include', function($compile, $http, $templateCache, $interpolate, $log) {
-  
+
   $log.log("loading view");
 
   // Load a template, possibly from the $templateCache, and instantiate a DOM element from it
@@ -170,7 +211,7 @@ angular.module('umbraco.directives', [])
     priority: 100,        // We need this directive to happen before ng-model
     terminal: false,       // We are going to deal with this element
     compile: function(element, attrs) {
-      
+
       $log.log("compiling view");
       // Extract the label and validation message info from the directive's original element
       //var validationMessages = getValidationMessageMap(element);
