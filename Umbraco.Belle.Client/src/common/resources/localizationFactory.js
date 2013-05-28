@@ -1,6 +1,7 @@
 angular.module('umbraco.resources.localization', [])
 .factory('localizationFactory', function () {
   var localizationArray = [];
+  var labels = {};
 
   var factory = {
     _cachedItems: localizationArray,
@@ -9,7 +10,8 @@ angular.module('umbraco.resources.localization', [])
         Fetch from JSON object according to users language settings
         $http.get('model.:language.json') ish solution
        */
-      var labels = {
+      labels = {
+        language: 'en-UK',
         app: {
           search: {
             typeToSearch: "Type to search",
@@ -25,7 +27,12 @@ angular.module('umbraco.resources.localization', [])
         }
       };
 
+
+
       return labels;
+    },
+    getLanguage: function() {
+      return labels.language;
     }
   };
   return factory;
