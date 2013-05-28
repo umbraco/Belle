@@ -203,9 +203,6 @@ angular.module('umbraco').controller("MainController",
         mode: undefined
     };
 
-    if (userFactory.authenticated) {
-        $scope.signin();
-    }
 
     $scope.signin = function () {
         $scope.authenticated = userFactory.authenticate($scope.login, $scope.password);
@@ -248,7 +245,9 @@ angular.module('umbraco').controller("MainController",
         }
     };
 
-
+    if (userFactory.authenticated) {
+        $scope.signin();
+    }
     
 /*
     else{    
@@ -273,6 +272,10 @@ angular.module("umbraco").controller("Umbraco.Dialogs.MacroPickerController", fu
 angular.module("umbraco").controller("Umbraco.Dialogs.MediaPickerController", function ($scope, mediaFactory) {	
 	$scope.images = mediaFactory.rootMedia();
 });
+angular.module("umbraco").controller("Umbraco.Common.LegacyController", 
+	function($scope, $routeParams){
+		$scope.legacyPath = decodeURI($routeParams.p);
+	});
 angular.module('umbraco').controller("Umbraco.Editors.ContentCreateController", function ($scope, $routeParams,contentTypeFactory) {	
 	$scope.allowedTypes  = contentTypeFactory.getAllowedTypes($scope.currentNode.id);	
 });
@@ -322,6 +325,23 @@ angular.module("umbraco").controller("Umbraco.Editors.CodeMirrorController", fun
             });
 
         });
+});
+angular.module("umbraco").controller("Umbraco.Editors.DatepickerController", function ($rootScope, $scope, notifications, $timeout) {
+    require(
+        [
+            'views/propertyeditors/umbraco/datepicker/bootstrap.datepicker.js'
+        ],
+        function () {
+        	var pickerId = $scope.model.alias;
+
+        	$("#" + pickerId).datepicker({
+        		format: "dd/mm/yyyy",
+        		autoclose: true
+        	}).on("changeDate", function (e) {
+				$scope.model.value = e.date;
+        	});
+        }
+    );
 });
 angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", function ($rootScope, $scope, notifications, $timeout) {
     require(

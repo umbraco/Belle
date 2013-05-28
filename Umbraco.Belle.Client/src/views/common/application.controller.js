@@ -195,9 +195,6 @@ angular.module('umbraco').controller("MainController",
         mode: undefined
     };
 
-    if (userFactory.authenticated) {
-        $scope.signin();
-    }
 
     $scope.signin = function () {
         $scope.authenticated = userFactory.authenticate($scope.login, $scope.password);
@@ -240,7 +237,9 @@ angular.module('umbraco').controller("MainController",
         }
     };
 
-
+    if (userFactory.authenticated) {
+        $scope.signin();
+    }
     
 /*
     else{    
