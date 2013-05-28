@@ -6,7 +6,7 @@ angular.module('umbraco.resources.content', [])
     var factory = {
         _cachedItems: contentArray,
         getContent: function (id) {
-
+            
             if (contentArray[id] !== undefined){
                 return contentArray[id];
             }

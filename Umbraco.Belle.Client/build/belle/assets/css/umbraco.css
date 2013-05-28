@@ -6747,7 +6747,15 @@ i.umb-options i {
 
 .umb-panel-header .form-search input {
   width: 83%;
+  padding: 4px 0 4px 6px;
   padding-left: 25px;
+  margin: 4px 0 0 -7px;
+  font-size: 17.5px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #555555;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
 }
 
 .umb-panel-header .form-search .icon-search {
@@ -7185,62 +7193,60 @@ table thead a {
   background: #f8f8f8;
 }
 
-.umb-sub-header {
-  padding: 0 0 20px 0;
-}
-
 .umb-listview table {
-  border-top: 1px solid #d9d9d9;
-  border-right: 1px solid #d9d9d9;
-  border-bottom: 1px solid #d9d9d9;
+  border: 1px solid #d9d9d9;
 }
 
 .umb-listview table caption {
-  padding: 0 0 20px 0;
   text-align: left;
   vertical-align: middle;
   background: #ffffff;
 }
 
-.umb-listview table caption form {
-  position: relative;
+.umb-sub-header {
+  padding: 0 0 20px 0;
 }
 
-.umb-listview table caption form .icon-search {
+.umb-listview table form {
+  position: relative;
+  margin: 0;
+}
+
+.umb-listview table form .icon-search {
   position: absolute;
   top: 8px;
   left: 5px;
   color: #555555;
 }
 
-.umb-listview table caption input[type="text"] {
+.umb-listview table input[type="text"] {
   width: 60px;
   padding: 4px 0 4px 20px;
   background: none;
   border: none;
-  border: 1px solid #ffffff;
+  border: 1px solid #f8f8f8;
   -webkit-transition: all .5s;
      -moz-transition: all .5s;
           transition: all .5s;
 }
 
-.umb-listview table caption input::-webkit-input-placeholder {
+.umb-listview table input::-webkit-input-placeholder {
   color: #555555;
 }
 
-.umb-listview table caption input:-moz-placeholder {
+.umb-listview table input:-moz-placeholder {
   color: #555555;
 }
 
-.umb-listview table caption input::-moz-placeholder {
+.umb-listview table input::-moz-placeholder {
   color: #555555;
 }
 
-.umb-listview table caption input:-ms-input-placeholder {
+.umb-listview table input:-ms-input-placeholder {
   color: #555555;
 }
 
-.umb-listview table caption input[type="text"]:focus {
+.umb-listview table input[type="text"]:focus {
   width: 200px;
   color: #000000;
   background: #ffffff;
@@ -7254,6 +7260,7 @@ table thead a {
 .umb-listview table thead {
   font-size: 11px;
   font-weight: 600;
+  text-transform: uppercase;
   background-color: #f8f8f8;
 }
 
@@ -7320,6 +7327,46 @@ table thead a {
   color: #b0b0b0;
   background: none;
   border: none;
+}
+
+.umb-listview .pagination ul > li.active > a,
+.umb-listview .pagination ul > li > a:hover {
+  color: #000000;
+}
+
+/* TEMP */
+
+.table-striped tbody td {
+  position: relative;
+}
+
+.table-striped tbody input[type="checkbox"] {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 5;
+  display: block;
+}
+
+.table-striped tbody i {
+  position: absolute;
+  top: 10px;
+  left: 6px;
+  z-index: 6;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 0 0 0 4px;
+  background: #ffffff;
+}
+
+.table-striped tbody > tr:nth-child(even) > td i,
+.table-striped tbody > tr:nth-child(even) > th i {
+  background-color: #f8f8f8;
+}
+
+.table-striped tbody i:hover {
+  display: none !important;
 }
 
 .editor {

@@ -1,4 +1,4 @@
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-27
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-28
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -13,7 +13,7 @@ angular.module('umbraco.resources.content', [])
     var factory = {
         _cachedItems: contentArray,
         getContent: function (id) {
-
+            
             if (contentArray[id] !== undefined){
                 return contentArray[id];
             }
