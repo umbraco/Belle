@@ -7,6 +7,7 @@ angular.module('umbraco.resources.content', [])
         _cachedItems: contentArray,
         getContent: function (id) {
             
+
             if (contentArray[id] !== undefined){
                 return contentArray[id];
             }
@@ -56,6 +57,8 @@ angular.module('umbraco.resources.content', [])
                 }
                 ]
             };
+
+            // return undefined;
 
             return content;
         },
