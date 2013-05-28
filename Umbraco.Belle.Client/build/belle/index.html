@@ -10,7 +10,7 @@
 </head>
 <body ng-controller="MainController" id="umbracoMainPageBody">     
 
-    <div ng-show="authenticated" ng-cloak ng-animate="'fade'" id="layout" class="clearfix" ng-click="closeDialogs($event)">
+<div ng-show="authenticated" ng-cloak ng-animate="'fade'" id="layout" class="clearfix" ng-click="closeDialogs($event)">
 
         <div id="leftcolumn" ng-controller="NavigationController" ng-mouseleave="hideSectionTree()">
             <div id="applications" ng-class="{faded:ui.stickyNavigation}">
@@ -57,7 +57,7 @@
                 <div id="search-results" class="umb-scrollable umb-panel" auto-scale="0" 
                 ng-show="ui.showSearchResults" ng-animate="'slide'">
 
-                    <h5>Search results</h5>
+                    <h5>Search Results</h5>
                     
                     <ul class="searchResults" ng-repeat="resultGroup in ui.searchResults" >
                         <li class="umb-icon-item" ng-class="{selected:$index==ui.selectedSearchResult}" ng-repeat="result in resultGroup.matches">
