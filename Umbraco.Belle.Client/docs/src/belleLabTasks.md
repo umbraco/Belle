@@ -1,6 +1,5 @@
 #Belle Lab Tasks
 
-
 ##Applcation Structure
 - Work on dialogs, plenty to choose from
 - A reuseable tree component for pickers
