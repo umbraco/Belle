@@ -15,3 +15,4 @@ var app = angular.module('umbraco', [
   	'umbraco.services.dialog',
   	'umbraco.services.search'
 ]);
+
