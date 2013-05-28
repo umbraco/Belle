@@ -14,6 +14,7 @@ angular.module('umbraco.resources.content', [])
         _cachedItems: contentArray,
         getContent: function (id) {
             
+
             if (contentArray[id] !== undefined){
                 return contentArray[id];
             }
@@ -63,6 +64,8 @@ angular.module('umbraco.resources.content', [])
                 }
                 ]
             };
+
+            // return undefined;
 
             return content;
         },
@@ -178,6 +181,35 @@ angular.module('umbraco.resources.contentType', [])
 
       };
 });
+angular.module('umbraco.resources.localization', [])
+.factory('localizationFactory', function () {
+  var localizationArray = [];
+
+  var factory = {
+    _cachedItems: localizationArray,
+    getLabels: function (language) {
+      /* 
+        Fetch from JSON object according to users language settings
+        $http.get('model.:language.json') ish solution
+       */
+      var labels = {
+        "app.typeToSearch": "Type to search 2",
+        app: {
+          typeToSearch: "Type to search"
+        },
+        content: {
+          modelName: "Content",
+          contextMenu: {
+            createPageLabel: "Create a page under %name"
+          }
+        }
+      };
+
+      return labels;
+    }
+  };
+  return factory;
+}); 
 angular.module('umbraco.resources.macro', [])
 .factory('macroFactory', function () {
     
