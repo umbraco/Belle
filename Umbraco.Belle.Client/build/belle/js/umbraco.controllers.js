@@ -201,15 +201,15 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
     };
 
     $scope.signin = function () {
-        $scope.authenticated = user.authenticate($scope.login, $scope.password);
+        $scope.authenticated = userFactory.authenticate($scope.login, $scope.password);
 
         if($scope.authenticated){
-            $scope.user = user.getCurrentUser();
+            $scope.user = userFactory.getCurrentUser();
         }
     };
 
     $scope.signout = function () {
-        user.signout();
+        userFactory.signout();
         $scope.authenticated = false;
     };
 
@@ -242,11 +242,14 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
 
     if ($scope.authenticated) {
         $scope.user = userFactory.getCurrentUser();
-    }else{    
+    }
+    
+/*
+    else{    
         $scope.$on('$viewContentLoaded', function() {
             $scope.signin();
         });
-    }
+    }*/
 });
 
 

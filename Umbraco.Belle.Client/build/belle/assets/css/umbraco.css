@@ -8743,6 +8743,17 @@ ul.icons li [class*=" icon-"] {
   max-width: none !important;
 }
 
+/* ng-cloak support with requirejs */
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none;
+}
+
 /* TINYMCE OVERRIDES */
 
 .mce-tinymce {
