@@ -10,7 +10,6 @@ angular.module('umbraco.resources.localization', [])
         $http.get('model.:language.json') ish solution
        */
       var labels = {
-        "app.typeToSearch": "Type to search 2",
         app: {
           typeToSearch: "Type to search"
         },

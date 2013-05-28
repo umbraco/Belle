@@ -46,7 +46,7 @@
                             <input type="text" 
                                    ng-model="ui.searchTerm" 
                                    class="umb-search-field search-query" 
-                                   placeholder="{{'app.typeToSearch' | localize}}"
+                                   placeholder="{{localization.app.typeToSearch}}"
                                    on-blur="deActivateSearch()" 
                                    on-keyup="performSearch(ui.searchTerm)">
                         </form>
@@ -72,10 +72,7 @@
                 </div>
 
                 <!-- the tree -->
-                <div id="tree" class="span5 umb-scrollable umb-panel" auto-scale="0" 
-                ng-animate="'slide'">
-                    <div ng-include="'views/common/tree.html'"></div>
-                </div>
+                
 
 
                 <!-- The context menu -->
