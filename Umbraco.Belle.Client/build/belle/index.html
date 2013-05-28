@@ -46,7 +46,7 @@
                             <input type="text" 
                                    ng-model="ui.searchTerm" 
                                    class="umb-search-field search-query" 
-                                   placeholder="Type to search..."
+                                   placeholder="{{'app.typeToSearch' | localize}}"
                                    on-blur="deActivateSearch()" 
                                    on-keyup="performSearch(ui.searchTerm)">
                         </form>
