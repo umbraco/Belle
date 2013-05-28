@@ -204,10 +204,6 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
         $scope.authenticated = false;
     };
 
-
-    // Localization init
-    $scope.localization = localizationFactory.getLabels();
-
     //subscribes to notifications in the notification service
     $scope.notifications = notifications.current;
     $scope.$watch('notifications.current', function (newVal, oldVal, scope) {
@@ -238,6 +234,10 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
     if ($scope.authenticated) {
         $scope.user = userFactory.getCurrentUser();
     }
+
+
+    // Localization init
+    $scope.localization = localizationFactory.getLabels($scope.user.locale);
     
 /*
     else{    
