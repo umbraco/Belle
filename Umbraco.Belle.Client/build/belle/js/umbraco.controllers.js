@@ -186,7 +186,7 @@ angular.module('umbraco').controller("DashboardController", function ($scope, $r
 
 
 //handles authentication and other application.wide services
-angular.module('umbraco').controller("MainController", function ($scope, notifications, $routeParams, userFactory) {
+angular.module('umbraco').controller("MainController", function ($scope, notifications, $routeParams, userFactory, localizationFactory) {
     
     //also be authed for e2e test
     var d = new Date();
@@ -211,6 +211,10 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
         userFactory.signout();
         $scope.authenticated = false;
     };
+
+
+    // Localization init
+    $scope.localization = localizationFactory.getLabels();
 
     //subscribes to notifications in the notification service
     $scope.notifications = notifications.current;
