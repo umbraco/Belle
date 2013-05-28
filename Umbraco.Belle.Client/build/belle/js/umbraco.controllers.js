@@ -189,7 +189,8 @@ angular.module('umbraco').controller("DashboardController", function ($scope, $r
 
 
 //handles authentication and other application.wide services
-angular.module('umbraco').controller("MainController", function ($scope, notifications, $routeParams, userFactory, localizationFactory) {
+angular.module('umbraco').controller("MainController", 
+    function ($scope, notifications, $routeParams, userFactory, localizationFactory) {
     
     //also be authed for e2e test
     var d = new Date();
@@ -202,11 +203,16 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
         mode: undefined
     };
 
+    if (userFactory.authenticated) {
+        $scope.signin();
+    }
+
     $scope.signin = function () {
         $scope.authenticated = userFactory.authenticate($scope.login, $scope.password);
 
         if($scope.authenticated){
             $scope.user = userFactory.getCurrentUser();
+            $scope.localization = localizationFactory.getLabels($scope.user.locale);
         }
     };
 
@@ -214,6 +220,7 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
         userFactory.signout();
         $scope.authenticated = false;
     };
+    
 
     //subscribes to notifications in the notification service
     $scope.notifications = notifications.current;
@@ -241,13 +248,7 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
         }
     };
 
-    if ($scope.authenticated) {
-        $scope.user = userFactory.getCurrentUser();
-    }
 
-
-    // Localization init
-    $scope.localization = localizationFactory.getLabels($scope.user.locale);
     
 /*
     else{    
