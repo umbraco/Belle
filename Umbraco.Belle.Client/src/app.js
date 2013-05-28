@@ -8,6 +8,7 @@ var app = angular.module('umbraco', [
   	'umbraco.resources.template',
   	'umbraco.resources.user',
     'umbraco.resources.localization',
+    'umbraco.resources.tags',
   	'umbraco.services.section',
     'umbraco.services.notifications',
   	'umbraco.services.tree',

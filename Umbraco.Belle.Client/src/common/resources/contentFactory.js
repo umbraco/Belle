@@ -45,7 +45,8 @@ angular.module('umbraco.resources.content', [])
                     alias: "tab02",
                     properties: [
                         { alias: "sampleProperty", label: "Sample 1", view: "umbraco.sample", value: "Hello World" },
-                        { alias: "samplePropertyTwo", label: "Sample 2", view: "umbraco.sampletwo", value: 1234, config: { rows: 7 } }
+                        { alias: "samplePropertyTwo", label: "Sample 2", view: "umbraco.sampletwo", value: 1234, config: { rows: 7 } },
+                        { alias: "tags", label: "Tags", view: "umbraco.tags", value: ""}
                     ]
                 },
                 {
