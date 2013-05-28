@@ -194,7 +194,11 @@ angular.module('umbraco.resources.localization', [])
        */
       var labels = {
         app: {
-          typeToSearch: "Type to search"
+          search: {
+            typeToSearch: "Type to search",
+            searchResult: "Search result"
+          },
+          help: "Help" 
         },
         content: {
           modelName: "Content",
