@@ -1,5 +1,6 @@
 //Handles the section area of the app
-angular.module('umbraco').controller("NavigationController", function ($scope, $window, tree, section, $rootScope, $routeParams, dialog) {
+angular.module('umbraco').controller("NavigationController", 
+    function ($scope, $window, $log, tree, section, $rootScope, $routeParams, dialog) {
     loadTree($routeParams.section);
     
     $scope.currentSection = $routeParams.section;
@@ -7,18 +8,18 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
     $scope.sections = section.all();
 
     $scope.ui.mode = setMode;
-    $scope.ui.mode("default");
+    $scope.ui.mode("default-onload");
 
     $scope.openSection = function (selectedSection) {
         //reset everything
-        $scope.ui.mode("default");
-        $("#search-form input").focus();
-
-        section.setCurrent(selectedSection.alias);
-
-        $scope.currentSection = selectedSection.alias;
-        $scope.showSectionTree(selectedSection);
+        if($scope.ui.stickyNavigation){
+            $scope.ui.mode("default-opensection");
+            section.setCurrent(selectedSection.alias);
+            $scope.currentSection = selectedSection.alias;
+            $scope.showSectionTree(selectedSection);
+        }
     };
+
     $scope.showSectionTree = function (section) {
         if(!$scope.ui.stickyNavigation){
             $("#search-form input").focus();
@@ -26,9 +27,10 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
             $scope.ui.mode("tree");
         }
     };
+
     $scope.hideSectionTree = function () {
         if(!$scope.ui.stickyNavigation){
-            $scope.ui.mode("default");
+            $scope.ui.mode("default-hidesectiontree");
         }
     };
 
@@ -71,7 +73,7 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
     };    
 
     $scope.hideNavigation = function () {
-        $scope.ui.mode("default");
+        $scope.ui.mode("default-hidenav");
     };
 
     $scope.setTreePadding = function(item) {
@@ -94,6 +96,7 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
 
     //function to turn navigation areas on/off
     function setMode(mode){
+
             switch(mode)
             {
             case 'tree':
@@ -156,7 +159,7 @@ angular.module('umbraco').controller("SearchController", function ($scope, searc
     };    
 
     $scope.hideSearch = function () {
-       $scope.ui.mode("default");
+       $scope.ui.mode("default-hidesearch");
     };
 
     $scope.iterateResults = function (direction) {
@@ -225,9 +228,8 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
     };
 
     $scope.closeDialogs = function(event){
-        if($(event.target).parents(".umb-modalcolumn").size() == 0){ 
-            $scope.ui.mode("default");
-            //jQuery(".umb-modalcolumn").hide();
+        if($scope.ui.stickyNavigation && $(event.target).parents(".umb-modalcolumn").size() == 0){ 
+            $scope.ui.mode("default-closedialogs");
         }
     };
 

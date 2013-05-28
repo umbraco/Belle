@@ -179,6 +179,7 @@ angular.module('umbraco.services.notifications', [])
 		}
 	};
 });
+//script loader wrapping around 3rd party loader
 angular.module('umbraco.services.search', [])
 .factory('search', function () {
 	return {

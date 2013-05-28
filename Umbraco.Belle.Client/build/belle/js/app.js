@@ -20,7 +20,7 @@ var app = angular.module('umbraco', [
   	'umbraco.services.tree',
   	'umbraco.services.dialog',
   	'umbraco.services.search'
-    ]);
+]);
 
 return app;
 });
