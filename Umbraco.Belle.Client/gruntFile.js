@@ -44,6 +44,9 @@ module.exports = function (grunt) {
       scenarios: ['test/**/*.scenario.js'],
       samples: ['sample files/*.js'],
       html: ['src/index.html'],
+
+      everything:['src/**/*.*', 'test/**/*.*', 'docs/**/*.*'],
+
       tpl: {
         app: ['src/views/**/*.html'],
         common: ['src/common/**/*.tpl.html']
@@ -84,14 +87,6 @@ module.exports = function (grunt) {
     },
 
     concat:{
-      /*
-      dist:{
-        options: {
-          banner: "<%= banner %>"
-        },
-        src:['<%= src.js %>'],
-        dest:'<%= distdir %>/js/<%= pkg.name %>.js'
-      },*/
       index: {
         src: ['src/index.html'],
         dest: '<%= distdir %>/index.html',
@@ -192,11 +187,11 @@ module.exports = function (grunt) {
 
     watch:{
       all: {
-        files:['<%= src.common %>', '<%= src.specs %>', '<%= src.less =>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
+        files:['<%= src.everything %>'],
         tasks:['watch-build','timestamp']
       },
       build: {
-        files:['<%= src.js %>', '<%= src.specs %>', '<%= src.less =>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
+        files:['<%= src.everything %>'],
         tasks:['watch-build','timestamp']
       }
     },

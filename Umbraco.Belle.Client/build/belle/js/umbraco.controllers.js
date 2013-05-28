@@ -17,7 +17,6 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
     $scope.ui.mode = setMode;
     $scope.ui.mode("default");
 
-
     $scope.openSection = function (selectedSection) {
         //reset everything
         $scope.ui.mode("default");
