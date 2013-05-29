@@ -26,10 +26,15 @@ angular.module('umbraco.resources.localization', [])
           }
         }
       };
-
-
-
       return labels;
+    },
+    getLabel: function (labelObj, fallback) {
+      console.log('john');
+      if(labelObj.length > 0) {
+        return labelObj;
+      } else {
+        return fallback;
+      }
     },
     getLanguage: function() {
       return labels.language;

@@ -202,6 +202,8 @@ angular.module('umbraco').controller("MainController",
         if($scope.authenticated){
             $scope.user = userFactory.getCurrentUser();
             $scope.localization = localizationFactory.getLabels($scope.user.locale);
+            $scope.localize = localizationFactory;
+            console.log($scope.localize);
         }
     };
 

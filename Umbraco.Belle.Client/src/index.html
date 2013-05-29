@@ -33,7 +33,7 @@
                     <li class="help">
                         <a class="help" href="#/help">
                             <img src="assets/img/applicationIcons/help.svg" style="height: 30px; width: 30px;" />
-                            <span>{{localization.app.help}}</span>
+                            <span>{{localize.getLabel(localization.app.help, 'Help')}}</span>
                         </a>
                     </li>    
                 </ul>
@@ -51,7 +51,7 @@
                             <input type="text" 
                                    ng-model="ui.searchTerm" 
                                    class="umb-search-field search-query" 
-                                   placeholder="{{localization.app.search.typeToSearch}}"
+                                   placeholder="{{localize.getLabel(localization.app.search.typeToSearch, 'Type to search')}}"
                                    on-blur="deActivateSearch()" 
                                    on-keyup="performSearch(ui.searchTerm)">
                         </form>
@@ -62,7 +62,7 @@
                 <div id="search-results" class="umb-scrollable umb-panel" auto-scale="0" 
                 ng-show="ui.showSearchResults" ng-animate="'slide'">
 
-                    <h5>{{localization.app.search.searchResult}}</h5>
+                    <h5>{{localize.getLabel(localization.app.search.searchResult, 'Search result')}}test</h5>
                     
                     <ul class="searchResults" ng-repeat="resultGroup in ui.searchResults" >
                         <li class="umb-icon-item" ng-class="{selected:$index==ui.selectedSearchResult}" ng-repeat="result in resultGroup.matches">
