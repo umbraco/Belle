@@ -1,4 +1,4 @@
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-28
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-29
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -212,10 +212,14 @@ angular.module('umbraco.resources.localization', [])
           }
         }
       };
-
-
-
       return labels;
+    },
+    getLabel: function (labelObj, fallback) {
+      if(labelObj.length > 0) {
+        return labelObj;
+      } else {
+        return fallback;
+      }
     },
     getLanguage: function() {
       return labels.language;

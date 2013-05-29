@@ -210,6 +210,10 @@ angular.module('umbraco').controller("MainController",
         $scope.authenticated = false;
     };
     
+    if (userFactory.authenticated) {
+        $scope.signin();
+    }
+    
 
     //subscribes to notifications in the notification service
     $scope.notifications = notifications.current;
