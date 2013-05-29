@@ -1,5 +1,5 @@
 'use strict';
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-28
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-29
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -203,9 +203,6 @@ angular.module('umbraco').controller("MainController",
         mode: undefined
     };
 
-    if (userFactory.authenticated) {
-        $scope.signin();
-    }
 
     $scope.signin = function () {
         $scope.authenticated = userFactory.authenticate($scope.login, $scope.password);
@@ -220,6 +217,10 @@ angular.module('umbraco').controller("MainController",
         userFactory.signout();
         $scope.authenticated = false;
     };
+    
+    if (userFactory.authenticated) {
+        $scope.signin();
+    }
     
 
     //subscribes to notifications in the notification service
@@ -322,6 +323,23 @@ angular.module("umbraco").controller("Umbraco.Editors.CodeMirrorController", fun
             });
 
         });
+});
+angular.module("umbraco").controller("Umbraco.Editors.DatepickerController", function ($rootScope, $scope, notifications, $timeout) {
+    require(
+        [
+            'views/propertyeditors/umbraco/datepicker/bootstrap.datepicker.js'
+        ],
+        function () {
+        	var pickerId = $scope.model.alias;
+
+        	$("#" + pickerId).datepicker({
+        		format: "dd/mm/yyyy",
+        		autoclose: true
+        	}).on("changeDate", function (e) {
+				$scope.model.value = e.date;
+        	});
+        }
+    );
 });
 angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", function ($rootScope, $scope, notifications, $timeout) {
     require(
