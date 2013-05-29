@@ -19,16 +19,21 @@
                         <a href="#" title="{{user.name}}">
                             <img ng-src="{{user.avatar}}" />
                         </a>    
-                    </li>    
+                    </li>
+
                     <li ng-repeat="section in sections">
-                        <a href="#/{{section.alias}}" ng-mouseenter="showSectionTree(section)" ng-click="openSection(section)" prevent-default>
+                        <a href="#/{{section.alias}}" 
+                            ng-mouseenter="showSectionTree(section)" 
+                            ng-click="openSection(section)"    
+                            prevent-default> 
                             <i class="{{section.cssclass}}"></i><span>{{section.name}}</span>
                         </a>
                     </li>
+
                     <li class="help">
                         <a class="help" href="#/help">
                             <img src="assets/img/applicationIcons/help.svg" style="height: 30px; width: 30px;" />
-                            <span>help</span>
+                            <span>{{localization.app.help}}</span>
                         </a>
                     </li>    
                 </ul>
@@ -46,7 +51,7 @@
                             <input type="text" 
                                    ng-model="ui.searchTerm" 
                                    class="umb-search-field search-query" 
-                                   placeholder="Type to search..."
+                                   placeholder="{{localization.app.search.typeToSearch}}"
                                    on-blur="deActivateSearch()" 
                                    on-keyup="performSearch(ui.searchTerm)">
                         </form>
@@ -57,7 +62,7 @@
                 <div id="search-results" class="umb-scrollable umb-panel" auto-scale="0" 
                 ng-show="ui.showSearchResults" ng-animate="'slide'">
 
-                    <h5>Search results</h5>
+                    <h5>{{localization.app.search.searchResult}}</h5>
                     
                     <ul class="searchResults" ng-repeat="resultGroup in ui.searchResults" >
                         <li class="umb-icon-item" ng-class="{selected:$index==ui.selectedSearchResult}" ng-repeat="result in resultGroup.matches">
@@ -72,10 +77,10 @@
                 </div>
 
                 <!-- the tree -->
-                <div id="tree" class="span5 umb-scrollable umb-panel" auto-scale="0" 
-                ng-animate="'slide'">
+                <div id="tree" class="span5 umb-scrollable umb-panel" auto-scale="0" ng-animate="'slide'">
                     <div ng-include="'views/common/tree.html'"></div>
                 </div>
+                
 
 
                 <!-- The context menu -->
@@ -123,9 +128,8 @@
     </section>
 </div>
 
-
 <!-- Login screen -->
-<div id="login" ng-hide="authenticated" ng-animate="'slide'">
+<div id="login" ng-show="!authenticated" ng-animate="'slide'" ng-cloak>
     <div class="form" ng-cloak>
         <h1>Happy {{today}}!, log in below</h1>
         <div class="control-group"><input type="text" ng-model="login" class="input-xlarge" placeholder="Enter your username"/></div>
@@ -144,5 +148,6 @@
 </div>
 
 <script data-main="js/main" src="lib/require/require-2.1.0.js"></script>
+
 </body>
 </html>

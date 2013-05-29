@@ -1,5 +1,5 @@
 'use strict';
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-27
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-28
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -7,7 +7,8 @@
 
 define(['angular'], function (angular) {
 //Handles the section area of the app
-angular.module('umbraco').controller("NavigationController", function ($scope, $window, tree, section, $rootScope, $routeParams, dialog) {
+angular.module('umbraco').controller("NavigationController", 
+    function ($scope, $window, $log, tree, section, $rootScope, $routeParams, dialog) {
     loadTree($routeParams.section);
     
     $scope.currentSection = $routeParams.section;
@@ -15,19 +16,18 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
     $scope.sections = section.all();
 
     $scope.ui.mode = setMode;
-    $scope.ui.mode("default");
-
+    $scope.ui.mode("default-onload");
 
     $scope.openSection = function (selectedSection) {
         //reset everything
-        $scope.ui.mode("default");
-        $("#search-form input").focus();
-
-        section.setCurrent(selectedSection.alias);
-
-        $scope.currentSection = selectedSection.alias;
-        $scope.showSectionTree(selectedSection);
+        if($scope.ui.stickyNavigation){
+            $scope.ui.mode("default-opensection");
+            section.setCurrent(selectedSection.alias);
+            $scope.currentSection = selectedSection.alias;
+            $scope.showSectionTree(selectedSection);
+        }
     };
+
     $scope.showSectionTree = function (section) {
         if(!$scope.ui.stickyNavigation){
             $("#search-form input").focus();
@@ -35,9 +35,10 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
             $scope.ui.mode("tree");
         }
     };
+
     $scope.hideSectionTree = function () {
         if(!$scope.ui.stickyNavigation){
-            $scope.ui.mode("default");
+            $scope.ui.mode("default-hidesectiontree");
         }
     };
 
@@ -80,7 +81,7 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
     };    
 
     $scope.hideNavigation = function () {
-        $scope.ui.mode("default");
+        $scope.ui.mode("default-hidenav");
     };
 
     $scope.setTreePadding = function(item) {
@@ -103,6 +104,7 @@ angular.module('umbraco').controller("NavigationController", function ($scope, $
 
     //function to turn navigation areas on/off
     function setMode(mode){
+
             switch(mode)
             {
             case 'tree':
@@ -165,7 +167,7 @@ angular.module('umbraco').controller("SearchController", function ($scope, searc
     };    
 
     $scope.hideSearch = function () {
-       $scope.ui.mode("default");
+       $scope.ui.mode("default-hidesearch");
     };
 
     $scope.iterateResults = function (direction) {
@@ -187,7 +189,8 @@ angular.module('umbraco').controller("DashboardController", function ($scope, $r
 
 
 //handles authentication and other application.wide services
-angular.module('umbraco').controller("MainController", function ($scope, notifications, $routeParams, userFactory) {
+angular.module('umbraco').controller("MainController", 
+    function ($scope, notifications, $routeParams, userFactory, localizationFactory) {
     
     //also be authed for e2e test
     var d = new Date();
@@ -200,18 +203,21 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
         mode: undefined
     };
 
+
     $scope.signin = function () {
-        $scope.authenticated = user.authenticate($scope.login, $scope.password);
+        $scope.authenticated = userFactory.authenticate($scope.login, $scope.password);
 
         if($scope.authenticated){
-            $scope.user = user.getCurrentUser();
+            $scope.user = userFactory.getCurrentUser();
+            $scope.localization = localizationFactory.getLabels($scope.user.locale);
         }
     };
 
     $scope.signout = function () {
-        user.signout();
+        userFactory.signout();
         $scope.authenticated = false;
     };
+    
 
     //subscribes to notifications in the notification service
     $scope.notifications = notifications.current;
@@ -234,19 +240,21 @@ angular.module('umbraco').controller("MainController", function ($scope, notific
     };
 
     $scope.closeDialogs = function(event){
-        if($(event.target).parents(".umb-modalcolumn").size() == 0){ 
-            $scope.ui.mode("default");
-            //jQuery(".umb-modalcolumn").hide();
+        if($scope.ui.stickyNavigation && $(event.target).parents(".umb-modalcolumn").size() == 0){ 
+            $scope.ui.mode("default-closedialogs");
         }
     };
 
-    if ($scope.authenticated) {
-        $scope.user = userFactory.getCurrentUser();
-    }else{    
+    if (userFactory.authenticated) {
+        $scope.signin();
+    }
+    
+/*
+    else{    
         $scope.$on('$viewContentLoaded', function() {
             $scope.signin();
         });
-    }
+    }*/
 });
 
 
@@ -264,6 +272,10 @@ angular.module("umbraco").controller("Umbraco.Dialogs.MacroPickerController", fu
 angular.module("umbraco").controller("Umbraco.Dialogs.MediaPickerController", function ($scope, mediaFactory) {	
 	$scope.images = mediaFactory.rootMedia();
 });
+angular.module("umbraco").controller("Umbraco.Common.LegacyController", 
+	function($scope, $routeParams){
+		$scope.legacyPath = decodeURI($routeParams.p);
+	});
 angular.module('umbraco').controller("Umbraco.Editors.ContentCreateController", function ($scope, $routeParams,contentTypeFactory) {	
 	$scope.allowedTypes  = contentTypeFactory.getAllowedTypes($scope.currentNode.id);	
 });
@@ -314,7 +326,24 @@ angular.module("umbraco").controller("Umbraco.Editors.CodeMirrorController", fun
 
         });
 });
-angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", function ($rootScope, $scope, notifications) {
+angular.module("umbraco").controller("Umbraco.Editors.DatepickerController", function ($rootScope, $scope, notifications, $timeout) {
+    require(
+        [
+            'views/propertyeditors/umbraco/datepicker/bootstrap.datepicker.js'
+        ],
+        function () {
+        	var pickerId = $scope.model.alias;
+
+        	$("#" + pickerId).datepicker({
+        		format: "dd/mm/yyyy",
+        		autoclose: true
+        	}).on("changeDate", function (e) {
+				$scope.model.value = e.date;
+        	});
+        }
+    );
+});
+angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", function ($rootScope, $scope, notifications, $timeout) {
     require(
         [
             'async!http://maps.google.com/maps/api/js?sensor=false'
@@ -338,9 +367,7 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
                 draggable: true
             });
             
-            //fixes the maps resize issue due to dynamic loading
-            google.maps.event.trigger(map, "resize");    
-
+             
             google.maps.event.addListener(marker, "dragend", function(e){
                 var newLat = marker.getPosition().lat();
                 var newLng = marker.getPosition().lng();
@@ -354,9 +381,12 @@ angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", fun
                 });
             });
 
-            google.maps.event.addListenerOnce(map, 'idle', function() {
+            //hack to hook into tab switching for map resizing
+            $('a[data-toggle="tab"]').on('shown', function (e) {
                 google.maps.event.trigger(map, 'resize');
-            });
+            })
+
+
         }
     );    
 });
@@ -507,14 +537,10 @@ angular.module("umbraco")
                 setup : function(editor) {
                         
                         editor.on('blur', function(e) {
-                            
-//                            alert(editor.getContent());
-
                             $scope.$apply(function(){
                                 //$scope.model.value = e.getBody().innerHTML;
                                 $scope.model.value = editor.getContent();
                             })
-
                         });
 
                         editor.addButton('mediapicker', {
@@ -523,13 +549,14 @@ angular.module("umbraco")
                             onclick: function(){
                                 dialog.mediaPicker({scope: $scope, callback: function(data){
                                  
-                                    //really simple exemple on how to intergrate a service with tinyMCE
+                                    //really simple example on how to intergrate a service with tinyMCE
                                     $(data.selection).each(function(i,img){
                                             var data = {
                                                 src: img.thumbnail,
                                                 style: 'width: 100px; height: 100px',
                                                 id : '__mcenew'
                                             };
+                                            
                                             editor.insertContent(editor.dom.createHTML('img', data));
                                             var imgElm = editor.dom.get('__mcenew');
                                             editor.dom.setAttrib(imgElm, 'id', null);
@@ -567,6 +594,29 @@ angular.module("umbraco")
 
         });
 });
+angular.module("umbraco").controller("Umbraco.Editors.TagsController", 
+	function($rootScope, $scope, dialog, $log, tagsFactory) {	
+		
+		require( 
+		[
+			'/belle/views/propertyeditors/umbraco/tags/bootstrap-tags.custom.js',
+			'css!/belle/views/propertyeditors/umbraco/tags/bootstrap-tags.custom.css'
+		],function(){
+		
+			// Get data from tagsFactory
+			$scope.tags = tagsFactory.getTags("group");
+
+			// Initialize bootstrap-tags.js script
+	        var tags = $('#' + $scope.model.alias + "_tags").tags({
+	            tagClass: 'label-inverse'
+	        });
+
+        	$.each($scope.tags, function(index, tag) {
+				tags.addTag(tag.label);
+        	});
+		});
+	}
+);
 
 return angular;
 });

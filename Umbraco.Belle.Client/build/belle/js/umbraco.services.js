@@ -136,7 +136,7 @@ return{
 };
 }]);	
 angular.module('umbraco.services.notifications', [])
-.factory('notifications', function ($rootScope) {
+.factory('notifications', function ($rootScope, $timeout) {
 
 	var nArray = [];
 
@@ -144,7 +144,8 @@ angular.module('umbraco.services.notifications', [])
 		var index = nArray.length;
 		nArray.push(item);
 
-		setTimeout(function () {
+
+		$timeout(function () {
 			$rootScope.$apply(function() {
 				nArray.splice(index, 1);
 			});
@@ -178,6 +179,7 @@ angular.module('umbraco.services.notifications', [])
 		}
 	};
 });
+//script loader wrapping around 3rd party loader
 angular.module('umbraco.services.search', [])
 .factory('search', function () {
 	return {
@@ -263,10 +265,10 @@ angular.module('umbraco.services.tree', [])
 						alias: section,
 
 						children: [
-							{ name: "My website", id: 1234, icon: "icon-home", view: section + "/edit/" + 1234, children: [], expanded: false, level: 1 },
-							{ name: "Components", id: 1235, icon: "icon-cogs", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1 },
-							{ name: "Archieve", id: 1236, icon: "icon-folder-close", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1 },
-							{ name: "Recycle Bin", id: 1237, icon: "icon-trash", view: section + "/trash/view/", children: [], expanded: false, level: 1 }
+							{ name: "My website", id: 1234, icon: "icon-home", view: section + "/edit/" + 1234, children: [], expanded: false, level: 1, defaultAction: "create" },
+							{ name: "Components", id: 1235, icon: "icon-cogs", view: section + "/edit/" + 1235, children: [], expanded: false, level: 1, defaultAction: "create"  },
+							{ name: "Archieve", id: 1236, icon: "icon-folder-close", view: section + "/edit/" + 1236, children: [], expanded: false, level: 1, defaultAction: "create"  },
+							{ name: "Recycle Bin", id: 1237, icon: "icon-trash", view: section + "/trash/view/", children: [], expanded: false, level: 1, defaultAction: "create"  }
 						]
 					};
 					break;
@@ -366,11 +368,18 @@ angular.module('umbraco.services.tree', [])
 
 			getChildren: function (treeItem, section) {
 				var iLevel = treeItem.level + 1;
+
+				//hack to have create as default content action
+				var action;
+				if(section === "content"){
+					action = "create";
+				}
+
 				return [
-					{ name: "child-of-" + treeItem.name, id: iLevel + "" + 1234, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1234, children: [], expanded: false, level: iLevel },
-					{ name: "random-name-" + section, id: iLevel + "" + 1235, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1235, children: [], expanded: false, level: iLevel },
-					{ name: "random-name-" + section, id: iLevel + "" + 1236, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1236, children: [], expanded: false, level: iLevel },
-					{ name: "random-name-" + section, id: iLevel + "" + 1237, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1237, children: [], expanded: false, level: iLevel }
+					{ name: "child-of-" + treeItem.name, id: iLevel + "" + 1234, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1234, children: [], expanded: false, level: iLevel, defaultAction: action },
+					{ name: "random-name-" + section, id: iLevel + "" + 1235, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1235, children: [], expanded: false, level: iLevel, defaultAction: action  },
+					{ name: "random-name-" + section, id: iLevel + "" + 1236, icon: "icon-file-alt", view: section + "/edit/" + iLevel + "" + 1236, children: [], expanded: false, level: iLevel, defaultAction: action  },
+					{ name: "random-name-" + section, id: iLevel + "" + 1237, icon: "icon-file-alt", view: "common/legacy/1237?p=" + encodeURI("developer/contentType.aspx?idequal1234"), children: [], expanded: false, level: iLevel, defaultAction: action  }
 				];
 			}
 		};

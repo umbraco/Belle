@@ -1,7 +1,7 @@
 angular.module('umbraco.resources.user', [])
 .factory('userFactory', function () {
 
-  var _currentUser,_authenticated = true; //jQuery.cookie('authed') == "authenticated";       
+  var _currentUser,_authenticated = (jQuery.cookie('authed') === "authenticated");       
   var _mockedU = { 
     name: "Per Ploug", 
     avatar: "assets/img/avatar.jpeg", 
@@ -9,7 +9,6 @@ angular.module('umbraco.resources.user', [])
     authenticated: true,
     locale: 'da-DK' 
   };
-
 
   if(_authenticated){
     _currentUser = _mockedU; 
@@ -23,7 +22,7 @@ angular.module('umbraco.resources.user', [])
       _authenticated = true;
       _currentUser = _mockedU;
       
-      jQuery.cookie('authed', "authenticated");
+      jQuery.cookie('authed', "authenticated", {expires: 1});
       return _authenticated; 
     },
     

@@ -1,4 +1,4 @@
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-27
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-28
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -13,6 +13,7 @@ angular.module('umbraco.resources.content', [])
     var factory = {
         _cachedItems: contentArray,
         getContent: function (id) {
+
 
             if (contentArray[id] !== undefined){
                 return contentArray[id];
@@ -30,21 +31,20 @@ angular.module('umbraco.resources.content', [])
 
                 tabs: [
                 {
-                    label: "Tab 0",
+                    label: "Child documents",
                     alias: "tab00",
                     properties: [
                     { alias: "list", label: "List", view: "umbraco.listview", value: "", hideLabel: true }
                     ]
                 },
                 {
-                    label: "Tab 1",
+                    label: "Content",
                     alias: "tab01",
                     properties: [
-                    { alias: "bodyText", label: "Body Text", description:"Here you enter the primary article contents", view: "umbraco.rte", value: "<p>askjdkasj lasjd</p>" },
-                    { alias: "textarea", label: "textarea", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 4 } },
-                    { alias: "map", label: "Map", view: "umbraco.googlemaps", value: "37.4419,-122.1419", config: { mapType: "ROADMAP", zoom: 4 } },
-                    { alias: "upload", label: "Upload file", view: "umbraco.fileupload", value: "" },
-                    { alias: "media", label: "Media picker", view: "umbraco.mediapicker", value: "" }
+                        { alias: "bodyText", label: "Body Text", description:"Here you enter the primary article contents", view: "umbraco.rte", value: "<p>askjdkasj lasjd</p>" },
+                        { alias: "textarea", label: "textarea", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 4 } },
+                        { alias: "map", label: "Map", view: "umbraco.googlemaps", value: "37.4419,-122.1419", config: { mapType: "ROADMAP", zoom: 4 } },
+                        { alias: "media", label: "Media picker", view: "umbraco.mediapicker", value: "" }
                     ]
                 },
                 {
@@ -52,7 +52,9 @@ angular.module('umbraco.resources.content', [])
                     alias: "tab02",
                     properties: [
                         { alias: "sampleProperty", label: "Sample 1", view: "umbraco.sample", value: "Hello World" },
-                        { alias: "samplePropertyTwo", label: "Sample 2", view: "umbraco.sampletwo", value: 1234, config: { rows: 7 } }
+                        { alias: "samplePropertyTwo", label: "Sample 2", view: "umbraco.sampletwo", value: 1234, config: { rows: 7 } },
+                        { alias: "datepicker", label: "Datepicker", view: "umbraco.datepicker", config: { rows: 7 } },
+                        { alias: "tags", label: "Tags", view: "umbraco.tags", value: ""}
                     ]
                 },
                 {
@@ -65,6 +67,8 @@ angular.module('umbraco.resources.content', [])
                 ]
             };
 
+            // return undefined;
+
             return content;
         },
 
@@ -76,7 +80,7 @@ angular.module('umbraco.resources.content', [])
 
             var c = this.getContent(parentId);
             c.name = "empty name";
-            
+
             $.each(c.tabs, function(index, tab){
                 $.each(tab.properties,function(index, property){
                     property.value = "";
@@ -94,17 +98,17 @@ angular.module('umbraco.resources.content', [])
                     offset: 0,
                     filter: ''
                 };
-            }  
+            }
 
-            var collection = {take: 10, total: 68, pages: 7, currentPage: options.offset, filter: options.filter};    
+            var collection = {take: 10, total: 68, pages: 7, currentPage: options.offset, filter: options.filter};
             collection.total = 56 - (options.filter.length);
             collection.pages = Math.round(collection.total / collection.take);
             collection.resultSet = [];
-            
+
             if(collection.total < options.take){
                 collection.take = collection.total;
             }else{
-                collection.take = options.take;    
+                collection.take = options.take;
             }
 
 
@@ -112,8 +116,8 @@ angular.module('umbraco.resources.content', [])
             for (var i = 0; i < collection.take; i++) {
                 _id = (parentId + i) * options.offset;
                 var cnt = this.getContent(_id);
-                
-                //here we fake filtering    
+
+                //here we fake filtering
                 if(options.filter !== ''){
                     cnt.name = options.filter + cnt.name;
                 }
@@ -138,6 +142,7 @@ angular.module('umbraco.resources.content', [])
 
     return factory;
 });
+
 angular.module('umbraco.resources.contentType', [])
 .factory('contentTypeFactory', function () {
     return {
@@ -179,6 +184,45 @@ angular.module('umbraco.resources.contentType', [])
 
       };
 });
+angular.module('umbraco.resources.localization', [])
+.factory('localizationFactory', function () {
+  var localizationArray = [];
+  var labels = {};
+
+  var factory = {
+    _cachedItems: localizationArray,
+    getLabels: function (language) {
+      /* 
+        Fetch from JSON object according to users language settings
+        $http.get('model.:language.json') ish solution
+       */
+      labels = {
+        language: 'en-UK',
+        app: {
+          search: {
+            typeToSearch: "Type to search",
+            searchResult: "Search result"
+          },
+          help: "Help" 
+        },
+        content: {
+          modelName: "Content",
+          contextMenu: {
+            createPageLabel: "Create a page under %name"
+          }
+        }
+      };
+
+
+
+      return labels;
+    },
+    getLanguage: function() {
+      return labels.language;
+    }
+  };
+  return factory;
+}); 
 angular.module('umbraco.resources.macro', [])
 .factory('macroFactory', function () {
     
@@ -237,6 +281,21 @@ angular.module('umbraco.resources.media', [])
       }
   };
 });
+angular.module('umbraco.resources.tags', [])
+.factory('tagsFactory', function () {
+	return {
+
+		getTags: function (group) {
+			var g = [
+				{"id":1, "label":"Jordbærkage"},
+				{"id":2, "label":"Banankage"},
+				{"id":3, "label":"Kiwikage"},
+				{"id":4, "label":"Rabarbertærte"}
+			];
+			return g;
+		}
+	};
+});
 angular.module('umbraco.resources.template', [])
 .factory('templateFactory', function () {
 	return {
@@ -262,7 +321,7 @@ angular.module('umbraco.resources.template', [])
 angular.module('umbraco.resources.user', [])
 .factory('userFactory', function () {
 
-  var _currentUser,_authenticated = true; //jQuery.cookie('authed') == "authenticated";       
+  var _currentUser,_authenticated = (jQuery.cookie('authed') === "authenticated");       
   var _mockedU = { 
     name: "Per Ploug", 
     avatar: "assets/img/avatar.jpeg", 
@@ -270,7 +329,6 @@ angular.module('umbraco.resources.user', [])
     authenticated: true,
     locale: 'da-DK' 
   };
-
 
   if(_authenticated){
     _currentUser = _mockedU; 
@@ -284,7 +342,7 @@ angular.module('umbraco.resources.user', [])
       _authenticated = true;
       _currentUser = _mockedU;
       
-      jQuery.cookie('authed', "authenticated");
+      jQuery.cookie('authed', "authenticated", {expires: 1});
       return _authenticated; 
     },
     

@@ -19,10 +19,12 @@
 
 <ul class="umb-tree">
     <li class="root">
-        <h5>
-            <a class="root-link">{{tree.name}}</a><i class="umb-options"><i></i><i></i><i></i></i>
-        </h5>
-    
+        <div>
+            <h5>
+                <a class="root-link">{{tree.name}}</a><i class="umb-options"><i></i><i></i><i></i></i>
+            </h5>
+        </div>
+
         <ul>
             <li class="file" ng-repeat="node in tree.children" 
              ng-class="{current:node.id == selectedId}" 

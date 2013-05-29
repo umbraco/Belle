@@ -20,35 +20,33 @@
   background: @grayLighter;
 }
 
-.umb-sub-header {
-	padding: 0 0 20px 0;
-}
-
 .umb-listview table {
-	border-top: 1px solid @grayLight;
-  border-right: 1px solid @grayLight;
-  border-bottom: 1px solid @grayLight;
+	border: 1px solid @grayLight;
 }
 
 .umb-listview table caption {
   background: @white;
   text-align: left;
-  padding: 0 0 20px 0;
   vertical-align: middle;
 }
 
-.umb-listview table caption form {
-  position: relative
+.umb-sub-header {
+  padding: 0 0 20px 0
 }
 
-.umb-listview table caption form .icon-search {
+.umb-listview table form {
+  position: relative;
+  margin: 0
+}
+
+.umb-listview table form .icon-search {
   position: absolute;
   top: 8px;
   left:5px;
   color: @gray
 }
 
-.umb-listview table caption input[type="text"] {
+.umb-listview table input[type="text"] {
   background: none;
   border: none;
   -webkit-transition: all .5s;
@@ -56,27 +54,27 @@
   transition: all .5s;
   width: 60px;
   padding: 4px 0 4px 20px;
-  border: 1px solid @white
+  border: 1px solid @grayLighter
 }
 
-.umb-listview table caption input::-webkit-input-placeholder {
+.umb-listview table input::-webkit-input-placeholder {
    color: @gray;
 }
 
-.umb-listview table caption input:-moz-placeholder {
+.umb-listview table input:-moz-placeholder {
    color: @gray;
 }
 
-.umb-listview table caption input::-moz-placeholder {
+.umb-listview table input::-moz-placeholder {
    color: @gray;
 }
 
-.umb-listview table caption input:-ms-input-placeholder
+.umb-listview table input:-ms-input-placeholder
  {
    color: @gray;
 }
 
-.umb-listview table caption input[type="text"]:focus {
+.umb-listview table input[type="text"]:focus {
   width: 200px;
   border: 1px solid @grayLight;
   background: @white;
@@ -90,6 +88,7 @@
 .umb-listview table thead {
   font-size: 11px;
   font-weight: 600;
+  text-transform: uppercase;
   background-color: @grayLighter;
 }
 
@@ -153,4 +152,42 @@
   background: none;
   font-size: 11px;
   color: #b0b0b0
+}
+
+.umb-listview .pagination ul > li.active > a, .umb-listview .pagination ul > li > a:hover {
+  color: @black;
+}
+
+/* TEMP */
+
+.table-striped tbody td {
+  position: relative
+}
+
+.table-striped tbody input[type="checkbox"] {
+  display: block;
+  position: absolute;
+  top: 10px;
+  left:10px;
+  z-index: 5;
+}
+
+.table-striped tbody i {
+  display: block;
+  position: absolute;
+  top: 10px;
+  left:6px;
+  padding: 0 0 0 4px;
+  z-index: 6;
+  background: @white;
+  width: 20px;
+  height: 20px;
+}
+
+.table-striped tbody > tr:nth-child(even) > td i, .table-striped tbody > tr:nth-child(even) > th i{
+  background-color: @grayLighter
+}
+
+.table-striped tbody i:hover {
+  display: none !important
 }

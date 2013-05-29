@@ -4,10 +4,10 @@ _The super fast introduction to getting belle running on your local machine, bot
 
 ##Running the prebuilt site
 
-*Windows*
+###Windows
 Right-click the `/build` folder and choose "open in webmatrix", run the website in webmatrix and browse to `localhost:xxxx/Belle/`, this should display the Belle login screen
 
-*OSX*
+###OSX
 Open a terminal inside the "/build" folder and run the command:
 
 	python -m SimpleHTTPServer 8080
@@ -41,6 +41,10 @@ So run the command:
 	npm install grunt-cli -g
 
 *note:* On windows you might need to restart explorer.exe to register the grunt cmd.
+
+*note:* On OSX you might need to run:
+	
+	sudo npm install grunt-cli -g
 
 Now that you have node and grunt installed, you can open `/Umbraco.Belle.Client` in either `cmd.exe` or terminal and run: 
 

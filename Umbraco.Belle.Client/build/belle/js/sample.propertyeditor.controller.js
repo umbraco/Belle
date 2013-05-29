@@ -10,7 +10,7 @@ define(['angular'], function (angular) {
 	//Next we get the umbraco module, so we can register a controller on it
 	angular.module('umbraco')
 		.controller("Sample.PropertyEditorController", function($scope, $log, dialog){
-
+			
 			//we could then output the scope data to the log:
 			$log.log($scope.model);
 
