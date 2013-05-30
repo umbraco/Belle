@@ -367,8 +367,8 @@
 			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
 			this.picker.css({
-				top: offset.top + height - 280,
-				left: offset.left,
+				top: offset.top + height - 275, // Hack: Hardcoded number to ensure the picker is placed correct
+				left: offset.left + 46, // Hack: Hardcoded number to ensure the picker is placed correct
 				zIndex: zIndex
 			});
 		},
