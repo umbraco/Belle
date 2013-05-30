@@ -240,11 +240,4 @@ angular.module('umbraco').controller("MainController",
     if (userFactory.authenticated) {
         $scope.signin();
     }
-    
-/*
-    else{    
-        $scope.$on('$viewContentLoaded', function() {
-            $scope.signin();
-        });
-    }*/
 });
