@@ -1,27 +1,39 @@
-﻿<umb-panel>
+﻿<umb-panel ng-controller="Umbraco.Editors.ContentEditController">  
+    <umb-header>
+            <div class="span4">
+                <input type="text" placeholder="Enter a page title" headline ng-model="content.name" />
+            </div>
+
+            <div class="span8">
+                <div class="btn-toolbar pull-right umb-btn-toolbar">
+                    <div class="btn-group">
+                        <a class="btn" ng-click="preview(content)" 
+                        data-shortcut="ctrl+s">Preview page</a>
+                    </div>
+
+                    <div class="btn-group">
+                        <a class="btn btn-success" href="#" ng-click="saveAndPublish(content)"
+                           prevent-default data-shortcut="ctrl+p">Publish</a>
+
+                        <a class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li><a href="#" ng-click="save(content)"
+                                   prevent-default data-shortcut="ctrl+s">Save draft</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    </umb-header>
 
     <umb-tab-view>
-
-        <umb-tab
-            name="tab.name"
-            alias="tab.alias"
-            ng-repeat="tab in content.tabs">
-
-            <umb-property
-                label="prop.label"
-                alias="prop.alias"
-                ng-repeat="model in tab.properties">
-
-            </umb-property>
-
+        <umb-tab title="{{tab.label}}" id="{{tab.alias}}" ng-repeat="tab in content.tabs">
+            <umb-property ng-repeat="model in tab.properties"></umb-property>
         </umb-tab>
-
-        <umb-tab name="Hej hej" alias="properties">
-
+        <umb-tab title="Hej hej" id="properties">
             <p>Props tab</p>
-
         </umb-tab>
-
     </umb-tab-view>
-
 </umb-panel>

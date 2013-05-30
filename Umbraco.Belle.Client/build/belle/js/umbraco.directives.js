@@ -1,4 +1,4 @@
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-28
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-30
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -169,6 +169,51 @@ angular.module('umbraco.directives', [])
     };
 })
 
+.directive('umbHeader', function($parse, $timeout){
+    return {
+        restrict: 'E',
+        replace: true,
+        transclude: 'true',
+        templateUrl: '/belle/views/directives/umb-header.html',
+
+        compile: function compile(tElement, tAttrs, transclude) {
+              return function postLink(scope, iElement, iAttrs, controller) {
+
+                  scope.panes = [];
+                  var $panes = $('div.tab-content');
+
+                  var activeTab = 0, _id, _title, _active;
+                  $timeout(function() {
+
+                    $panes.find('.tab-pane').each(function(index) {
+                      var $this = angular.element(this);
+                      var _scope = $this.scope();
+
+                      _id = $this.attr("id");
+                      _title = $this.attr('title');
+                      _active = !_active && $this.hasClass('active');
+
+                      if(iAttrs.fade){$this.addClass('fade');}
+
+                      scope.panes.push({
+                        id: _id,
+                        title: _title,
+                        active: _active
+                      });
+
+                    });
+
+                    if(scope.panes.length && !_active) {
+                      $panes.find('.tab-pane:first-child').addClass('active' + (iAttrs.fade ? ' in' : ''));
+                      scope.panes[0].active = true;
+                    }
+
+                  }); //end timeout
+              }; //end postlink
+        }
+    };
+})
+
 .directive('umbTabView', function(){
     return {
         restrict: 'E',
@@ -183,6 +228,12 @@ angular.module('umbraco.directives', [])
         restrict: 'E',
         replace: true,
         transclude: 'true',
+        
+        scope: {
+                    title: '@',
+                    id: '@'
+                },
+
         templateUrl: '/belle/views/directives/umb-tab.html'
     };
 })
@@ -192,10 +243,7 @@ angular.module('umbraco.directives', [])
         restrict: 'E',
         replace: true,
         transclude: 'true',
-        templateUrl: '/belle/views/directives/umb-property.html',
-        link: function(scope, elem, attrs) {
-            scope.$eval(attrs.model);
-        }
+        templateUrl: '/belle/views/directives/umb-property.html'
     };
 })
 
@@ -218,8 +266,6 @@ angular.module('umbraco.directives', [])
     priority: 100,        // We need this directive to happen before ng-model
     terminal: false,       // We are going to deal with this element
     compile: function(element, attrs) {
-
-      $log.log("compiling view");
       // Extract the label and validation message info from the directive's original element
       //var validationMessages = getValidationMessageMap(element);
       //var labelContent = getLabelContent(element);
@@ -235,44 +281,7 @@ angular.module('umbraco.directives', [])
         loadTemplate(path || 'error.html').then(function(templateElement) {
           // Set up the scope - the template will have its own scope, which is a child of the directive's scope
           var childScope = scope.$new();
-          // Attach a copy of the message map to the scope
-          //childScope.$validationMessages = angular.copy(validationMessages);
-          // Generate an id for the field from the ng-model expression and the current scope
-          // We replace dots with underscores to work with browsers and ngModel lookup on the FormController
-          // We couldn't do this in the compile function as we need to be able to calculate the unique id from the scope
-          //childScope.$fieldId = attrs.ngModel.replace('.', '_').toLowerCase() + '_' + childScope.$id;
-          //childScope.$fieldLabel = labelContent;
-
-          // Update the $fieldErrors array when the validity of the field changes
-          /*childScope.$watch('$field.$dirty && $field.$error', function(errorList) {
-            childScope.$fieldErrors = [];
-            angular.forEach(errorList, function(invalid, key) {
-              if ( invalid ) {
-                childScope.$fieldErrors.push(key);
-              }
-            });
-          }, true);
-          */
-
-          // Copy over all left over attributes to the input element
-          /* We can't use interpolation in the template for directives such as ng-model
-          var inputElement = findInputElement(templateElement);
-          angular.forEach(attrs.$attr, function (original, normalized) {
-            var value = element.attr(original);
-            inputElement.attr(original, value);
-          });*/
-
-          // Wire up the input (id and name) and its label (for).
-          // We need to set the input element's name here before we compile the template.
-          /* If we leave it to be interpolated at the next $digest the formController doesn't pick it up
-          inputElement.attr('name', childScope.$fieldId);
-          inputElement.attr('id', childScope.$fieldId);
-          var labelElement = templateElement.find('label');
-          labelElement.attr('for', childScope.$fieldId);
-          // Update the label's contents
-          labelElement.html(labelContent);
-          */
-
+          
           // Place our template as a child of the original element.
           // This needs to be done before compilation to ensure that it picks up any containing form.
           element.append(templateElement);

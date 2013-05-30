@@ -1,0 +1,12 @@
+<div class="umb-panel-header">
+    <div class="row-fluid">
+    	
+    	<div ng-transclude></div>
+
+    	<ul class="nav nav-tabs umb-nav-tabs span12">
+    	    <li ng-class="{active: $first}" ng-repeat="pane in panes">
+    	        <a href="#{{pane.id}}" data-toggle="tab">{{ pane.title }}</a>
+    	    </li>
+    	</ul>	
+    </div>
+</div>
