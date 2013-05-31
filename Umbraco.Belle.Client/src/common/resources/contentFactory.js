@@ -37,7 +37,8 @@ angular.module('umbraco.resources.content', [])
                         { alias: "bodyText", label: "Body Text", description:"Here you enter the primary article contents", view: "umbraco.rte", value: "<p>askjdkasj lasjd</p>" },
                         { alias: "textarea", label: "textarea", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 4 } },
                         { alias: "map", label: "Map", view: "umbraco.googlemaps", value: "37.4419,-122.1419", config: { mapType: "ROADMAP", zoom: 4 } },
-                        { alias: "media", label: "Media picker", view: "umbraco.mediapicker", value: "" }
+                        { alias: "media", label: "Media picker", view: "umbraco.mediapicker", value: "" },
+                        { alias: "content", label: "Content picker", view: "umbraco.contentpicker", value: "" }
                     ]
                 },
                 {

@@ -6375,11 +6375,13 @@ legend + .control-group {
   min-width: 100%;
 }
 
-.umb-tree li.current > div {
+.umb-tree li.current > div,
+.umb-tree div.selected {
   background: #2e8aea;
 }
 
-.umb-tree li.current > div i.umb-options i {
+.umb-tree li.current > div i.umb-options i,
+.umb-tree div.selected i {
   background: #fff;
   border-color: #2e8aea;
 }

@@ -5,11 +5,20 @@ angular.module('umbraco.services.tree', [])
 		var currentSection = "content";
 
 		return {
-			getTree: function (section) {
-				if (treeArray[section] !== undefined){
-					return treeArray[section];
+			getTree: function (options) {
+
+				if(options === undefined){
+					options = {};
 				}
-			
+
+				var section = options.section || 'content';
+				var cacheKey = options.cachekey || '';
+				cacheKey += "_" + section;	
+
+				if (treeArray[cacheKey] !== undefined){
+					return treeArray[cacheKey];
+				}
+				
 				var t;
 				switch(section){
 
@@ -70,8 +79,8 @@ angular.module('umbraco.services.tree', [])
 					break;
 				}				
 
-				treeArray[section] = t;
-				return treeArray[section];
+				treeArray[cacheKey] = t;
+				return treeArray[cacheKey];
 			},
 
 			getActions: function(treeItem, section){
@@ -97,7 +106,14 @@ angular.module('umbraco.services.tree', [])
 				];
 			},	
 
-			getChildActions: function(treeItem, section){
+			getChildActions: function(options){
+
+				if(options === undefined){
+					options = {};
+				}
+				var section = options.section || 'content';
+				var treeItem = options.node;
+
 				return [
 				{ name: "Create", cssclass: "plus", alias: "create" },
 
@@ -120,7 +136,14 @@ angular.module('umbraco.services.tree', [])
 				];
 			},
 
-			getChildren: function (treeItem, section) {
+			getChildren: function (options) {
+
+				if(options === undefined){
+					options = {};
+				}
+				var section = options.section || 'content';
+				var treeItem = options.node;
+
 				var iLevel = treeItem.level + 1;
 
 				//hack to have create as default content action

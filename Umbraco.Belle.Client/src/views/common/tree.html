@@ -1,19 +1,19 @@
 ﻿<script type="text/ng-template"  id="tree_item_renderer.html">
-    <div ng-style="setTreePadding(node)">
-        <ins ng-class="{'icon-caret-right': !node.expanded, 'icon-caret-down': node.expanded}" 
-             ng-click="getTreeChildren(node)"></ins>
+        <div ng-style="setTreePadding(node)">
+            <ins ng-class="{'icon-caret-right': !node.expanded, 'icon-caret-down': node.expanded}" 
+                 ng-click="getTreeChildren(node)"></ins>
 
-        <i class="icon umb-tree-icon sprTree {{node.icon}}"></i>
+            <i class="icon umb-tree-icon sprTree {{node.icon}}"></i>
 
-        <a ng-href="#{{node.view}}">{{node.name}}</a>
-        <i class="umb-options" ng-click="showContextMenu(node, $event)"><i></i><i></i><i></i></i>
-    </div>
+            <a ng-href="#{{node.view}}">{{node.name}}</a>
+            <i class="umb-options" ng-click="showCon    textMenu(node, $event)"><i></i><i></i><i></i></i>
+        </div>
 
-    <ul ng-class="{collapsed: !node.expanded}">
-        <li ng-repeat="node in node.children" 
-            ng-class="{current:node.id == selectedId}" 
-            ng-include="'tree_item_renderer.html'"></li>
-    </ul>
+        <ul ng-class="{collapsed: !node.expanded}">
+            <li ng-repeat="node in node.children" 
+                ng-class="{current:node.id == selectedId}" 
+                ng-include="'tree_item_renderer.html'"></li>
+        </ul>
 </script>
 
 

@@ -1,7 +1,6 @@
 //Handles the section area of the app
 angular.module('umbraco').controller("NavigationController", 
     function ($scope, $window, $log, tree, section, $rootScope, $routeParams, dialog) {
-    loadTree($routeParams.section);
     
     $scope.currentSection = $routeParams.section;
     $scope.selectedId = $routeParams.id;
@@ -9,6 +8,10 @@ angular.module('umbraco').controller("NavigationController",
 
     $scope.ui.mode = setMode;
     $scope.ui.mode("default-onload");
+
+    $scope.$on("treeOptionsClick", function(ev, node){
+            $scope.showMenu(node, ev);
+    });
 
     $scope.openSection = function (selectedSection) {
         //reset everything
@@ -23,7 +26,7 @@ angular.module('umbraco').controller("NavigationController",
     $scope.showSectionTree = function (section) {
         if(!$scope.ui.stickyNavigation){
             $("#search-form input").focus();
-            loadTree(section.alias);
+            $scope.currentSection = section.alias;
             $scope.ui.mode("tree");
         }
     };
@@ -34,20 +37,22 @@ angular.module('umbraco').controller("NavigationController",
         }
     };
 
-    $scope.showContextMenu = function (item, ev) {
-        if(ev != undefined && item.defaultAction && !ev.altKey){
+    $scope.showMenu = function (node, event) {
+        $log.log("testing the show meny");
+
+        if(event != undefined && node.defaultAction && !event.altKey){
             //hack for now, it needs the complete action object to, so either include in tree item json
             //or lookup in service...
             var act = {
-                        alias: item.defaultAction,
-                        name: item.defaultAction
+                        alias: node.defaultAction,
+                        name: node.defaultAction
                     };
-             $scope.showContextDialog(item, act);
+             $scope.showContextDialog(node, act);
        }else{
-            $scope.contextMenu = tree.getActions(item, $scope.section);
-            $scope.currentNode = item;
-            $scope.menuTitle = item.name;
-            $scope.selectedId = item.id;
+            $scope.contextMenu = tree.getActions({node: node, section: $scope.section});
+            $scope.currentNode = node;
+            $scope.menuTitle = node.name;
+            $scope.selectedId = node.id;
             $scope.ui.mode("menu");
         }
     };
@@ -76,22 +81,9 @@ angular.module('umbraco').controller("NavigationController",
         $scope.ui.mode("default-hidenav");
     };
 
-    $scope.setTreePadding = function(item) {
-        return { 'padding-left': (item.level * 20) + "px" };
-    };
-    $scope.getTreeChildren = function (node) {
-        if (node.expanded){
-            node.expanded = false;
-            node.children = [];
-        }else {
-            node.children =  tree.getChildren(node, $scope.currentSection);
-            node.expanded = true;
-        }   
-    };
-
     function loadTree(section) {
         $scope.currentSection = section;
-        $scope.tree =  tree.getTree($scope.currentSection);
+        
     }
 
     //function to turn navigation areas on/off

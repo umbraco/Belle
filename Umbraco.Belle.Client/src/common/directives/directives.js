@@ -231,6 +231,8 @@ angular.module('umbraco.directives', [])
     };
 })
 
+
+
 .directive('umbProperty', function(){
     return {
         restrict: 'E',
@@ -240,6 +242,93 @@ angular.module('umbraco.directives', [])
     };
 })
 
+
+.directive('umbTree', function ($compile, $log, tree) {
+  return {
+      restrict: 'E',
+      terminal: true,
+
+      scope: {
+            section: '@',
+            showoptions: '@',
+            showheader: '@',
+            cachekey: '@',
+            preventdefault: '@',
+            node:'='
+          },
+      link: function (scope, element, attrs) {
+
+        //config
+        var showheader = (scope.showheader === 'false') ? false : true;
+        var showoptions = (scope.showoptions === 'false') ? false : true;
+        var _preventDefault = (scope.preventdefault === 'true') ? "prevent-default" : "";
+
+        var template;
+        var rootTemplate = '<ul class="umb-tree">' + 
+                              '<li class="root">';
+
+                              if(showheader){ 
+                                rootTemplate +='<div>' + 
+                                  '<h5><a class="root-link">{{tree.name}}</a><i class="umb-options"><i></i><i></i><i></i></i></h5>' + 
+                                '</div>';
+                                } 
+
+            rootTemplate +=     '<ul><li ng-repeat="val in tree.children">' + 
+                                      '<umb-tree node="val" preventdefault="{{preventdefault}}" showheader="{{showheader}}" showoptions="{{showoptions}}" section="{{section}}"></umb-tree>' +
+                                '</li></ul>' +   
+                              '</li>' + 
+                            '</ul>';
+
+        var treeTemplate = '<ul ng-class="{collapsed: !node.expanded}"><li ng-repeat="val in node.children"><umb-tree section="{{section}}" preventdefault="{{preventdefault}}" showheader="{{showheader}}" showoptions="{{showoptions}}" node="val"></umb-tree></li></ul>';                
+        var itemTemplate = '<div ng-style="setTreePadding(node)">' +
+                              '<ins ng-class="{\'icon-caret-right\': !node.expanded, \'icon-caret-down\': node.expanded}" ng-click="load(node)"></ins>' +
+                              '<i class="icon umb-tree-icon sprTree {{node.icon}}"></i>' +
+                                '<a ng-click="select(this, node, $event)" ng-href="#{{node.view}}" ' + _preventDefault + '>{{node.name}}</a>';
+        if(showoptions){
+            itemTemplate +=  '<i class="umb-options" ng-click="options(node, $event)"><i></i><i></i><i></i></i>';
+        }  
+        itemTemplate +=     '</div>';
+
+
+        if(scope.node === undefined){
+            scope.tree = tree.getTree({section:scope.section, cachekey: scope.cachekey});
+            template = rootTemplate;
+        }else{
+            template = itemTemplate + treeTemplate;
+        }
+
+        scope.options = function(n, event){ 
+            $log.log("emitting options");
+            scope.$emit("treeOptionsClick", n);
+        };
+
+        scope.select = function(e,n,ev){
+            $log.log("emitting select");
+            scope.$emit("treeNodeSelect", {element: e, node: n, event: ev});
+        };
+
+        scope.load = function (node) {
+                  if (node.expanded){
+                      node.expanded = false;
+                      node.children = [];
+                  }else {
+                      node.children =  tree.getChildren({node: node, section: scope.section});
+                      node.expanded = true;
+                  }   
+          };
+
+          scope.setTreePadding = function(node) {
+              return { 'padding-left': (node.level * 20) + "px" };
+          };
+
+          
+
+          var newElement = angular.element(template);
+          $compile(newElement)(scope);
+          element.replaceWith(newElement);
+      }
+  };
+})
 
 .directive('include', function($compile, $http, $templateCache, $interpolate, $log) {
 

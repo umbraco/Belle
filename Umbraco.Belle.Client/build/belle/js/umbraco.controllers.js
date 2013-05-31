@@ -1,5 +1,5 @@
 'use strict';
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-30
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-31
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -9,7 +9,6 @@ define(['angular'], function (angular) {
 //Handles the section area of the app
 angular.module('umbraco').controller("NavigationController", 
     function ($scope, $window, $log, tree, section, $rootScope, $routeParams, dialog) {
-    loadTree($routeParams.section);
     
     $scope.currentSection = $routeParams.section;
     $scope.selectedId = $routeParams.id;
@@ -17,6 +16,10 @@ angular.module('umbraco').controller("NavigationController",
 
     $scope.ui.mode = setMode;
     $scope.ui.mode("default-onload");
+
+    $scope.$on("treeOptionsClick", function(ev, node){
+            $scope.showMenu(node, ev);
+    });
 
     $scope.openSection = function (selectedSection) {
         //reset everything
@@ -31,7 +34,7 @@ angular.module('umbraco').controller("NavigationController",
     $scope.showSectionTree = function (section) {
         if(!$scope.ui.stickyNavigation){
             $("#search-form input").focus();
-            loadTree(section.alias);
+            $scope.currentSection = section.alias;
             $scope.ui.mode("tree");
         }
     };
@@ -42,20 +45,22 @@ angular.module('umbraco').controller("NavigationController",
         }
     };
 
-    $scope.showContextMenu = function (item, ev) {
-        if(ev != undefined && item.defaultAction && !ev.altKey){
+    $scope.showMenu = function (node, event) {
+        $log.log("testing the show meny");
+
+        if(event != undefined && node.defaultAction && !event.altKey){
             //hack for now, it needs the complete action object to, so either include in tree item json
             //or lookup in service...
             var act = {
-                        alias: item.defaultAction,
-                        name: item.defaultAction
+                        alias: node.defaultAction,
+                        name: node.defaultAction
                     };
-             $scope.showContextDialog(item, act);
+             $scope.showContextDialog(node, act);
        }else{
-            $scope.contextMenu = tree.getActions(item, $scope.section);
-            $scope.currentNode = item;
-            $scope.menuTitle = item.name;
-            $scope.selectedId = item.id;
+            $scope.contextMenu = tree.getActions({node: node, section: $scope.section});
+            $scope.currentNode = node;
+            $scope.menuTitle = node.name;
+            $scope.selectedId = node.id;
             $scope.ui.mode("menu");
         }
     };
@@ -84,22 +89,9 @@ angular.module('umbraco').controller("NavigationController",
         $scope.ui.mode("default-hidenav");
     };
 
-    $scope.setTreePadding = function(item) {
-        return { 'padding-left': (item.level * 20) + "px" };
-    };
-    $scope.getTreeChildren = function (node) {
-        if (node.expanded){
-            node.expanded = false;
-            node.children = [];
-        }else {
-            node.children =  tree.getChildren(node, $scope.currentSection);
-            node.expanded = true;
-        }   
-    };
-
     function loadTree(section) {
         $scope.currentSection = section;
-        $scope.tree =  tree.getTree($scope.currentSection);
+        
     }
 
     //function to turn navigation areas on/off
@@ -250,7 +242,14 @@ angular.module('umbraco').controller("MainController",
     }
 });
 
-
+//used for the media picker dialog
+angular.module("umbraco").controller("Umbraco.Dialogs.ContentPickerController", function ($scope, mediaFactory) {	
+	
+	$scope.$on("treeNodeSelect", function(event, args){
+		$(args.event.target.parentElement).find("i").attr("class", "icon umb-tree-icon sprTree icon-check blue");
+		$scope.select(args.node);
+	});
+});
 //used for the macro picker dialog
 angular.module("umbraco").controller("Umbraco.Dialogs.MacroPickerController", function ($scope, macroFactory) {	
 	$scope.macros = macroFactory.all(true);
@@ -319,23 +318,41 @@ angular.module("umbraco").controller("Umbraco.Editors.CodeMirrorController", fun
 
         });
 });
+//this controller simply tells the dialogs service to open a mediaPicker window
+//with a specified callback, this callback will receive an object with a selection on it
+angular.module('umbraco').controller("Umbraco.Editors.ContentPickerController", function($rootScope, $scope, dialog, $log){
+    $scope.openContentPicker =function(value){
+            var d = dialog.contentPicker({scope: $scope, callback: populate});
+    };
+
+    function populate(data){
+        $scope.model.value = data.selection;    
+    }
+});
 angular.module("umbraco").controller("Umbraco.Editors.DatepickerController", function ($rootScope, $scope, notifications, $timeout) {
     require(
         [
-            'views/propertyeditors/umbraco/datepicker/bootstrap.datepicker.js'
+            'views/propertyeditors/umbraco/datepicker/bootstrap.datepicker.js',
+            'css!/belle/views/propertyeditors/umbraco/datepicker/bootstrap.datepicker.css'
         ],
         function () {
-        	var pickerId = $scope.model.alias;
+            //The Datepicker js and css files are available and all components are ready to use.
 
-        	$("#" + pickerId).datepicker({
-        		format: "dd/mm/yyyy",
-        		autoclose: true
-        	}).on("changeDate", function (e) {
-				$scope.model.value = e.date;
-        	});
+            // Get the id of the datepicker button that was clicked
+            var pickerId = $scope.model.alias;
+
+            // Open the datepicker and add a changeDate eventlistener
+            $("#" + pickerId).datepicker({
+                format: "dd/mm/yyyy",
+                autoclose: true
+            }).on("changeDate", function (e) {
+                // When a date is clicked the date is stored in model.value as a ISO 8601 date
+                $scope.model.value = e.date.toISOString();
+            });
         }
     );
 });
+
 angular.module("umbraco").controller("Umbraco.Editors.GoogleMapsController", function ($rootScope, $scope, notifications, $timeout) {
     require(
         [
@@ -500,7 +517,7 @@ angular.module("umbraco")
 });
 //this controller simply tells the dialogs service to open a mediaPicker window
 //with a specified callback, this callback will receive an object with a selection on it
-angular.module('umbraco').controller("mediaPickerController", function($rootScope, $scope, dialog, $log){
+angular.module('umbraco').controller("Umbraco.Editors.MediaPickerController", function($rootScope, $scope, dialog, $log){
     $scope.openMediaPicker =function(value){
             var d = dialog.mediaPicker({scope: $scope, callback: populate});
     };
