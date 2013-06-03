@@ -10,20 +10,21 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-testacular');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-markdown');
-  grunt.loadNpmTasks('grunt-docular');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
   // Default task.
   grunt.registerTask('default', ['jshint:dev','build','testacular:unit']);
-  grunt.registerTask('dev', ['jshint:dev', 'build', 'server', 'open:dev', 'watch']);
+  grunt.registerTask('dev', ['jshint:dev', 'build', 'webserver', 'open:dev', 'watch']);
 
   //run by the watch task
   grunt.registerTask('watch-build', ['jshint:dev','recess:build','testacular:unit','concat','copy']);
   
   //triggered from grunt dev or grunt
-  grunt.registerTask('build', ['clean','concat','recess:build','copy', 'docs']);
+  grunt.registerTask('build', ['clean','concat','recess:build','copy']);
 
-  //part of build
-  grunt.registerTask('docs', ['markdown','docular']);
+  //utillity tasks
+  grunt.registerTask('docs', ['markdown']);
+  grunt.registerTask('webserver', ['connect:devserver']);
 
   // Print a timestamp (useful for when watching)
   grunt.registerTask('timestamp', function() {
@@ -38,14 +39,31 @@ module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    server: {
-        port: 8081,
-        base: './build'
-    },
+    connect: {
+             devserver: {
+               options: {
+                 port: 8080,
+                 hostname: '0.0.0.0',
+                 base: './build',
+                 keepalive: true,
+                 middleware: function(connect, options){
+                   return [
+                     //uncomment to enable CSP
+                     // util.csp(),
+                     //util.rewrite(),
+                     connect.favicon('images/favicon.ico'),
+                     connect.static(options.base),
+                     connect.directory(options.base)
+                   ];
+                 }
+               }
+             },
+             testserver: {}
+           },
 
     open : {
       dev : {
-        path: 'http://127.0.0.1:8081/belle/'
+        path: 'http://127.0.0.1:8081/belle/index.html'
       }
     },
 
@@ -218,12 +236,6 @@ module.exports = function (grunt) {
         }
     },
 
-    docular: {
-            showAngularDocs: true, //parse and render Angular documentation
-            showDocularDocs: true, //parse and render Docular documentation
-            docAPIOrder : ['doc', 'angular'], //order to load ui resources
-            groups: [] //groups of documentation to parse
-    },
 
     jshint:{
       dev:{

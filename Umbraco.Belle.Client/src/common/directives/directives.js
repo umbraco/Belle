@@ -290,13 +290,6 @@ angular.module('umbraco.directives', [])
         itemTemplate +=     '</div>';
 
 
-        if(scope.node === undefined){
-            scope.tree = tree.getTree({section:scope.section, cachekey: scope.cachekey});
-            template = rootTemplate;
-        }else{
-            template = itemTemplate + treeTemplate;
-        }
-
         scope.options = function(n, event){ 
             $log.log("emitting options");
             scope.$emit("treeOptionsClick", n);
@@ -321,11 +314,24 @@ angular.module('umbraco.directives', [])
               return { 'padding-left': (node.level * 20) + "px" };
           };
 
+          function loadTree(){
+              if(scope.node === undefined){
+                  scope.tree = tree.getTree({section:scope.section, cachekey: scope.cachekey});
+                  template = rootTemplate;
+              }else{
+                  template = itemTemplate + treeTemplate;
+              }
+              var newElement = angular.element(template);
+              $compile(newElement)(scope);
+              element.replaceWith(newElement);
+          }
           
-
-          var newElement = angular.element(template);
-          $compile(newElement)(scope);
-          element.replaceWith(newElement);
+          scope.$watch("section",function (newVal, oldVal) {
+               if(newVal !== oldVal){
+                  loadTree();
+               }
+          });
+          loadTree();
       }
   };
 })

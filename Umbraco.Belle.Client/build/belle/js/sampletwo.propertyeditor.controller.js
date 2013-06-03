@@ -5,7 +5,7 @@
 //this is strictly a require.js convention
 //we are working in making that simpler (and been advised to ditch requirejs)
 
-define(['angular'], function (angular) {
+define(['app','angular'], function (app, angular) {
 
 	//Next we get the umbraco module, so we can register a controller on it
 	angular.module('umbraco')
