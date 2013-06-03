@@ -11,7 +11,7 @@
     "url": "https://github.com/umbraco/Belle/issues"
   },
   "licenses": [
-    { 
+    {
       "type": "MIT",
       "url": "https://raw.github.com/umbraco/belle/master/LICENSE"
     }
@@ -32,6 +32,8 @@
     "grunt-testacular": "~0.3.0",
     "grunt-html2js": "~0.1.0",
     "grunt-contrib-watch": "~0.3.1",
-    "grunt-markdown": "~0.2.0"
+    "grunt-markdown": "~0.2.0",
+    "grunt-docular": "~0.1.1",
+    "grunt-open": "~0.2.0"
   }
 }

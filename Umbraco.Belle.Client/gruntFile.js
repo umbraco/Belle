@@ -8,14 +8,22 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-recess');
   grunt.loadNpmTasks('grunt-testacular');
+  grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-markdown');
+  grunt.loadNpmTasks('grunt-docular');
 
   // Default task.
   grunt.registerTask('default', ['jshint:dev','build','testacular:unit']);
+  grunt.registerTask('dev', ['jshint:dev', 'build', 'server', 'open:dev', 'watch']);
+
+  //run by the watch task
   grunt.registerTask('watch-build', ['jshint:dev','recess:build','testacular:unit','concat','copy']);
+  
+  //triggered from grunt dev or grunt
   grunt.registerTask('build', ['clean','concat','recess:build','copy', 'docs']);
-  grunt.registerTask('docs', ['markdown']);
-  grunt.registerTask('test-watch', ['testacular:watch']);
+
+  //part of build
+  grunt.registerTask('docs', ['markdown','docular']);
 
   // Print a timestamp (useful for when watching)
   grunt.registerTask('timestamp', function() {
@@ -30,6 +38,17 @@ module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    server: {
+        port: 8081,
+        base: './build'
+    },
+
+    open : {
+      dev : {
+        path: 'http://127.0.0.1:8081/belle/'
+      }
+    },
+
     distdir: 'build/belle',
     pkg: grunt.file.readJSON('package.json'),
     banner:
@@ -110,7 +129,7 @@ module.exports = function (grunt) {
         src:['src/views/**/*.controller.js'],
         dest: '<%= distdir %>/js/umbraco.controllers.js',
         options:{
-          banner: "'use strict';\n<%= banner %>\ndefine(['angular'], function (angular) {\n",
+          banner: "'use strict';\n<%= banner %>\ndefine(['app', 'angular'], function (app, angular) {\n",
           footer: "\n\nreturn angular;\n});"
         }
       },
@@ -118,7 +137,7 @@ module.exports = function (grunt) {
         src:['src/common/services/*.js'],
         dest: '<%= distdir %>/js/umbraco.services.js',
         options:{
-          banner: "'use strict';\ndefine(['angular'], function (angular) {\n",
+          banner: "'use strict';\ndefine(['app','angular'], function (app, angular) {\n",
           footer: "\n\nreturn angular;\n});"
         }
       },
@@ -126,7 +145,7 @@ module.exports = function (grunt) {
         src:['src/common/resources/*.js'],
         dest: '<%= distdir %>/js/umbraco.resources.js',
         options:{
-          banner: "<%= banner %>'use strict';\ndefine(['angular'], function (angular) {\n",
+          banner: "<%= banner %>'use strict';\ndefine(['app', 'angular'], function (app, angular) {\n",
           footer: "\n\nreturn angular;\n});"
         }
       },
@@ -134,7 +153,7 @@ module.exports = function (grunt) {
         src:['src/common/directives/*.js'],
         dest: '<%= distdir %>/js/umbraco.directives.js',
         options:{
-          banner: "<%= banner %>'use strict';\ndefine(['angular'], function (angular) {\n",
+          banner: "<%= banner %>'use strict';\ndefine(['app','angular'], function (app, angular) {\n",
           footer: "\n\nreturn angular;\n});"
         }
       },
@@ -186,10 +205,6 @@ module.exports = function (grunt) {
     },
 
     watch:{
-      all: {
-        files:['<%= src.everything %>'],
-        tasks:['watch-build','timestamp']
-      },
       build: {
         files:['<%= src.everything %>'],
         tasks:['watch-build','timestamp']
@@ -200,8 +215,15 @@ module.exports = function (grunt) {
         all: {
           files: ['docs/src/*.md'],
           dest: 'docs/html/'
-        }  
-    },  
+        }
+    },
+
+    docular: {
+            showAngularDocs: true, //parse and render Angular documentation
+            showDocularDocs: true, //parse and render Docular documentation
+            docAPIOrder : ['doc', 'angular'], //order to load ui resources
+            groups: [] //groups of documentation to parse
+    },
 
     jshint:{
       dev:{

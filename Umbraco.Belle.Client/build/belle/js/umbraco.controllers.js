@@ -1,11 +1,11 @@
 'use strict';
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-05-31
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-06-03
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
  */
 
-define(['angular'], function (angular) {
+define(['app', 'angular'], function (app, angular) {
 //Handles the section area of the app
 angular.module('umbraco').controller("NavigationController", 
     function ($scope, $window, $log, tree, section, $rootScope, $routeParams, dialog) {
