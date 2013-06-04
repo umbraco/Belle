@@ -6400,12 +6400,12 @@ legend + .control-group {
   border: none;
 }
 
-.umb-modal .thumbnails > li:first-child {
+.umb-modal .thumbnails > li:nth-child(2) {
   margin: 0 0 20px 0;
 }
 
 .umb-modal .thumbnails > li {
-  margin: 0 0 20px 20px;
+  margin: 0 20px 20px 0;
   background: #000000;
 }
 
@@ -6416,6 +6416,31 @@ legend + .control-group {
 .umb-modal .thumbnails .selected img,
 .umb-modal .thumbnails img:hover {
   opacity: 0.5;
+}
+
+.umb-modal .thumbnails > li.folder {
+  display: block;
+  width: 120px;
+  height: 120px;
+  font-size: 12px;
+  text-align: center;
+  background: #f8f8f8;
+}
+
+.umb-modal .thumbnails > li.folder .icon-folder-close {
+  display: block;
+  font-size: 96px;
+  color: #d9d9d9;
+}
+
+.umb-modal .thumbnails > li.folder a {
+  display: block;
+  width: 120px;
+  height: 120px;
+}
+
+.umb-modal .thumbnails > li.folder a:hover {
+  text-decoration: none;
 }
 
 .umb-tree {
