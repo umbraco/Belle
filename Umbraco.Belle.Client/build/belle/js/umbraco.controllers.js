@@ -10,17 +10,37 @@ define(['app', 'angular'], function (app, angular) {
 angular.module('umbraco').controller("NavigationController",
     function ($scope, navigationService) {
     
+    //load navigation service handlers
+    $scope.changeSection = navigationService.changeSection;    
+    $scope.showTree = navigationService.showTree;
+    $scope.hideTree = navigationService.hideTree;
+    $scope.hideMenu = navigationService.hideMenu;
+    $scope.showMenu = navigationService.showMenu;
+    $scope.hideDialog = navigationService.hideDialog;
+    $scope.hideNavigation = navigationService.hideNavigation;
+    $scope.ui = navigationService.ui;    
+
     $scope.selectedId = navigationService.currentId;
     $scope.sections = navigationService.sections();
     
     //events
-    $scope.$on("treeOptionsClick", function(ev, node){
-            navigationService.showMenu(node, ev);
+    $scope.$on("treeOptionsClick", function(ev, args){
+            $scope.currentNode = args.node;
+            args.scope = $scope;
+            navigationService.showMenu(ev, args);
     });
+
+    $scope.openDialog = function(currentNode,action,currentSection){
+        navigationService.showDialog({
+                                        scope: $scope,
+                                        node: currentNode,
+                                        action: action,
+                                        section: currentSection});
+    };
 });
 
 
-angular.module('umbraco').controller("SearchController", function ($scope, search, $log) {
+angular.module('umbraco').controller("SearchController", function ($scope, search, $log, navigationService) {
 
     var currentTerm = "";
     $scope.deActivateSearch = function(){
@@ -31,20 +51,16 @@ angular.module('umbraco').controller("SearchController", function ($scope, searc
         if(term != undefined && term != currentTerm){
             if(term.length > 3){
                 $scope.ui.selectedSearchResult = -1;
-                $scope.ui.mode("search");
-
+                navigationService.showSearch();
                 currentTerm = term;
                 $scope.ui.searchResults = search.search(term, $scope.currentSection);
-
             }else{
                 $scope.ui.searchResults = [];
             }
         }
     };    
 
-    $scope.hideSearch = function () {
-       $scope.ui.mode("default-hidesearch");
-    };
+    $scope.hideSearch = navigationService.hideSearch;
 
     $scope.iterateResults = function (direction) {
        if(direction == "up" && $scope.ui.selectedSearchResult < $scope.ui.searchResults.length) 
@@ -54,7 +70,7 @@ angular.module('umbraco').controller("SearchController", function ($scope, searc
     };
 
     $scope.selectResult = function () {
-        $scope.showContextMenu($scope.ui.searchResults[$scope.ui.selectedSearchResult], undefined);
+        navigationService.showMenu($scope.ui.searchResults[$scope.ui.selectedSearchResult], undefined);
     };
 });
 
@@ -73,15 +89,7 @@ angular.module('umbraco').controller("MainController",
     var weekday = new Array("Super Sunday", "Manic Monday", "Tremendous Tuesday", "Wonderfull Wednesday", "Thunder Thursday", "Friendly Friday", "Shiny Saturday");
     $scope.today = weekday[d.getDay()];
 
-    //load navigation service handlers
-    $scope.changeSection = navigationService.changeSection;    
-    $scope.showTree = navigationService.showTree;
-    $scope.hideTree = navigationService.hideTree;
-    $scope.hideMenu = navigationService.hideMenu;
-    $scope.showDialog = navigationService.showDialog;
-    $scope.hideDialog = navigationService.hideDialog;
-    $scope.hideNavigation = navigationService.hideNavigation;
-    $scope.ui = navigationService.ui;
+    
 
     $scope.signin = function () {
         $scope.authenticated = userFactory.authenticate($scope.login, $scope.password);

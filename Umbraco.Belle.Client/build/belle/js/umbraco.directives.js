@@ -250,7 +250,7 @@ angular.module('umbraco.directives', [])
 })
 
 
-.directive('umbTree', function ($compile, $log, tree) {
+.directive('umbTree', function ($compile, $log, treeService) {
   return {
       restrict: 'E',
       terminal: true,
@@ -292,13 +292,13 @@ angular.module('umbraco.directives', [])
                               '<i class="icon umb-tree-icon sprTree {{node.icon}}"></i>' +
                                 '<a ng-click="select(this, node, $event)" ng-href="#{{node.view}}" ' + _preventDefault + '>{{node.name}}</a>';
         if(showoptions){
-            itemTemplate +=  '<i class="umb-options" ng-click="options(node, $event)"><i></i><i></i><i></i></i>';
+            itemTemplate +=  '<i class="umb-options" ng-click="options(this, node, $event)"><i></i><i></i><i></i></i>';
         }  
         itemTemplate +=     '</div>';
 
 
-        scope.options = function(n, event){ 
-            scope.$emit("treeOptionsClick", n);
+        scope.options = function(e, n, ev){ 
+            scope.$emit("treeOptionsClick", {element: e, node: n, event: ev});
         };
 
         scope.select = function(e,n,ev){
@@ -310,7 +310,7 @@ angular.module('umbraco.directives', [])
                       node.expanded = false;
                       node.children = [];
                   }else {
-                      node.children =  tree.getChildren({node: node, section: scope.section});
+                      node.children =  treeService.getChildren({node: node, section: scope.section});
                       node.expanded = true;
                   }   
           };
@@ -321,7 +321,7 @@ angular.module('umbraco.directives', [])
 
           function loadTree(){
               if(scope.node === undefined){
-                  scope.tree = tree.getTree({section:scope.section, cachekey: scope.cachekey});
+                  scope.tree = treeService.getTree({section:scope.section, cachekey: scope.cachekey});
                   template = rootTemplate;
               }else{
                   template = itemTemplate + treeTemplate;

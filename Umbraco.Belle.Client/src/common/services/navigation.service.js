@@ -1,12 +1,10 @@
 angular.module('umbraco.services.navigation', [])
-.factory('navigationService', function ($rootScope, $routeParams, $log, dialog) {
+.factory('navigationService', function ($rootScope, $routeParams, $log, dialog, treeService) {
 
 	var _currentSection = $routeParams.section;
 	var _currentId = $routeParams.id;
 	var _currentNode;
 	var _ui = {};
-	var _actions = [];
-	var _menuTitle = "";
 
 	function _setMode(mode){
 		switch(mode)
@@ -16,6 +14,8 @@ angular.module('umbraco.services.navigation', [])
 			_ui.showContextMenu = false;
 			_ui.showContextMenuDialog = false;
 			_ui.stickyNavigation = false;
+
+			$("#search-form input").focus();
 			break;
 			case 'menu':
 			_ui.showNavigation = true;
@@ -47,15 +47,8 @@ angular.module('umbraco.services.navigation', [])
 	}
 
 	return {
-		
-		actions: _actions,
-		currentSection: _currentSection,
 		currentNode: _currentNode,
-		currentId: _currentId,
-
-		stickyNavigation: false,
 		mode: "default",
-		menuTitle: _menuTitle,
 		ui: _ui,
 
 		sections: function(){
@@ -79,10 +72,8 @@ angular.module('umbraco.services.navigation', [])
 		},
 
 		showTree: function(sectionAlias){
-
 			if(!this.ui.stickyNavigation && sectionAlias !== this.ui.currentTree){
 				$log.log("show tree" + sectionAlias);
-				$("#search-form input").focus();
 				this.ui.currentTree = sectionAlias;
 				_setMode("tree");
 			}
@@ -96,44 +87,51 @@ angular.module('umbraco.services.navigation', [])
 			}
 		},
 
-		showMenu: function (node, event) {
+		showMenu: function (event, args) {
 			$log.log("testing the show meny");
 
-			if(event !== undefined && node.defaultAction && !event.altKey){
+			if(args.event !== undefined && args.node.defaultAction && !args.event.altKey){
 				//hack for now, it needs the complete action object to, so either include in tree item json
 				//or lookup in service...
 				var act = {
-					alias: node.defaultAction,
-					name: node.defaultAction
+					alias: args.node.defaultAction,
+					name: args.node.defaultAction
 				};
 
-				this.showDialog(node, act);
-
+				this.ui.currentNode = args.node;
+				this.showDialog({
+								scope: args.scope,
+								node: args.node,
+								action: act,
+								section: this.ui.currentTree
+							});
 			}else{
-				this.actions = tree.getActions({node: node, section: $scope.section});
-				this.currentNode = node;
-				this.menuTitle = node.name;
-				_selectedId = node.id;
 				_setMode("menu");
+				_ui.actions = treeService.getActions({node: args.node, section: this.ui.currentTree});
+				
+
+				this.ui.currentNode = args.node;
+				this.ui.dialogTitle = args.node.name;
 			}
 		},
 
 		hideMenu: function () {
 			_selectedId = $routeParams.id;
-			this.contextMenu = [];
+			this.ui.currentNode = undefined;
+			this.ui.actions = [];
 			_setMode("tree");
 		},
 
-		showDialog: function (item, action) {
+		showDialog: function (args) {
 			_setMode("dialog");
 
-			var _scope = $rootScope.$new();
-			_scope.currentNode = item;
+			var _scope = args.scope || $rootScope.$new();
+			_scope.currentNode = args.node;
 
 			//this.currentNode = item;
-			this.dialogTitle = action.name;
+			this.ui.dialogTitle = args.action.name;
 
-			var templateUrl = "views/" + _currentSection + "/" + action.alias + ".html";
+			var templateUrl = "views/" + this.ui.currentTree + "/" + args.action.alias + ".html";
 			var d = dialog.append(
 						{
 							container: $("#dialog div.umb-panel-body"),
@@ -143,11 +141,23 @@ angular.module('umbraco.services.navigation', [])
 		},
 
 		hideDialog: function() {
-			this.showMenu(this.currentNode, undefined);
+			$log.log("hide dialog");
+			this.showMenu(undefined, {node: this.ui.currentNode});
+		},
+
+		showSearch: function() {
+			_setMode("search");
+		},
+
+		hideSearch: function() {
+			_setMode("default-hidesearch");
 		},
 
 		hideNavigation: function(){
-			this.ui.currentSection = "";
+			this.ui.currentTree = "";
+			this.ui.actions = [];
+			this.ui.currentNode = undefined;
+
 			_setMode("default");
 		}
 	};
