@@ -9,8 +9,8 @@ var app = angular.module('umbraco', [
   	'umbraco.resources.user',
     'umbraco.resources.localization',
     'umbraco.resources.tags',
-  	'umbraco.services.section',
     'umbraco.services.notifications',
+    'umbraco.services.navigation',
   	'umbraco.services.tree',
   	'umbraco.services.dialog',
   	'umbraco.services.search'

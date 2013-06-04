@@ -1,130 +1,14 @@
 //Handles the section area of the app
-angular.module('umbraco').controller("NavigationController", 
-    function ($scope, $window, $log, tree, section, $rootScope, $routeParams, dialog) {
+angular.module('umbraco').controller("NavigationController",
+    function ($scope, navigationService) {
     
-    $scope.currentSection = $routeParams.section;
-    $scope.selectedId = $routeParams.id;
-    $scope.sections = section.all();
-
-    $scope.ui.mode = setMode;
-    $scope.ui.mode("default-onload");
-
+    $scope.selectedId = navigationService.currentId;
+    $scope.sections = navigationService.sections();
+    
+    //events
     $scope.$on("treeOptionsClick", function(ev, node){
-            $scope.showMenu(node, ev);
+            navigationService.showMenu(node, ev);
     });
-
-    $scope.openSection = function (selectedSection) {
-        //reset everything
-        if($scope.ui.stickyNavigation){
-            $scope.ui.mode("default-opensection");
-            section.setCurrent(selectedSection.alias);
-            $scope.currentSection = selectedSection.alias;
-            $scope.showSectionTree(selectedSection);
-        }
-    };
-
-    $scope.showSectionTree = function (section) {
-        if(!$scope.ui.stickyNavigation){
-            $("#search-form input").focus();
-            $scope.currentSection = section.alias;
-            $scope.ui.mode("tree");
-        }
-    };
-
-    $scope.hideSectionTree = function () {
-        if(!$scope.ui.stickyNavigation){
-            $scope.ui.mode("default-hidesectiontree");
-        }
-    };
-
-    $scope.showMenu = function (node, event) {
-        $log.log("testing the show meny");
-
-        if(event != undefined && node.defaultAction && !event.altKey){
-            //hack for now, it needs the complete action object to, so either include in tree item json
-            //or lookup in service...
-            var act = {
-                        alias: node.defaultAction,
-                        name: node.defaultAction
-                    };
-             $scope.showContextDialog(node, act);
-       }else{
-            $scope.contextMenu = tree.getActions({node: node, section: $scope.section});
-            $scope.currentNode = node;
-            $scope.menuTitle = node.name;
-            $scope.selectedId = node.id;
-            $scope.ui.mode("menu");
-        }
-    };
-
-    $scope.hideContextMenu = function () {
-        $scope.selectedId = $routeParams.id;
-        $scope.contextMenu = [];
-        $scope.ui.mode("tree");
-    };
-
-    $scope.showContextDialog = function (item, action) {
-        $scope.ui.mode("dialog");
-
-        $scope.currentNode = item;
-        $scope.dialogTitle = action.name;
-
-        var templateUrl = "views/" + $scope.currentSection + "/" + action.alias + ".html";
-        var d = dialog.append({container: $("#dialog div.umb-panel-body"), scope: $scope, template: templateUrl });
-    };    
-
-    $scope.hideContextDialog = function () {
-        $scope.showContextMenu($scope.currentNode, undefined);
-    };    
-
-    $scope.hideNavigation = function () {
-        $scope.ui.mode("default-hidenav");
-    };
-
-    function loadTree(section) {
-        $scope.currentSection = section;
-        
-    }
-
-    //function to turn navigation areas on/off
-    function setMode(mode){
-
-            switch(mode)
-            {
-            case 'tree':
-                $scope.ui.showNavigation = true;
-                $scope.ui.showContextMenu = false;
-                $scope.ui.showContextMenuDialog = false;
-                $scope.ui.stickyNavigation = false;
-                break;
-            case 'menu':
-                $scope.ui.showNavigation = true;
-                $scope.ui.showContextMenu = true;
-                $scope.ui.showContextMenuDialog = false;
-                $scope.ui.stickyNavigation = true;
-                break;
-            case 'dialog':
-                $scope.ui.stickyNavigation = true;
-                $scope.ui.showNavigation = true;
-                $scope.ui.showContextMenu = false;
-                $scope.ui.showContextMenuDialog = true;
-                break;
-            case 'search':
-                $scope.ui.stickyNavigation = false;
-                $scope.ui.showNavigation = true;
-                $scope.ui.showContextMenu = false;
-                $scope.ui.showSearchResults = true;
-                $scope.ui.showContextMenuDialog = false;
-                break;      
-            default:
-                $scope.ui.showNavigation = false;
-                $scope.ui.showContextMenu = false;
-                $scope.ui.showContextMenuDialog = false;
-                $scope.ui.showSearchResults = false;
-                $scope.ui.stickyNavigation = false;
-                break;
-            }
-    }
 });
 
 
@@ -174,26 +58,28 @@ angular.module('umbraco').controller("DashboardController", function ($scope, $r
 
 //handles authentication and other application.wide services
 angular.module('umbraco').controller("MainController", 
-    function ($scope, notifications, $routeParams, userFactory, localizationFactory) {
+    function ($scope, notifications, $routeParams, userFactory, navigationService) {
     
     //also be authed for e2e test
     var d = new Date();
     var weekday = new Array("Super Sunday", "Manic Monday", "Tremendous Tuesday", "Wonderfull Wednesday", "Thunder Thursday", "Friendly Friday", "Shiny Saturday");
     $scope.today = weekday[d.getDay()];
 
-    $scope.ui = {
-        showTree: false,
-        showSearchResults: false,
-        mode: undefined
-    };
-
+    //load navigation service handlers
+    $scope.changeSection = navigationService.changeSection;    
+    $scope.showTree = navigationService.showTree;
+    $scope.hideTree = navigationService.hideTree;
+    $scope.hideMenu = navigationService.hideMenu;
+    $scope.showDialog = navigationService.showDialog;
+    $scope.hideDialog = navigationService.hideDialog;
+    $scope.hideNavigation = navigationService.hideNavigation;
+    $scope.ui = navigationService.ui;
 
     $scope.signin = function () {
         $scope.authenticated = userFactory.authenticate($scope.login, $scope.password);
 
         if($scope.authenticated){
             $scope.user = userFactory.getCurrentUser();
-            $scope.localization = localizationFactory.getLabels($scope.user.locale);
         }
     };
 
@@ -211,21 +97,13 @@ angular.module('umbraco').controller("MainController",
         }
     });
 
-    //subscribes to auth status in $user
-    $scope.authenticated = userFactory.authenticated;
-    $scope.$watch('userFactory.authenticated', function (newVal, oldVal, scope) {
-        if (newVal) {
-            $scope.authenticated = newVal;
-        }
-    });
-
     $scope.removeNotification = function(index) {
         notifications.remove(index);
     };
 
     $scope.closeDialogs = function(event){
-        if($scope.ui.stickyNavigation && $(event.target).parents(".umb-modalcolumn").size() == 0){ 
-            $scope.ui.mode("default-closedialogs");
+        if(navigationService.ui.stickyNavigation && $(event.target).parents(".umb-modalcolumn").size() == 0){ 
+            navigationService.hideNavigation();
         }
     };
 

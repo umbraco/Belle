@@ -291,12 +291,10 @@ angular.module('umbraco.directives', [])
 
 
         scope.options = function(n, event){ 
-            $log.log("emitting options");
             scope.$emit("treeOptionsClick", n);
         };
 
         scope.select = function(e,n,ev){
-            $log.log("emitting select");
             scope.$emit("treeNodeSelect", {element: e, node: n, event: ev});
         };
 

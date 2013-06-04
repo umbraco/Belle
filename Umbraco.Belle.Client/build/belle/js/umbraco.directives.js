@@ -1,4 +1,4 @@
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-06-03
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-06-04
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -298,12 +298,10 @@ angular.module('umbraco.directives', [])
 
 
         scope.options = function(n, event){ 
-            $log.log("emitting options");
             scope.$emit("treeOptionsClick", n);
         };
 
         scope.select = function(e,n,ev){
-            $log.log("emitting select");
             scope.$emit("treeNodeSelect", {element: e, node: n, event: ev});
         };
 
