@@ -68,8 +68,62 @@
 .umb-modal.fade.in {
 	top: 0 !important;
 	left: 100% !important;
-	margin-left: -400px;
-	width: 400px !important;
+	margin-left: -440px;
+	width: 440px !important;
 	height: 100% !important;
 	display: block;
+}
+
+/* MEDIA PICKER */
+
+.umb-modal .umb-btn-toolbar {
+	margin: 10px 0 0 0
+}
+
+.umb-modal .form-search {
+  position: relative;
+  padding: 0;
+}
+
+.umb-modal .form-search input {
+  padding: 4px 24px;
+  width: 350px
+ }
+
+.umb-modal .form-search .icon-search {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  color: @grayLight;
+}
+
+.umb-modal i {
+  font-size: 14px;
+} 
+
+.umb-modal .breadcrumb {
+	background: none;
+	padding: 0
+}
+
+.umb-modal .thumbnail {
+	padding: 0;
+	border:none;
+}
+
+.umb-modal .thumbnails > li:first-child {
+	margin: 0 0 20px 0
+}
+
+.umb-modal .thumbnails > li {
+	margin: 0 0 20px 20px;
+	background: @black	
+}
+
+.umb-modal .thumbnail img {
+	height: 120px
+}
+
+.umb-modal .thumbnails .selected img, .umb-modal .thumbnails img:hover {
+	opacity: 0.5
 }
