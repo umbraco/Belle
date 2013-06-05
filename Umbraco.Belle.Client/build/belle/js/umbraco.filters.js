@@ -17,7 +17,7 @@ define([ 'app','angular'], function (app,angular) {
             if (!input) return input;
 
 			//Added logging here because this fires a ton of times and not sure that it should be!
-            $log.info("Filtering property editor view: " + input);
+            //$log.info("Filtering property editor view: " + input);
 
             var path = String(input);
             if (path.startsWith('/')) {

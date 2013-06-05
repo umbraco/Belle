@@ -1,5 +1,5 @@
 ﻿<umb-panel ng-controller="Umbraco.Editors.ContentEditController">  
-    <umb-header>
+    <umb-header tabs="content.tabs">
             <div class="span4">
                 <input type="text" placeholder="Enter a page title" headline ng-model="content.name" />
             </div>
@@ -29,11 +29,8 @@
     </umb-header>
 
     <umb-tab-view>
-        <umb-tab title="{{tab.label}}" id="{{tab.alias}}" ng-repeat="tab in content.tabs">
+        <umb-tab title="{{tab.label}}" id="{{elementId}}" rel="{{tab.id}}" ng-repeat="tab in content.tabs">
             <umb-property ng-repeat="model in tab.properties"></umb-property>
-        </umb-tab>
-        <umb-tab title="Hej hej" id="properties">
-            <p>Props tab</p>
         </umb-tab>
     </umb-tab-view>
 </umb-panel>

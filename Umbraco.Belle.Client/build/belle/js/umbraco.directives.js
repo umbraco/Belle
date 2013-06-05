@@ -4,7 +4,7 @@
  * Licensed MIT
  */
 'use strict';
-define(['app','angular'], function (app, angular) {
+define(['app','angular', 'underscore'], function (app, angular) {
 angular.module('umbraco.directives', [])
 .directive('val-regex', function () {
 
@@ -174,42 +174,53 @@ angular.module('umbraco.directives', [])
         restrict: 'E',
         replace: true,
         transclude: 'true',
-        templateUrl: '/belle/views/directives/umb-header.html',
+        templateUrl: 'views/directives/umb-header.html',
+        //create a new isolated scope assigning a tabs property from the attribute 'tabs'
+        //which is bound to the parent scope property passed in
+        scope: {
+            tabs: "="
+        },
+        link: function (scope, iElement, iAttrs) {
 
-        compile: function compile(tElement, tAttrs, transclude) {
-              return function postLink(scope, iElement, iAttrs, controller) {
+            if (!iAttrs.tabs)
+                throw "a 'tabs' attribute must be set for umbHeader which represents the collection of tabs";
 
-                  scope.panes = [];
-                  var $panes = $('div.tab-content');
+			var hasProcessed = false;
+				
+            //when the tabs change, we need to hack the planet a bit and force the first tab content to be active,
+            //unfortunately twitter bootstrap tabs is not playing perfectly with angular.
+            scope.$watch("tabs", function (newValue, oldValue) {
+                
+				//don't process if we cannot or have already done so
+				if (!newValue) return;
+                if (hasProcessed || !newValue.length || newValue.length == 0) return;                
+				
+				//set the flag
+				hasProcessed = true;
+				
+                var $panes = $('div.tab-content');
+                var activeTab = _.find(newValue, function (item) {
+                    return item.active;
+                });
+                //we need to do a timeout here so that the current sync operation can complete
+                // and update the UI, then this will fire and the UI elements will be available.
+                $timeout(function () {
+                    $panes.find('.tab-pane').each(function (index) {
+                        var $this = angular.element(this);
+                        var _scope = $this.scope();
+                        if (_scope.id == activeTab.id) {
+                            $this.addClass('active' + (iAttrs.fade ? ' in' : ''));
+                        }
+                        else {
+                            $this.removeClass('active');
+                        }
 
-                  var activeTab = 0, _id, _title, _active;
-                  $timeout(function() {
-
-                    $panes.find('.tab-pane').each(function(index) {
-                      var $this = angular.element(this);
-                      var _scope = $this.scope();
-
-                      _id = $this.attr("id");
-                      _title = $this.attr('title');
-                      _active = !_active && $this.hasClass('active');
-
-                      if(iAttrs.fade){$this.addClass('fade');}
-
-                      scope.panes.push({
-                        id: _id,
-                        title: _title,
-                        active: _active
-                      });
+                        if (iAttrs.fade) { $this.addClass('fade'); }
 
                     });
-
-                    if(scope.panes.length && !_active) {
-                      $panes.find('.tab-pane:first-child').addClass('active' + (iAttrs.fade ? ' in' : ''));
-                      scope.panes[0].active = true;
-                    }
-
-                  }); //end timeout
-              }; //end postlink
+                });
+                
+            });
         }
     };
 })
@@ -228,13 +239,18 @@ angular.module('umbraco.directives', [])
         restrict: 'E',
         replace: true,
         transclude: 'true',
-        
+        //assign isolated scope from the attributes
+        //NOTE: we use @rel because angular has a bug where 
+        // it cannot assign based on hyphenated attributes like
+        // data-tab-id (which should be dataTabId but it doesn't work)
         scope: {
-                    title: '@',
-                    id: '@'
+                    label: '@title',
+                    id: '@rel'
                 },
-
-        templateUrl: '/belle/views/directives/umb-tab.html'
+        templateUrl: 'views/directives/umb-tab.html',
+        link: function (scope, element, attrs) {
+            scope.elementId = "tab" + scope.id;
+        }
     };
 })
 
