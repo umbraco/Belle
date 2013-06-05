@@ -26,6 +26,8 @@ angular.module('umbraco.resources.content', [])
                 {
                     label: "Child documents",
                     alias: "tab00",
+					id: 0,
+					active: true,
                     properties: [
                     { alias: "list", label: "List", view: "umbraco.listview", value: "", hideLabel: true }
                     ]
@@ -33,6 +35,7 @@ angular.module('umbraco.resources.content', [])
                 {
                     label: "Content",
                     alias: "tab01",
+					id: 1,
                     properties: [
                         { alias: "bodyText", label: "Body Text", description:"Here you enter the primary article contents", view: "umbraco.rte", value: "<p>askjdkasj lasjd</p>" },
                         { alias: "textarea", label: "textarea", view: "umbraco.textarea", value: "ajsdka sdjkds", config: { rows: 4 } },
@@ -44,6 +47,7 @@ angular.module('umbraco.resources.content', [])
                 {
                     label: "Sample Editor",
                     alias: "tab02",
+					id: 2,
                     properties: [
                         { alias: "sampleProperty", label: "Sample 1", view: "umbraco.sample", value: "Hello World" },
                         { alias: "samplePropertyTwo", label: "Sample 2", view: "umbraco.sampletwo", value: 1234, config: { rows: 7 } },
@@ -54,6 +58,7 @@ angular.module('umbraco.resources.content', [])
                 {
                     label: "Grid",
                     alias: "tab03",
+					id: 3,
                     properties: [
                     { alias: "grid", label: "Grid", view: "umbraco.grid", controller: "umbraco.grid", value: "test", hideLabel: true }
                     ]

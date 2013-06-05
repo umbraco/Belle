@@ -171,7 +171,7 @@ module.exports = function (grunt) {
         src:['src/common/directives/*.js'],
         dest: '<%= distdir %>/js/umbraco.directives.js',
         options:{
-          banner: "<%= banner %>'use strict';\ndefine(['app','angular'], function (app, angular) {\n",
+          banner: "<%= banner %>'use strict';\ndefine(['app','angular','underscore'], function (app, angular,_) {\n",
           footer: "\n\nreturn angular;\n});"
         }
       },
