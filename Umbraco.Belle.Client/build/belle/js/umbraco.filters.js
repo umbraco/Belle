@@ -1,11 +1,10 @@
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-06-04
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-06-05
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
  */
 'use strict';
 define([ 'app','angular'], function (app,angular) {
-
     /**
     * @ngdoc filter 
     * @name umbraco.filters:propertyEditor
@@ -14,7 +13,9 @@ define([ 'app','angular'], function (app,angular) {
     function propertyEditorFilter($log) {
         return function (input) {
             //if its not defined then return undefined
-            if (!input) return input;
+            if (!input){
+                return input;
+            }
 
 			//Added logging here because this fires a ton of times and not sure that it should be!
             //$log.info("Filtering property editor view: " + input);
@@ -28,6 +29,7 @@ define([ 'app','angular'], function (app,angular) {
             }            
         };
     }
+
 
 angular.module('umbraco.filters', [])
         .filter('interpolate', ['version', function(version) {

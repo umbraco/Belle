@@ -6,7 +6,9 @@
     function propertyEditorFilter($log) {
         return function (input) {
             //if its not defined then return undefined
-            if (!input) return input;
+            if (!input){
+                return input;
+            }
 
 			//Added logging here because this fires a ton of times and not sure that it should be!
             //$log.info("Filtering property editor view: " + input);

@@ -1,137 +1,137 @@
 angular.module('umbraco.directives', [])
 
 .directive('appVersion', ['version', function (version) {
-    return function (scope, elm, attrs) {
-        elm.text(version);
-    };
+  return function (scope, elm, attrs) {
+    elm.text(version);
+  };
 }])
 
 .directive('preventDefault', function () {
-    return function (scope, element, attrs) {
-        $(element).click(function (event) {
-            event.preventDefault();
-        });
-    };
+  return function (scope, element, attrs) {
+    $(element).click(function (event) {
+      event.preventDefault();
+    });
+  };
 })
 
 .directive('autoScale', function ($window) {
-    return function (scope, el, attrs) {
+  return function (scope, el, attrs) {
 
-        var totalOffset = 0;
-        var offsety = parseInt(attrs.autoScale, 10);
-        var window = angular.element($window);
-        if (offsety !== undefined){
-            totalOffset += offsety;
-        }
+    var totalOffset = 0;
+    var offsety = parseInt(attrs.autoScale, 10);
+    var window = angular.element($window);
+    if (offsety !== undefined){
+      totalOffset += offsety;
+    }
 
-        setTimeout(function () {
-            el.height(window.height() - (el.offset().top + totalOffset));
-        }, 300);
+    setTimeout(function () {
+      el.height(window.height() - (el.offset().top + totalOffset));
+    }, 300);
 
-        window.bind("resize", function () {
-            el.height(window.height() - (el.offset().top + totalOffset));
-        });
+    window.bind("resize", function () {
+      el.height(window.height() - (el.offset().top + totalOffset));
+    });
 
-    };
+  };
 })
 
 
 .directive('headline', function ($window) {
-    return function (scope, el, attrs) {
+  return function (scope, el, attrs) {
 
-        var h1 = $("<h1 class='umb-headline-editor'></h1>").hide();
-        el.parent().prepend(h1);
-        el.addClass("umb-headline-editor");
+    var h1 = $("<h1 class='umb-headline-editor'></h1>").hide();
+    el.parent().prepend(h1);
+    el.addClass("umb-headline-editor");
 
-        if (el.val() !== '') {
-            el.hide();
-            h1.text(el.val());
-            h1.show();
-        } else {
-            el.focus();
-        }
+    if (el.val() !== '') {
+      el.hide();
+      h1.text(el.val());
+      h1.show();
+    } else {
+      el.focus();
+    }
 
-        el.on("blur", function () {
-            el.hide();
-            h1.html(el.val()).show();
-        });
+    el.on("blur", function () {
+      el.hide();
+      h1.html(el.val()).show();
+    });
 
-        h1.on("click", function () {
-            h1.hide();
-            el.show().focus();
-        });
-    };
+    h1.on("click", function () {
+      h1.hide();
+      el.show().focus();
+    });
+  };
 })
 
 
 .directive('onKeyup', function () {
-    return function (scope, elm, attrs) {
-        elm.bind("keyup", function () {
+  return function (scope, elm, attrs) {
+    elm.bind("keyup", function () {
 
-            scope.$apply(attrs.onKeyup);
-        });
-    };
+      scope.$apply(attrs.onKeyup);
+    });
+  };
 })
 
 .directive('propertyEditor', function () {
-    return {
-        restrict: 'A',
-        template: '<div class="controls controls-row" ng-include="editorView"></div>',
+  return {
+    restrict: 'A',
+    template: '<div class="controls controls-row" ng-include="editorView"></div>',
             //templateUrl: '/partials/template.html',
             link: function (scope, iterStartElement, attr) {
 
-                var property = scope.$eval(attr.propertyEditor);
-                var path = property.controller;
-                var editor = "views/propertyeditors/" + property.view.replace('.', '/') + "/editor.html";
+              var property = scope.$eval(attr.propertyEditor);
+              var path = property.controller;
+              var editor = "views/propertyeditors/" + property.view.replace('.', '/') + "/editor.html";
 
-                if (path !== undefined && path !== "") {
-                    path = "views/propertyeditors/" + path.replace('.', '/') + "/controller.js";
-                    require([path], function () {
-                        scope.editorView = editor;
-                    });
-                } else {
-                    scope.editorView = editor;
-                }
+              if (path !== undefined && path !== "") {
+                path = "views/propertyeditors/" + path.replace('.', '/') + "/controller.js";
+                require([path], function () {
+                  scope.editorView = editor;
+                });
+              } else {
+                scope.editorView = editor;
+              }
 
 
             }
-        };
-    })
+          };
+        })
 
 
 .directive('onKeyDown', function ($key) {
-    return {
-        link: function (scope, elm, attrs) {
-            $key('keydown', scope, elm, attrs);
-        }
-    };
+  return {
+    link: function (scope, elm, attrs) {
+      $key('keydown', scope, elm, attrs);
+    }
+  };
 })
 
 
 .directive('onBlur', function () {
-    return function (scope, elm, attrs) {
-        elm.bind("blur", function () {
-            scope.$apply(attrs.onBlur);
-        });
-    };
+  return function (scope, elm, attrs) {
+    elm.bind("blur", function () {
+      scope.$apply(attrs.onBlur);
+    });
+  };
 })
 
 .directive('onFocus', function () {
-    return function (scope, elm, attrs) {
-        elm.bind("focus", function () {
-            scope.$apply(attrs.onFocus);
-        });
-    };
+  return function (scope, elm, attrs) {
+    elm.bind("focus", function () {
+      scope.$apply(attrs.onFocus);
+    });
+  };
 })
 
 
 .directive('umbPanel', function(){
-    return {
-        restrict: 'E',
-        replace: true,
-        transclude: 'true',
-        templateUrl: '/belle/views/directives/umb-panel.html'
-    };
+  return {
+    restrict: 'E',
+    replace: true,
+    transclude: 'true',
+    templateUrl: 'views/directives/umb-panel.html'
+  };
 })
 
 .directive('umbHeader', function($parse, $timeout){
@@ -147,9 +147,10 @@ angular.module('umbraco.directives', [])
         },
         link: function (scope, iElement, iAttrs) {
 
-            if (!iAttrs.tabs)
+            if (!iAttrs.tabs){
                 throw "a 'tabs' attribute must be set for umbHeader which represents the collection of tabs";
-
+            }
+                  
             var hasProcessed = false;
 
             //when the tabs change, we need to hack the planet a bit and force the first tab content to be active,
@@ -157,8 +158,8 @@ angular.module('umbraco.directives', [])
             scope.$watch("tabs", function (newValue, oldValue) {
 
                 //don't process if we cannot or have already done so
-                if (!newValue) return;
-                if (hasProcessed || !newValue.length || newValue.length == 0) return;
+                if (!newValue){return;} 
+                if (hasProcessed || !newValue.length || newValue.length === 0){return;}
                 
                 //set the flag
                 hasProcessed = true;
@@ -173,14 +174,14 @@ angular.module('umbraco.directives', [])
                     $panes.find('.tab-pane').each(function (index) {
                         var $this = angular.element(this);
                         var _scope = $this.scope();
-                        if (_scope.id == activeTab.id) {
+                        if (_scope.id === activeTab.id) {
                             $this.addClass('active' + (iAttrs.fade ? ' in' : ''));
                         }
                         else {
                             $this.removeClass('active');
                         }
 
-                        if (iAttrs.fade) { $this.addClass('fade'); }
+                        if (iAttrs.fade){ $this.addClass('fade'); }
 
                     });
                 });
@@ -191,27 +192,27 @@ angular.module('umbraco.directives', [])
 })
 
 .directive('umbTabView', function(){
-    return {
-        restrict: 'E',
-        replace: true,
-        transclude: 'true',
-        templateUrl: '/belle/views/directives/umb-tab-view.html'
-    };
+  return {
+    restrict: 'E',
+    replace: true,
+    transclude: 'true',
+    templateUrl: 'views/directives/umb-tab-view.html'
+  };
 })
 
 .directive('umbTab', function(){
-    return {
-        restrict: 'E',
-        replace: true,
-        transclude: 'true',
-        
-        scope: {
-                    title: '@',
-                    id: '@'
-                },
+  return {
+    restrict: 'E',
+    replace: true,
+    transclude: 'true',
 
-        templateUrl: '/belle/views/directives/umb-tab.html'
-    };
+    scope: {
+      title: '@',
+      id: '@'
+    },
+
+    templateUrl: 'views/directives/umb-tab.html'
+  };
 })
 
 
@@ -225,13 +226,11 @@ angular.module('umbraco.directives', [])
         link: function (scope, element, attrs) {
             //let's make a requireJs call to try and retrieve the associated js 
             // for this view, only if its an absolute path, meaning its external to umbraco
-            if (scope.model.view && scope.model.view != "" && scope.model.view.startsWith('/')) {
+            if (scope.model.view && scope.model.view !== "" && scope.model.view.startsWith('/')) {
                 //get the js file which exists at ../Js/EditorName.js
                 var lastSlash = scope.model.view.lastIndexOf("/");
                 var fullViewName = scope.model.view.substring(lastSlash + 1, scope.model.view.length);
-                var viewName = fullViewName.indexOf(".") > 0
-                    ? fullViewName.substring(0, fullViewName.indexOf("."))
-                    : fullViewName;
+                var viewName = fullViewName.indexOf(".") > 0 ? fullViewName.substring(0, fullViewName.indexOf(".")) : fullViewName;
                 var jsPath = scope.model.view.substring(0, lastSlash + 1) + "../Js/" + viewName + ".js";
                 require([jsPath],
                     function () {
@@ -253,97 +252,124 @@ angular.module('umbraco.directives', [])
             }
         }
     };
+
 })
 
 
 .directive('umbTree', function ($compile, $log, treeService) {
+  $log.log("Adding umb-tree directive");
+
   return {
-      restrict: 'E',
-      terminal: true,
+    restrict: 'E',
+    replace: true,
+    terminal: false,
 
-      scope: {
-            section: '@',
-            showoptions: '@',
-            showheader: '@',
-            cachekey: '@',
-            preventdefault: '@',
-            node:'='
-          },
-      link: function (scope, element, attrs) {
+    scope: {
+      section: '@',
+      showoptions: '@',
+      showheader: '@',
+      cachekey: '@',
+      preventdefault: '@'
+    },
 
-        //config
-        var showheader = (scope.showheader === 'false') ? false : true;
-        var showoptions = (scope.showoptions === 'false') ? false : true;
-        var _preventDefault = (scope.preventdefault === 'true') ? "prevent-default" : "";
+    compile: function (element, attrs) {
+       //config
+       var showheader = (attrs.showheader === 'false') ? false : true;
+       var showoptions = (attrs.showoptions === 'false') ? false : true;
+       var _preventDefault = (attrs.preventdefault === 'true') ? "prevent-default" : "";
+       
+       var template = '<ul class="umb-tree">' + 
+       '<li class="root">';
 
-        var template;
-        var rootTemplate = '<ul class="umb-tree">' + 
-                              '<li class="root">';
+       if(showheader){ 
+         template +='<div>' + 
+         '<h5><a class="root-link">{{tree.name}}</a><i class="umb-options"><i></i><i></i><i></i></i></h5>' + 
+         '</div>';
+       }
+       template += '<ul>' +
+                '<umb-tree-item ng-repeat="child in tree.children" node="child" preventdefault="{{preventdefault}}" showheader="{{showheader}}" showoptions="{{showoptions}}" section="{{section}}"></umb-tree-item>' +
+                '</ul>' +
+              '</li>' +
+             '</ul>';
 
-                              if(showheader){ 
-                                rootTemplate +='<div>' + 
-                                  '<h5><a class="root-link">{{tree.name}}</a><i class="umb-options"><i></i><i></i><i></i></i></h5>' + 
-                                '</div>';
-                                } 
+      var newElem = $(template);
+      element.replaceWith(template);
 
-            rootTemplate +=     '<ul><li ng-repeat="val in tree.children">' + 
-                                      '<umb-tree node="val" preventdefault="{{preventdefault}}" showheader="{{showheader}}" showoptions="{{showoptions}}" section="{{section}}"></umb-tree>' +
-                                '</li></ul>' +   
-                              '</li>' + 
-                            '</ul>';
+      return function (scope, element, attrs, controller) {
+          function loadTree(){
+            if(scope.section){
+                scope.tree = treeService.getTree({section:scope.section, cachekey: scope.cachekey});
+            }
+          } 
 
-        var treeTemplate = '<ul ng-class="{collapsed: !node.expanded}"><li ng-repeat="val in node.children"><umb-tree section="{{section}}" preventdefault="{{preventdefault}}" showheader="{{showheader}}" showoptions="{{showoptions}}" node="val"></umb-tree></li></ul>';                
-        var itemTemplate = '<div ng-style="setTreePadding(node)">' +
-                              '<ins ng-class="{\'icon-caret-right\': !node.expanded, \'icon-caret-down\': node.expanded}" ng-click="load(node)"></ins>' +
-                              '<i class="icon umb-tree-icon sprTree {{node.icon}}"></i>' +
-                                '<a ng-click="select(this, node, $event)" ng-href="#{{node.view}}" ' + _preventDefault + '>{{node.name}}</a>';
-        if(showoptions){
-            itemTemplate +=  '<i class="umb-options" ng-click="options(this, node, $event)"><i></i><i></i><i></i></i>';
-        }  
-        itemTemplate +=     '</div>';
+          if(scope.node === undefined){
+              scope.$watch("section",function (newVal, oldVal) {
+                if(!newVal){
+                  scope.tree = undefined;
+                  scope.node = undefined;
+                }else if(newVal !== oldVal){
+                  loadTree();
+                }
+            });
+          }
+          loadTree();
+       };
+     }
+    };
+  })
 
+.directive('umbTreeItem', function($compile, $http, $templateCache, $interpolate, $log, treeService) {
+  return {
+    restrict: 'E',
+    replace: true,
 
+    scope: {
+      section: '@',
+      showoptions: '@',
+      showheader: '@',
+      cachekey: '@',
+      preventdefault: '@',
+      node:'='
+    },
+
+    template: '<li><div ng-style="setTreePadding(node)">' +
+       '<ins ng-class="{\'icon-caret-right\': !node.expanded, \'icon-caret-down\': node.expanded}" ng-click="load(node)"></ins>' +
+       '<i class="icon umb-tree-icon sprTree {{node.icon}}"></i>' +
+       '<a ng-click="select(this, node, $event)" ng-href="#{{node.view}}">{{node.name}}</a>' +
+       '<i class="umb-options" ng-click="options(this, node, $event)"><i></i><i></i><i></i></i>' +
+       '</div>'+
+       '</li>',
+
+    link: function (scope, element, attrs) {
+      $log.log("render item");
+      
         scope.options = function(e, n, ev){ 
-            scope.$emit("treeOptionsClick", {element: e, node: n, event: ev});
+          scope.$emit("treeOptionsClick", {element: e, node: n, event: ev});
         };
 
         scope.select = function(e,n,ev){
-            scope.$emit("treeNodeSelect", {element: e, node: n, event: ev});
+          scope.$emit("treeNodeSelect", {element: e, node: n, event: ev});
         };
 
         scope.load = function (node) {
-                  if (node.expanded){
-                      node.expanded = false;
-                      node.children = [];
-                  }else {
-                      node.children =  treeService.getChildren({node: node, section: scope.section});
-                      node.expanded = true;
-                  }   
-          };
+          if (node.expanded){
+            node.expanded = false;
+            node.children = [];
+          }else {
+            node.children =  treeService.getChildren({node: node, section: scope.section});
+            node.expanded = true;
+          }   
+        };
 
-          scope.setTreePadding = function(node) {
-              return { 'padding-left': (node.level * 20) + "px" };
-          };
+        scope.setTreePadding = function(node) {
+          return { 'padding-left': (node.level * 20) + "px" };
+        };
 
-          function loadTree(){
-              if(scope.node === undefined){
-                  scope.tree = treeService.getTree({section:scope.section, cachekey: scope.cachekey});
-                  template = rootTemplate;
-              }else{
-                  template = itemTemplate + treeTemplate;
-              }
-              var newElement = angular.element(template);
-              $compile(newElement)(scope);
-              element.replaceWith(newElement);
-          }
-          
-          scope.$watch("section",function (newVal, oldVal) {
-               if(newVal !== oldVal){
-                  loadTree();
-               }
-          });
-          loadTree();
-      }
+        var template = '<ul ng-class="{collapsed: !node.expanded}"><umb-tree-item ng-repeat="child in node.children" node="child" preventdefault="{{preventdefault}}" showheader="{{showheader}}" showoptions="{{showoptions}}" section="{{section}}"></umb-tree-item></ul>';
+        var newElement = angular.element(template);
+        $compile(newElement)(scope);
+        element.append(newElement);
+    }
   };
 });
 
@@ -351,6 +377,8 @@ angular.module('umbraco.directives', [])
 	The other problem with this directive is that it runs too early. If we change the ng-include on umb-property to use
 	this directive instead, it the template will be empty because the actual umbProperty directive hasn't executed 
 	yet, this seems to execute before it.
+
+
 
 .directive('include', function($compile, $http, $templateCache, $interpolate, $log) {
 
@@ -401,6 +429,4 @@ angular.module('umbraco.directives', [])
     }
   };
 });
-
 */
-
