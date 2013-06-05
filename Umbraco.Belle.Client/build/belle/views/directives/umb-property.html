@@ -11,8 +11,8 @@
                 <small>{{model.description}}</small>
             </label>
 
-            <div class="controls controls-row">
-               <include template="model.view | propertyEditor">        
+            <div class="controls controls-row" >
+               <ng-include src="model.editorView | propertyEditor"></ng-include>    
             </div>
         </div>
     </div>

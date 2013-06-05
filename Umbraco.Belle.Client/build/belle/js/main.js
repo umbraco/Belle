@@ -3,6 +3,7 @@ require.config({
   paths: {
     jquery: '../lib/jquery/jquery-1.8.2.min',
     jqueryCookie: '../lib/jquery/jquery.cookie',
+	umbracoExtensions: "../lib/umbraco/extensions",
     bootstrap: '../lib/bootstrap/js/bootstrap',
     underscore: '../lib/underscore/underscore',
     angular: '../lib/angular/angular.min',
@@ -49,6 +50,7 @@ require( [
   'app',
   'jquery',
   'jqueryCookie',
+  'umbracoExtensions',
   'bootstrap',
   'umbraco.resources',
   'umbraco.directives',
@@ -58,7 +60,7 @@ require( [
   'sample.propertyeditor.controller',
   'sampletwo.propertyeditor.controller',
   'routes'
-  ], function(angular, app) {
+  ], function(angular, app, jQuery) {
   //This function will be called when all the dependencies
   //listed above are loaded. Note that this function could
   //be called before the page is loaded.
