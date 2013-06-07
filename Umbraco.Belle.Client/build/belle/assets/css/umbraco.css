@@ -6579,6 +6579,14 @@ i.umb-options i {
   border-radius: 20px;
 }
 
+.hide-options .umb-options {
+  display: none !important;
+}
+
+.hide-header h5 {
+  display: none !important;
+}
+
 .umb-icon-item {
   position: relative;
   display: block;

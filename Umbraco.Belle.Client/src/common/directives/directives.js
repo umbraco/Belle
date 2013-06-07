@@ -268,26 +268,24 @@ angular.module('umbraco.directives', [])
       section: '@',
       showoptions: '@',
       showheader: '@',
-      cachekey: '@',
-      preventdefault: '@'
+      cachekey: '@'
     },
 
     compile: function (element, attrs) {
        //config
-       var showheader = (attrs.showheader === 'false') ? false : true;
-       var showoptions = (attrs.showoptions === 'false') ? false : true;
-       var _preventDefault = (attrs.preventdefault === 'true') ? "prevent-default" : "";
+       var hideheader = (attrs.showheader === 'false') ? true : false;
+       var hideoptions = (attrs.showoptions === 'false') ? "hide-options" : "";
        
-       var template = '<ul class="umb-tree">' + 
+       var template = '<ul class="umb-tree ' + hideoptions + '">' + 
        '<li class="root">';
 
-       if(showheader){ 
+       if(!hideheader){ 
          template +='<div>' + 
          '<h5><a class="root-link">{{tree.name}}</a><i class="umb-options"><i></i><i></i><i></i></i></h5>' + 
          '</div>';
        }
        template += '<ul>' +
-                '<umb-tree-item ng-repeat="child in tree.children" node="child" preventdefault="{{preventdefault}}" showheader="{{showheader}}" showoptions="{{showoptions}}" section="{{section}}"></umb-tree-item>' +
+                '<umb-tree-item ng-repeat="child in tree.children" node="child" section="{{section}}"></umb-tree-item>' +
                 '</ul>' +
               '</li>' +
              '</ul>';
@@ -325,10 +323,7 @@ angular.module('umbraco.directives', [])
 
     scope: {
       section: '@',
-      showoptions: '@',
-      showheader: '@',
       cachekey: '@',
-      preventdefault: '@',
       node:'='
     },
 
@@ -365,7 +360,7 @@ angular.module('umbraco.directives', [])
           return { 'padding-left': (node.level * 20) + "px" };
         };
 
-        var template = '<ul ng-class="{collapsed: !node.expanded}"><umb-tree-item ng-repeat="child in node.children" node="child" preventdefault="{{preventdefault}}" showheader="{{showheader}}" showoptions="{{showoptions}}" section="{{section}}"></umb-tree-item></ul>';
+        var template = '<ul ng-class="{collapsed: !node.expanded}"><umb-tree-item ng-repeat="child in node.children" node="child" section="{{section}}"></umb-tree-item></ul>';
         var newElement = angular.element(template);
         $compile(newElement)(scope);
         element.append(newElement);

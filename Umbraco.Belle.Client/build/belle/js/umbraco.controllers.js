@@ -1,5 +1,5 @@
 'use strict';
-/*! umbraco - v0.0.1-SNAPSHOT - 2013-06-06
+/*! umbraco - v0.0.1-SNAPSHOT - 2013-06-07
  * http://umbraco.github.io/Belle
  * Copyright (c) 2013 Per Ploug, Anders Stenteberg & Shannon Deminick;
  * Licensed MIT
@@ -132,7 +132,8 @@ angular.module('umbraco').controller("MainController",
 angular.module("umbraco").controller("Umbraco.Dialogs.ContentPickerController", function ($scope, mediaFactory) {	
 	
 	$scope.$on("treeNodeSelect", function(event, args){
-		$(args.event.target.parentElement).find("i").attr("class", "icon umb-tree-icon sprTree icon-check blue");
+		args.event.preventDefault();	
+		$(args.event.target.parentElement).find("i.umb-tree-icon").attr("class", "icon umb-tree-icon sprTree icon-check blue");
 		$scope.select(args.node);
 	});
 });

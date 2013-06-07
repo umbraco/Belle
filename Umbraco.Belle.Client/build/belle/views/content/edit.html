@@ -29,7 +29,9 @@
     </umb-header>
 
     <umb-tab-view>
-        <umb-tab title="{{tab.label}}" id="{{elementId}}" rel="{{tab.id}}" ng-repeat="tab in content.tabs">
+        <umb-tab title="{{tab.label}}" id="{{tab.alias}}" rel="{{tab.id}}" 
+            ng-repeat="tab in content.tabs">
+
             <umb-property ng-repeat="model in tab.properties"></umb-property>
         </umb-tab>
     </umb-tab-view>
