@@ -1,5 +1,10 @@
 #Belle
 
+##Repository has been moved
+The belle client files have now been merged into the Umbraco-Cms repository, and is available in the 7.0.0 branch: 
+https://github.com/umbraco/Umbraco-CMS/tree/7.0.0
+
+
 Umbraco 7 UI prototype, codename "Belle" Built on AngularJS, RequireJS and Twitter Bootstrap
 
 ##Introduction
