@@ -64,11 +64,16 @@
               </li>
 
               <li class="">
+<<<<<<< HEAD:old/back-office.html
                 <a href="./tasks.html">Tasks</a>
               </li>
-              <li class="">
+
+
+=======
                 <a href="./faq.html">Faq</a>
               </li>
+
+>>>>>>> 6795bc7b9a290824a3cbf3ba6792bdcb0c59a50d:back-office.html
             </ul>
           </div>
         </div>

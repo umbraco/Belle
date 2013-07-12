@@ -67,9 +67,13 @@
                 <a href="./tasks.html">Tasks</a>
               </li>
 
+<<<<<<< HEAD:old/property-editors.html
+=======
               <li class="">
                 <a href="./faq.html">Faq</a>
               </li>
+>>>>>>> 6795bc7b9a290824a3cbf3ba6792bdcb0c59a50d:property-editors.html
+
             </ul>
           </div>
         </div>

@@ -63,15 +63,18 @@
                 <a href="./services.html"><%_i%>Services<%/i%></a>
               </li>
 
-              <li class="<%faq%>">
-                <a href="./faq.html"><%_i%>Faq<%/i%></a>
-			  </li>
-              
-				<li class="<%tasks%>">
+<<<<<<< HEAD:old/templates/layout.mustache
+              <li class="<%tasks%>">
                 <a href="./tasks.html"><%_i%>Tasks<%/i%></a>
               </li>
 
 
+=======
+              <li class="<%faq%>">
+                <a href="./faq.html"><%_i%>Faq<%/i%></a>
+              </li>
+
+>>>>>>> 6795bc7b9a290824a3cbf3ba6792bdcb0c59a50d:templates/layout.mustache
             </ul>
           </div>
         </div>
