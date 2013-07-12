@@ -1,0 +1,177 @@
+<!-- Subhead
+================================================== -->
+<header class="jumbotron subhead" id="overview">
+  <div class="container">
+    <h1><%_i%>Tasks<%/i%></h1>
+    <p class="lead"><%_i%>On-going list of tasks open to anyone to work on<%/i%></p>
+  </div>
+</header>
+
+
+  <div class="container">
+
+    <!-- Docs nav
+    ================================================== -->
+    <div class="row">
+      <div class="span3 bs-docs-sidebar">
+        <ul class="nav nav-list bs-docs-sidenav">
+          <li><a href="#howto-help"><i class="icon-chevron-right"></i> <%_i%>How to help<%/i%></a></li>
+          <li><a href="#testing"><i class="icon-chevron-right"></i> <%_i%>Testing<%/i%></a></li>
+          <li><a href="#editors"><i class="icon-chevron-right"></i> <%_i%>Editor components<%/i%></a></li>
+          <li><a href="#productivity"><i class="icon-chevron-right"></i> <%_i%>Productivity<%/i%></a></li>
+          <li><a href="#code-reviews"><i class="icon-chevron-right"></i> <%_i%>Code Reviews<%/i%></a></li>
+        </ul>
+      </div>
+      <div class="span9">
+
+
+        <!-- How to help
+        ================================================== -->
+        <section id="howto-help">
+          <div class="page-header">
+            <h1><%_i%>How to help?<%/i%></h1>
+          </div>
+          <p class="lead">
+            The most common question we get from people who see Belle is: "How can we help?". And that is truly a very good question. 
+
+            Internally, we know there tons of things to get started with, and also have a vague idea on how to get started, but everyone who hasnt touched the codebase, or know the grand perspective of Belle, have no idea on where to start.
+          </p>
+
+          <p>
+            So, as part of making Belle as accesible as possible for developers and designers, we have tried to outline the open questions, the tasks, we havn't even started working on, and what is up for grabs, as you will see below, there are quite a few things to get cracking on already. 
+          </p>
+
+          <h2>The process</h2>
+          <p>We provide the tasks that are currently open, but would love to know, if you start working on something, so we can help out, provide feedback, guidance and so on.</p>
+
+          <p>So if you find a task you will work on, create an issue on the <a href="#">Belle github page</a> to notify us</p> that way others can see you are working on something, and issues provide a simple way to keep a conversation about a specific task transparent</p>
+
+
+          <h2>Belle Labs</h2>
+          <p>
+            We aim to have our first open "Belle Labs" events in May. Location are yet to be determined, but will be in or near Aarhus, Denmark. 
+            A Belle Lab, will be a full day of hands-on work, face-to-face, where both designers, UX'rs and developers are welcome to come and help out.
+          </p>
+
+</section>
+
+<section id="testing">
+  <div class="page-header">
+    <h1><%_i%>Testing<%/i%></h1>
+  </div>
+
+  <h3>Open tasks:</h3>
+  <ul>
+    <li>Test on live humans</li>
+    <li>Give feedback</li>
+    <li>Research Unit testing the ui with jasmin and karma</li>
+    <li>Automate unit tests</li>
+  </ul>
+
+
+  <h2>Test on live humans</h2>
+  <p>
+    Belle is a product of internal talks, prototyping and hashing things out in photoshop and html, and have yet to prove itself in a real world scenario - which we need to help to do</p>
+  </p>
+  <p>
+    So we are looking for feedback from actual non-technical users, from implementers who see the daily challenges of implementing websites in Umbraco, and from people with UX experience. 
+  </p>
+
+  <h2>Automated testing</h2>
+  <p>
+    Know how to test a javascript application with jasmin and karma?, or interested in doing the research to see how we can make the UI unit-testable? 
+  </p>
+</section>
+
+<section id="editors">
+  <div class="page-header">
+    <h1><%_i%>Editor components<%/i%></h1>
+  </div>
+
+  <h3>Open tasks:</h3>
+  <ul>
+    <li>Find the best WYSIWYG editor (tinyMCE VS CKEditor)</li>
+    <li>Investigate Markdown and similiar options</li>
+    <li>Legacy datatype porting</li>
+  </ul>
+
+  <h2>WYSIWYGs</h2>
+  <p>
+    A science in itself, the wysiwyg editor is in the center of most editors lifes, and for the last 6-7 years, its been powered by TinyMCE</p>
+  <p>
+      As part of belle, we wish to investigate the current offerings of editors out there, and decide which one to integrate, we see no need in support multiple ones.
+  </p>
+  <p>It must be able to:</p>
+  <ul>
+    <li>Support copy/paste from various desktop apps like word,outlook etc</li>
+    <li>Produce clean, semantic html</li>
+    <lI>Be extendable with new dialogs</li>
+    <li>Do custom rendering of blocks (like the macro elements inline)</li>
+  </ul>
+
+  <h2>Markdown</h2>
+  <p>
+      While Wysiwyg editors have their place, there has also been voiced suggestions on how to leverage markdown and similiar syntax's for providing editors with a cleaner and more content focused editor
+  </p>
+  <p>
+      Can markdown be an alternative to wysiwyg? or is it still to geeky to use?
+  </p>
+
+  <h2>Legacy data type porting</h2>
+  <p>
+    We need to have all/most of the existing core data types converted to belles way of doing data types / property editors
+  </p>  
+  <p>
+    This is a big group of easier tasks, as many of the editors is not very hard to implement in belle, however, there is still large chunks of the serverside part of how belle will work, that has not yet be decided on fully, so we cannot provide the full story on how to setup data type configuration and prevalues - yet.
+  </p>
+</section>
+
+<section id="productivity">
+  <div class="page-header">
+    <h1><%_i%>Productivity<%/i%></h1>
+  </div>
+
+  <h3>Open tasks:</h3>
+  <ul>
+    <li>Optimize the web application solution</li>
+    <li>Automate all that can be automated</li>
+    <li>Setup build server environment</li>
+  </ul>
+  
+  <p>
+    We are .net developers, and are truly very in-experienced in running a pure css/html/js web app project, 
+    so our knowledge of the various tools and productivity gains are very limited. 
+  </p>
+  <p>
+    However, we do know that there are a huge landscape of node.js based tools, sass, less, code generation, automated testing and so on. 
+  </p>
+
+  <p>
+    But, currently we want to focus on producing the application, not the whole boilerplate of stuff around it. So we need help to setup a project that is easy to access, build, test and deploy, using the best tools for the job, not just the ones we know from the .net world.
+  </p>
+
+  <p>
+      We currently use team-city for all our builds and wish to continue doing so. But whatever we can do to integrate testing, minification, linters and so on is all very welcome.
+  </p>
+  </section>
+  <section id="code-reviews">
+    <div class="page-header">
+      <h1><%_i%>Code Reviews<%/i%></h1>
+    </div>
+    <p>
+        Have 15 minutes? how about going through a single editor / view / feature and see if something could be more clear, better, or maybe needs to be rethought, as soon as code is checked in, you tend to not look at it again, unless it breaks or needs an update.
+    </p>
+
+    <ul>
+      <li>Fix inconsistant naming</li>
+      <li>Fix or report wrong use of directive/service/controller/filter</li>
+      <li>Add comments to complex code to make it more clear what it does</li>
+      <li>Report bugs, even small obvious one</li>
+    </ul>
+  </section>  
+
+
+      </div><%! /span9 %>
+    </div><%! row%>
+
+  </div><%! /.container %>
