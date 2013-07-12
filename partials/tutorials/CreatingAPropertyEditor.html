@@ -150,11 +150,15 @@ editor2.run();
     &lt;div id="wmd-button-bar-{{model.alias}}"&gt;
 </code></pre>
 
-<p></div>
-            <textarea ng-model="model.value" class="wmd-input" id="wmd-input-{{model.alias}}"></textarea>
-        </div>
-        <div id="wmd-preview-{{model.alias}}" class="wmd-panel wmd-preview"></div>
-    </div> </p>
+<p></div></p>
+
+<pre><code>        &lt;textarea ng-model="model.value" class="wmd-input" id="wmd-input-{{model.alias}}"&gt;
+            your content
+        &lt;/textarea&gt;
+
+    &lt;div id="wmd-preview-{{model.alias}}" class="wmd-panel wmd-preview"&gt;&lt;/div&gt;
+&lt;/div&gt; 
+</code></pre>
 
 <p>Now, clear the cache, reload the document and see the pagedown editor running. </p>
 
