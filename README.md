@@ -59,15 +59,13 @@ So run the command:
 
 Now that you have node and grunt installed, you can open `/Umbraco.Belle.Client` in either `cmd.exe` or terminal and run: 
 
-	grunt
+	grunt dev
 
-This will build the site, merge less files, run tests and create the /Build folder.
+This will build the site, merge less files, run tests and create the /Build folder, launch the web browser and monitor changes.
 
 ###Automated builds and tests
-If you prefer to do test-driven developement, or just dont want to manually run `grunt` on every change, you can simply tell grunt to watch for any changes made in the project, by running:
 
-	grunt watch
-
+grunt dev will continue to run in the background monitoring changes to files. When changes are detected it will rebuild the JS and also run the unit tests.
 
 ##Limitations
 The current prototype simply uses in-memory storage, so no database dependencies. It is aimed at showing UI, not a complete functional client-server setup. 
@@ -105,11 +103,5 @@ The current app is built, following conventions from angularJs and bootstrap. To
 ###AngularJS
 - Excellent introduction videos on http://www.egghead.io/
 - Official guide at: http://docs.angularjs.org/guide/
-
-###Require.js
-- Introduction: http://javascriptplayground.com/blog/2012/07/requirejs-amd-tutorial-introduction
-- Require.js website: http://requirejs.org/
-
-
 
 
