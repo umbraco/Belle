@@ -6,6 +6,251 @@ NG_DOCS={
   "pages": [
     {
       "section": "api",
+      "id": "umbraco.directives.directive:autoScale",
+      "shortName": "autoScale",
+      "type": "directive",
+      "keywords": "an api as auto-scale automatically be bottom can class directive directives div fit from html if index input-block-level module name of offset only optional parameter pass pixels resize scale screen set so the to umbraco want y-axis you"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:headline",
+      "shortName": "headline",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:login",
+      "shortName": "login",
+      "type": "directive",
+      "keywords": "any api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:preventDefault",
+      "shortName": "preventDefault",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbAvatar",
+      "shortName": "umbAvatar",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbConfirm",
+      "shortName": "umbConfirm",
+      "type": "directive",
+      "keywords": "api confirmation dialog directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbContentName ",
+      "shortName": "umbContentName",
+      "type": "directive",
+      "keywords": "an api by directive directives editors entity form it naming own require required shows textbox that umbraco used validator with within"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbEditor ",
+      "shortName": "umbEditor",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbFileUpload",
+      "shortName": "umbFileUpload",
+      "type": "directive",
+      "keywords": "ae any api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbNavigation",
+      "shortName": "umbNavigation",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbNotifications",
+      "shortName": "umbNotifications",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbPanel ",
+      "shortName": "umbPanel",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbProperty ",
+      "shortName": "umbProperty",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbTab ",
+      "shortName": "umbTab",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbTabView ",
+      "shortName": "umbTabView",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbTree ",
+      "shortName": "umbTree",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbTreeItem",
+      "shortName": "umbTreeItem",
+      "type": "directive",
+      "keywords": "and api button callback child children content directive directives element html in includes index internally is item li list menu module name ng-repeat node only renders representing section single the this to toggle toggling tree umbraco umbtree used"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:valPropertyMsg",
+      "shortName": "valPropertyMsg",
+      "type": "directive",
+      "keywords": "an and api changes control detected directive directives display error for formcontroller is level listen ll message of property server show side textarea the this to umbraco used validation we when will"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:valRegex",
+      "shortName": "valRegex",
+      "type": "directive",
+      "keywords": "against allow already an api but custom directive directives expression for is matching ng-pattern not note regex requires set string that there this to umbraco value"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:valServer",
+      "shortName": "valServer",
+      "type": "directive",
+      "keywords": "angular api are associate based content directive directives feedback in is on property response server-side so that the this to umbraco updated used validation validators with"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:valServerField",
+      "shortName": "valServerField",
+      "type": "directive",
+      "keywords": "angular api are associate based content defined directive directives feedback field in is on response server-side so that the this to umbraco updated used user validation validators with"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:valShowValidation",
+      "shortName": "valShowValidation",
+      "type": "directive",
+      "keywords": "after and api because by class containing controller current directive directives do don element elements events form is listening messages on process reset saved saving show show-validation submitted successful the then this to toggle umbraco until used validate validation want we when"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:valTab",
+      "shortName": "valTab",
+      "type": "directive",
+      "keywords": "api content data directive directives errors for has in indicate its show tab that the to umbraco used validation validations warnings"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:valToggleMsg",
+      "shortName": "valToggleMsg",
+      "type": "directive",
+      "keywords": "an and api based been directive directives error form formcontroller given has input invalid is on show submitted the this umbraco validator value will"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.filters.filter:umbTreeIconClass",
+      "shortName": "umbTreeIconClass",
+      "type": "filter",
+      "keywords": "api based class filter filters icon on properly render server set the this tree umbraco will"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.filters.filter:umbTreeIconImage",
+      "shortName": "umbTreeIconImage",
+      "type": "filter",
+      "keywords": "api based filter filters icon image on properly render server set the this tree umbraco will"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.mocks.sectionMocks     ",
+      "shortName": "sectionMocks",
+      "type": "service",
+      "keywords": "api data for mocks retrival sectionmocks sections service the umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.resources.authResource     ",
+      "shortName": "authResource",
+      "type": "service",
+      "keywords": "api authentication authresource data for in loads resources service umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.resources.contentResource",
+      "shortName": "contentResource",
+      "type": "service",
+      "keywords": "api content contentresource data for in loads resources service umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.resources.contentTypeResource",
+      "shortName": "contentTypeResource",
+      "type": "service",
+      "keywords": "api content contenttyperesource data for in loads resources service types umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.resources.legacyResource     ",
+      "shortName": "legacyResource",
+      "type": "service",
+      "keywords": "api dialog handles legacy legacyresource requests resources service umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.resources.mediaResource     ",
+      "shortName": "mediaResource",
+      "type": "service",
+      "keywords": "api data for in loads media mediaresource resources service umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.resources.mediaTypeResource",
+      "shortName": "mediaTypeResource",
+      "type": "service",
+      "keywords": "api data for in loads media mediatyperesource resources service types umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.resources.sectionResource     ",
+      "shortName": "sectionResource",
+      "type": "service",
+      "keywords": "api data for in loads resources section sectionresource service umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.resources.treeResource     ",
+      "shortName": "treeResource",
+      "type": "service",
+      "keywords": "api data for in loads resources service treeresource trees umbraco"
+    },
+    {
+      "section": "api",
       "id": "umbraco.services.angularHelper",
       "shortName": "angularHelper",
       "type": "service",
@@ -13,10 +258,24 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.services.contentEditingHelper",
+      "shortName": "contentEditingHelper",
+      "type": "service",
+      "keywords": "absolute after all also an and api appropriate are array at basic be changed changes check collection contained content contenteditinghelper controllers create created creating data decide depends displayed editing edito ensure entity error errors events fired for from fulfilled fulfils function getallprops handle handlesaveerror handlevalidationerrors happen happens has have having helper if in indicating inside is issues it item just least like location maintain mandatory method mode model name need never new newcontent newly normal not notifications noting object occurs of on only or origcontent propertes properties property published re re-binds rebind rebindchangedproperties redirect redirecttocreatedcontent remain requirements returns saved saving server service services side still successful tabs that the this though to umbraco validation values was we what when whether which will worth"
+    },
+    {
+      "section": "api",
       "id": "umbraco.services.dialogService",
       "shortName": "dialogService",
       "type": "service",
-      "keywords": "$compile $http $log $q $rootscope $templatecache accesible all also an and animation any api application-wide array attach attached be been body but by callback called can chosen class close closeall closes container contains content contentpicker controller css csss data default dialog dialogs dialogservice div document documents does dom done edit editor element existing fade for from function functon given handling has html iframe iframes in incase inject injects inline instantly into is it items its load macro macropicker make mcaro media mediapicker method modal modalclass modals module needed needs new non-angular object of on only open opens options or overlays page parameters passed path picker processing property propertydialog rendering renders representing return returned returns rootscope scope selected sent serverside service services set should show simply specific strips submitted support sure template templates that the this to tree true umb-modal umbraco url usage use used value var want whatever when which width with wrappers you"
+      "keywords": "$compile $http $log $q $rootscope $templatecache accesible all also an and animation any api application-wide array attach attached be been body but by callback called can chosen class close closeall closes container contains content contentpicker controller css csss custom data default dialog dialogs dialogservice div document documents does dom done edit editor element existing fade for from function functon given handling has html iframe iframes in incase inject injects inline instantly into is it items its load macro macropicker make mcaro media mediapicker method modal modalclass modals module needed needs new non-angular object of on only open opens options or overlays page parameters passed path picker processing property propertydialog rendering renders representing return returned returns rootscope scope selected sent serverside service services set should show simply specific strips submitted support sure template templates that the this to tree true umb-modal umbraco url usage use used value var want whatever when which width with wrappers you ysod ysoddialog"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.services.historyService",
+      "shortName": "historyService",
+      "type": "service",
+      "keywords": "$rootscope $timeout accesible action add adds all an and angular angular-based angularhelper any api application array articles back be by class collection controller css current default easy editing editor editors entries ex first for friendly from function getcurrent given go handle history historyservice icon icon-class icon-doc icon-image in index inject into is it item items keeping legacy link list listing main make method module my name navigates navigation needs new newest not object of ones only previous property remove removeall removes responsible return route service services should simply stores sure that the to track umbraco url usage use user users where which with works"
     },
     {
       "section": "api",
@@ -44,7 +303,7 @@ NG_DOCS={
       "id": "umbraco.services.notificationsService",
       "shortName": "notificationsService",
       "type": "service",
-      "keywords": "$rootscope $timeout accesible add added adds after all an and angularhelper any api application application-wide array as at automaticly be booooh but by can changed changes characters collection complete controller could current default display document error errors exanded expected failed for from getcurrent given green handling headline hooraaaay index inject into is it longer maintains make message method module needs not notication notications notifcations notification notifications notificationsservice object of on operations property published red remove removeall removed removes return returns seconds service services should simply single something success sure text that the then this to trimmed ui umbraco usage use used warning was watches when where which without yellow you"
+      "keywords": "$rootscope $timeout accesible add added adds after all an and angularhelper any api application application-wide args array as at automaticly back based be booooh but by can changed changes characters collection complete controller could current default display document error errors exanded expected failed for from getcurrent given green handling headline hooraaaay in index inject into is it longer maintains make message method module needs normally not notication notications notifcations notification notifications notificationsservice object of on operations passed property published red remove removeall removed removes render return returns seconds sent server service services should shownotification shows simply single something success sure text that the then this to trimmed ui umbraco usage use used warning was watches when where which without yellow you"
     },
     {
       "section": "api",
@@ -55,10 +314,10 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "umbraco.services.serverValidationService",
-      "shortName": "serverValidationService",
+      "id": "umbraco.services.serverValidationManager",
+      "shortName": "serverValidationManager",
       "type": "service",
-      "keywords": "adderror adds alias all always an and any api are been callback callbacks can changes checks clears combo content contentproperty directive empty error errors errros executed explicit field fieldname for form function generally getcallbacks geterror gets handle has haserror if in is just listen match message messages method name not notifies now ones only order otherwise particular pinpoint property registered removeerror removes reset return server servervalidationservice service services set side specific specified specifies submitting subscribe that the there this to ui umbraco up used using val-server valid validation we when whenever which will wires with"
+      "keywords": "according addfielderror addpropertyerror adds alias all always an and another any api are attached be been below bound call callback callbacks can change changes checks clear clears colleciton collection combo content contentproperty controller controls created data defined directive empty error errors errros example executed explicit field fieldname fields for form function generally getfieldcallbacks getfielderror getpropertycallbacks getpropertyerror gets handle has hasfielderror haspropertyerror if in is item just listen match message messages method methods model name named native needs new not notifies now null objects occurs of once one ones only order other otherwise over particular persisted pinpoint previously primarily properties property re-binded re-bound registered removepropertyerror removes reset return route rules scenarios scope server servervalidationmanager service services set should side so specific specified specifies submitting subscribe subscription that the their then there these they this to types ui umbraco up used user using val-server valid validation vs we when whenever where which will wires with"
     },
     {
       "section": "api",

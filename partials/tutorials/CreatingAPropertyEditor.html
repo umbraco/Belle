@@ -21,9 +21,9 @@ how to hook it into angulars modules and its injector, and finally how you can t
 <p>This is about how to use AngularJS with umbraco, so it does not cover AngularJS itself, as there are tons of resources on that already here: </p>
 
 <ul>
-<li><a href="egghead.io">http://www.egghead.io/</a></li>
-<li><a href="angularjs.org/tutorial">http://docs.angularjs.org/tutorial</a></li>
-<li><a href="Tekpub">http://tekpub.com/products/angular</a></li>
+<li><a href="http://www.egghead.io/">egghead.io</a></li>
+<li><a href="http://docs.angularjs.org/tutorial">angularjs.org/tutorial</a></li>
+<li><a href="http://tekpub.com/products/angular">Tekpub</a></li>
 </ul>
 
 <h2 id="theendresult">The end result</h3>
@@ -108,7 +108,7 @@ part handling the functionality. </p>
 
 <p>First of, I'll add some external files to our package folder, in /app_plugins/markdowneditor/lib folder, these files comes from the pagedown editor project found here: </p>
 
-<p><a href="Pagedown-bootstrap on github.com">https://github.com/samwillis/pagedown-bootstrap</a></p>
+<p><a href="https://github.com/samwillis/pagedown-bootstrap">Pagedown-bootstrap on github.com</a></p>
 
 <p>Then open the <code>markdowneditor.controller.js</code> file and edit it so it looks like this: </p>
 
@@ -144,7 +144,7 @@ var editor2 = new Markdown.Editor(converter2, "-" + $scope.model.alias);
 editor2.run();
 </code></pre>
 
-<p>and add that id to the text area in the html, for more info on the html structure, see the pagedown demo <a href="here">https://github.com/samwillis/pagedown-bootstrap/blob/master/demo/browser/demo.html</a>: </p>
+<p>and add that id to the text area in the html, for more info on the html structure, see the pagedown demo <a href="https://github.com/samwillis/pagedown-bootstrap/blob/master/demo/browser/demo.html">here</a>: </p>
 
 <pre><code>&lt;div ng-controller="My.MarkdownEditorController" class="wmd-panel"&gt;
     &lt;div id="wmd-button-bar-{{model.alias}}"&gt;
@@ -167,6 +167,6 @@ editor2.run();
 <h2 id="getthesource">Get the source</h3>
 
 <p>The full source, including manifest and dependencies, can be found on the umbraco-cms project 
-<a href="here">https://github.com/umbraco/Umbraco-CMS/tree/7.0.0/src/Umbraco.Web.UI.Client/src/packages/MarkdownEditor</a></p>
+<a href="https://github.com/umbraco/Umbraco-CMS/tree/7.0.0/src/Umbraco.Web.UI.Client/src/packages/MarkdownEditor">here</a></p>
 
 <p>Simply copy the MarkdownEditor folder to /app_plugins and restart your website, and it will be up and running.</p></div>
