@@ -6,6 +6,13 @@ NG_DOCS={
   "pages": [
     {
       "section": "api",
+      "id": "index",
+      "shortName": "Umbraco 7 JS documentation",
+      "type": "overview",
+      "keywords": "all allows and angularjs any api app applicaton as at atleast automated basics be belle bootstrap browser build built can client cmd codename com command compiling convenience conventions create current data database demonstration dependencies dev directly dk do documentation done egghead either engine entire everything excellent exe explorer fest fetch files finally folder following for found frameworks from get getting globally go grunt grunt-cli guide have here html http in included initial install installed introduction io is it javascript js know less local locally machine merge might mocked need needed next node now npm of official on open or org osx other our overview package packages powerfull process ready register require required restart run runner running setup site slides so started sudo task tasks terminal tests that the these this through to tool twitter ui umbraco us use used videos we which will windows with won written yepnope you your"
+    },
+    {
+      "section": "api",
       "id": "umbraco.directives.directive:autoScale",
       "shortName": "autoScale",
       "type": "directive",
@@ -83,14 +90,14 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "umbraco.directives.directive:umbPanel ",
+      "id": "umbraco.directives.directive:umbPanel",
       "shortName": "umbPanel",
       "type": "directive",
       "keywords": "api directive directives umbraco"
     },
     {
       "section": "api",
-      "id": "umbraco.directives.directive:umbProperty ",
+      "id": "umbraco.directives.directive:umbProperty",
       "shortName": "umbProperty",
       "type": "directive",
       "keywords": "api directive directives umbraco"
@@ -111,7 +118,7 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "umbraco.directives.directive:umbTree ",
+      "id": "umbraco.directives.directive:umbTree",
       "shortName": "umbTree",
       "type": "directive",
       "keywords": "api directive directives umbraco"
@@ -174,28 +181,14 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "umbraco.filters.filter:umbTreeIconClass",
-      "shortName": "umbTreeIconClass",
-      "type": "filter",
-      "keywords": "api based class filter filters icon on properly render server set the this tree umbraco will"
-    },
-    {
-      "section": "api",
-      "id": "umbraco.filters.filter:umbTreeIconImage",
-      "shortName": "umbTreeIconImage",
-      "type": "filter",
-      "keywords": "api based filter filters icon image on properly render server set the this tree umbraco will"
-    },
-    {
-      "section": "api",
-      "id": "umbraco.mocks.sectionMocks     ",
+      "id": "umbraco.mocks.sectionMocks",
       "shortName": "sectionMocks",
       "type": "service",
       "keywords": "api data for mocks retrival sectionmocks sections service the umbraco"
     },
     {
       "section": "api",
-      "id": "umbraco.resources.authResource     ",
+      "id": "umbraco.resources.authResource",
       "shortName": "authResource",
       "type": "service",
       "keywords": "api authentication authresource data for in loads resources service umbraco"
@@ -216,14 +209,14 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "umbraco.resources.legacyResource     ",
+      "id": "umbraco.resources.legacyResource",
       "shortName": "legacyResource",
       "type": "service",
       "keywords": "api dialog handles legacy legacyresource requests resources service umbraco"
     },
     {
       "section": "api",
-      "id": "umbraco.resources.mediaResource     ",
+      "id": "umbraco.resources.mediaResource",
       "shortName": "mediaResource",
       "type": "service",
       "keywords": "api data for in loads media mediaresource resources service umbraco"
@@ -237,14 +230,14 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "umbraco.resources.sectionResource     ",
+      "id": "umbraco.resources.sectionResource",
       "shortName": "sectionResource",
       "type": "service",
       "keywords": "api data for in loads resources section sectionresource service umbraco"
     },
     {
       "section": "api",
-      "id": "umbraco.resources.treeResource     ",
+      "id": "umbraco.resources.treeResource",
       "shortName": "treeResource",
       "type": "service",
       "keywords": "api data for in loads resources service treeresource trees umbraco"
@@ -254,7 +247,14 @@ NG_DOCS={
       "id": "umbraco.services.angularHelper",
       "shortName": "angularHelper",
       "type": "service",
-      "keywords": "actually already an angular angularhelper any api applied apply as assign assigned but call checks construct create creating current digest does doesn don exception expose for force form formcontroller formname found function getcurrentform getnullform has helper if in internally is it methods mostly name need not note null object occuring of one or our own publicly return returns safeapply same scope service services so some tests that the they this thrown to umbraco unit us use uses validate validatehasform we will"
+      "keywords": "actually already an angular angularhelper any api applied apply as assign assigned back based bit but call can checks code construct create creating current data digest do does doesn don exception expose for force form formcontroller formname found function getcurrentform getnullform has helper if in internally invalid is it methods mostly name need normally not note null object objreject occuring of on one or our own promise publicly rejectedpromise rejection return returns safeapply same save scope send service services situations so some tests that the they this thrown to umbraco unit us use uses validate validatehasform we will with wrapper writing"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.services.assetsService",
+      "shortName": "assetsService",
+      "type": "service",
+      "keywords": "$q $scope accesible all also and angular angularhelper any api are array as assetsservice attibutes attributes be by can cannot cases client-side code collection contains control controller controllers css default dependencies determine document done element executes file files for function gives greater has head how if in individual inject injects inside instantly into is it javascript js keyvalue lazy-load load loadcss loaded loader loading loadjs make method methods milliseconds mixed module my needs not object of one optional over pass passed path patharray paths prefered print promise promise-based receive resolved resolves scope script service services should simply so some string stye styles stylesheet stylesheets sure that the them then there therefore these this timeout to trigger umbraco usage use utf-8 utillity well what when which will you"
     },
     {
       "section": "api",
@@ -307,13 +307,6 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "umbraco.services.scriptLoader",
-      "shortName": "scriptLoader",
-      "type": "service",
-      "keywords": "$q $scope accesible and angular angularhelper any api are be by client-side code controller controllers css default dependencies done executes function inject inside into is it js lazy-load load loading make module my needs promise-based script scriptloader service services should simply styles sure that the then to umbraco usage use utillity when which"
-    },
-    {
-      "section": "api",
       "id": "umbraco.services.serverValidationManager",
       "shortName": "serverValidationManager",
       "type": "service",
@@ -324,7 +317,7 @@ NG_DOCS={
       "id": "umbraco.services.treeService",
       "shortName": "treeService",
       "type": "service",
-      "keywords": "alias an and api args arguments attempt attempts based by directives factory find for get getmenuitembyalias internally item menu menuitemalias method node null object on otherwise return returns service services supplied the to tree treenode treeservice umbraco umbtree umbtreeitem used"
+      "keywords": "alias all an and api args arguments attempt attempts based by children clears current directives factory find for from get getmenuitembyalias gets in internally it item menu menuitemalias method node null object on otherwise promise re-assigns return returns section server service services supplied the them then to tree treenode treeservice umbraco umbtree umbtreeitem up-to-date used"
     },
     {
       "section": "api",
@@ -349,6 +342,13 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.services.umbracoMenuActions",
+      "shortName": "umbracoMenuActions",
+      "type": "service",
+      "keywords": "action all an and api are args arguments called children clears current declare defines execute from gets it items menu method methods node object only re-assigns refreshnodemenuitem section server service services that the them then to tree treenode treeservice umbraco umbracomenuactions up-to-date when"
+    },
+    {
+      "section": "api",
       "id": "umbraco.services.umbRequestHelper",
       "shortName": "umbRequestHelper",
       "type": "service",
@@ -356,17 +356,45 @@ NG_DOCS={
     },
     {
       "section": "tutorials",
+      "id": "index",
+      "shortName": "Tutorials",
+      "type": "overview",
+      "keywords": "all always and angular-based angularjs application are asp at automated automatically based basics before bootstrap building built but certain clear client-side clientside closer code com compiled contains css editors egghead ensure entire environment files focus for framework from getting good grunt gruntfile have highly hook how html in initial into io is it javascript js learning less linted longer look methods minified net new of on ones org our overview own perform plenty preffered property read reading really recommended ressources running secondly section serverside since source start support task-runner tasks tested that the their there these this ties to together tools top tutorials twitter ui underlying understand understanding up use various we which widgets will with written you"
+    },
+    {
+      "section": "tutorials",
       "id": "CreatingAPropertyEditor",
       "shortName": "Creating a property editor",
       "type": "overview",
-      "keywords": "$scope about above add added after alert alias all allows already an and angular angularjs angulars any app_start appear application are area as assigned at attribute automaticly avoid backoffice basic be below bit blocking but by cache call called can choice chosen class clear click client code com comes comments complete content controller converter converter2 copy cover create creating css current data datatype datatypes declaration define demo dependencies dependency describe details developer do document does done dots each edit editor editor2 editors edits egghead end execute explains external file files finally first folder for found from full function functionality further get github go greated guid guide handling has have hello here hook how html id in including info inject injector inline inside instantiate into io is it its itself javascript js json landed lets library libs like ll load loaded loading loads lod look looks main manifest markdown markdowneditor markdowneditorcontroller means message model modify module modules more multiple must my name namely needed new newly next ng-controller ng-model not now object of on only open or org our overview package pagedown part parts plugin power prerequisites project property propertyeditors publish register registered reload replace resources restart result run running sanitizer save saying scriptloader section see select sent seperat server setting setup simple simply so some source steps structure synced tell telling test text that the then there these thing this through to tons tutorials type ui umbraco umbraco-cms umbracos unique up us use value var ve view want we web website well what whatever when where which will wiring with wmd-button-bar- wmd-input wmd-input- wmd-panel wmd-preview wmd-preview- world write writing you your"
+      "keywords": "$scope about above add added after alert alias all allows already an and angular angularjs angulars any app_start appear application are area as assetsservice assigned at attribute automaticly avoid backoffice basic be below bit blocking but by cache call called can choice chosen class clear click client code com comes comments complete content controller converter converter2 copy cover create creating css current data datatype datatypes declaration define demo dependencies dependency describe details developer do document does done dots each edit editor editor2 editors edits egghead end execute explains external file files finally first folder for found from full function functionality further get github go greated guid guide handling has have hello here hook how html id in including info inject injector inline inside instantiate into io is it its itself javascript js json landed lets library libs like ll load loadcss loaded loading loads lod look looks main manifest markdown markdowneditor markdowneditorcontroller means message model modify module modules more multiple must my name namely needed new newly next ng-controller ng-model not now object of on only open or org our overview package pagedown part parts plugin power prerequisites project property propertyeditors publish register registered reload replace resources restart result run running sanitizer save saying section see select sent seperat server setting setup simple simply so some source steps structure synced tell telling test text that the then there these thing this through to tons tutorials type ui umbraco umbraco-cms umbracos unique up us use value var ve view want we web website well what whatever when where which will wiring with wmd-button-bar- wmd-input wmd-input- wmd-panel wmd-preview wmd-preview- world write writing you your"
+    },
+    {
+      "section": "tutorials",
+      "id": "namingconventions",
+      "shortName": "Naming conventions",
+      "type": "overview",
+      "keywords": "about access acronym all an and app app-start application applications are area as auto-register automaticly be between but can cant com complications components confuse connected contains content contentfactory controller controllers conventions core couple ctrl dependencies dialogs dialogservice directives do document dont due each editcontroller editor editors etc every ex extra factory file filename filters for gives global handle handling have horrible how html http if imo in initially inside is it its js just know knows last level load loaded loosely media misc module modules more name namedspaced namespace namespaced namespacing naming need needed needs not notes notifications notificationsservice of on one only or other our override overview page pagenamecontroller pain party pr princible property propertyeditors proposed really references register resources root routing run same scan section sections service services settings shared should shouldnt so sortcontroller start structure stuff system-level teacommerce that the there they things this thoughts to tree tutorials type typefactory typeservice ucommerce ui umbraco urls us used want we well what when will wins would you"
+    },
+    {
+      "section": "tutorials",
+      "id": "TestDrivenDevFlow",
+      "shortName": "Test-driven developement flow",
+      "type": "overview",
+      "keywords": "$http $httpbackend _backenddata _this add added adding after all also always an and angular any app application are array as at automated automaticly available background based be built but by call calls can case certain change changed changes client cmd code collection command contains contentservice contenttypes controller controllers conventions copied could currently data database define dependencies dependency describe describes dev developement do document done dont ensures entire every example expected fetching file files finally flow folder footprint for from function getallowedchildren getapplication getparameterbyname getting go goes great grunt happen have headers helper how http httpbackend if iis implementation in initial install into is it items js jsint json karma keeps less like linting longer-term looks macro macros make merged method methods mocked mocking modifying need needed new next no node normal now npm null of on open or order our outline overview passed passes point process project pruning real refers regularly required requires resource respond response rest return returnapplicationtrees returns run server servervariables service services set setup short should simply so start static status sure tell terminal test test-driven testing tests that the them then there these they things this through time to tree tries tutorials ui umbraco umrbaco updated uptodate url urlbuilder urlregex urls urlservice use used var version vs want way we web webserver well what when whenget where which will with without working would yet you"
+    },
+    {
+      "section": "tutorials",
+      "id": "using-promises-resources",
+      "shortName": "Using AngularJS Promises and Umbraco Resources",
+      "type": "overview",
+      "keywords": "$http about above accepts actually add additional all always an and angular angularjs anything api are arguments as async automatically based be bubble bubbled but call callback can circumstances consumes consuming consumption containing continue continues convert convertfromlegacyicon create created cssclass custom data display do document don done during err erromsg error errormsg etc everything exactly example expecting failed fails fetches for from function get getactions good handle handler handlers handling hanlding happens have helper here http httppromise iconhelper icons id if important in inside interceptors into is it itself json just leave length loadmenu loads look may menu message method methods might need needs new news next node nodes normal not note notice notificationsservice notified object of ok on one ones original our out outline overview own performed promise promises properties raw really receive required resolve resolves resource resourcepromise resources response rest result rethrow retreive return returned returning returns same scope section server service should show simple so some something sometimes statement still success such that the their then these thing things this those throw to transform transformed transforming transforms tree treeresource treeservice tutorials ui umbraco umbrequesthelper up usable usage used using utilize very want way we well what whatever when which will with work would you your"
     }
   ],
   "apis": {
     "api": true,
     "tutorials": false
   },
-  "html5Mode": true,
+  "html5Mode": false,
   "startPage": "/api",
   "scripts": [
     "angular.min.js"
