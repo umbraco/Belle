@@ -34,10 +34,10 @@ create and modify data.</p>
 
 <h2 id="settingupaplugin">Setting up a plugin</h3>
 
-<p>The first thing we must do is create a new folder inside <code>/app_plugins</code> folder. We will call it
+<p>The first thing we must do is create a new folder inside <code>/App_Plugins</code> folder. We will call it
 <code>MarkDownEditor</code></p>
 
-<p>Next We will create a simple manifest file to describe what this plugin does. This manifest will tell Umbraco about our new property editor and allows us to inject any needed files into the application, so we create the file <code>/app_plugins/MarkDownEditor/package.manifest</code> </p>
+<p>Next We will create a simple manifest file to describe what this plugin does. This manifest will tell Umbraco about our new property editor and allows us to inject any needed files into the application, so we create the file <code>/App_Plugins/MarkDownEditor/package.manifest</code> </p>
 
 <p>Inside this package manifest we add a bit of json to describe the property editor, have a look at the inline comments in the json below for details on each bit:</p>
 
@@ -121,9 +121,9 @@ function ($scope,assetsService) {
     //plugin folder
     assetsService
         .load([
-            "/app_plugins/markdowneditor/lib/markdown.converter.js",
-            "/app_plugins/markdowneditor/lib/markdown.sanitizer.js",
-            "/app_plugins/markdowneditor/lib/markdown.editor.js"
+            "/App_Plugins/MarkDownEditor/lib/markdown.converter.js",
+            "/App_Plugins/MarkDownEditor/lib/markdown.sanitizer.js",
+            "/App_Plugins/MarkDownEditor/lib/markdown.editor.js"
         ])
         .then(function () {
             //this function will execute when all dependencies have loaded
@@ -131,7 +131,7 @@ function ($scope,assetsService) {
         });
 
     //load the seperat css for the editor to avoid it blocking our js loading
-    assetsService.loadCss("/app_plugins/markdowneditor/lib/markdown.css");
+    assetsService.loadCss("/App_Plugins/MarkDownEditor/lib/markdown.css");
 });
 </code></pre>
 

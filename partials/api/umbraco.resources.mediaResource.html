@@ -4,4 +4,31 @@
 </h1>
 <div><h2 id="Description">Description</h2>
 <div class="description"><p>Loads in data for media</p></div>
+<div class="member method"><h2 id="Methods">Methods</h2>
+<ul class="methods"><li><h3 id="sort">sort(args)</h3>
+<div class="sort"><p>Sorts all children below a given parent node id, based on a collection of node-ids</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+var ids = [123,34533,2334,23434];
+mediaResource.sort({ sortedIds: ids })
+   .then(function() {
+       $scope.complete = true;
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">args  {Object}  </code>
+<p>arguments object</p></li>
+<li><code ng:non-bindable="">args.parentId  {Int}  </code>
+<p>the ID of the parent node</p></li>
+<li><code ng:non-bindable="">options.sortedIds  {Array}  </code>
+<p>array of node IDs as they should be sorted</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object.</p></div>
+</div>
+</li>
+</ul>
+</div>
 </div>

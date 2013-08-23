@@ -30,6 +30,26 @@ entityResource.getById(1234)
 – <p>resourcePromise object containing the entity.</p></div>
 </div>
 </li>
+<li><h3 id="getByIds">getByIds(ids)</h3>
+<div class="getbyids"><p>Gets an array of entities, given a collection of ids</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+entityResource.getByIds( [1234,2526,28262])
+   .then(function(contentArray) {
+       var myDoc = contentArray; 
+       alert('they are here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">ids  {Array}  </code>
+<p>ids of entities to return as an array        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the entity array.</p></div>
+</div>
+</li>
 </ul>
 </div>
 </div>
