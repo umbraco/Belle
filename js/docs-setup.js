@@ -27,6 +27,13 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.directives.directive:hexBgColor",
+      "shortName": "hexBgColor",
+      "type": "directive",
+      "keywords": "an and api background be color detect directive directives element hex is it not on otherwise set the this to umbraco used valid when will"
+    },
+    {
+      "section": "api",
       "id": "umbraco.directives.directive:login",
       "shortName": "login",
       "type": "directive",
@@ -240,7 +247,7 @@ NG_DOCS={
       "id": "umbraco.resources.entityResource",
       "shortName": "entityResource",
       "type": "service",
-      "keywords": "alert all an and api are array as basic collection containing contains contentarray data display ent entities entity entityresource for getbyid getbyids gets given here id ids in is it item its lists loads method most mydoc navigation node object of only properties representation resourcepromise resources return service the then they to trees umbraco usage used var what with"
+      "keywords": "additional alert all also an and api are array as basic between can collection containing contains content contentarray core data difference display do document documenttype ent entities entity entityresource faster fetched for get getall getdocumentbyid getdocumentsbyids getentitiesbyids getentitybyid getmediabyid getmediabyids gets given guid here icon id ids if in is it item its know lists loads looking lookup make media mediatype member membertype meta method more most mydoc name navigation never node nodes object of on only optional parameter pass path properties representation resourcepromise resources return service should so specific such template templates that the then they through to trees type types umbraco usage used user users var what whereas with you"
     },
     {
       "section": "api",
@@ -415,7 +422,7 @@ NG_DOCS={
       "id": "index",
       "shortName": "Tutorials",
       "type": "overview",
-      "keywords": "all always and angular-based angularjs application are asp at automated automatically based basics before bootstrap building built but certain clear client-side clientside closer code com compiled contains css editors egghead ensure entire environment files focus for framework from getting good grunt gruntfile have highly hook how html in initial into io is it javascript js learning less linted longer look methods minified net new of on ones org our overview own perform plenty preffered property read reading really recommended ressources running secondly section serverside since source start support task-runner tasks tested that the their there these this ties to together tools top tutorials twitter ui underlying understand understanding up use various we which widgets will with written you"
+      "keywords": "access adding adding-configuration-to-property-editor ahead all always an and angular-based angularjs application are asp at automated automatically based basics becomes before big bits bootstrap breaking build building builds built but by can certain changes clear client client-side clientside closer code com compiled configurable configuration contains create creatingapropertyeditor css data developers developing different editor editors egghead either ensure entire environment files flexible focus folders for format framework from get getting good grunt gruntfile have highly hook how html iis iisexpress in initial inside intergrating intergrating-services-with-propertyeditor into io is it javascript js learning less linted longer look make manifest methods minified net new nightly of on one ones only or org osx our overview own perform plenty plugin preffered project property read reading really recommended ressources reusable run running secondly section series serverside services setup simple since so source source-code-structure standard start structured studio support task-runner tasks tested that the their there these this through ties to together tools top tutorials twitter types ui umbraco underlying understand understanding up use various visual ways we which widgets will windows with works written you your"
     },
     {
       "section": "tutorials",
@@ -423,6 +430,13 @@ NG_DOCS={
       "shortName": "Adding configuration to a property editor",
       "type": "overview",
       "keywords": "$scope about access add added adding all allow allows also an and any app are at attribute basicly be because beginning below blank boolean build building but buttons can checkbox choose class client code codes collection com comes comma config configiration configuration configurations contains continues controller convention data datatype default defaultvalue definition description did different directly display do each easy editor editors element empty error fields file files first flexible following for found from functionality further gain get gets github goes good guid have here how however html if important in infomation input instance instead is it its javascript js json just key label latest lets like live look manifest many markdown markdowneditor model name new next ng-hide ng-show notice now null object of on one only open options or other our overview package part paste pool prevalue prevalueeditor preview project property provide relatively render reuse rich rigth same save see seperate setup several should show simple so something step stored stylesheets text textarea that the then these thing things this times to toggle turn tutorials type ui umbraco undefined update us use used user uses using value values very via view want we web what whats when where which will with without wmd-panel wmd-preview work working you"
+    },
+    {
+      "section": "tutorials",
+      "id": "Building",
+      "shortName": "Building Umbraco 7 from source",
+      "type": "overview",
+      "keywords": "about additional all already also alternative an and any anyone apply appropriate are arsenal as asp at automatic automaticly back basicly bat be become before beginning below bit both bottom browse browser build building builds but by called can certain change changes choice client clunkier code collection com comes command commands compared compile complete complexity conclusion configuration conventions copy couple css data debug dependencies design dev developers directly display distribution do does doing don done dummy each easier edit editor either embedded embrace entire environment errors even every everything fast feedback file files folder folders following for friends from frontend full get give go good group grunt grunt-cli gruntfile has have having here how however if iis in inaccesible included includes indeed install installed installs into is isn it its javascript js just know large larger latest less like likely line lint localhost login lot luckily make making manager means merge might migth minify mocked model moment monitor more most msbuil msbuild mucher nant need needed needs net never nightly node normal not notice now npm number of off on once one one-time ongoing open or org osx our output overview overwritten package part perfect play port possible power powerfull prerequisites process produces project ready really recompile require required requires result rules run runner running runs same scary scripts second see seem seperate sets setup should shove simple simply since site slightly small smoothly so solution something sound source start steps still stops structure studio stuff style sudo syntax system systems task tell terminal test tests text that the them then these thing things think this time to ton tool traditional tutorials ui umbraco unit unorthodox up update uptodate us use user users using visual vs want watcher way we web webserver website well when which who why wiht will windows with without wont working worry would wrong you your zero zip"
     },
     {
       "section": "tutorials",
@@ -444,6 +458,20 @@ NG_DOCS={
       "shortName": "Naming conventions",
       "type": "overview",
       "keywords": "about access acronym all an and app app-start application applications are area as auto-register automaticly be between but can cant com complications components confuse connected contains content contentfactory controller controllers conventions core couple ctrl dependencies dialogs dialogservice directives do document dont due each editcontroller editor editors etc every ex extra factory file filename filters for gives global handle handling have horrible how html http if imo in initially inside is it its js just know knows last level load loaded loosely media misc module modules more name namedspaced namespace namespaced namespacing naming need needed needs not notes notifications notificationsservice of on one only or other our override overview page pagenamecontroller pain party pr princible property propertyeditors proposed really references register resources root routing run same scan section sections service services settings shared should shouldnt so sortcontroller start structure stuff system-level teacommerce that the there they things this thoughts to tree tutorials type typefactory typeservice ucommerce ui umbraco urls us used want we well what when will wins would you"
+    },
+    {
+      "section": "tutorials",
+      "id": "Running",
+      "shortName": "Running Umbraco 7",
+      "type": "overview",
+      "keywords": "allbinaries and are as at be being between both bother build builds buildserver can ce changes choose click comiled compiled contains danish day developement different dll document dont download downloaded during each either every explains file files finally fine first folder for from full getting have how if iis iisexpress in install installed installer installing is it kind latest local machines microsoft morning must nightly of on one only or org our overview perfectly platform produces properties ready right right-click run running runs see select server setup should site sql the there this through time to tutorials types umbraco umbracocms unzip unzipping versions want webmatrix webpi website when where windows with work you zip"
+    },
+    {
+      "section": "tutorials",
+      "id": "Source-Code-Structure",
+      "shortName": "Source code structure",
+      "type": "overview",
+      "keywords": "access all also and api app application are as assets async automated backend based be belle between bits build by central client client-side code comments common compiled concept configuration contain containing contains content controller controllers convention could crud data database default dependencies dev devided different directives document documentation edit editor editors errors everything example external fetched file files filters folder folders for found from generally global good groups grunt handles have how html http if in include inject inline inside into introduce is it items javascript js karma less load loaded loader loading located look looking manifest means merged minified mocked modify modules most multiple mvc-like navigationservice need ngdoc node not now obsolete of often on operations our outlines outputted over overview package packages pages part parts party pattern perform primarily production project projects promise property referencing require resource resources returns root routes routing same sample script serverless service services setup share shared simulate so source specifies start structure such term test testing testrunner that the them they this those time to tutorials ui umbraco unit-test use used variables variabls various very viewname views want we web well what when where which will work yepnope you"
     },
     {
       "section": "tutorials",

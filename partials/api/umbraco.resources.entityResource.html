@@ -8,36 +8,214 @@
 <h2 id="whatisanentity">What is an entity?</h4>
 
 <p>An entity is a basic <strong>read-only</strong> representation of an Umbraco node. It contains only the most
-basic properties used to display the item in trees, lists and navigation. </p></div>
+basic properties used to display the item in trees, lists and navigation. </p>
+
+<h2 id="whatisthedifferencebetweengetentityandgetcontent">What is the difference between get entity and get content?</h4>
+
+<p>the entity only contains the basic node data, name, id and guid, whereas content
+nodes fetched through the entity service also contains additional meta data such
+as icon, document type, path and so on.</p>
+
+<h2 id="entityobjecttypes">Entity object types?</h4>
+
+<p>As an optional parameter, you can pass in the specific type name. So if you know you
+are looking for a specific type, you should pass in the object name, to make lookup faster
+and to return more data.</p>
+
+<p>The core object types are:</p>
+
+<ul>
+<li>Document</li>
+<li>Media</li>
+<li>Member</li>
+<li>Template</li>
+<li>DocumentType</li>
+<li>MediaType</li>
+<li>MemberType</li>
+</ul></div>
 <div class="member method"><h2 id="Methods">Methods</h2>
-<ul class="methods"><li><h3 id="getById">getById(id)</h3>
-<div class="getbyid"><p>Gets an entity with a given id</p>
+<ul class="methods"><li><h3 id="getDocumentById">getDocumentById(id)</h3>
+<div class="getdocumentbyid"><p>Gets a content entity with a given id</p>
 
 <h2 id="usage">usage</h5>
 
 <pre class="prettyprint linenums">
-entityResource.getById(1234)
+entityResource.getDocumentById(1234)
    .then(function(ent) {
        var myDoc = ent; 
        alert('its here!');
    });
 </pre> </p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">id  {Int}  </code>
-<p>id of entity to return        </p></li>
+<p>id of document to return        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the document.</p></div>
+</div>
+</li>
+<li><h3 id="getDocumentsByIds">getDocumentsByIds(ids)</h3>
+<div class="getdocumentsbyids"><p>Gets an array of content entities, given a collection of ids</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+entityResource.getDocumentsByIds( [1234,2526,28262])
+   .then(function(contentArray) {
+       var myDoc = contentArray; 
+       alert('they are here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">ids  {Array}  </code>
+<p>ids of entities to return as an array        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the entity array.</p></div>
+</div>
+</li>
+<li><h3 id="getEntitiesByIds">getEntitiesByIds(ids, type)</h3>
+<div class="getentitiesbyids"><p>Gets an array of entities, given a collection of ids</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+entityResource.getEntitiesByIds( [1234,2526,28262])
+   .then(function(contentArray) {
+       var myDoc = contentArray; 
+       alert('they are here!');
+   });
+
+//Only return templates
+entityResource.getEntitiesByIds( [1234,2526,28262], "Template")
+   .then(function(templateArray) {
+       var myDoc = contentArray; 
+       alert('they are here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">ids  {Array}  </code>
+<p>ids of entities to return as an array</p></li>
+<li><code ng:non-bindable="">type  {string}  </code>
+<p>optional type name        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the entity array.</p></div>
+</div>
+</li>
+<li><h3 id="getEntityById">getEntityById(id, type)</h3>
+<div class="getentitybyid"><p>Gets an entity with a given id</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+entityResource.getEntityById(1234)
+   .then(function(ent) {
+       var myDoc = ent; 
+       alert('its here!');
+   });
+
+//Only return users
+entityResource.getEntityById(0, "User")
+   .then(function(ent) {
+       var myDoc = ent; 
+       alert('its here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">id  {Int}  </code>
+<p>id of entity to return</p></li>
+<li><code ng:non-bindable="">type  {string}  </code>
+<p>optional Object type name        </p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
 <div class="returns"><code ng:non-bindable="">{Promise}</code>
 – <p>resourcePromise object containing the entity.</p></div>
 </div>
 </li>
-<li><h3 id="getByIds">getByIds(ids)</h3>
-<div class="getbyids"><p>Gets an array of entities, given a collection of ids</p>
+<li><h3 id="getEntityById">getEntityById(type)</h3>
+<div class="getentitybyid"><p>Gets an entity with a given id</p>
 
 <h2 id="usage">usage</h5>
 
 <pre class="prettyprint linenums">
-entityResource.getByIds( [1234,2526,28262])
-   .then(function(contentArray) {
+//returns all entities, you should NEVER do that
+entityResource.getAll()
+   .then(function(ent) {
+       var myDoc = ent; 
+       alert('its here!');
+   });
+
+//Only return users
+entityResource.getAll("User")
+   .then(function(ent) {
+       var myDoc = ent; 
+       alert('its here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">type  {string}  </code>
+<p>Object type name        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the entity.</p></div>
+</div>
+</li>
+<li><h3 id="getEntityById">getEntityById(type)</h3>
+<div class="getentitybyid"><p>Gets an entity with a given id</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+//returns all entities, you should NEVER do that
+entityResource.getAll()
+   .then(function(ent) {
+       var myDoc = ent; 
+       alert('its here!');
+   });
+
+//Only return users
+entityResource.getAll("User")
+   .then(function(ent) {
+       var myDoc = ent; 
+       alert('its here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">type  {string}  </code>
+<p>Object type name        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the entity.</p></div>
+</div>
+</li>
+<li><h3 id="getMediaById">getMediaById(id)</h3>
+<div class="getmediabyid"><p>Gets a media entity with a given id</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+entityResource.getMediaById(1234)
+   .then(function(ent) {
+       var myDoc = ent; 
+       alert('its here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">id  {Int}  </code>
+<p>id of media to return        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the media.</p></div>
+</div>
+</li>
+<li><h3 id="getMediaByIds">getMediaByIds(ids)</h3>
+<div class="getmediabyids"><p>Gets an array of media entities, given a collection of ids</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+entityResource.getMediaByIds( [1234,2526,28262])
+   .then(function(mediaArray) {
        var myDoc = contentArray; 
        alert('they are here!');
    });
