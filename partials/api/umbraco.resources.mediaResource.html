@@ -5,7 +5,81 @@
 <div><h2 id="Description">Description</h2>
 <div class="description"><p>Loads in data for media</p></div>
 <div class="member method"><h2 id="Methods">Methods</h2>
-<ul class="methods"><li><h3 id="sort">sort(args)</h3>
+<ul class="methods"><li><h3 id="getById">getById(id)</h3>
+<div class="getbyid"><p>Gets a media item with a given id</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+mediaResource.getById(1234)
+   .then(function(media) {
+       var myMedia = media; 
+       alert('its here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">id – {Int} – </code>
+<p>id of media item to return        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the media item.</p></div>
+</div>
+</li>
+<li><h3 id="getByIds">getByIds(ids)</h3>
+<div class="getbyids"><p>Gets an array of media items, given a collection of ids</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+mediaResource.getByIds( [1234,2526,28262])
+   .then(function(mediaArray) {
+       var myDoc = contentArray; 
+       alert('they are here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">ids – {Array} – </code>
+<p>ids of media items to return as an array        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the media items array.</p></div>
+</div>
+</li>
+<li><h3 id="getScaffold">getScaffold(parentId, alias)</h3>
+<div class="getscaffold"><p>Returns a scaffold of an empty media item, given the id of the media item to place it underneath and the media type alias.</p>
+
+<ul>
+<li>Parent Id must be provided so umbraco knows where to store the media</li>
+<li>Media Type alias must be provided so umbraco knows which properties to put on the media scaffold </li>
+</ul>
+
+<p>The scaffold is used to build editors for media that has not yet been populated with data.</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+mediaResource.getScaffold(1234, 'folder')
+   .then(function(scaffold) {
+       var myDoc = scaffold;
+       myDoc.name = "My new media item"; 
+
+       mediaResource.save(myDoc, true)
+           .then(function(media){
+               alert("Retrieved, updated and saved again");
+           });
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">parentId – {Int} – </code>
+<p>id of media item to return</p></li>
+<li><code ng:non-bindable="">alias – {String} – </code>
+<p>mediatype alias to base the scaffold on        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the media scaffold.</p></div>
+</div>
+</li>
+<li><h3 id="sort">sort(args)</h3>
 <div class="sort"><p>Sorts all children below a given parent node id, based on a collection of node-ids</p>
 
 <h2 id="usage">usage</h5>
@@ -17,11 +91,11 @@ mediaResource.sort({ sortedIds: ids })
        $scope.complete = true;
    });
 </pre> </p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">args  {Object}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">args – {Object} – </code>
 <p>arguments object</p></li>
-<li><code ng:non-bindable="">args.parentId  {Int}  </code>
+<li><code ng:non-bindable="">args.parentId – {Int} – </code>
 <p>the ID of the parent node</p></li>
-<li><code ng:non-bindable="">options.sortedIds  {Array}  </code>
+<li><code ng:non-bindable="">options.sortedIds – {Array} – </code>
 <p>array of node IDs as they should be sorted</p></li>
 </ul>
 <h4 id="Returns">Returns</h4>

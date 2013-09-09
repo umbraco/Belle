@@ -8,13 +8,13 @@ from the angular application to the Umbraco database, using the Content WebApi c
 
 <p>all methods returns a resource promise async, so all operations won't complete untill .then() is completed.</p></div>
 <h2 id="Dependencies">Dependencies</h2>
-<ul class="dependencies"><li><code ng:non-bindable=""><a href="api/$q">$q</a></code>
+<ul class="dependencies"><li><code ng:non-bindable=""><a href="#/api/ng.$q">$q</a></code>
 </li>
-<li><code ng:non-bindable=""><a href="api/$http">$http</a></code>
+<li><code ng:non-bindable=""><a href="#/api/ng.$http">$http</a></code>
 </li>
-<li><code ng:non-bindable=""><a href="api/umbDataFormatter">umbDataFormatter</a></code>
+<li><code ng:non-bindable=""><a href="#/api/ng.umbDataFormatter">umbDataFormatter</a></code>
 </li>
-<li><code ng:non-bindable=""><a href="api/umbRequestHelper">umbRequestHelper</a></code>
+<li><code ng:non-bindable=""><a href="#/api/ng.umbRequestHelper">umbRequestHelper</a></code>
 <h2 id="usage">usage</h4>
 
 <p>To use, simply inject the contentResource into any controller or service that needs it, and make
@@ -39,7 +39,7 @@ contentResource.deleteById(1234)
        alert('its gone!');
    });
 </pre> </p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">id  {Int}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">id – {Int} – </code>
 <p>id of content item to delete        </p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
@@ -74,7 +74,7 @@ contentResource.getById(1234)
        alert('its here!');
    });
 </pre> </p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">id  {Int}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">id – {Int} – </code>
 <p>id of content item to return        </p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
@@ -94,7 +94,7 @@ contentResource.getByIds( [1234,2526,28262])
        alert('they are here!');
    });
 </pre> </p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">ids  {Array}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">ids – {Array} – </code>
 <p>ids of content items to return as an array        </p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
@@ -114,19 +114,19 @@ contentResource.getChildren(1234, {pageSize: 10, pageNumber: 2})
        alert('they are here!');
    });
 </pre> </p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">parentid  {Int}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">parentid – {Int} – </code>
 <p>id of content item to return children of</p></li>
-<li><code ng:non-bindable="">options  {Object}  </code>
+<li><code ng:non-bindable="">options – {Object} – </code>
 <p>optional options object</p></li>
-<li><code ng:non-bindable="">options.pageSize  {Int}  </code>
+<li><code ng:non-bindable="">options.pageSize – {Int} – </code>
 <p>if paging data, number of nodes per page, default = 0</p></li>
-<li><code ng:non-bindable="">options.pageNumber  {Int}  </code>
+<li><code ng:non-bindable="">options.pageNumber – {Int} – </code>
 <p>if paging data, current page index, default = 0</p></li>
-<li><code ng:non-bindable="">options.filter  {String}  </code>
+<li><code ng:non-bindable="">options.filter – {String} – </code>
 <p>if provided, query will only return those with names matching the filter</p></li>
-<li><code ng:non-bindable="">options.orderDirection  {String}  </code>
+<li><code ng:non-bindable="">options.orderDirection – {String} – </code>
 <p>can be <code>Ascending</code> or <code>Descending</code> - Default: <code>Ascending</code></p></li>
-<li><code ng:non-bindable="">options.orderBy  {String}  </code>
+<li><code ng:non-bindable="">options.orderBy – {String} – </code>
 <p>property to order items by, default: <code>SortOrder</code></p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
@@ -158,9 +158,9 @@ contentResource.getScaffold(1234, 'homepage')
            });
    });
 </pre> </p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">parentId  {Int}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">parentId – {Int} – </code>
 <p>id of content item to return</p></li>
-<li><code ng:non-bindable="">alias  {String}  </code>
+<li><code ng:non-bindable="">alias – {String} – </code>
 <p>contenttype alias to base the scaffold on        </p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
@@ -184,11 +184,11 @@ contentResource.getById(1234)
            });
    });
 </pre> </p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">content  {Object}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">content – {Object} – </code>
 <p>The content item object with changes applied</p></li>
-<li><code ng:non-bindable="">isNew  {Bool}  </code>
+<li><code ng:non-bindable="">isNew – {Bool} – </code>
 <p>set to true to create a new item or to update an existing </p></li>
-<li><code ng:non-bindable="">files  {Array}  </code>
+<li><code ng:non-bindable="">files – {Array} – </code>
 <p>collection of files for the document      </p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
@@ -212,11 +212,11 @@ contentResource.getById(1234)
            });
    });
 </pre> </p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">content  {Object}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">content – {Object} – </code>
 <p>The content item object with changes applied</p></li>
-<li><code ng:non-bindable="">isNew  {Bool}  </code>
+<li><code ng:non-bindable="">isNew – {Bool} – </code>
 <p>set to true to create a new item or to update an existing </p></li>
-<li><code ng:non-bindable="">files  {Array}  </code>
+<li><code ng:non-bindable="">files – {Array} – </code>
 <p>collection of files for the document      </p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
@@ -236,11 +236,11 @@ contentResource.sort({ parentId: 1244, sortedIds: ids })
        $scope.complete = true;
    });
 </pre> </p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">args  {Object}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">args – {Object} – </code>
 <p>arguments object</p></li>
-<li><code ng:non-bindable="">args.parentId  {Int}  </code>
+<li><code ng:non-bindable="">args.parentId – {Int} – </code>
 <p>the ID of the parent node</p></li>
-<li><code ng:non-bindable="">options.sortedIds  {Array}  </code>
+<li><code ng:non-bindable="">options.sortedIds – {Array} – </code>
 <p>array of node IDs as they should be sorted</p></li>
 </ul>
 <h4 id="Returns">Returns</h4>

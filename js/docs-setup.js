@@ -48,6 +48,13 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.directives.directive:resizeToContent",
+      "shortName": "resizeToContent",
+      "type": "directive",
+      "keywords": "api automatically contain content directive directives div fit html iframe index meh module name resize resize-to-content src the they to umbraco"
+    },
+    {
+      "section": "api",
       "id": "umbraco.directives.directive:umbAvatar",
       "shortName": "umbAvatar",
       "type": "directive",
@@ -122,6 +129,13 @@ NG_DOCS={
       "shortName": "umbProperty",
       "type": "directive",
       "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbSort",
+      "shortName": "umbSort",
+      "type": "directive",
+      "keywords": "an api as automatically be bottom can class directive directives div fit from html if index input-block-level module name of offset only optional parameter pass pixels resize scale screen set so the to umb-sort umbraco want y-axis you"
     },
     {
       "section": "api",
@@ -237,6 +251,13 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.resources.dashboardResource",
+      "shortName": "dashboardResource",
+      "type": "service",
+      "keywords": "api dashboard dashboardresource handles loading manifest resources service the umbraco"
+    },
+    {
+      "section": "api",
       "id": "umbraco.resources.dataTypeResource",
       "shortName": "dataTypeResource",
       "type": "service",
@@ -261,7 +282,7 @@ NG_DOCS={
       "id": "umbraco.resources.mediaResource",
       "shortName": "mediaResource",
       "type": "service",
-      "keywords": "$scope all api args arguments array as based be below children collection complete data for given id ids in loads media mediaresource method node node-ids object of on options parent parentid resourcepromise resources service should sort sorted sortedids sorts the then they true umbraco usage var"
+      "keywords": "$scope again alert alias all an and api are args arguments array as base based be been below build children collection complete containing contentarray data editors empty folder for getbyid getbyids gets getscaffold given has here id ids in is it item items its knows loads media mediaresource mediatype method must my mydoc mymedia name new node node-ids not object of on options parent parentid place populated properties provided put resourcepromise resources retrieved return returns save saved scaffold service should so sort sorted sortedids sorts store that the then they to true type umbraco underneath updated usage used var where which with yet"
     },
     {
       "section": "api",
@@ -317,7 +338,7 @@ NG_DOCS={
       "id": "umbraco.services.dialogService",
       "shortName": "dialogService",
       "type": "service",
-      "keywords": "$compile $http $log $q $rootscope $templatecache accesible all also an and animation any api application-wide array attach attached be been body but by callback called can chosen class close closeall closes container contains content contentpicker controller css csss custom default dialog dialogs dialogservice div document documents does dom done edit editor element existing fade for from function functon given handling has html iframe iframes in incase inject injects inline instantly into is it items its load macro macropicker make mcaro media mediapicker method modal modalclass modals module multipicker multiple needed needs new non-angular object of on one only open opens options or overlays page parameters passed path picker processing property propertydialog rendering renders representing return returned returns rootscope scope selected sent serverside service services set should show simply specific strips submitted support sure template templates that the this to tree true umb-modal umbraco url usage use used value var want whatever when which width with wrappers you ysod ysoddialog"
+      "keywords": "$compile $http $log $q $rootscope $templatecache accesible all also an and animation any api application-wide args array attach attached be been body but by callback callbacks called can chosen class close closeall closes container contains content contentpicker controller css csss custom default dialog dialogs dialogservice div document documents does dom done edit editor element existing fade for from function functon given handling has html if iframe iframes in incase inject injects inline instantly into is it items its load macro macropicker make mcaro media mediapicker method modal modalclass modals module multipicker multiple needed needs new non-angular object of on one only open opens options or overlays page parameters passed path picker processing property propertydialog registered rendering renders representing return returned returns rootscope scope selected sent serverside service services set should show simply specific specified strips submitted support sure template templates that the this to tree true umb-modal umbraco url usage use used value var want whatever when which width will with wrappers you ysod ysoddialog"
     },
     {
       "section": "api",
@@ -426,6 +447,13 @@ NG_DOCS={
     },
     {
       "section": "tutorials",
+      "id": "Add-ServerSide-Data",
+      "shortName": "Adding serverside data to a property editor",
+      "type": "overview",
+      "keywords": "$http $scope above access add adding aimee all also alternatively always amount amounts an and angular antigua any api apicontroller app app_code application are as asks at authorized backoffice barbuda basic baxter be becomes below bevel bhutan bit bits both brooke but by call called calling cals camacho can class clicked code collection collections com compile component connects controller controllers convention cora core could country create creates cruzes cs custom das data database databasecontext db defined details directly dll do done each earlier easy editor editors end entire erasmus everything expose factory fetch file finally first flexible flow follows for frederick froidchapelle from function generic get getall go good grenada grenadines handles have having hawera here honestly href huh id identity ienumerable illiana important in indication inherits inject insert inside int integer into is it its js json just kaye keep kelly key kingdom larger later latvia linq list load look manifest map mapped method model module mogi more must mvc my myles name namespace need net new next ng-click ng-controller ng-repeat normal not now null object objects of on only open our overview own package part pattern pearson people persistence person person-list personapicontroller personpicker personpickercontroller personresource place plugincontroller populated populates previous primary project promise property public queries query random ready refer register renders requests resolve resource resources response result retrieve return returned returns reusable rothesay route routes saint sampson saved script select selected series server serverside service services set setup side simple simplicity since sint-pieters-kapelle skipped so some specific sql standard start store string strong strongly system table tailles tell that the then there these thing things this tho those tiny to town track turkmenistan tutorial tutorials typed umbraco umbracoauthorizedjsoncontroller umbracocontext under united url use uses using value values var varchar very view vincent want way we web webapi what when which will with wrap-up write you your"
+    },
+    {
+      "section": "tutorials",
       "id": "Adding-Configuration-To-Property-Editor",
       "shortName": "Adding configuration to a property editor",
       "type": "overview",
@@ -450,7 +478,7 @@ NG_DOCS={
       "id": "Intergrating-Services-With-PropertyEditor",
       "shortName": "Integrating services with a property editor",
       "type": "overview",
-      "keywords": "$log $scope above access add added adding after alias also always an and angular archive are array as assetsservce assetsservice associated at available basicly be because below built-in but button by callback called can cannot care cases chooser choosing click clicking clicks client code com complete configurable connected contains controller converter converter2 correct created data defined dialog dialogs dialogservice do don done each easily editor editor2 embedded event events first for found from function generic get getimagepropertyvaue getting handling has have helper hook hooking hooks how html if image imagehelper imagemodel imagepropval images in inject injected injecting inplace insertimagedialog instance integrating intercept intergrate into is it item javascript jpg know koala libraries like listing ll log looked made markdown markdowneditorcontroller media mediapicker methods model module my native nature need new nice notice now number object of on one ones our over overview own page pagedown parameter part party pick picker picture pictures place plugin presented preview previous project properies property renders representing return returns right run same sample scope see select selected selection selects service services set shorthands so standard started step steps sure system take tell that the then things this through thumbnails to trigger triggered true turned tutorial tutorials ui umbraco umbracofile umbracos up url use used usefull using utillity var ve want way we web well what whatever when where which will with works wrap you your"
+      "keywords": "$log $scope above access add added adding after alias also always an and angular archive are array as assetsservce assetsservice associated at available basicly be because below built-in but button by callback called can cannot care cases chooser choosing click clicking clicks client code com complete configurable connected contains controller converter converter2 correct created data defined dialog dialogs dialogservice do don done each easily editor editor2 embedded event events first for found from function generic get getimagepropertyvalue getting handling has have helper hook hooking hooks how html if image imagehelper imagemodel imagepropval images in inject injected injecting inplace insertimagedialog instance integrating intercept intergrate into is it item javascript jpg know koala libraries like listing ll log looked made markdown markdowneditorcontroller media mediapicker methods model module my native nature need new nice notice now number object of on one ones our over overview own page pagedown parameter part party pick picker picture pictures place plugin presented preview previous project properies property renders representing return returns right run same sample scope see select selected selection selects service services set shorthands so standard started step steps sure system take tell that the then things this through thumbnails to trigger triggered true turned tutorial tutorials ui umbraco umbracofile umbracos up url use used usefull using utillity var ve want way we web well what whatever when where which will with works wrap you your"
     },
     {
       "section": "tutorials",

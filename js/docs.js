@@ -295,6 +295,7 @@ docsApp.controller.DocsController = function($scope, $location, $window, section
 
   $scope.navClass = function(page1, page2) {
     return {
+      first: this.$first,
       last: this.$last,
       active: page1 && this.currentPage == page1 || page2 && this.currentPage == page2
     };
@@ -334,10 +335,11 @@ docsApp.controller.DocsController = function($scope, $location, $window, section
     var parts = path.split('/'),
       sectionId = parts[1],
       partialId = parts[2],
-      sectionName = $scope.sections[sectionId] || sectionId,
-      page = sections.getPage(sectionId, partialId);
+      page, sectionName = $scope.sections[(NG_DOCS.html5Mode ? '' : '#/') + sectionId];
 
-    $scope.currentPage = sections.getPage(sectionId, partialId);
+    if (!sectionName) { return; }
+
+    $scope.currentPage = page = sections.getPage(sectionId, partialId);
 
     if (!$scope.currentPage) {
       $scope.partialTitle = 'Error: Page Not Found!';
@@ -351,7 +353,7 @@ docsApp.controller.DocsController = function($scope, $location, $window, section
       match, sectionPath = (NG_DOCS.html5Mode ? '' : '#/') +  sectionId;
 
     if (partialId) {
-      breadcrumb.push({ name: NG_DOCS.sections[sectionName], url: sectionPath });
+      breadcrumb.push({ name: sectionName, url: sectionPath });
       if (partialId == 'angular.Module') {
         breadcrumb.push({ name: 'angular.Module' });
       } else if (match = partialId.match(GLOBALS)) {
@@ -388,7 +390,7 @@ docsApp.controller.DocsController = function($scope, $location, $window, section
         breadcrumb.push({ name: page.shortName });
       }
     } else {
-      breadcrumb.push({ name: NG_DOCS.sections[sectionName] });
+      breadcrumb.push({ name: sectionName });
     }
   });
 

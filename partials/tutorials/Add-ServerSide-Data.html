@@ -1,0 +1,171 @@
+<h1><code ng:non-bindable=""></code>
+<span class="hint"></span>
+</h1>
+<div><h2 id="overview">Overview</h3>
+
+<p>In this tutorial we will add a serverside API controller, which will query a custom table in the umbraco database, and then return the data to a simple angular controller + view.</p>
+
+<p>The end result will be a person-list, populated from a custom table, when clicked it will store the ID of the selected person.</p>
+
+<h2 id="setupthedatabase">Setup the database</h3>
+
+<p>First thing we need is some data, below is a simple SQL Script for create a <code>people</code> table with some random data in. You could also use [http://generatedata.com] for larger amounts of data:</p>
+
+<pre><code>CREATE TABLE people (
+    id INTEGER NOT NULL IDENTITY(1, 1),
+    name VARCHAR(255) NULL,
+    town VARCHAR(255) NULL,
+    country VARCHAR(100) NULL,
+    PRIMARY KEY (id)
+);
+GO
+
+INSERT INTO people(name,town,country) VALUES('Myles A. Pearson','Tailles','United Kingdom');
+INSERT INTO people(name,town,country) VALUES('Cora Y. Kelly','Froidchapelle','Latvia');
+INSERT INTO people(name,town,country) VALUES('Brooke Baxter','Mogi das Cruzes','Grenada');
+INSERT INTO people(name,town,country) VALUES('Illiana T. Strong','Bevel','Bhutan');
+INSERT INTO people(name,town,country) VALUES('Kaye Frederick','Rothesay','Turkmenistan');
+INSERT INTO people(name,town,country) VALUES('Erasmus Camacho','Sint-Pieters-Kapelle','Saint Vincent and The Grenadines');
+INSERT INTO people(name,town,country) VALUES('Aimee Sampson','Hawera','Antigua and Barbuda');
+</code></pre>
+
+<h2 id="setupapicontrollerroutes">Setup ApiController routes</h3>
+
+<p>Next we need to defined a <code>ApiController</code> to expose a server side route which our application will use to fetch the data.</p>
+
+<p>For this, we will create a file at: <code>/app_code/PersonApiController.cs</code> It must be in app_code since we want our app to compile it on start, alternatively, you can just add it to a normal .net project and compile into a dll as normal.</p>
+
+<p>In the PersonApiController.cs file, add: </p>
+
+<pre><code>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+using Umbraco.Web.WebApi;
+using Umbraco.Web.Editors;
+using Umbraco.Core.Persistence;
+
+namespace My.Controllers
+{
+    [Umbraco.Web.Mvc.PluginController("My")]
+    public class PersonApiController : UmbracoAuthorizedJsonController
+    {
+        //we will add a method here later
+    }
+}
+</code></pre>
+
+<p>This is a very basic Api controller which inherits from <code>UmbracoAuthorizedJsonController</code> this specific class will only return json data, and only to requests which are authorized to access the backoffice</p>
+
+<h2 id="setupthegetallmethod">Setup the GetAll() method</h3>
+
+<p>Now that we have a controller, we need to create a method, which can return a collection of people, which our editor will use. </p>
+
+<p>So first of all, we add a <code>Person</code> class to the <code>My.Controllers</code> namespace:</p>
+
+<pre><code>public class Person
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Town { get; set; }
+    public string Country { get; set; }
+}
+</code></pre>
+
+<p>We will use this class to map our table data to an c# class, which we can return as json later. </p>
+
+<p>Now we need the <code>GetAll()</code> method which returns a collection of people, insert this inside the PersonApiController class:</p>
+
+<pre><code>public IEnumerable&lt;Person&gt; GetAll()
+{
+
+}
+</code></pre>
+
+<p>Inside the GetAll() method, we now write a bit of code, that connects to the database, creates a query and returns the data, mapped to the <code>Person</code> class above: </p>
+
+<pre><code>//get the database
+var db = UmbracoContext.Application.DatabaseContext.Database;
+//build a query to select everything the people table
+var query = new Sql().Select("*").From("people");
+//fetch data from DB with the query and map to Person object
+return db.Fetch&lt;Person&gt;(query);
+</code></pre>
+
+<p>We are now done with the server side of things, with the file saved in app_code you can now open the Url: /umbraco/My/PersonApi/GetAll</p>
+
+<p>This will return our json code.</p>
+
+<h2 id="createapersonresource">Create a Person Resource</h3>
+
+<p>Now that we have the serverside in place, and a Url to call, we will setup a service to retrieve our data. As an Umbraco specific convention, we call these services a *resource, so we always have an indication what services fetch data from the DB.</p>
+
+<p>Create a new file as <code>person.resource.js</code> and add: </p>
+
+<pre><code>//adds the resource to umbraco.resources module:
+angular.module('umbraco.resources').factory('personResource', 
+    function($q, $http) {
+        //the factory object returned
+        return {
+            //this cals the Api Controller we setup earlier
+            getAll: function () {
+                return  $http.get("My/PersonApi/GetAll");
+            }
+        };
+    }
+); 
+</code></pre>
+
+<p>This uses the standard angular factory pattern, so we can now inject this into any of our controllers under the name <code>personResource</code>.</p>
+
+<p>the getAll method just returns a $http.get call, which handles calling the url, and will return the data when its ready.</p>
+
+<h2 id="createtheviewandcontroller">Create the view and controller</h3>
+
+<p>We will now finally setup a new view and controller, which follows previous tutorials, so have refer to those for more details: </p>
+
+<h4 id="theview">the view:</h5>
+
+<pre><code>&lt;div ng-controller="My.PersonPickerController"&gt;
+    &lt;ul&gt;
+        &lt;li ng-repeat="person in people"&gt;
+            &lt;a href ng-click="model.value = person.Name"&gt;{{person.Name}}&lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+
+<h4 id="thecontroller">The controller:</h5>
+
+<pre><code>angular.module("umbraco")
+    .controller("My.PersonPickerController", function($scope, personResource){
+        personResource.getAll().then(function(response){
+            $scope.people = response.data;
+        });
+    });
+</code></pre>
+
+<h2 id="theflow">The flow</h3>
+
+<p>So with all these bits in place, all you need to do is register the property editor in a package.manifest - have a look at the first tutorial in this series. You will need to tell the package to load both your personpicker.controller.js and the person.resource.js file on app start.</p>
+
+<p>With this, the entire flow is: </p>
+
+<ol>
+<li>the view renders a list of people with a controller</li>
+<li>the controller asks the personResource for data</li>
+<li>the personResource returns a promise and asks the /my/PersonAPI api controller</li>
+<li>The apicontroller queries the database, which returns the data as strongly typed Person objects</li>
+<li>the api controller returns those <code>Person</code> objects as json to the resource</li>
+<li>the resource resolve the promise</li>
+<li>the controller populates the view</li>
+</ol>
+
+<p>Easy huh? - honestly tho, there is a good amount of things to keep track of, but each component is tiny and flexible. </p>
+
+<h2 id="wrapup">Wrap-up</h3>
+
+<p>The important part of the above is the way you create an <code>ApiController</code> call the database for your own data, and finally expose the data to angular as a service using $http.</p>
+
+<p>For simplicity, you could also have skipped the service part, and just called $http directly in your controller, but by having your data in a service, it becomes a reusable resource for your entire application.</p></div>

@@ -7,18 +7,18 @@
 <div class="member method"><h2 id="Methods">Methods</h2>
 <ul class="methods"><li><h3 id="dictionaryToQueryString">dictionaryToQueryString(queryStrings)</h3>
 <div class="dictionarytoquerystring"><p>This will turn an array of key/value pairs into a query string</p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">queryStrings  {Array}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">queryStrings – {Array} – </code>
 <p>An array of key/value pairs</p></li>
 </ul>
 </div>
 </li>
 <li><h3 id="getApiUrl">getApiUrl(apiName, actionName, queryStrings)</h3>
 <div class="getapiurl"><p>This will return the webapi Url for the requested key based on the servervariables collection</p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">apiName  {string}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">apiName – {string} – </code>
 <p>The webapi name that is found in the servervariables["umbracoUrls"] dictionary</p></li>
-<li><code ng:non-bindable="">actionName  {string}  </code>
+<li><code ng:non-bindable="">actionName – {string} – </code>
 <p>The webapi action name </p></li>
-<li><code ng:non-bindable="">queryStrings  {object}  </code>
+<li><code ng:non-bindable="">queryStrings – {object} – </code>
 <p>Can be either a string or an array containing key/value pairs</p></li>
 </ul>
 </div>
@@ -27,7 +27,7 @@
 <div class="resourcepromise"><p>This returns a promise with an underlying http call, it is a helper method to reduce
 the amount of duplicate code needed to query http resources and automatically handle any 
 Http errors. See /docs/source/using-promises-resources.md</p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">opts  {object}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">opts – {object} – </code>
 <p>A mixed object which can either be a string representing the error message to be
 returned OR an object containing either:
   { success: successCallback, errorMsg: errorMessage }

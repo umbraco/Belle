@@ -38,9 +38,9 @@ sure the umbraco.services module is accesible - which it should be by default.</
      });
 </pre>  </p></div>
 <h2 id="Dependencies">Dependencies</h2>
-<ul class="dependencies"><li><code ng:non-bindable=""><a href="api/$q">$q</a></code>
+<ul class="dependencies"><li><code ng:non-bindable=""><a href="#/api/ng.$q">$q</a></code>
 </li>
-<li><code ng:non-bindable=""><a href="api/angularHelper">angularHelper</a></code>
+<li><code ng:non-bindable=""><a href="#/api/ng.angularHelper">angularHelper</a></code>
 </li>
 </ul>
 <div class="member method"><h2 id="Methods">Methods</h2>
@@ -48,9 +48,9 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <div class="load"><p>Injects a collection of files, this can be a mixed collection of css and js files, the loader will determine how to load them</p>
 
 <p><strong>Warning:</strong> if the collection of files contains a .css file, you will in some cases not receive a resolved promise, it is therefore prefered to use the individual loadCss and loadJs methods</p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">pathArray  {Array}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">pathArray – {Array} – </code>
 <p>string array of paths to the files to load</p></li>
-<li><code ng:non-bindable="">scope  {Scope}  </code>
+<li><code ng:non-bindable="">scope – {Scope} – </code>
 <p>optional scope to pass into the loader</p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
@@ -60,13 +60,13 @@ sure the umbraco.services module is accesible - which it should be by default.</
 </li>
 <li><h3 id="loadCss">loadCss(path, scope, keyvalue, timeout)</h3>
 <div class="loadcss"><p>Injects a file as a stylesheet into the document head</p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">path  {String}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">path – {String} – </code>
 <p>path to the css file to load</p></li>
-<li><code ng:non-bindable="">scope  {Scope}  </code>
+<li><code ng:non-bindable="">scope – {Scope} – </code>
 <p>optional scope to pass into the loader</p></li>
-<li><code ng:non-bindable="">keyvalue  {Object}  </code>
+<li><code ng:non-bindable="">keyvalue – {Object} – </code>
 <p>collection of attributes to pass to the stylesheet element  </p></li>
-<li><code ng:non-bindable="">timeout  {Number}  </code>
+<li><code ng:non-bindable="">timeout – {Number} – </code>
 <p>in milliseconds</p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
@@ -76,13 +76,13 @@ sure the umbraco.services module is accesible - which it should be by default.</
 </li>
 <li><h3 id="loadJs">loadJs(path, scope, keyvalue, timeout)</h3>
 <div class="loadjs"><p>Injects a file as a javascript into the document</p><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">path  {String}  </code>
+<ul class="parameters"><li><code ng:non-bindable="">path – {String} – </code>
 <p>path to the js file to load</p></li>
-<li><code ng:non-bindable="">scope  {Scope}  </code>
+<li><code ng:non-bindable="">scope – {Scope} – </code>
 <p>optional scope to pass into the loader</p></li>
-<li><code ng:non-bindable="">keyvalue  {Object}  </code>
+<li><code ng:non-bindable="">keyvalue – {Object} – </code>
 <p>collection of attributes to pass to the script element  </p></li>
-<li><code ng:non-bindable="">timeout  {Number}  </code>
+<li><code ng:non-bindable="">timeout – {Number} – </code>
 <p>in milliseconds</p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
