@@ -1,0 +1,71 @@
+<h1><code ng:non-bindable="">logResource</code>
+<span class="hint">(service in module <code ng:non-bindable="">umbraco.resources</code>
+)</span>
+</h1>
+<div><h2 id="Description">Description</h2>
+<div class="description"><p>Retrives log history from umbraco</p></div>
+<div class="member method"><h2 id="Methods">Methods</h2>
+<ul class="methods"><li><h3 id="getEntityLog">getEntityLog(id)</h3>
+<div class="getentitylog"><p>Gets the log history for a give entity id</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+logResource.getEntityLog(1234)
+   .then(function(log) {
+       alert('its here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">id – {Int} – </code>
+<p>id of entity to return log history        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the log.</p></div>
+</div>
+</li>
+<li><h3 id="getLog">getLog(type, since)</h3>
+<div class="getlog"><p>Gets the log history for a given type of log entry</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+logResource.getLog("save", new Date())
+   .then(function(log) {
+       alert('its here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">type – {String} – </code>
+<p>logtype to query for</p></li>
+<li><code ng:non-bindable="">since – {DateTime} – </code>
+<p>query the log back to this date, by defalt 7 days ago</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the log.</p></div>
+</div>
+</li>
+<li><h3 id="getUserLog">getUserLog(type, since)</h3>
+<div class="getuserlog"><p>Gets the current users' log history for a given type of log entry</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+logResource.getUserLog("save", new Date())
+   .then(function(log) {
+       alert('its here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">type – {String} – </code>
+<p>logtype to query for</p></li>
+<li><code ng:non-bindable="">since – {DateTime} – </code>
+<p>query the log back to this date, by defalt 7 days ago</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the log.</p></div>
+</div>
+</li>
+</ul>
+</div>
+</div>

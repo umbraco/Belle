@@ -86,14 +86,14 @@ NG_DOCS={
       "id": "umbraco.directives.directive:umbFileUpload",
       "shortName": "umbFileUpload",
       "type": "directive",
-      "keywords": "and api are changes control controllers directive directives emits events file files for in input listens other selected umbraco use when"
+      "keywords": "an api based because control directive directives field file for html in is it itself object on only parameter passed rebuild replace required reset single that the this to umbraco upload way will"
     },
     {
       "section": "api",
       "id": "umbraco.directives.directive:umbFileUpload",
       "shortName": "umbFileUpload",
       "type": "directive",
-      "keywords": "an api based because control directive directives field file for html in is it itself object on only parameter passed rebuild replace required reset single that the this to umbraco upload way will"
+      "keywords": "and api are changes control controllers directive directives emits events file files for in input listens other selected umbraco use when"
     },
     {
       "section": "api",
@@ -125,8 +125,43 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.directives.directive:umbPanel",
+      "shortName": "umbPanel",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbPhotoFolder",
+      "shortName": "umbPhotoFolder",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
       "id": "umbraco.directives.directive:umbProperty",
       "shortName": "umbProperty",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbProperty",
+      "shortName": "umbProperty",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbProperty",
+      "shortName": "umbProperty",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbSections",
+      "shortName": "umbSections",
       "type": "directive",
       "keywords": "api directive directives umbraco"
     },
@@ -167,6 +202,13 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.directives.directive:valFormManager",
+      "shortName": "valFormManager",
+      "type": "directive",
+      "keywords": "$error $invalid $valid actually acurrately all also an another any api are be because broadcast changed changing class collection contains control control-group correctly css custom directive directives displayed does doesn don each element elements ensure ensures error event for form formcontroller group has have higher if in included inside invalid is just labels lets marked means much need notify of on one or processing put result sets show-validation styled submitting target that the thing this to trigger umbraco us use used validation watch watching we when which whole will with would you"
+    },
+    {
+      "section": "api",
       "id": "umbraco.directives.directive:valHighlight",
       "shortName": "valHighlight",
       "type": "directive",
@@ -177,7 +219,7 @@ NG_DOCS={
       "id": "umbraco.directives.directive:valPropertyMsg",
       "shortName": "valPropertyMsg",
       "type": "directive",
-      "keywords": "an and api changes control detected directive directives display error for formcontroller is level listen ll message of property server show side textarea the this to umbraco used validation we when will"
+      "keywords": "an and api be changes containing control detected directive directives display error for form formcontroller in is level listen ll message must of on order placed property server show side textarea the this to umbraco used validation valstatuschanged we when will work"
     },
     {
       "section": "api",
@@ -202,17 +244,10 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "umbraco.directives.directive:valShowValidation",
-      "shortName": "valShowValidation",
-      "type": "directive",
-      "keywords": "after and api because by class containing controller current directive directives do don element elements events form is listening messages on process reset saved saving show show-validation submitted successful the then this to toggle umbraco until used validate validation want we when"
-    },
-    {
-      "section": "api",
       "id": "umbraco.directives.directive:valTab",
       "shortName": "valTab",
       "type": "directive",
-      "keywords": "api content data directive directives errors for has in indicate its show tab that the to umbraco used validation validations warnings"
+      "keywords": "api be containing content data directive directives errors for form has in indicate its must on order placed show tab that the this to umbraco used valformmanager validation validations warnings work"
     },
     {
       "section": "api",
@@ -240,7 +275,7 @@ NG_DOCS={
       "id": "umbraco.resources.contentResource",
       "shortName": "contentResource",
       "type": "service",
-      "keywords": "$http $q $scope accesible again alert alias all an and angular any api application applied are args arguments array as ascending async attached base based be been below bin build by can changes children collection complete completed containing content contentarray contentresource contenttype controller create creation current data database default delete deletebyid deletes descending document editors empties empty emptyrecyclebin existing false files filter for force from getbyid getbyids getchildren gets getscaffold given gone handles has have here homepage id ids if index inject into is isnew it item items its knows made make matching method methods module must my mydoc name names needs new node node-ids nodes not number object of on only operations optional options or order orderby orderdirection page pagenumber pagesize paging param paramater parent parentid passed per place populated promise properties property provided publish published publishes put query recycle resource resourcepromise resources retrieved return returns save saved saves scaffold seperately service set should simply so sort sorted sortedids sortorder sorts store sure that the then they those to transactions true type umbdataformatter umbraco umbrequesthelper underneath untill update updated usage use used using var version want webapi where which will with won yet"
+      "keywords": "$http $q $scope accesible again alert alias all an and angular any api application applied are args arguments array as ascending async attached base based be been below bin build by can changes children collection complete completed containing content contentarray contentresource contenttype controller copied copies copy create creation current data database default delete deletebyid deletes descending didnt document editors empties empty emptyrecyclebin err existing false files filter for force from function getbyid getbyids getchildren getniceurl gets getscaffold given gone handles has have here homepage id idd ids if index inject into is isnew it item items its knows made make matching message method methods module move moved moves must my mydoc name names needs new node node-ids nodes not number object of on only operations optional options or order orderby orderdirection original page pagenumber pagesize paging param paramater parent parentid passed per place populated promise properties property provided public publish published publishes put query recycle relates relatetooriginal relation resource resourcepromise resources retrieved return returns save saved saves scaffold seperately service set should simply so sort sorted sortedids sortorder sorts store sure that the then they those through to transactions true type umbdataformatter umbraco umbrequesthelper underneath unpublish unpublished unpublishes unpulished untill update updated url usage use used using var version want was wasnt webapi where which will with won yet"
     },
     {
       "section": "api",
@@ -268,7 +303,7 @@ NG_DOCS={
       "id": "umbraco.resources.entityResource",
       "shortName": "entityResource",
       "type": "service",
-      "keywords": "additional alert all also an and api are array as basic between can collection containing contains content contentarray core data difference display do document documenttype ent entities entity entityresource faster fetched for get getall getdocumentbyid getdocumentsbyids getentitiesbyids getentitybyid getmediabyid getmediabyids gets given guid here icon id ids if in is it item its know lists loads looking lookup make media mediatype member membertype meta method more most mydoc name navigation never node nodes object of on only optional parameter pass path properties representation resourcepromise resources return service should so specific such template templates that the then they through to trees type types umbraco usage used user users var what whereas with you"
+      "keywords": "access additional alert all also an ancestor and any api are array as back basic between by children clause collection contain containing contains conten content contentarray core data difference display document documenttype does domain dynamic ent entities entity entityresource etc execute expression fetched filter for getall getancestors getbyid getbyids getentitiesbyids getentitybyid getpath gets given guid have here id ids in information is it item its language lists loads logged lucene macro media mediaarray mediatype member membertype method most mydoc name navigation need news node nodes not object of office on only optional parameters path postfilter postfilterparams principal properties property public query representation resourcepromise resources return returned returns same search searchmedia sensitive server service since specify template templates that the then they this through to trees type types umbraco url usage used user var view want what where whereas which will with you"
     },
     {
       "section": "api",
@@ -279,10 +314,24 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.resources.logResource",
+      "shortName": "logResource",
+      "type": "service",
+      "keywords": "ago alert api back by containing current date days defalt entity entry for from getentitylog getlog gets getuserlog give given here history id its log logresource logtype method new object of query resourcepromise resources retrives return save service since the then this to type umbraco usage users"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.resources.macroResource",
+      "shortName": "macroResource",
+      "type": "service",
+      "keywords": "alias api as current data deals dictionary display editable editor for get getmacroparameters getmacroresult gets html id in macro macroid macroparamdictionary macroresource macros method of page pageid parameters resources result rich service specified text the to umbraco with"
+    },
+    {
+      "section": "api",
       "id": "umbraco.resources.mediaResource",
       "shortName": "mediaResource",
       "type": "service",
-      "keywords": "$scope again alert alias all an and api are args arguments array as base based be been below build children collection complete containing contentarray data editors empty folder for getbyid getbyids gets getscaffold given has here id ids in is it item items its knows loads media mediaresource mediatype method must my mydoc mymedia name new node node-ids not object of on options parent parentid place populated properties provided put resourcepromise resources retrieved return returns save saved scaffold service should so sort sorted sortedids sorts store that the then they to true type umbraco underneath updated usage used var where which with yet"
+      "keywords": "$scope again alert alias all an and api are args arguments array as ascending base based be been below build by can children collection complete containing content contentarray current data default delete deletebyid deletes descending editors empty filter folder for getbyid getbyids getchildren gets getscaffold given gone has here id ids if in index is it item items its knows loads matching media mediaresource mediatype method must my mydoc mymedia name names new node node-ids nodes not number object of on only optional options or order orderby orderdirection page pagenumber pagesize paging parent parentid per place populated properties property provided put query resourcepromise resources retrieved return returns save saved scaffold service should so sort sorted sortedids sortorder sorts store that the then they those to true type umbraco underneath updated usage used var where which will with yet"
     },
     {
       "section": "api",
@@ -293,10 +342,38 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.resources.memberResource",
+      "shortName": "memberResource",
+      "type": "service",
+      "keywords": "again alert alias an and api base be been build client containing data delete deletebykey deletes editors empty for getbykey gets getscaffold given gone has here id in is it item its key knows loads member memberresource members membertype method must my mydoc mymember name new not object of on place populated properties provided put resourcepromise resources retrieved return returns save saved scaffold service so that the then to true type umbraco underneath updated usage used var which with yet"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.resources.memberTypeResource",
+      "shortName": "memberTypeResource",
+      "type": "service",
+      "keywords": "api data for in loads member membertyperesource resources service types umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.resources.publishedContentResource",
+      "shortName": "publishedContentResource",
+      "type": "service",
+      "keywords": "api cache content from published publishedcontentresource resources retrieve service the to umbraco"
+    },
+    {
+      "section": "api",
       "id": "umbraco.resources.sectionResource",
       "shortName": "sectionResource",
       "type": "service",
       "keywords": "api data for in loads resources section sectionresource service umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.resources.stylesheetResource",
+      "shortName": "stylesheetResource",
+      "type": "service",
+      "keywords": "alert all api available containing getall gets here its method object registered resourcepromise resources retrieve service stylesheetresource stylesheets the then to umbraco usage"
     },
     {
       "section": "api",
@@ -310,7 +387,7 @@ NG_DOCS={
       "id": "umbraco.resources.userResource",
       "shortName": "userResource",
       "type": "service",
-      "keywords": "alert all api are array authentication available be cannot containing contentresource data ent for from getall getbyid gets given here id im method myuser myusers object of on resourcepromise resources retrives return server service system the then they this to umbraco usage use used user userarray userresource users var with"
+      "keywords": "alert all api are array authentication available be cannot changepassword changes containing contentresource current data ent for from getall getbyid gets given here id im method myuser myusers object of on password resourcepromise resources retrives return server service system the then they this to umbraco usage use used user userarray userresource users var with"
     },
     {
       "section": "api",
@@ -338,14 +415,21 @@ NG_DOCS={
       "id": "umbraco.services.dialogService",
       "shortName": "dialogService",
       "type": "service",
-      "keywords": "$compile $http $log $q $rootscope $templatecache accesible all also an and animation any api application-wide args array attach attached be been body but by callback callbacks called can chosen class close closeall closes container contains content contentpicker controller css csss custom default dialog dialogs dialogservice div document documents does dom done edit editor element existing fade for from function functon given handling has html if iframe iframes in incase inject injects inline instantly into is it items its load macro macropicker make mcaro media mediapicker method modal modalclass modals module multipicker multiple needed needs new non-angular object of on one only open opens options or overlays page parameters passed path picker processing property propertydialog registered rendering renders representing return returned returns rootscope scope selected sent serverside service services set should show simply specific specified strips submitted support sure template templates that the this to tree true umb-modal umbraco url usage use used value var want whatever when which width will with wrappers you ysod ysoddialog"
+      "keywords": "$compile $http $log $q $rootscope $templatecache accesible all also an and animation any api application-wide args array attach attached be been before body but by callback callbacks called can chosen class close closeall closes container contains content contentpicker controller css csss custom default dialog dialogs dialogservice display div document documents does dom done edit editor element embed existing fade for from function functon given handling has html icon iconpicker if iframe iframes in incase inject injects inline instantly into is it item items its link linkpicker load macro macropicker make mcaro media mediapicker member memberpicker members method modal modalclass modals module multipicker multiple needed needs new non-angular object of on one only open opens options or overlays page parameters passed path pick picker processing property propertydialog registered rendering renders representing return returned returning returns rootscope scope section selected sent serverside service services set should show simply single specific specified strips submitted support sure template templates that the this to tree treealias treepicker true umb-modal umbraco url usage use used value var want whatever when which width will with wrappers you ysod ysoddialog"
     },
     {
       "section": "api",
       "id": "umbraco.services.fileManager",
       "shortName": "fileManager",
       "type": "service",
-      "keywords": "addfiles all an any api array attach attached attaches by called clearfiles clears collection current data editor editors effectively empty file filemanager files for from function getfiles if is manage manager need normally of particular posted property removes require returns service services set specified that the to umbraco uploading used with"
+      "keywords": "addfiles all an any api array attach attached attaches by called changes cleared clearfiles clears collection current data editor editors effectively empty ensure file filemanager files for from function getfiles if is manage manager need normally of particular posted property removes require returns route service services set specified successfully that the to umbraco uploading used we when with"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.services.formHelper",
+      "shortName": "formHelper",
+      "type": "service",
+      "keywords": "all an and any api are args arguments been by called cannot check checked class cleared client consistently containing continue controllers correct developed displayed ensure ensures events execute false fire for form formhelper forms function has how if is messages need notifications object otherwise returns server service services status streamline submission submitform submitted submitting successfully that the there they this to true umbraco used utility valid validation when"
     },
     {
       "section": "api",
@@ -377,10 +461,17 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.services.macroService",
+      "shortName": "macroService",
+      "type": "service",
+      "keywords": "alias an and api args as containing editor for function generatemvcsyntax generates generatewebformssyntax generating information insert inserting into is it macro macroservice mvc object old parameter return rich service services style such syntax template templates text the this to umbraco values very webforms"
+    },
+    {
+      "section": "api",
       "id": "umbraco.services.navigationService",
       "shortName": "navigationService",
       "type": "service",
-      "keywords": "$location $log $rootscope $routeparams action actions active added again alias always and any api application args arguments as associated based be but by can cancelled changes changesection click clicked containing content controller created current currentaction currently currentnode dashboard data delay determined dialog dialogservice different div dom element entertree entire event few for found from function get given handle here hidedialog hidemenu hidenavigation hides hidesearch hidetree hiding hovers html if iframe in inject injected into invoking is it item leavetree legacy lifetime load loads located main maintain may menu method methods mouse moves name navigation navigationservice new next node not object of on one only open opens or over pane panes part passed path promise properties re-used regardless related resets responsible returns scope search section sectionalias sectionresource sections selected service services sets short should showdialog showmenu shows showsearch showtree showuserdialog so soon source state sticky template that the their then they this to tree treeservice triggering turning umb-panel-body umbraco url used user uses variable view views whether will with"
+      "keywords": "$location $log $rootscope $routeparams action actions active added again alias always and any api application args arguments array as ascendant associated auto-expand based be but by can cancelled changes changesection click clicked containing content controller created current currentaction currently currentnode dashboard data delay determined dialog dialogservice different div do document dom element entertree entire event ex few for format found from function get given handle here hidedialog hidemenu hidenavigation hides hidesearch hidetree hideuserdialog hiding hovers html ids if iframe in inject injected into invoking is it item itemid leavetree legacy lifetime load loads located main maintain may menu method methods mouse moves name navigation navigationservice new next node nodetypes not object of on one only open opens or over pane panes part passed path promise properties re-used regardless related resets responsible returns scope search section sectionalias sectionresource sections selected service services sets settings short should showdialog showmenu shows showsearch showtree showuserdialog so soon source specific state sticky sync syncs synctree template that the their then they this to tree treealias treeservice triggering turning type umb-panel-body umbraco url used user uses variable view views whether will with"
     },
     {
       "section": "api",
@@ -398,10 +489,17 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.services.tinyMceService",
+      "shortName": "tinyMceService",
+      "type": "service",
+      "keywords": "$scope all api available case collection configration configuration containing controller createinsertembeddedmedia createlinkpicker createmediapicker creates createumbracomacro current default defaultprevalues editor embedded fallback for in insert instance is link logic macro media method none of on plugin plugins provided returns scope service services the tinymce tinymceservice to umbraco umbrco"
+    },
+    {
+      "section": "api",
       "id": "umbraco.services.treeService",
       "shortName": "treeService",
       "type": "service",
-      "keywords": "alias all an and api args arguments attempt attempts based by children clears current directives factory find for from get getmenuitembyalias gets in internally it item menu menuitemalias method node null object on otherwise promise re-assigns return returns section server service services supplied the them then to tree treenode treeservice umbraco umbtree umbtreeitem up-to-date used"
+      "keywords": "alias all an and api args arguments by check children clears current declared determines directives factory find folder from gets gettreepackagefolder has if in internally is it just know loadnodechildren method node object otherwise package plugin promise re-assigns return returns section server service services so the them then to tree treealias treeservice umbraco umbtree umbtreeitem undefined up-to-date used views we where will"
     },
     {
       "section": "api",
@@ -457,7 +555,7 @@ NG_DOCS={
       "id": "Adding-Configuration-To-Property-Editor",
       "shortName": "Adding configuration to a property editor",
       "type": "overview",
-      "keywords": "$scope about access add added adding all allow allows also an and any app are at attribute basicly be because beginning below blank boolean build building but buttons can checkbox choose class client code codes collection com comes comma config configiration configuration configurations contains continues controller convention data datatype default defaultvalue definition description did different directly display do each easy editor editors element empty error fields file files first flexible following for found from functionality further gain get gets github goes good guid have here how however html if important in infomation input instance instead is it its javascript js json just key label latest lets like live look manifest many markdown markdowneditor model name new next ng-hide ng-show notice now null object of on one only open options or other our overview package part paste pool prevalue prevalueeditor preview project property provide relatively render reuse rich rigth same save see seperate setup several should show simple so something step stored stylesheets text textarea that the then these thing things this times to toggle turn tutorials type ui umbraco undefined update us use used user uses using value values very via view want we web what whats when where which will with without wmd-panel wmd-preview work working you"
+      "keywords": "$scope about access add added adding all allow allows also an and any app are at attribute basicly be because beginning below blank boolean build building but buttons can checkbox choose class client code codes collection com comes comma config configiration configuration configurations contains continues controller convention data datatype default defaultvalue definition description did different directly display do each easy editor editors element empty error fields file files first flexible following for found from functionality further gain get gets github goes good guid have here how however html if important in infomation input instance instead is it its javascript js json just key label latest lets like live look manifest many markdown markdowneditor model name new next ng-hide ng-show notice now null object of on one only open options or other our overview package part paste pool prevalue prevalues preview project property provide relatively render reuse rich rigth same save see seperate setup several should show simple so something step stored stylesheets text textarea that the then these thing things this times to toggle turn tutorials type ui umbraco undefined update us use used user uses using value values very via view want we web what whats when where which will with without wmd-panel wmd-preview work working you"
     },
     {
       "section": "tutorials",
@@ -468,10 +566,17 @@ NG_DOCS={
     },
     {
       "section": "tutorials",
+      "id": "Creating-Editors-Trees",
+      "shortName": "Creating a custom tree with an editor and dialog",
+      "type": "overview",
+      "keywords": "$routeparams $scope about above action add addmenuitem alias aliases all an and angular any are as assign assigned at attribute attributes based be being belongs beside but by can cannot case cause children class clicked constants contained controller conventions core create created createtreenode creating current custom data default define defines defining detail developers dialog dialogs do does doesn each edit editcontroller edited editing editor editors ensure equal example explain file files find first follow for formdatacollection found from function getmenufornode gettreenodes go going guide hello here how html id if important in inherits interacts into is it item its js just level like ll load loaded located location locations look looks main menu menuitem menuitemcollection method methods module more must my mycustomtreecontroller mypackage mytree mytreeeditcontroller name naming need new next ng-controller node nodes not notsupportedexception now of on one our overlap override overriden overview path paths per persist principle property protected public querystrings re really rendering required return root route routepath routes routing same scope section settings show showing shows similar simple simply so some specific specify standard steps stored strict suffixed super suport system tells term than that the then there therefore these thing things this through throw to toinvariantstring tree treecontroller treenodecollection trees tutorial tutorials umbraco underneath understand unique use using var ve view views we web whatever when where which whole will with work world would you your"
+    },
+    {
+      "section": "tutorials",
       "id": "CreatingAPropertyEditor",
       "shortName": "Creating a property editor",
       "type": "overview",
-      "keywords": "$scope about above add added after alert alias all allows already an and angular angularjs angulars any app_start appear application are area as assetsservice assigned at attribute automaticly avoid backoffice basic be below bit blocking but by cache call called can choice chosen class clear click client code com comes comments complete content controller converter converter2 copy cover create creating css current data datatype datatypes declaration define demo dependencies dependency describe details developer do document does done dots each edit editor editor2 editors edits egghead end execute explains external file files finally first folder for found from full function functionality further get github go greated guid guide handling has have hello here hook how html id in including info inject injector inline inside instantiate into io is it its itself javascript js json landed lets library libs like ll load loadcss loaded loading loads lod look looks main manifest markdown markdowneditor markdowneditorcontroller means message model modify module modules more multiple must my name namely needed new newly next ng-controller ng-model not now object of on only open or org our overview package pagedown part parts plugin power prerequisites project property propertyeditors publish register registered reload replace resources restart result run running sanitizer save saying section see select sent seperat server setting setup simple simply so some source steps structure synced tell telling test text that the then there these thing this through to tons tutorials type ui umbraco umbraco-cms umbracos unique up us use value var ve view want we web website well what whatever when where which will wiring with wmd-button-bar- wmd-input wmd-input- wmd-panel wmd-preview wmd-preview- world write writing you your"
+      "keywords": "$scope about above add added after alert alias all allows already an and angular angularjs angulars any app_start appear application are area as assetsservice assigned at attribute automaticly avoid backoffice basic be below bit blocking but by cache call called can choice chosen class clear click client code com comes comments complete content controller converter converter2 copy cover create creating css current data datatype datatypes declaration define demo dependencies dependency describe details developer do document does done dots each edit editor editor2 editors edits egghead end execute explains external file files finally first folder for found from full function functionality further get github go greated guide handling has have hello here hook how html id in including info inject injector inline inside instantiate into io is it its itself javascript js json landed lets library libs like ll load loadcss loaded loading loads lod look looks main manifest markdown markdowneditor markdowneditorcontroller means message model modify module modules more multiple must my name namely needed new newly next ng-controller ng-model not now object of on only open or org our overview package pagedown part parts plugin power prerequisites project property propertyeditors publish register registered reload replace resources restart result run running sanitizer save saying section see select sent seperat server setting setup simple simply so some source steps structure synced tell telling test text that the then there these thing this through to tons tutorials type ui umbraco umbraco-cms umbracos unique up us use value var ve view want we web website well what whatever when where which will wiring with wmd-button-bar- wmd-input wmd-input- wmd-panel wmd-preview wmd-preview- world write writing you your"
     },
     {
       "section": "tutorials",

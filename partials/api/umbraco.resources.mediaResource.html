@@ -5,7 +5,26 @@
 <div><h2 id="Description">Description</h2>
 <div class="description"><p>Loads in data for media</p></div>
 <div class="member method"><h2 id="Methods">Methods</h2>
-<ul class="methods"><li><h3 id="getById">getById(id)</h3>
+<ul class="methods"><li><h3 id="deleteById">deleteById(id)</h3>
+<div class="deletebyid"><p>Deletes a media item with a given id</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+mediaResource.deleteById(1234)
+   .then(function() {
+       alert('its gone!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">id – {Int} – </code>
+<p>id of media item to delete        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object.</p></div>
+</div>
+</li>
+<li><h3 id="getById">getById(id)</h3>
 <div class="getbyid"><p>Gets a media item with a given id</p>
 
 <h2 id="usage">usage</h5>
@@ -43,6 +62,38 @@ mediaResource.getByIds( [1234,2526,28262])
 <h4 id="Returns">Returns</h4>
 <div class="returns"><code ng:non-bindable="">{Promise}</code>
 – <p>resourcePromise object containing the media items array.</p></div>
+</div>
+</li>
+<li><h3 id="getChildren">getChildren(parentid, options)</h3>
+<div class="getchildren"><p>Gets children of a media item with a given id</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+mediaResource.getChildren(1234, {pageSize: 10, pageNumber: 2})
+   .then(function(contentArray) {
+       var children = contentArray; 
+       alert('they are here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">parentid – {Int} – </code>
+<p>id of content item to return children of</p></li>
+<li><code ng:non-bindable="">options – {Object} – </code>
+<p>optional options object</p></li>
+<li><code ng:non-bindable="">options.pageSize – {Int} – </code>
+<p>if paging data, number of nodes per page, default = 0</p></li>
+<li><code ng:non-bindable="">options.pageNumber – {Int} – </code>
+<p>if paging data, current page index, default = 0</p></li>
+<li><code ng:non-bindable="">options.filter – {String} – </code>
+<p>if provided, query will only return those with names matching the filter</p></li>
+<li><code ng:non-bindable="">options.orderDirection – {String} – </code>
+<p>can be <code>Ascending</code> or <code>Descending</code> - Default: <code>Ascending</code></p></li>
+<li><code ng:non-bindable="">options.orderBy – {String} – </code>
+<p>property to order items by, default: <code>SortOrder</code></p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing an array of content items.</p></div>
 </div>
 </li>
 <li><h3 id="getScaffold">getScaffold(parentId, alias)</h3>

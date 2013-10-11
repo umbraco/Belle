@@ -14,11 +14,11 @@ serverside processing is needed, or its a non-angular page</p>
 sure the umbraco.services module is accesible - which it should be by default.</p>
 
 <pre class="prettyprint linenums">
-	var dialog = dialogService.open({template: 'path/to/page.html', show: true, callback: done});
-	functon done(data){
-		//The dialog has been submitted	
+   var dialog = dialogService.open({template: 'path/to/page.html', show: true, callback: done});
+   functon done(data){
+     //The dialog has been submitted 
      //data contains whatever the dialog has selected / attached
-	}			
+   }     
 </pre> </p></div>
 <h2 id="Dependencies">Dependencies</h2>
 <ul class="dependencies"><li><code ng:non-bindable=""><a href="#/api/ng.$rootScope">$rootScope</a></code>
@@ -67,10 +67,38 @@ sure the umbraco.services module is accesible - which it should be by default.</
 – <p>modal object</p></div>
 </div>
 </li>
+<li><h3 id="iconPicker">iconPicker(options)</h3>
+<div class="iconpicker"><p>Opens a icon picker in a modal, the callback returns a object representing the selected icon</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
+<p>iconpicker dialog options object</p></li>
+<li><code ng:non-bindable="">options.scope – {$scope} – </code>
+<p>dialog scope</p></li>
+<li><code ng:non-bindable="">options.callback – {Function} – </code>
+<p>callback function</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Object}</code>
+– <p>modal object</p></div>
+</div>
+</li>
+<li><h3 id="linkPicker">linkPicker(options)</h3>
+<div class="linkpicker"><p>Opens a link picker tree in a modal, the callback returns a single link</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
+<p>content picker dialog options object</p></li>
+<li><code ng:non-bindable="">options.scope – {$scope} – </code>
+<p>dialog scope</p></li>
+<li><code ng:non-bindable="">options.callback – {Function} – </code>
+<p>callback function</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Object}</code>
+– <p>modal object</p></div>
+</div>
+</li>
 <li><h3 id="macroPicker">macroPicker(options)</h3>
 <div class="macropicker"><p>Opens a mcaro picker in a modal, the callback returns a object representing the macro and it's parameters</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
-<p>mediapicker dialog options object</p></li>
+<p>macropicker dialog options object</p></li>
 <li><code ng:non-bindable="">options.scope – {$scope} – </code>
 <p>dialog scope</p></li>
 <li><code ng:non-bindable="">options.callback – {Function} – </code>
@@ -87,6 +115,22 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <p>mediapicker dialog options object</p></li>
 <li><code ng:non-bindable="">options.scope – {$scope} – </code>
 <p>dialog scope</p></li>
+<li><code ng:non-bindable="">options.callback – {Function} – </code>
+<p>callback function</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Object}</code>
+– <p>modal object</p></div>
+</div>
+</li>
+<li><h3 id="memberPicker">memberPicker(options)</h3>
+<div class="memberpicker"><p>Opens a member picker in a modal, the callback returns a object representing the selected member</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
+<p>member picker dialog options object</p></li>
+<li><code ng:non-bindable="">options.scope – {$scope} – </code>
+<p>dialog scope</p></li>
+<li><code ng:non-bindable="">options.multiPicker – {$scope} – </code>
+<p>should the tree pick one or multiple members before returning</p></li>
 <li><code ng:non-bindable="">options.callback – {Function} – </code>
 <p>callback function</p></li>
 </ul>
@@ -142,6 +186,29 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <div class="returns"><code ng:non-bindable="">{Object}</code>
 – <p>modal object</p></div>
 </div>
+</li>
+<li><h3 id="treePicker">treePicker(options)</h3>
+<div class="treepicker"><p>Opens a tree picker in a modal, the callback returns a object representing the selected tree item</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
+<p>iconpicker dialog options object</p></li>
+<li><code ng:non-bindable="">options.scope – {$scope} – </code>
+<p>dialog scope</p></li>
+<li><code ng:non-bindable="">options.section – {$scope} – </code>
+<p>tree section to display</p></li>
+<li><code ng:non-bindable="">options.treeAlias – {$scope} – </code>
+<p>specific tree to display</p></li>
+<li><code ng:non-bindable="">options.multiPicker – {$scope} – </code>
+<p>should the tree pick one or multiple items before returning</p></li>
+<li><code ng:non-bindable="">options.callback – {Function} – </code>
+<p>callback function</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Object}</code>
+– <p>modal object</p></div>
+</div>
+</li>
+<li><h3 id="ysodDialog">ysodDialog()</h3>
+<div class="ysoddialog"><p>Opens a dialog to an embed dialog </p></div>
 </li>
 <li><h3 id="ysodDialog">ysodDialog()</h3>
 <div class="ysoddialog"><p>Opens a dialog to show a custom YSOD</p></div>

@@ -5,7 +5,23 @@
 <div><h2 id="Description">Description</h2>
 <div class="description"><p>Retrives user data from the server, cannot be used for authentication, for this, use the user.service</p></div>
 <div class="member method"><h2 id="Methods">Methods</h2>
-<ul class="methods"><li><h3 id="getAll">getAll()</h3>
+<ul class="methods"><li><h3 id="changePassword">changePassword()</h3>
+<div class="changepassword"><p>Changes the current users password</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+contentResource.getAll()
+   .then(function(userArray) {
+       var myUsers = userArray; 
+       alert('they are here!');
+   });
+</pre> </p><h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the user array.</p></div>
+</div>
+</li>
+<li><h3 id="getAll">getAll()</h3>
 <div class="getall"><p>Gets all users available on the system</p>
 
 <h2 id="usage">usage</h5>

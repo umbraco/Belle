@@ -28,7 +28,34 @@ sure the umbraco.resources module is accesible - which it should be by default.<
 </pre> </p></li>
 </ul>
 <div class="member method"><h2 id="Methods">Methods</h2>
-<ul class="methods"><li><h3 id="deleteById">deleteById(id)</h3>
+<ul class="methods"><li><h3 id="copy">copy(args)</h3>
+<div class="copy"><p>Copies a node underneath a new parentId</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+contentResource.copy({ parentId: 1244, id: 123 })
+   .then(function() {
+       alert("node was copied");
+   }, function(err){
+     alert("node wasnt copy:" + err.data.Message); 
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">args – {Object} – </code>
+<p>arguments object</p></li>
+<li><code ng:non-bindable="">args.id – {Int} – </code>
+<p>the ID of the node to copy</p></li>
+<li><code ng:non-bindable="">args.parentId – {Int} – </code>
+<p>the ID of the parent node to copy to</p></li>
+<li><code ng:non-bindable="">args.relateToOriginal – {Boolean} – </code>
+<p>if true, relates the copy to the original through the relation api</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object.</p></div>
+</div>
+</li>
+<li><h3 id="deleteById">deleteById(id)</h3>
 <div class="deletebyid"><p>Deletes a content item with a given id</p>
 
 <h2 id="usage">usage</h5>
@@ -134,6 +161,25 @@ contentResource.getChildren(1234, {pageSize: 10, pageNumber: 2})
 – <p>resourcePromise object containing an array of content items.</p></div>
 </div>
 </li>
+<li><h3 id="getNiceUrl">getNiceUrl(id)</h3>
+<div class="getniceurl"><p>Returns a url, given a node ID</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+contentResource.getNiceUrl(id)
+   .then(function(url) {
+       alert('its here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">id – {Int} – </code>
+<p>Id of node to return the public url to</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the url.</p></div>
+</div>
+</li>
 <li><h3 id="getScaffold">getScaffold(parentId, alias)</h3>
 <div class="getscaffold"><p>Returns a scaffold of an empty content item, given the id of the content item to place it underneath and the content type alias.</p>
 
@@ -166,6 +212,31 @@ contentResource.getScaffold(1234, 'homepage')
 <h4 id="Returns">Returns</h4>
 <div class="returns"><code ng:non-bindable="">{Promise}</code>
 – <p>resourcePromise object containing the content scaffold.</p></div>
+</div>
+</li>
+<li><h3 id="move">move(args)</h3>
+<div class="move"><p>Moves a node underneath a new parentId</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+contentResource.move({ parentId: 1244, id: 123 })
+   .then(function() {
+       alert("node was moved");
+   }, function(err){
+     alert("node didnt move:" + err.data.Message); 
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">args – {Object} – </code>
+<p>arguments object</p></li>
+<li><code ng:non-bindable="">args.idd – {Int} – </code>
+<p>the ID of the node to move</p></li>
+<li><code ng:non-bindable="">args.parentId – {Int} – </code>
+<p>the ID of the parent node to move to</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object.</p></div>
 </div>
 </li>
 <li><h3 id="publish">publish(content, isNew, files)</h3>
@@ -242,6 +313,27 @@ contentResource.sort({ parentId: 1244, sortedIds: ids })
 <p>the ID of the parent node</p></li>
 <li><code ng:non-bindable="">options.sortedIds – {Array} – </code>
 <p>array of node IDs as they should be sorted</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object.</p></div>
+</div>
+</li>
+<li><h3 id="unPublish">unPublish(id)</h3>
+<div class="unpublish"><p>Unpublishes a content item with a given Id</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+contentResource.unPublish(1234)
+   .then(function() {
+       alert("node was unpulished");
+   }, function(err){
+     alert("node wasnt unpublished:" + err.data.Message); 
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">id – {Int} – </code>
+<p>the ID of the node to unpublish</p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
 <div class="returns"><code ng:non-bindable="">{Promise}</code>

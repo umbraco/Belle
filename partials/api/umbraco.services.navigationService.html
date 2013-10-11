@@ -50,6 +50,10 @@ used by the leaveTree method to delay hiding</p></div>
 <li><h3 id="hideTree">hideTree()</h3>
 <div class="hidetree"><p>Hides the tree by hiding the containing dom element</p></div>
 </li>
+<li><h3 id="hideUserDialog">hideUserDialog()</h3>
+<div class="hideuserdialog"><p>Hides the user dialog, next to the sections navigation
+template is located in views/common/dialogs/user.html</p></div>
+</li>
 <li><h3 id="leaveTree">leaveTree()</h3>
 <div class="leavetree"><p>Hides navigation tree, with a short delay, is cancelled if the user moves the mouse over the tree again</p></div>
 </li>
@@ -103,6 +107,26 @@ only changes if the section is different from the current one</p><h4 id="Paramet
 <li><h3 id="showUserDialog">showUserDialog()</h3>
 <div class="showuserdialog"><p>Opens the user dialog, next to the sections navigation
 template is located in views/common/dialogs/user.html</p></div>
+</li>
+<li><h3 id="showUserDialog">showUserDialog()</h3>
+<div class="showuserdialog"><p>Opens the user dialog, next to the sections navigation
+template is located in views/common/dialogs/user.html</p></div>
+</li>
+<li><h3 id="syncTree">syncTree(sectionAlias, treeAlias, path)</h3>
+<div class="synctree"><p>Syncs the tree with a given section alias and a given path
+The path format is: ["treeAlias","itemId","itemId"], and so on
+so to sync to a specific document type node do:
+<pre class="prettyprint linenums">
+navigationService.syncTree("content", "nodeTypes", [-1,1023,3453]);  
+</pre><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">sectionAlias – {string} – </code>
+<p>The alias of the section the tree should load data from</p></li>
+<li><code ng:non-bindable="">treeAlias – {string} – </code>
+<p>The alias of tree to auto-expand</p></li>
+<li><code ng:non-bindable="">path – {array} – </code>
+<p>array of ascendant ids, ex: [,1023,1243] (loads a specific document type into the settings tree)</p></li>
+</ul>
+</div>
 </li>
 </ul>
 </div>

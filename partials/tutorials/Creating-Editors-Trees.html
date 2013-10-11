@@ -1,0 +1,179 @@
+<h1><code ng:non-bindable=""></code>
+<span class="hint"></span>
+</h1>
+<div><h2 id="overview">Overview</h3>
+
+<p>This guide will explain how to create a simple custom tree an angular editor &amp; dialog using standard conventions. This guide does not go into detail about how to persist data in your editors, it is a simple tutorial defining how routing interacts with your views and where your views need to be stored.</p>
+
+<p>So all the steps we will go through:</p>
+
+<ul>
+<li>Creating a tree with a menu item</li>
+<li>Create an editor</li>
+<li>Create a dialog for the menu item</li>
+</ul>
+
+<h2 id="createatree">Create a tree</h3>
+
+<p>First you need to define a tree class that inherits from <code>Umbraco.Web.Trees.TreeController</code></p>
+
+<pre><code>public class MyCustomTreeController : TreeController
+{
+}
+</code></pre>
+
+<p>The name of your tree must be suffixed with the term 'Controller'.</p>
+
+<p>Next we need to add some attributes to the tree. The first one defines the section it belongs to, the tree alias and it's name. Ensure your tree alias is unique, tree aliases cannot overlap.</p>
+
+<pre><code>[Tree("settings", "myTree", "My Tree")]
+</code></pre>
+
+<p>The 2nd attribute does 2 things - Tells Umbraco how to route the tree and tells Umbraco where to find the view files. This attribute is not required but if you do not specify it then the view location conventions will not work. </p>
+
+<pre><code>[PluginController("MyPackage")]
+</code></pre>
+
+<p>There are 2 methods that need to be overriden from the TreeController class: <code>GetTreeNodes</code> &amp; <code>GetMenuForNode</code>. This example will create 3 nodes underneath the root node:</p>
+
+<pre><code>protected override TreeNodeCollection GetTreeNodes(string id, FormDataCollection queryStrings)
+{
+    //check if we're rendering the root node's children
+    if (id == Constants.System.Root.ToInvariantString())
+    {
+        var tree = new TreeNodeCollection
+            {
+                CreateTreeNode("1", queryStrings, "My Node 1"), 
+                CreateTreeNode("2", queryStrings, "My Node 2"), 
+                CreateTreeNode("3", queryStrings, "My Node 3")
+            };                
+        return tree;
+    }
+    //this tree doesn't suport rendering more than 1 level
+    throw new NotSupportedException();
+}
+</code></pre>
+
+<p>Next we'll create a menu item for each node, in this case its a 'Create' menu item</p>
+
+<pre><code>protected override MenuItemCollection GetMenuForNode(string id, FormDataCollection queryStrings)
+{
+    var menu = new MenuItemCollection();
+    menu.AddMenuItem(new MenuItem("create", "Create"));
+    return menu;
+}
+</code></pre>
+
+<p>That's it, the whole tree looks like this:</p>
+
+<pre><code>[Tree("settings", "myTree", "My Tree")]
+[PluginController("MyPackage")]
+public class MyCustomTreeController : TreeController
+{
+    protected override TreeNodeCollection GetTreeNodes(string id, FormDataCollection queryStrings)
+    {
+        //check if we're rendering the root node's children
+        if (id == Constants.System.Root.ToInvariantString())
+        {
+            var tree = new TreeNodeCollection
+            {
+                CreateTreeNode("1", queryStrings, "My Node 1"), 
+                CreateTreeNode("2", queryStrings, "My Node 2"), 
+                CreateTreeNode("3", queryStrings, "My Node 3")
+            };
+            return tree;
+        }
+        //this tree doesn't suport rendering more than 1 level
+        throw new NotSupportedException();
+    }
+    protected override MenuItemCollection GetMenuForNode(string id, FormDataCollection queryStrings)
+    {
+        var menu = new MenuItemCollection();
+        menu.AddMenuItem(new MenuItem("create", "Create"));
+        return menu;
+    }
+}
+</code></pre>
+
+<h2 id="viewpathconventions">View path conventions</h3>
+
+<p>Now that we've created our tree it is important to understand Umbraco conventions and where it will look for your views for editors and dialogs.</p>
+
+<h3 id="angulareditorroutes">Angular editor routes</h4>
+
+<p>The main angular route to load in editors is <em>/:section/:tree/:method/:id</em></p>
+
+<p>Umbraco will load in views for this route based on these conventions:</p>
+
+<ul>
+<li>If it is a core tree - views will be loaded from: <em>/umbraco/views/{treetype}/{method}.html</em></li>
+<li>If it is a custom (package) tree - views will be loaded from: <em>/App_Plugins/{mypackage}/BackOffice/{treetype}/{method}.html</em></li>
+</ul>
+
+<h3 id="editorlocations">Editor locations</h4>
+
+<p>By default each tree node's 'method' is assigned as 'edit' therefore these are the view paths for an editor when a tree node is clicked:</p>
+
+<ul>
+<li>If it is a core tree - views will be loaded from: <em>/umbraco/views/{treetype}/edit.html</em></li>
+<li>If it is a custom (package) tree - views will be loaded from: <em>/App_Plugins/{mypackage}/BackOffice/{treetype}/edit.html</em></li>
+</ul>
+
+<p>Developers can specify a custom <code>RoutePath</code> for any tree node which will cause umbraco to route to that specific location.</p>
+
+<h3 id="dialoglocations">Dialog locations</h4>
+
+<p>Dialog view path locations are similar to editors:</p>
+
+<ul>
+<li>If it is a core tree - views will be loaded from: umbraco/views/{treetype}/{action}.html</li>
+<li>If it is a custom (package) tree - views will be loaded from: /App_Plugins/{mypackage}/BackOffice/{treetype}/{action}.html</li>
+</ul>
+
+<p>'action' is the alias of your menu item, for example in the menu item in the example above this would be 'create'.</p>
+
+<h2 id="createaneditor">Create an editor</h3>
+
+<p>An editor is simply an angular view (html file) so you can really do whatever you'd like! This tutorial will simply create a hello world editor showing the id of the item being edited.</p>
+
+<h3 id="createacontroller">Create a controller</h4>
+
+<p>First thing we'll do is create an angular controller for the editor, this controller will be contained in a file found beside the view - <em>the file naming conventions are based on the controller file naming conventions in the Umbraco core</em>.</p>
+
+<p>/App_Plugins/MyPackage/BackOffice/MyTree/mypackage.mytree.edit.controller.js</p>
+
+<p>The controller is super simple, at it is going to do is assign a property to the $scope which shows the current item id being edited:</p>
+
+<pre><code>'use strict';
+(function () {
+    //create the controller
+    function myTreeEditController($scope, $routeParams) {
+        //set a property on the scope equal to the current route id
+        $scope.id = $routeParams.id;
+    };
+    //register the controller
+    angular.module("umbraco").controller('MyPackage.MyTree.EditController', myTreeEditController);
+})();
+</code></pre>
+
+<h3 id="createaview">Create a view</h4>
+
+<p>As per the conventions above our editor view will need to be located at:</p>
+
+<p>/App_Plugins/MyPackage/BackOffice/MyTree/edit.html</p>
+
+<p>The view is simple, it is just going to show the current id being edited</p>
+
+<pre><code>&lt;div ng-controller="MyPackage.MyTree.EditController"&gt;
+    &lt;h1&gt;Hello world!&lt;/h1&gt;
+    &lt;p&gt;
+        You are current editing an item with id {{id}}
+    &lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+
+<h2 id="createadialog">Create a dialog</h3>
+
+<p>This is the same principle as an editor, you just need to follow conventions. Based on the above conventions the 'create' dialog view will be located here:</p>
+
+<p>/App_Plugins/MyPackage/BackOffice/MyTree/create.html</p></div>

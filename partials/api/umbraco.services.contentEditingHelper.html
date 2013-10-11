@@ -3,7 +3,7 @@
 )</span>
 </h1>
 <div><h2 id="Description">Description</h2>
-<div class="description"><p>A helper service for content controllers when editing/creating/saving content.</p></div>
+<div class="description"><p>A helper service for content/media/member controllers when editing/creating/saving content.</p></div>
 <div class="member method"><h2 id="Methods">Methods</h2>
 <ul class="methods"><li><h3 id="getAllProps">getAllProps()</h3>
 <div class="getallprops"><p>Returns all propertes contained for the content item (since the normal model has properties contained inside of tabs)</p></div>
@@ -17,8 +17,8 @@ ensure the notifications are displayed and that the appropriate events are fired
 when we're creating new content.</p></div>
 </li>
 <li><h3 id="handleValidationErrors">handleValidationErrors()</h3>
-<div class="handlevalidationerrors"><p>A function to handle the validation (modelState) errors collection which will happen on a 403 error indicating validation errors
-It's worth noting that when a 403 occurs, the data is still saved just never published, though this depends on if the entity is a new
+<div class="handlevalidationerrors"><p>A function to handle the validation (modelState) errors collection which will happen on a 400 error indicating validation errors
+It's worth noting that when a 400 occurs, the data is still saved just never published, though this depends on if the entity is a new
 entity and whether or not the data fulfils the absolute basic requirements like having a mandatory Name.</p></div>
 </li>
 <li><h3 id="reBindChangedProperties">reBindChangedProperties()</h3>
