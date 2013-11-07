@@ -112,19 +112,17 @@ template is located in views/common/dialogs/user.html</p></div>
 <div class="showuserdialog"><p>Opens the user dialog, next to the sections navigation
 template is located in views/common/dialogs/user.html</p></div>
 </li>
-<li><h3 id="syncTree">syncTree(sectionAlias, treeAlias, path)</h3>
+<li><h3 id="syncTree">syncTree(path, forceReload)</h3>
 <div class="synctree"><p>Syncs the tree with a given section alias and a given path
-The path format is: ["treeAlias","itemId","itemId"], and so on
+The path format is: ["itemId","itemId"], and so on
 so to sync to a specific document type node do:
 <pre class="prettyprint linenums">
-navigationService.syncTree("content", "nodeTypes", [-1,1023,3453]);  
+navigationService.syncPath(["-1","123d"], true);  
 </pre><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">sectionAlias – {string} – </code>
-<p>The alias of the section the tree should load data from</p></li>
-<li><code ng:non-bindable="">treeAlias – {string} – </code>
-<p>The alias of tree to auto-expand</p></li>
-<li><code ng:non-bindable="">path – {array} – </code>
-<p>array of ascendant ids, ex: [,1023,1243] (loads a specific document type into the settings tree)</p></li>
+<ul class="parameters"><li><code ng:non-bindable="">path – {array} – </code>
+<p>array of ascendant ids, ex: ["1023","1243"] (loads a specific document type into the settings tree)</p></li>
+<li><code ng:non-bindable="">forceReload – {bool} – </code>
+<p>forces a reload of data from the server</p></li>
 </ul>
 </div>
 </li>

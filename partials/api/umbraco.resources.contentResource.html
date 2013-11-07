@@ -214,6 +214,28 @@ contentResource.getScaffold(1234, 'homepage')
 – <p>resourcePromise object containing the content scaffold.</p></div>
 </div>
 </li>
+<li><h3 id="hasPermission">hasPermission(permission, id)</h3>
+<div class="haspermission"><p>Returns true/false given a permission char to check against a nodeID
+for the current user</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+contentResource.hasPermission('p',1234)
+   .then(function() {
+       alert('You are allowed to publish this item');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">permission – {String} – </code>
+<p>char representing the permission to check</p></li>
+<li><code ng:non-bindable="">id – {Int} – </code>
+<p>id of content item to delete        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object.</p></div>
+</div>
+</li>
 <li><h3 id="move">move(args)</h3>
 <div class="move"><p>Moves a node underneath a new parentId</p>
 

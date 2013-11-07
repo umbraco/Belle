@@ -24,6 +24,21 @@ mediaResource.deleteById(1234)
 – <p>resourcePromise object.</p></div>
 </div>
 </li>
+<li><h3 id="emptyRecycleBin">emptyRecycleBin()</h3>
+<div class="emptyrecyclebin"><p>Empties the media recycle bin</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+mediaResource.emptyRecycleBin()
+   .then(function() {
+       alert('its empty!');
+   });
+</pre> </p><h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object.</p></div>
+</div>
+</li>
 <li><h3 id="getById">getById(id)</h3>
 <div class="getbyid"><p>Gets a media item with a given id</p>
 
@@ -128,6 +143,31 @@ mediaResource.getScaffold(1234, 'folder')
 <h4 id="Returns">Returns</h4>
 <div class="returns"><code ng:non-bindable="">{Promise}</code>
 – <p>resourcePromise object containing the media scaffold.</p></div>
+</div>
+</li>
+<li><h3 id="move">move(args)</h3>
+<div class="move"><p>Moves a node underneath a new parentId</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+mediaResource.move({ parentId: 1244, id: 123 })
+   .then(function() {
+       alert("node was moved");
+   }, function(err){
+     alert("node didnt move:" + err.data.Message); 
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">args – {Object} – </code>
+<p>arguments object</p></li>
+<li><code ng:non-bindable="">args.idd – {Int} – </code>
+<p>the ID of the node to move</p></li>
+<li><code ng:non-bindable="">args.parentId – {Int} – </code>
+<p>the ID of the parent node to move to</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object.</p></div>
 </div>
 </li>
 <li><h3 id="sort">sort(args)</h3>

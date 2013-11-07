@@ -26,7 +26,27 @@ sure the umbraco.services module is accesible - which it should be by default.</
 </li>
 </ul>
 <div class="member method"><h2 id="Methods">Methods</h2>
-<ul class="methods"><li><h3 id="error">error(headline, message)</h3>
+<ul class="methods"><li><h3 id="add">add(item)</h3>
+<div class="add"><p>Lower level api for adding notifcations, support more advanced options</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">item – {Object} – </code>
+<p>The notification item</p></li>
+<li><code ng:non-bindable="">item.headline – {String} – </code>
+<p>Short headline</p></li>
+<li><code ng:non-bindable="">item.message – {String} – </code>
+<p>longer text for the notication, trimmed after 200 characters, which can then be exanded</p></li>
+<li><code ng:non-bindable="">item.type – {String} – </code>
+<p>Notification type, can be: "success","warning","error" or "info" </p></li>
+<li><code ng:non-bindable="">item.url – {String} – </code>
+<p>url to open when notification is clicked</p></li>
+<li><code ng:non-bindable="">item.sticky – {Boolean} – </code>
+<p>if set to true, the notification will not auto-close</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Object}</code>
+– <p>args notification object</p></div>
+</div>
+</li>
+<li><h3 id="error">error(headline, message)</h3>
 <div class="error"><p>Adds a red error notication to the notications collection
 This should be used when an operations <em>fails</em> and could not complete</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">headline – {String} – </code>
