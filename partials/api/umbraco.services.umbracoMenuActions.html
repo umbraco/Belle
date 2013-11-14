@@ -15,8 +15,10 @@
 <div class="createchildentity"><p>This will re-route to a route for creating a new entity as a child of the current node</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">args – {object} – </code>
 <p>An arguments object</p></li>
-<li><code ng:non-bindable="">args.treeNode – {object} – </code>
-<p>The tree node</p></li>
+<li><code ng:non-bindable="">args.entity – {object} – </code>
+<p>The basic entity being acted upon</p></li>
+<li><code ng:non-bindable="">args.treeAlias – {object} – </code>
+<p>The tree alias associated with this entity</p></li>
 <li><code ng:non-bindable="">args.section – {object} – </code>
 <p>The current section</p></li>
 </ul>
@@ -26,8 +28,10 @@
 <div class="refreshnode"><p>Clears all node children and then gets it's up-to-date children from the server and re-assigns them</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">args – {object} – </code>
 <p>An arguments object</p></li>
-<li><code ng:non-bindable="">args.treeNode – {object} – </code>
-<p>The tree node</p></li>
+<li><code ng:non-bindable="">args.entity – {object} – </code>
+<p>The basic entity being acted upon</p></li>
+<li><code ng:non-bindable="">args.treeAlias – {object} – </code>
+<p>The tree alias associated with this entity</p></li>
 <li><code ng:non-bindable="">args.section – {object} – </code>
 <p>The current section</p></li>
 </ul>

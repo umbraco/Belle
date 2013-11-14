@@ -293,6 +293,13 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.resources.currentUserResource",
+      "shortName": "currentUserResource",
+      "type": "service",
+      "keywords": "api array change changepassword changes configuration configure containing current currently currentuserresource for form getmembershipproviderconfig gets in is logged membership method object of password provider read resourcepromise resources service the to umbraco used user users which"
+    },
+    {
+      "section": "api",
       "id": "umbraco.resources.dashboardResource",
       "shortName": "dashboardResource",
       "type": "service",
@@ -384,17 +391,17 @@ NG_DOCS={
     },
     {
       "section": "api",
-      "id": "umbraco.resources.userResource",
-      "shortName": "userResource",
-      "type": "service",
-      "keywords": "alert all api are array authentication available be cannot change changepassword changes configuration configure containing contentresource current data ent for form from getall getbyid getmembershipproviderconfig gets given here id im is membership method myuser myusers object of on password provider resourcepromise resources retrives return server service system the then they this to umbraco usage use used user userarray userresource users var which with"
-    },
-    {
-      "section": "api",
       "id": "umbraco.services.angularHelper",
       "shortName": "angularHelper",
       "type": "service",
       "keywords": "actually already an angular angularhelper any api applied apply as assign assigned back based bit but call can checks code construct create creating current data digest do does doesn don exception expose for force form formcontroller formname found function getcurrentform getnullform has helper if in internally invalid is it methods mostly name need normally not note null object objreject occuring of on one or our own promise publicly rejectedpromise rejection return returns safeapply same save scope send service services situations so some tests that the they this thrown to umbraco unit us use uses validate validatehasform we will with wrapper writing"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.services.appState",
+      "shortName": "appState",
+      "type": "service",
+      "keywords": "allow an and angularhelper api application appstate arbitrary back be by changes current do events function getglobalstate getmenustate getsectionstate gettreestate global here in key menu mutable not object office publicly raises return returns section service services setglobalstate setmenustate sets setsectionstate setting settreestate state the this to tracks tree umbraco value values variables various want we when working"
     },
     {
       "section": "api",
@@ -471,7 +478,7 @@ NG_DOCS={
       "id": "umbraco.services.navigationService",
       "shortName": "navigationService",
       "type": "service",
-      "keywords": "$location $log $rootscope $routeparams action actions active added again alias always and any api application args arguments array as ascendant associated based be but by can cancelled changes changesection click clicked containing content controller created current currentaction currently currentnode dashboard data delay determined dialog dialogservice different div do document dom element entertree entire event ex few for forcereload forces format found from function get given handle here hidedialog hidemenu hidenavigation hides hidesearch hidetree hideuserdialog hiding hovers html ids if iframe in inject injected into invoking is it item itemid leavetree legacy lifetime load loads located main maintain may menu method methods mouse moves name navigation navigationservice new next node not object of on one only open opens or over pane panes part passed path promise properties re-used regardless related reload resets responsible returns scope search section sectionalias sectionresource sections selected server service services sets settings short should showdialog showmenu shows showsearch showtree showuserdialog so soon source specific state sticky sync syncpath syncs synctree template that the their then they this to tree treeservice triggering true turning type umb-panel-body umbraco url used user uses variable view views whether will with"
+      "keywords": "$location $log $rootscope $routeparams action actions activate active added alias already always and any api application args arguments as associated based be being but by can changes changesection click clicked containing content controller created current currentaction currently currentnode dashboard data default determined dialog dialogservice different displays div do document dom element entire even event exists few for force forcereload format found from function get given handle here hidedialog hidemenu hidenavigation hides hidesearch hidetree hiding html if iframe in inject injected into invoking is it item itemid legacy lifetime load loads located main maintain may menu method methods name navigation navigationservice new next node not object of on one only open opens optional or pane panes part passed path promise properties re-used regardless related reload resets responsible returns scope search section sectionalias sectionresource sections selected server service services set showdialog showmenu shown shows showsearch showtree showuserdialog so source specific specified specifies state sticky sync syncargs synced syncing syncs synctreepath template that the their then they this to tree treeservice triggering true turning type umb-panel-body umbraco url used user uses view views whether will with"
     },
     {
       "section": "api",
@@ -510,6 +517,13 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.services.umbModelMapper",
+      "shortName": "umbModelMapper",
+      "type": "function",
+      "keywords": "api class function map models services to umbmodelmapper umbraco utility"
+    },
+    {
+      "section": "api",
       "id": "umbraco.services.umbPropertyEditorHelper",
       "shortName": "umbPropertyEditorHelper",
       "type": "service",
@@ -520,7 +534,7 @@ NG_DOCS={
       "id": "umbraco.services.umbracoMenuActions",
       "shortName": "umbracoMenuActions",
       "type": "service",
-      "keywords": "action all an and api are args arguments as called child children clears createchildentity creating current declare defines entity execute for from gets it items menu method methods new node object of only re-assigns re-route refreshnode route section server service services that the them then this to tree treenode treeservice umbraco umbracomenuactions up-to-date when will"
+      "keywords": "acted action alias all an and api are args arguments as associated basic being called child children clears createchildentity creating current declare defines entity execute for from gets it items menu method methods new node object of only re-assigns re-route refreshnode route section server service services that the them then this to tree treealias treeservice umbraco umbracomenuactions up-to-date upon when will with"
     },
     {
       "section": "api",
@@ -528,6 +542,13 @@ NG_DOCS={
       "shortName": "umbRequestHelper",
       "type": "service",
       "keywords": "above accept action actionname amount an and any api apiname array automatically based be both by call callback can code collection config containing data deferred dictionary dictionarytoquerystring duplicate either error errorcallback errormessage errormsg errors for found function getapiurl handle headers helper http if in into is it key md message method mixed must name needed object of on opts or originaldata pairs parameters promise query querystrings reduce representing requested requests resolved resourcepromise resources return returned returns see sending server servervariables service services status string success successcallback that the these this to turn umbraco umbracourls umbrequesthelper underlying url used using webapi which will with"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.services.umbSessionStorage",
+      "shortName": "umbSessionStorage",
+      "type": "function",
+      "keywords": "always and any api browser but by converts created developer function get in is json keys no overlap prefixes services sessionstorage so there things to umb_ umbraco umbsessionstorage used vals with"
     },
     {
       "section": "api",
@@ -591,6 +612,13 @@ NG_DOCS={
       "shortName": "Integrating services with a property editor",
       "type": "overview",
       "keywords": "$log $scope above access add added adding after alias also always an and angular archive are array as assetsservce assetsservice associated at available basicly be because below built-in but button by callback called can cannot care cases chooser choosing click clicking clicks client code com complete configurable connected contains controller converter converter2 correct created data defined dialog dialogs dialogservice do don done each easily editor editor2 embedded event events first for found from function generic get getimagepropertyvalue getting handling has have helper hook hooking hooks how html if image imagehelper imagemodel imagepropval images in inject injected injecting inplace insertimagedialog instance integrating intercept intergrate into is it item javascript jpg know koala libraries like listing ll log looked made markdown markdowneditorcontroller media mediapicker methods model module my native nature need new nice notice now number object of on one ones our over overview own page pagedown parameter part party pick picker picture pictures place plugin presented preview previous project properies property renders representing return returns right run same sample scope see select selected selection selects service services set shorthands so standard started step steps sure system take tell that the then things this through thumbnails to trigger triggered true turned tutorial tutorials ui umbraco umbracofile umbracos up url use used usefull using utillity var ve want way we web well what whatever when where which will with works wrap you your"
+    },
+    {
+      "section": "tutorials",
+      "id": "manifest",
+      "shortName": "Manifest overview",
+      "type": "overview",
+      "keywords": "$scope above additinal additional alias allow also always an and any application are array as at automatically available basic be below besides bigint boolean but by called can cannot cases collection colllections component concept config configation configration configurating configuration configure configured contain containing contains content controller conventions couple css data database datetime db default defaultconfig described describing describtion description determines disables displayed doesnt dynamic each editing editor editors elements enable enables enablestuff exposed false field fields file files folder follows for format friendly furthermore give hello help hidelabel however html if in information inside is isreadonly it its javascript js json just key keys kind label like list load look macro made make mandatory manifest match means media members model models must my name namespace no none nope not ntext number nvarchar object objects of on options or other our overview own package parameter parametereditors parameters path points prefix prevalue prevalues primarily property propertyeditors propety provides random recommended rendering required return returns root same sample save screen serialized set sets setting should show shown since sir so solely something specific specifies specify start stored stores string table text that the them then there these this to trevor true turn tutorials type types ui umbraco under underneath unique up use used user validation validators value values valuetype view visible what when where which will wish with wolf work you your"
     },
     {
       "section": "tutorials",

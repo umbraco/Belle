@@ -31,10 +31,6 @@ and load the dashboard related to the section</p><h4 id="Parameters">Parameters<
 </ul>
 </div>
 </li>
-<li><h3 id="enterTree">enterTree()</h3>
-<div class="entertree"><p>Sets a service variable as soon as the user hovers the navigation with the mouse
-used by the leaveTree method to delay hiding</p></div>
-</li>
 <li><h3 id="hideDialog">hideDialog()</h3>
 <div class="hidedialog"><p>hides the currently open dialog</p></div>
 </li>
@@ -49,13 +45,6 @@ used by the leaveTree method to delay hiding</p></div>
 </li>
 <li><h3 id="hideTree">hideTree()</h3>
 <div class="hidetree"><p>Hides the tree by hiding the containing dom element</p></div>
-</li>
-<li><h3 id="hideUserDialog">hideUserDialog()</h3>
-<div class="hideuserdialog"><p>Hides the user dialog, next to the sections navigation
-template is located in views/common/dialogs/user.html</p></div>
-</li>
-<li><h3 id="leaveTree">leaveTree()</h3>
-<div class="leavetree"><p>Hides navigation tree, with a short delay, is cancelled if the user moves the mouse over the tree again</p></div>
 </li>
 <li><h3 id="load">load(source)</h3>
 <div class="load"><p>Shows the legacy iframe and loads in the content based on the source url</p><h4 id="Parameters">Parameters</h4>
@@ -96,11 +85,13 @@ This always returns a promise!</p><h4 id="Parameters">Parameters</h4>
 <li><h3 id="showSearch">showSearch()</h3>
 <div class="showsearch"><p>shows the search pane</p></div>
 </li>
-<li><h3 id="showTree">showTree(sectionAlias)</h3>
-<div class="showtree"><p>Shows the tree for a given tree alias but turning on the containing dom element
+<li><h3 id="showTree">showTree(sectionAlias, syncArgs)</h3>
+<div class="showtree"><p>Displays the tree for a given section alias but turning on the containing dom element
 only changes if the section is different from the current one</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">sectionAlias – {string} – </code>
-<p>The alias of the section the tree should load data from</p></li>
+<p>The alias of the section to load</p></li>
+<li><code ng:non-bindable="">syncArgs – {Object} – </code>
+<p>Optional object of arguments for syncing the tree for the section being shown</p></li>
 </ul>
 </div>
 </li>
@@ -112,17 +103,23 @@ template is located in views/common/dialogs/user.html</p></div>
 <div class="showuserdialog"><p>Opens the user dialog, next to the sections navigation
 template is located in views/common/dialogs/user.html</p></div>
 </li>
-<li><h3 id="syncTree">syncTree(path, forceReload)</h3>
-<div class="synctree"><p>Syncs the tree with a given section alias and a given path
+<li><h3 id="syncTreePath">syncTreePath(args)</h3>
+<div class="synctreepath"><p>Syncs a tree with a given path, returns a promise
 The path format is: ["itemId","itemId"], and so on
 so to sync to a specific document type node do:
 <pre class="prettyprint linenums">
-navigationService.syncPath(["-1","123d"], true);  
+navigationService.syncTreePath({tree: 'content', path: ["-1","123d"], forceReload: true});  
 </pre><h4 id="Parameters">Parameters</h4>
-<ul class="parameters"><li><code ng:non-bindable="">path – {array} – </code>
-<p>array of ascendant ids, ex: ["1023","1243"] (loads a specific document type into the settings tree)</p></li>
-<li><code ng:non-bindable="">forceReload – {bool} – </code>
-<p>forces a reload of data from the server</p></li>
+<ul class="parameters"><li><code ng:non-bindable="">args – {Object} – </code>
+<p>arguments passed to the function</p></li>
+<li><code ng:non-bindable="">args.tree – {String} – </code>
+<p>the tree alias to sync to</p></li>
+<li><code ng:non-bindable="">args.path – {Array} – </code>
+<p>the path to sync the tree to</p></li>
+<li><code ng:non-bindable="">args.forceReload – {Boolean} – </code>
+<p>optional, specifies whether to force reload the node data from the server even if it already exists in the tree currently</p></li>
+<li><code ng:non-bindable="">args.activate – {Boolean} – </code>
+<p>optional, specifies whether to set the synced node to be the active node, this will default to true if not specified</p></li>
 </ul>
 </div>
 </li>
