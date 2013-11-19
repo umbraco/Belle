@@ -3,10 +3,36 @@
 )</span>
 </h1>
 <div><h2 id="Description">Description</h2>
-<div class="description"><p>Tracks the various application state variables when working in the back office, raises events when state changes.</p></div>
+<div class="description"><p>Tracks the various application state variables when working in the back office, raises events when state changes.</p>
+
+<h2 id="samples">Samples</h4>
+
+<h4 id="subscribetoglobalstatechanges">Subscribe to global state changes:</h6>
+
+<pre class="prettyprint linenums">
+   scope.showTree = appState.getGlobalState("showNavigation");
+
+   scope.$on("appState.globalState.changed", function (e, args) {
+              if (args.key === "showNavigation") {
+                  scope.showTree = args.value;
+              }
+          });  
+</pre>
+
+<h4 id="subscribetosectionstatechanges">Subscribe to section-state changes</h6>
+
+<pre class="prettyprint linenums">
+   scope.currentSection = appState.getSectionState("currentSection");
+
+   scope.$on("appState.sectionState.changed", function (e, args) {
+              if (args.key === "currentSection") {
+                  scope.currentSection = args.value;
+              }
+          });  
+</pre></div>
 <div class="member method"><h2 id="Methods">Methods</h2>
 <ul class="methods"><li><h3 id="getGlobalState">getGlobalState()</h3>
-<div class="getglobalstate"><p>Returns the current global state value by key - we do not return an object here - we do NOT want this
+<div class="getglobalstate"><p>Returns the current global state value by key - we do not return an object reference here - we do NOT want this
 to be publicly mutable and allow setting arbitrary values</p></div>
 </li>
 <li><h3 id="getMenuState">getMenuState()</h3>

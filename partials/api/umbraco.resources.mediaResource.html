@@ -5,7 +5,28 @@
 <div><h2 id="Description">Description</h2>
 <div class="description"><p>Loads in data for media</p></div>
 <div class="member method"><h2 id="Methods">Methods</h2>
-<ul class="methods"><li><h3 id="deleteById">deleteById(id)</h3>
+<ul class="methods"><li><h3 id="addFolder">addFolder(name, parentId)</h3>
+<div class="addfolder"><p>Shorthand for adding a media item of the type "Folder" under a given parent ID</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+mediaResource.addFolder("My gallery", 1234)
+   .then(function(folder) {
+       alert('New folder');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">name – {string} – </code>
+<p>Name of the folder to create</p></li>
+<li><code ng:non-bindable="">parentId – {int} – </code>
+<p>Id of the media item to create the folder underneath         </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object.</p></div>
+</div>
+</li>
+<li><h3 id="deleteById">deleteById(id)</h3>
 <div class="deletebyid"><p>Deletes a media item with a given id</p>
 
 <h2 id="usage">usage</h5>
@@ -168,6 +189,34 @@ mediaResource.move({ parentId: 1244, id: 123 })
 <h4 id="Returns">Returns</h4>
 <div class="returns"><code ng:non-bindable="">{Promise}</code>
 – <p>resourcePromise object.</p></div>
+</div>
+</li>
+<li><h3 id="save">save(media, isNew, files)</h3>
+<div class="save"><p>Saves changes made to a media item, if the media item is new, the isNew paramater must be passed to force creation
+if the media item needs to have files attached, they must be provided as the files param and passed seperately </p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+mediaResource.getById(1234)
+   .then(function(media) {
+         media.name = "I want a new name!";
+         mediaResource.save(media, false)
+           .then(function(media){
+               alert("Retrieved, updated and saved again");
+           });
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">media – {Object} – </code>
+<p>The media item object with changes applied</p></li>
+<li><code ng:non-bindable="">isNew – {Bool} – </code>
+<p>set to true to create a new item or to update an existing </p></li>
+<li><code ng:non-bindable="">files – {Array} – </code>
+<p>collection of files for the media item      </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the saved media item.</p></div>
 </div>
 </li>
 <li><h3 id="sort">sort(args)</h3>

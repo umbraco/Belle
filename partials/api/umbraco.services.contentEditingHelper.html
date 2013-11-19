@@ -3,7 +3,8 @@
 )</span>
 </h1>
 <div><h2 id="Description">Description</h2>
-<div class="description"><p>A helper service for content/media/member controllers when editing/creating/saving content.</p></div>
+<div class="description"><p>A helper service for most editors, some methods are specific to content/media/member model types but most are used by 
+all editors to share logic and reduce the amount of replicated code among editors.</p></div>
 <div class="member method"><h2 id="Methods">Methods</h2>
 <ul class="methods"><li><h3 id="getAllProps">getAllProps()</h3>
 <div class="getallprops"><p>Returns all propertes contained for the content item (since the normal model has properties contained inside of tabs)</p></div>
@@ -17,7 +18,7 @@ ensure the notifications are displayed and that the appropriate events are fired
 when we're creating new content.</p></div>
 </li>
 <li><h3 id="reBindChangedProperties">reBindChangedProperties()</h3>
-<div class="rebindchangedproperties"><p>re-binds all changed property values to the origContent object from the newContent object and returns an array of changed properties.</p></div>
+<div class="rebindchangedproperties"><p>re-binds all changed property values to the origContent object from the savedContent object and returns an array of changed properties.</p></div>
 </li>
 <li><h3 id="redirectToCreatedContent">redirectToCreatedContent()</h3>
 <div class="redirecttocreatedcontent"><p>Changes the location to be editing the newly created content after create was successful.

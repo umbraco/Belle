@@ -75,6 +75,34 @@ memberResource.save(myDoc, true)
 – <p>resourcePromise object containing the member scaffold.</p></div>
 </div>
 </li>
+<li><h3 id="save">save(media, isNew, files)</h3>
+<div class="save"><p>Saves changes made to a member, if the member is new, the isNew paramater must be passed to force creation
+if the member needs to have files attached, they must be provided as the files param and passed seperately </p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+memberResource.getBykey("23234-sd8djsd-3h8d3j-sdh8d")
+   .then(function(member) {
+         member.name = "Bob";
+         memberResource.save(member, false)
+           .then(function(member){
+               alert("Retrieved, updated and saved again");
+           });
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">media – {Object} – </code>
+<p>The member item object with changes applied</p></li>
+<li><code ng:non-bindable="">isNew – {Bool} – </code>
+<p>set to true to create a new item or to update an existing </p></li>
+<li><code ng:non-bindable="">files – {Array} – </code>
+<p>collection of files for the media item      </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the saved media item.</p></div>
+</div>
+</li>
 </ul>
 </div>
 </div>

@@ -214,6 +214,29 @@ contentResource.getScaffold(1234, 'homepage')
 – <p>resourcePromise object containing the content scaffold.</p></div>
 </div>
 </li>
+<li><h3 id="getScaffold">getScaffold()</h3>
+<div class="getscaffold"><p>Returns a scaffold of an empty data type item</p>
+
+<p>The scaffold is used to build editors for data types that has not yet been populated with data.</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+dataTypeResource.getScaffold()
+   .then(function(scaffold) {
+       var myType = scaffold;
+       myType.name = "My new data type"; 
+
+       dataTypeResource.save(myType, myType.preValues, true)
+           .then(function(type){
+               alert("Retrieved, updated and saved again");
+           });
+   });
+</pre> </p><h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the data type scaffold.</p></div>
+</div>
+</li>
 <li><h3 id="hasPermission">hasPermission(permission, id)</h3>
 <div class="haspermission"><p>Returns true/false given a permission char to check against a nodeID
 for the current user</p>
@@ -289,6 +312,25 @@ contentResource.getById(1234)
 – <p>resourcePromise object containing the saved content item.</p></div>
 </div>
 </li>
+<li><h3 id="publishByid">publishByid(id)</h3>
+<div class="publishbyid"><p>Publishes a content item with a given ID</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+contentResource.publishById(1234)
+   .then(function(content) {
+       alert("published");
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">id – {Int} – </code>
+<p>The ID of the conten to publish</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the published content item.</p></div>
+</div>
+</li>
 <li><h3 id="save">save(content, isNew, files)</h3>
 <div class="save"><p>Saves changes made to a content item to its current version, if the content item is new, the isNew paramater must be passed to force creation
 if the content item needs to have files attached, they must be provided as the files param and passed seperately </p>
@@ -302,6 +344,33 @@ contentResource.getById(1234)
          contentResource.save(content, false)
            .then(function(content){
                alert("Retrieved, updated and saved again");
+           });
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">content – {Object} – </code>
+<p>The content item object with changes applied</p></li>
+<li><code ng:non-bindable="">isNew – {Bool} – </code>
+<p>set to true to create a new item or to update an existing </p></li>
+<li><code ng:non-bindable="">files – {Array} – </code>
+<p>collection of files for the document      </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the saved content item.</p></div>
+</div>
+</li>
+<li><h3 id="sendToPublish">sendToPublish(content, isNew, files)</h3>
+<div class="sendtopublish"><p>Saves changes made to a content item, and notifies any subscribers about a pending publication</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+contentResource.getById(1234)
+   .then(function(content) {
+         content.name = "I want a new name, and be published!";
+         contentResource.sendToPublish(content, false)
+           .then(function(content){
+               alert("Retrieved, updated and notication send off");
            });
    });
 </pre> </p><h4 id="Parameters">Parameters</h4>

@@ -20,6 +20,36 @@ stylesheetResource.getAll()
 – <p>resourcePromise object containing the stylesheets.</p></div>
 </div>
 </li>
+<li><h3 id="getRules">getRules()</h3>
+<div class="getrules"><p>Returns all defined child rules for a stylesheet with a given ID</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+stylesheetResource.getRules(2345)
+   .then(function(rules) {
+       alert('its here!');
+   });
+</pre> </p><h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the rules.</p></div>
+</div>
+</li>
+<li><h3 id="getRulesByName">getRulesByName()</h3>
+<div class="getrulesbyname"><p>Returns all defined child rules for a stylesheet with a given name</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+stylesheetResource.getRulesByName("ie7stylesheet")
+   .then(function(rules) {
+       alert('its here!');
+   });
+</pre> </p><h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the rules.</p></div>
+</div>
+</li>
 </ul>
 </div>
 </div>

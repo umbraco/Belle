@@ -282,14 +282,14 @@ NG_DOCS={
       "id": "umbraco.resources.contentResource",
       "shortName": "contentResource",
       "type": "service",
-      "keywords": "$http $q $scope accesible again against alert alias all allowed an and angular any api application applied are args arguments array as ascending async attached base based be been below bin build by can changes char check children collection complete completed containing content contentarray contentresource contenttype controller copied copies copy create creation current data database default delete deletebyid deletes descending didnt document editors empties empty emptyrecyclebin err existing false files filter for force from function getbyid getbyids getchildren getniceurl gets getscaffold given gone handles has haspermission have here homepage id idd ids if index inject into is isnew it item items its knows made make matching message method methods module move moved moves must my mydoc name names needs new node node-ids nodeid nodes not number object of on only operations optional options or order orderby orderdirection original page pagenumber pagesize paging param paramater parent parentid passed per permission place populated promise properties property provided public publish published publishes put query recycle relates relatetooriginal relation representing resource resourcepromise resources retrieved return returns save saved saves scaffold seperately service set should simply so sort sorted sortedids sortorder sorts store sure that the then they this those through to transactions true type umbdataformatter umbraco umbrequesthelper underneath unpublish unpublished unpublishes unpulished untill update updated url usage use used user using var version want was wasnt webapi where which will with won yet you"
+      "keywords": "$http $q $scope about accesible again against alert alias all allowed an and angular any api application applied are args arguments array as ascending async attached base based be been below bin build by can changes char check children collection complete completed containing conten content contentarray contentresource contenttype controller copied copies copy create creation current data database datatyperesource default delete deletebyid deletes descending didnt document editors empties empty emptyrecyclebin err existing false files filter for force from function getbyid getbyids getchildren getniceurl gets getscaffold given gone handles has haspermission have here homepage id idd ids if index inject into is isnew it item items its knows made make matching message method methods module move moved moves must my mydoc mytype name names needs new node node-ids nodeid nodes not notication notifies number object of off on only operations optional options or order orderby orderdirection original page pagenumber pagesize paging param paramater parent parentid passed pending per permission place populated prevalues promise properties property provided public publication publish publishbyid published publishes put query recycle relates relatetooriginal relation representing resource resourcepromise resources retrieved return returns save saved saves scaffold send sendtopublish seperately service set should simply so sort sorted sortedids sortorder sorts store subscribers sure that the then they this those through to transactions true type types umbdataformatter umbraco umbrequesthelper underneath unpublish unpublished unpublishes unpulished untill update updated url usage use used user using var version want was wasnt webapi where which will with won yet you"
     },
     {
       "section": "api",
       "id": "umbraco.resources.contentTypeResource",
       "shortName": "contentTypeResource",
       "type": "service",
-      "keywords": "api content contenttyperesource data for in loads resources service types umbraco"
+      "keywords": "$scope allowed api child content contentid contenttyperesource data for getallowedtypes getcontenttype given id in item list loads method object of resourcepromise resources retrieve retrive returns service the then to type types umbraco underneath usage with"
     },
     {
       "section": "api",
@@ -303,21 +303,21 @@ NG_DOCS={
       "id": "umbraco.resources.dashboardResource",
       "shortName": "dashboardResource",
       "type": "service",
-      "keywords": "api dashboard dashboardresource handles loading manifest resources service the umbraco"
+      "keywords": "alias api array configuration configuraton containing dashboard dashboardresource for getdashboard given handles loading manifest method object of resourcepromise resources retrieve retrieves section service the to umbraco user"
     },
     {
       "section": "api",
       "id": "umbraco.resources.dataTypeResource",
       "shortName": "dataTypeResource",
       "type": "service",
-      "keywords": "alert api content data datatyperesource delete deletebyid deletes for given gone id in item its loads method object of resourcepromise resources service then to types umbraco usage with"
+      "keywords": "alert alias api available be collection configuration content create data datatype datatyperesource delete deletebyid deletes done editor editoralias false for getbyid getprevalues getprevalyes gets given gone hibba id if in instead isnew item its loads mediapicker method name object of on or prevalues resourcepromise resources retrieve retrieves retrive save saves service set should string the then to true type types typw umbraco update updated usage with"
     },
     {
       "section": "api",
       "id": "umbraco.resources.entityResource",
       "shortName": "entityResource",
       "type": "service",
-      "keywords": "access additional alert all also an ancestor and any api are array as back basic between by children clause collection contain containing contains conten content contentarray core data difference display document documenttype does domain dynamic ent entities entity entityresource etc execute expression fetched filter for getall getancestors getbyid getbyids getentitiesbyids getentitybyid getpath gets given guid have here id ids in information is it item its language lists loads logged lucene macro media mediaarray mediatype member membertype method most mydoc name navigation need news node nodes not object of office on only optional parameters path postfilter postfilterparams principal properties property public query representation resourcepromise resources return returned returns same search searchmedia sensitive server service since specify template templates that the then they this through to trees type types umbraco url usage used user var view want what where whereas which will with you"
+      "keywords": "access additional alert all also an ancestor and any api are array as available back basic between bob by children clause collection contain containing contains conten content contentarray core data difference display document documenttype does domain dynamic ent entities entity entityresource etc execute expression fetched filter for from getall getancestors getbyid getbyids getentitiesbyids getentitybyid getpath gets given guid have here id ids in indexes information is it item its language lists loads logged lucene macro media mediaarray mediatype member membertype method most mydoc name navigation need news node nodes not object of office on only optional parameters path postfilter postfilterparams principal properties property public query representation resourcepromise resources return returned returns same search searchall searchmedia sensitive server service since specify template templates that the then they this through to trees type types umbraco url usage used user var view want what where whereas which will with you"
     },
     {
       "section": "api",
@@ -345,21 +345,21 @@ NG_DOCS={
       "id": "umbraco.resources.mediaResource",
       "shortName": "mediaResource",
       "type": "service",
-      "keywords": "$scope again alert alias all an and api are args arguments array as ascending base based be been below bin build by can children collection complete containing content contentarray current data default delete deletebyid deletes descending didnt editors empties empty emptyrecyclebin err filter folder for function getbyid getbyids getchildren gets getscaffold given gone has here id idd ids if in index is it item items its knows loads matching media mediaresource mediatype message method move moved moves must my mydoc mymedia name names new node node-ids nodes not number object of on only optional options or order orderby orderdirection page pagenumber pagesize paging parent parentid per place populated properties property provided put query recycle resourcepromise resources retrieved return returns save saved scaffold service should so sort sorted sortedids sortorder sorts store that the then they those to true type umbraco underneath updated usage used var was where which will with yet"
+      "keywords": "$scope addfolder adding again alert alias all an and api applied are args arguments array as ascending attached base based be been below bin build by can changes children collection complete containing content contentarray create creation current data default delete deletebyid deletes descending didnt editors empties empty emptyrecyclebin err existing false files filter folder for force function gallery getbyid getbyids getchildren gets getscaffold given gone has have here id idd ids if in index is isnew it item items its knows loads made matching media mediaresource mediatype message method move moved moves must my mydoc mymedia name names needs new node node-ids nodes not number object of on only optional options or order orderby orderdirection page pagenumber pagesize paging param paramater parent parentid passed per place populated properties property provided put query recycle resourcepromise resources retrieved return returns save saved saves scaffold seperately service set shorthand should so sort sorted sortedids sortorder sorts store that the then they those to true type umbraco under underneath update updated usage used var want was where which will with yet"
     },
     {
       "section": "api",
       "id": "umbraco.resources.mediaTypeResource",
       "shortName": "mediaTypeResource",
       "type": "service",
-      "keywords": "api data for in loads media mediatyperesource resources service types umbraco"
+      "keywords": "$scope allowed api child data for getallowedtypes given id in item list loads media mediaid mediatyperesource method object of resourcepromise resources retrive returns service the then to type types umbraco underneath usage with"
     },
     {
       "section": "api",
       "id": "umbraco.resources.memberResource",
       "shortName": "memberResource",
       "type": "service",
-      "keywords": "again alert alias an and api base be been build client containing data delete deletebykey deletes editors empty for getbykey gets getscaffold given gone has here id in is it item its key knows loads member memberresource members membertype method must my mydoc mymember name new not object of on place populated properties provided put resourcepromise resources retrieved return returns save saved scaffold service so that the then to true type umbraco underneath updated usage used var which with yet"
+      "keywords": "again alert alias an and api applied as attached base be been bob build changes client collection containing create creation data delete deletebykey deletes editors empty existing false files for force getbykey gets getscaffold given gone has have here id if in is isnew it item its key knows loads made media member memberresource members membertype method must my mydoc mymember name needs new not object of on or param paramater passed place populated properties provided put resourcepromise resources retrieved return returns save saved saves scaffold seperately service set so that the then they to true type umbraco underneath update updated usage used var which with yet"
     },
     {
       "section": "api",
@@ -380,7 +380,7 @@ NG_DOCS={
       "id": "umbraco.resources.stylesheetResource",
       "shortName": "stylesheetResource",
       "type": "service",
-      "keywords": "alert all api available containing getall gets here its method object registered resourcepromise resources retrieve service stylesheetresource stylesheets the then to umbraco usage"
+      "keywords": "alert all api available child containing defined for getall getrules getrulesbyname gets given here id ie7stylesheet its method name object registered resourcepromise resources retrieve returns rules service stylesheet stylesheetresource stylesheets the then to umbraco usage with"
     },
     {
       "section": "api",
@@ -401,7 +401,7 @@ NG_DOCS={
       "id": "umbraco.services.appState",
       "shortName": "appState",
       "type": "service",
-      "keywords": "allow an and angularhelper api application appstate arbitrary back be by changes current do events function getglobalstate getmenustate getsectionstate gettreestate global here in key menu mutable not object office publicly raises return returns section service services setglobalstate setmenustate sets setsectionstate setting settreestate state the this to tracks tree umbraco value values variables various want we when working"
+      "keywords": "$on allow an and angularhelper api application appstate arbitrary args back be by changed changes current currentsection do events function getglobalstate getmenustate getsectionstate gettreestate global globalstate here if in key menu mutable not object office publicly raises reference return returns samples scope section section-state sectionstate service services setglobalstate setmenustate sets setsectionstate setting settreestate shownavigation showtree state subscribe the this to tracks tree umbraco value values variables various want we when working"
     },
     {
       "section": "api",
@@ -415,7 +415,7 @@ NG_DOCS={
       "id": "umbraco.services.contentEditingHelper",
       "shortName": "contentEditingHelper",
       "type": "service",
-      "keywords": "after all also an and api appropriate are array at basic be changed changes check contained content contenteditinghelper controllers create created creating decide displayed editing edito ensure entity events fired for from fulfilled function getallprops handle handlesaveerror handlesuccessfulsave happens has have having helper if in inside is issues item least location maintain method mode model name need new newcontent newly normal not notifications object of only or origcontent propertes properties property re re-binds rebind rebindchangedproperties redirect redirecttocreatedcontent remain requirements returns saving server service services side successful tabs that the this to umbraco validation values was we what when which will"
+      "keywords": "after all also among amount an and api appropriate are array at basic be but by changed changes check code contained content contenteditinghelper create created creating decide displayed editing edito editors ensure entity events fired for from fulfilled function getallprops handle handlesaveerror handlesuccessfulsave happens has have having helper if in inside is issues item least location logic maintain method methods mode model most name need new newly normal not notifications object of only or origcontent propertes properties property re re-binds rebind rebindchangedproperties redirect redirecttocreatedcontent reduce remain replicated requirements returns savedcontent saving server service services share side some specific successful tabs that the this to types umbraco used validation values was we what when which will"
     },
     {
       "section": "api",
@@ -423,6 +423,13 @@ NG_DOCS={
       "shortName": "dialogService",
       "type": "service",
       "keywords": "$compile $http $log $q $rootscope $templatecache accesible all also an and animation any api application-wide args array attach attached be been before body but by callback callbacks called can chosen class close closeall closes container contains content contentpicker controller css csss custom default dialog dialogs dialogservice display div document documents does dom done edit editor element embed existing fade for from function functon given group handling has html icon iconpicker if iframe iframes in incase inject injects inline instantly into is it item items its link linkpicker load macro macropicker make mcaro media mediapicker member membergrouppicker memberpicker members method modal modalclass modals module multipicker multiple needed needs new non-angular object of on one only open opens options or overlays page parameters passed path pick picker processing property propertydialog registered rendering renders representing return returned returning returns rootscope scope section selected sent serverside service services set should show simply single specific specified strips submitted support sure template templates that the this to tree treealias treepicker true umb-modal umbraco url usage use used value var want whatever when which width will with wrappers you ysod ysoddialog"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.services.editorState",
+      "shortName": "editorState",
+      "type": "service",
+      "keywords": "access active an angularhelper api as be being by can cannot care child complex content controllers current currently edited editor editors editorstate entire entity exposing for from function handled implementing individual is it just like method model modified modify modifying need not null object of only overwritten parent possible properties property read read-only reference reset returns root service services set sets several should since so that the this through to tracks umbraco used values via when where with you"
     },
     {
       "section": "api",
@@ -489,6 +496,13 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.services.searchService",
+      "shortName": "searchService",
+      "type": "service",
+      "keywords": "accesible all and angular any api application args argument available be bob by can collection containing content controller currently default editorpath for foreach function handling id in index indexes inject internal into is it items main make matching media member members menuurl metadata method module name needs object one promise result results returns seach search searchall searchcontent searches searchmedia searchmembers searchservice service services should simply subtitle sure term that the then to umbraco url usage use var which"
+    },
+    {
+      "section": "api",
       "id": "umbraco.services.serverValidationManager",
       "shortName": "serverValidationManager",
       "type": "service",
@@ -506,7 +520,7 @@ NG_DOCS={
       "id": "umbraco.services.treeService",
       "shortName": "treeService",
       "type": "service",
-      "keywords": "alias all an and api args arguments by check children clears current declared determines directives factory find folder from gets gettreepackagefolder has if in internally is it just know loadnodechildren method node object otherwise package plugin promise re-assigns return returns section server service services so the them then to tree treealias treeservice umbraco umbtree umbtreeitem undefined up-to-date used views we where will"
+      "keywords": "actions alias all an and api args arguments available below by cache cachekey check child children childrenof clear clearcache clears current declared descendant determines dialogs directives document done factory fetching filter find folder for from getchildnode getchildren getdescendantnode getmenu getpath gets gettree gettreealias gettreepackagefolder gettreeroot given has id if in internally is it just know listview loadnodechildren looking menu meta-data method node nodes object of only optional or otherwise package parent path plugin promise re-assigns re-loads reload reloadnode remove removechildnodes removenode removes retrieve retrive return returns root section server service services single so specific the them then this to tree treealias treenode trees treeservice type umbraco umbtree umbtreeitem undefined up up-to-date used views walking we where will with"
     },
     {
       "section": "api",

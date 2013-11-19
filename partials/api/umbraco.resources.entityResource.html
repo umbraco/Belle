@@ -150,6 +150,26 @@ entityResource.getPath(id)
 – <p>resourcePromise object containing the url.</p></div>
 </div>
 </li>
+<li><h3 id="searchAll">searchAll(Query)</h3>
+<div class="searchall"><p>Gets an array of entities from all available search indexes, given a lucene query</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+entityResource.searchAll("bob")
+   .then(function(array) {
+       var myDoc = array; 
+       alert('they are here!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">Query – {String} – </code>
+<p>search query </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object containing the entity array.</p></div>
+</div>
+</li>
 <li><h3 id="searchMedia">searchMedia(Query, Type)</h3>
 <div class="searchmedia"><p>Gets an array of entities, given a lucene query and a type</p>
 

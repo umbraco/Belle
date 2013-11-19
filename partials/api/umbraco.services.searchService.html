@@ -1,0 +1,73 @@
+<h1><code ng:non-bindable="">searchService</code>
+<span class="hint">(service in module <code ng:non-bindable="">umbraco.services</code>
+)</span>
+</h1>
+<div><h2 id="Description">Description</h2>
+<div class="description"><p>Service for handling the main application search, can currently search content, media and members</p>
+
+<h2 id="usage">usage</h4>
+
+<p>To use, simply inject the searchService into any controller that needs it, and make
+sure the umbraco.services module is accesible - which it should be by default.</p>
+
+<pre class="prettyprint linenums">
+     searchService.searchMembers({term: 'bob'}).then(function(results){
+         angular.forEach(results, function(result){
+                 //returns:
+                 {name: "name", id: 1234, menuUrl: "url", editorPath: "url", metaData: {}, subtitle: "/path/etc" }
+          })          
+          var result = 
+      }) 
+</pre> </p></div>
+<div class="member method"><h2 id="Methods">Methods</h2>
+<ul class="methods"><li><h3 id="searchAll">searchAll(args)</h3>
+<div class="searchall"><p>Searches all available indexes and returns all results in one collection</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">args – {Object} – </code>
+<p>argument object</p></li>
+<li><code ng:non-bindable="">args.term – {String} – </code>
+<p>seach term</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>returns promise containing all matching items</p></div>
+</div>
+</li>
+<li><h3 id="searchContent">searchContent(args)</h3>
+<div class="searchcontent"><p>Searches the default internal content search index</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">args – {Object} – </code>
+<p>argument object</p></li>
+<li><code ng:non-bindable="">args.term – {String} – </code>
+<p>seach term</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>returns promise containing all matching content items</p></div>
+</div>
+</li>
+<li><h3 id="searchMedia">searchMedia(args)</h3>
+<div class="searchmedia"><p>Searches the default media search index</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">args – {Object} – </code>
+<p>argument object</p></li>
+<li><code ng:non-bindable="">args.term – {String} – </code>
+<p>seach term</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>returns promise containing all matching media items</p></div>
+</div>
+</li>
+<li><h3 id="searchMembers">searchMembers(args)</h3>
+<div class="searchmembers"><p>Searches the default member search index</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">args – {Object} – </code>
+<p>argument object</p></li>
+<li><code ng:non-bindable="">args.term – {String} – </code>
+<p>seach term</p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>returns promise containing all matching members</p></div>
+</div>
+</li>
+</ul>
+</div>
+</div>

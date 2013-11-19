@@ -5,11 +5,98 @@
 <div><h2 id="Description">Description</h2>
 <div class="description"><p>The tree service factory, used internally by the umbTree and umbTreeItem directives</p></div>
 <div class="member method"><h2 id="Methods">Methods</h2>
-<ul class="methods"><li><h3 id="getTreePackageFolder">getTreePackageFolder(treeAlias)</h3>
+<ul class="methods"><li><h3 id="clearCache">clearCache(args)</h3>
+<div class="clearcache"><p>Clears the tree cache - with optional cacheKey, optional section or optional filter.</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">args – {Object} – </code>
+<p>arguments</p></li>
+<li><code ng:non-bindable="">args.cacheKey – {String} – </code>
+<p>optional cachekey - this is used to clear specific trees in dialogs</p></li>
+<li><code ng:non-bindable="">args.section – {String} – </code>
+<p>optional section alias - clear tree for a given section</p></li>
+<li><code ng:non-bindable="">args.childrenOf – {String} – </code>
+<p>optional parent ID - only clear the cache below a specific node</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getChildNode">getChildNode(treeNode, id)</h3>
+<div class="getchildnode"><p>Gets a child node with a given ID, from a specific treeNode</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">treeNode – {object} – </code>
+<p>to retrive child node from</p></li>
+<li><code ng:non-bindable="">id – {int} – </code>
+<p>id of child node</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getChildren">getChildren(args)</h3>
+<div class="getchildren"><p>Gets the children from the server for a given node </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">args – {object} – </code>
+<p>Arguments</p></li>
+<li><code ng:non-bindable="">args.node – {object} – </code>
+<p>tree node object to retrieve the children for</p></li>
+<li><code ng:non-bindable="">args.section – {string} – </code>
+<p>current section alias</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getDescendantNode">getDescendantNode(treeNode, id, treeAlias)</h3>
+<div class="getdescendantnode"><p>Gets a descendant node by id</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">treeNode – {object} – </code>
+<p>to retrive descendant node from</p></li>
+<li><code ng:non-bindable="">id – {int} – </code>
+<p>id of descendant node</p></li>
+<li><code ng:non-bindable="">treeAlias – {string} – </code>
+<ul>
+<li>optional tree alias, if fetching descendant node from a child of a listview document</li>
+</ul></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getMenu">getMenu(args)</h3>
+<div class="getmenu"><p>Returns available menu actions for a given tree node</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">args – {object} – </code>
+<p>Arguments</p></li>
+<li><code ng:non-bindable="">args.treeNode – {string} – </code>
+<p>tree node object to retrieve the menu for</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getPath">getPath(node)</h3>
+<div class="getpath"><p>This will return the current node's path by walking up the tree </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">node – {object} – </code>
+<p>Tree node to retrieve path for</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getTree">getTree(args)</h3>
+<div class="gettree"><p>gets the tree, returns a promise </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">args – {object} – </code>
+<p>Arguments</p></li>
+<li><code ng:non-bindable="">args.section – {string} – </code>
+<p>Section alias</p></li>
+<li><code ng:non-bindable="">args.cacheKey – {string} – </code>
+<p>Optional cachekey</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getTreeAlias">getTreeAlias(treeNode)</h3>
+<div class="gettreealias"><p>Gets the node's tree alias, this is done by looking up the meta-data of the current node's root node </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">treeNode – {object} – </code>
+<p>to retrive tree alias from</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getTreePackageFolder">getTreePackageFolder(treeAlias)</h3>
 <div class="gettreepackagefolder"><p>Determines if the current tree is a plugin tree and if so returns the package folder it has declared
 so we know where to find it's views, otherwise it will just return undefined.</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">treeAlias – {String} – </code>
 <p>The tree alias to check</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getTreeRoot">getTreeRoot(treeNode)</h3>
+<div class="gettreeroot"><p>Gets the root node of the current tree type for a given tree node</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">treeNode – {object} – </code>
+<p>to retrive tree root node from</p></li>
 </ul>
 </div>
 </li>
@@ -22,6 +109,27 @@ returns them in a promise.</p><h4 id="Parameters">Parameters</h4>
 <p>The tree node</p></li>
 <li><code ng:non-bindable="">args.section – {object} – </code>
 <p>The current section</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="reloadNode">reloadNode(node)</h3>
+<div class="reloadnode"><p>Re-loads the single node from the server</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">node – {object} – </code>
+<p>Tree node to reload</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="removeChildNodes">removeChildNodes(treeNode)</h3>
+<div class="removechildnodes"><p>Removes all child nodes from a given tree node </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">treeNode – {object} – </code>
+<p>the node to remove children from</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="removeNode">removeNode(treeNode)</h3>
+<div class="removenode"><p>Removes a given node from the tree</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">treeNode – {object} – </code>
+<p>the node to remove</p></li>
 </ul>
 </div>
 </li>

@@ -6,7 +6,7 @@
 <div class="description"><p>Loads in data for data types</p></div>
 <div class="member method"><h2 id="Methods">Methods</h2>
 <ul class="methods"><li><h3 id="deleteById">deleteById(id)</h3>
-<div class="deletebyid"><p>Deletes a content item with a given id</p>
+<div class="deletebyid"><p>Deletes a data type with a given id</p>
 
 <h2 id="usage">usage</h5>
 
@@ -18,6 +18,73 @@ dataTypeResource.deleteById(1234)
 </pre> </p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">id – {Int} – </code>
 <p>id of content item to delete        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object.</p></div>
+</div>
+</li>
+<li><h3 id="deleteById">deleteById(dataType, preValues, isNew)</h3>
+<div class="deletebyid"><p>Saves or update a data typw</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+dataTypeResource.getById(1234)
+   .then(function(type) {
+       type.name ="hibba";
+ 
+       dataTypeResource.save(type, type.preValues, false).then(function(type){
+         alert('its done!');
+       }): 
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">dataType – {Object} – </code>
+<p>data type object to create/update</p></li>
+<li><code ng:non-bindable="">preValues – {Array} – </code>
+<p>collection of prevalues on the datatype</p></li>
+<li><code ng:non-bindable="">isNew – {Bool} – </code>
+<p>set to true if type should be create instead of updated  </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object.</p></div>
+</div>
+</li>
+<li><h3 id="getById">getById(id)</h3>
+<div class="getbyid"><p>Gets a data type item with a given id</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+dataTypeResource.getById(1234)
+   .then(function() {
+       alert('its gone!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">id – {Int} – </code>
+<p>id of data type to retrieve        </p></li>
+</ul>
+<h4 id="Returns">Returns</h4>
+<div class="returns"><code ng:non-bindable="">{Promise}</code>
+– <p>resourcePromise object.</p></div>
+</div>
+</li>
+<li><h3 id="getPreValues">getPreValues(editorAlias, id)</h3>
+<div class="getprevalues"><p>Retrieves available prevalues for a given data type + editor</p>
+
+<h2 id="usage">usage</h5>
+
+<pre class="prettyprint linenums">
+dataTypeResource.getPrevalyes("Umbraco.MediaPicker", 1234)
+   .then(function(prevalues) {
+       alert('its gone!');
+   });
+</pre> </p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">editorAlias – {String} – </code>
+<p>string alias of editor type to retrive prevalues configuration for</p></li>
+<li><code ng:non-bindable="">id – {Int} – </code>
+<p>id of datatype to retrieve prevalues for        </p></li>
 </ul>
 <h4 id="Returns">Returns</h4>
 <div class="returns"><code ng:non-bindable="">{Promise}</code>
