@@ -7,4 +7,24 @@
 <h2 id="Usage">Usage</h2>
 <div class="usage"><pre class="prettyprint linenums">umbModelMapper();</pre>
 </div>
+<div class="member method"><h2 id="Methods">Methods</h2>
+<ul class="methods"><li><h3 id="convertToEntityBasic">convertToEntityBasic(source)</h3>
+<div class="converttoentitybasic"><p>Converts the source model to a basic entity model, it will throw an exception if there isn't enough data to create the model.</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">source – {Object} – </code>
+<p>The source model</p></li>
+<li><code ng:non-bindable="">source.id – {Number} – </code>
+<p>The node id of the model</p></li>
+<li><code ng:non-bindable="">source.name – {String} – </code>
+<p>The node name</p></li>
+<li><code ng:non-bindable="">source.icon – {String} – </code>
+<p>The models icon as a css class (.icon-doc)</p></li>
+<li><code ng:non-bindable="">source.parentId – {Number} – </code>
+<p>The parentID, if no parent, set to -1</p></li>
+<li><code ng:non-bindable="">source.path – {path} – </code>
+<p>comma-seperated string of ancestor IDs (-1,1234,1782,1234)</p></li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>

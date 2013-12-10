@@ -401,7 +401,7 @@ NG_DOCS={
       "id": "umbraco.services.appState",
       "shortName": "appState",
       "type": "service",
-      "keywords": "$on allow an and angularhelper api application appstate arbitrary args back be by changed changes current currentsection do events function getglobalstate getmenustate getsectionstate gettreestate global globalstate here if in key menu mutable not object office publicly raises reference return returns samples scope section section-state sectionstate service services setglobalstate setmenustate sets setsectionstate setting settreestate shownavigation showtree state subscribe the this to tracks tree umbraco value values variables various want we when working"
+      "keywords": "allow an and angularhelper api application appstate arbitrary args back be by changed changes current currentsection do events eventsservice function getglobalstate getmenustate getsectionstate gettreestate global globalstate here if in key menu mutable not object office on publicly raises reference return returns samples scope section section-state sectionstate service services setglobalstate setmenustate sets setsectionstate setting settreestate shownavigation showtree state subscribe the this to tracks tree umbraco value values variables various want we when working"
     },
     {
       "section": "api",
@@ -464,14 +464,7 @@ NG_DOCS={
       "id": "umbraco.services.imageHelper",
       "shortName": "imageHelper",
       "type": "service",
-      "keywords": "api for helper image imagehelper object parsing paths service services umbraco used"
-    },
-    {
-      "section": "api",
-      "id": "umbraco.services.legacyJsLoader",
-      "shortName": "legacyJsLoader",
-      "type": "function",
-      "keywords": "any api be dependencies function in js lazy legacyjsloader load loaded manually need services that to umbraco used"
+      "keywords": "actual allowed an and api aspect associated content corrct current detectifimagebyextension dimensions display ex extension finds for formats from function getimagepropertyvalue getthumbnail getthumbnailfrompath given has height helper if image imagehelper imagemodel imagepath indicating is jpg keeping library max maximum maxsize media model object of one options parsing path paths property ratios retrieve returns save scaletomaxsize service services the there thumbnail to true umbraco used version width with"
     },
     {
       "section": "api",
@@ -485,7 +478,7 @@ NG_DOCS={
       "id": "umbraco.services.navigationService",
       "shortName": "navigationService",
       "type": "service",
-      "keywords": "$location $log $rootscope $routeparams action actions activate active added alias already always and any api application args arguments as associated based be being but by can changes changesection click clicked containing content controller created current currentaction currently currentnode dashboard data default determined dialog dialogservice different displays div do document dom element entire even event exists few for force forcereload format found from function get given handle here hidedialog hidemenu hidenavigation hides hidesearch hidetree hiding html if iframe in inject injected into invoking is it item itemid legacy lifetime load loads located main maintain may menu method methods name navigation navigationservice new next node not object of on one only open opens optional or pane panes part passed path promise properties re-used regardless related reload resets responsible returns scope search section sectionalias sectionresource sections selected server service services set showdialog showmenu shown shows showsearch showtree showuserdialog so source specific specified specifies state sticky sync syncargs synced syncing syncs synctreepath template that the their then they this to tree treeservice triggering true turning type umb-panel-body umbraco url used user uses view views whether will with"
+      "keywords": "$location $log $rootscope $routeparams action actions activate active added alias already always and any api application args arguments as associated based be being but by can changes changesection click clicked containing content controller created current currentaction currently currentnode dashboard data default determined dialog dialogservice different displays div do document dom element entire even event exists few for force forcereload format found from function get given handle here hidedialog hidemenu hidenavigation hides hidesearch hidetree hiding html if iframe in inject injected into invoking is it item itemid legacy lifetime load loads located main maintain may menu method methods name navigation navigationservice new next node not object of on one only open opens optional or pane panes part passed path promise properties re-used regardless related reload resets responsible returns scope search section sectionalias sectionresource sections selected server service services set showdialog showmenu shown shows showsearch showtree showuserdialog so source specific specified specifies state sticky sync syncargs synced syncing syncs synctree template that the their then they this to tree treeservice triggering true turning type umb-panel-body umbraco url used user uses view views whether will with"
     },
     {
       "section": "api",
@@ -534,7 +527,7 @@ NG_DOCS={
       "id": "umbraco.services.umbModelMapper",
       "shortName": "umbModelMapper",
       "type": "function",
-      "keywords": "api class function map models services to umbmodelmapper umbraco utility"
+      "keywords": "an ancestor api as basic class comma-seperated converts converttoentitybasic create css data enough entity exception function icon icon-doc id ids if isn it map model models name no node of parent parentid path services set source string the there throw to umbmodelmapper umbraco utility will"
     },
     {
       "section": "api",
@@ -569,7 +562,7 @@ NG_DOCS={
       "id": "umbraco.services.updateChecker",
       "shortName": "updateChecker",
       "type": "function",
-      "keywords": "and api check display for function notifcation services to umbraco updatechecker updates used"
+      "keywords": "after and api are authenticated be but called cannot check display for function if in is it js lazy legacy load loaded logged login needs notifcation on or required services startup the they to tree umbraco until updatechecker updates used user which why"
     },
     {
       "section": "api",

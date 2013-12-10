@@ -12,7 +12,7 @@
 <pre class="prettyprint linenums">
    scope.showTree = appState.getGlobalState("showNavigation");
 
-   scope.$on("appState.globalState.changed", function (e, args) {
+   eventsService.on("appState.globalState.changed", function (e, args) {
               if (args.key === "showNavigation") {
                   scope.showTree = args.value;
               }
@@ -24,7 +24,7 @@
 <pre class="prettyprint linenums">
    scope.currentSection = appState.getSectionState("currentSection");
 
-   scope.$on("appState.sectionState.changed", function (e, args) {
+   eventsService.on("appState.sectionState.changed", function (e, args) {
               if (args.key === "currentSection") {
                   scope.currentSection = args.value;
               }
