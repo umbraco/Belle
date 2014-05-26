@@ -1,0 +1,136 @@
+<h1><code ng:non-bindable="">mediaHelper</code>
+<span class="hint">(service in module <code ng:non-bindable="">umbraco.services</code>
+)</span>
+</h1>
+<div><h2 id="Description">Description</h2>
+<div class="description"><p>A helper object used for dealing with media items</p></div>
+<div class="member method"><h2 id="Methods">Methods</h2>
+<ul class="methods"><li><h3 id="detectIfImageByExtension">detectIfImageByExtension(imagePath)</h3>
+<div class="detectifimagebyextension"><p>Returns true/false, indicating if the given path has an allowed image extension</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">imagePath – {string} – </code>
+<p>Image path, ex: /media/1234/my-image.jpg</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="detectIfImageByExtension">detectIfImageByExtension(imagePath)</h3>
+<div class="detectifimagebyextension"><p>Returns true/false, indicating if the given path has an allowed image extension</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">imagePath – {string} – </code>
+<p>Image path, ex: /media/1234/my-image.jpg</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getImagePropertyValue">getImagePropertyValue(options)</h3>
+<div class="getimagepropertyvalue"><p>Returns the file path associated with the media property if there is one</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">options – {object} – </code>
+<p>Options object</p></li>
+<li><code ng:non-bindable="">options.mediaModel – {object} – </code>
+<p>The media object to retrieve the image path from</p></li>
+<li><code ng:non-bindable="">options.imageOnly – {object} – </code>
+<p>Optional, if true then will only return a path if the media item is an image</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getImagePropertyValue">getImagePropertyValue(options)</h3>
+<div class="getimagepropertyvalue"><p>Returns the file path associated with the media property if there is one</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">options – {object} – </code>
+<p>Options object</p></li>
+<li><code ng:non-bindable="">options.mediaModel – {object} – </code>
+<p>The media object to retrieve the image path from</p></li>
+<li><code ng:non-bindable="">options.imageOnly – {object} – </code>
+<p>Optional, if true then will only return a path if the media item is an image</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getImagePropertyValue">getImagePropertyValue(options)</h3>
+<div class="getimagepropertyvalue"><p>Returns the actual image path associated with the image property if there is one</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">options – {object} – </code>
+<p>Options object</p></li>
+<li><code ng:non-bindable="">options.imageModel – {object} – </code>
+<p>The media object to retrieve the image path from</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getImagePropertyValue">getImagePropertyValue(options)</h3>
+<div class="getimagepropertyvalue"><p>Returns the actual image path associated with the image property if there is one</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">options – {object} – </code>
+<p>Options object</p></li>
+<li><code ng:non-bindable="">options.imageModel – {object} – </code>
+<p>The media object to retrieve the image path from</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getThumbnail">getThumbnail(options)</h3>
+<div class="getthumbnail"><p>formats the display model used to display the content to the model used to save the content</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">options – {object} – </code>
+<p>Options object</p></li>
+<li><code ng:non-bindable="">options.imageModel – {object} – </code>
+<p>The media object to retrieve the image path from</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getThumbnail">getThumbnail(options)</h3>
+<div class="getthumbnail"><p>formats the display model used to display the content to the model used to save the content</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">options – {object} – </code>
+<p>Options object</p></li>
+<li><code ng:non-bindable="">options.imageModel – {object} – </code>
+<p>The media object to retrieve the image path from</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getThumbnailFromPath">getThumbnailFromPath(imagePath)</h3>
+<div class="getthumbnailfrompath"><p>Returns the path to the thumbnail version of a given media library image path</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">imagePath – {string} – </code>
+<p>Image path, ex: /media/1234/my-image.jpg</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="getThumbnailFromPath">getThumbnailFromPath(imagePath)</h3>
+<div class="getthumbnailfrompath"><p>Returns the path to the thumbnail version of a given media library image path</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">imagePath – {string} – </code>
+<p>Image path, ex: /media/1234/my-image.jpg</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="resolveFile">resolveFile(mediaEntity, thumbnail)</h3>
+<div class="resolvefile"><p>Gets the media file url for a media object returned with the mediaResource</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">mediaEntity – {object} – </code>
+<p>A media Entity returned from the entityResource</p></li>
+<li><code ng:non-bindable="">thumbnail – {boolean} – </code>
+<p>Whether to return the thumbnail url or normal url</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="resolveFileFromEntity">resolveFileFromEntity(mediaEntity, thumbnail)</h3>
+<div class="resolvefilefromentity"><p>Gets the media file url for a media entity returned with the entityResource</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">mediaEntity – {object} – </code>
+<p>A media Entity returned from the entityResource</p></li>
+<li><code ng:non-bindable="">thumbnail – {boolean} – </code>
+<p>Whether to return the thumbnail url or normal url</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="scaleToMaxSize">scaleToMaxSize(maxSize, width, height)</h3>
+<div class="scaletomaxsize"><p>Finds the corrct max width and max height, given maximum dimensions and keeping aspect ratios</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">maxSize – {number} – </code>
+<p>Maximum width &amp; height</p></li>
+<li><code ng:non-bindable="">width – {number} – </code>
+<p>Current width</p></li>
+<li><code ng:non-bindable="">height – {number} – </code>
+<p>Current height</p></li>
+</ul>
+</div>
+</li>
+<li><h3 id="scaleToMaxSize">scaleToMaxSize(maxSize, width, height)</h3>
+<div class="scaletomaxsize"><p>Finds the corrct max width and max height, given maximum dimensions and keeping aspect ratios</p><h4 id="Parameters">Parameters</h4>
+<ul class="parameters"><li><code ng:non-bindable="">maxSize – {number} – </code>
+<p>Maximum width &amp; height</p></li>
+<li><code ng:non-bindable="">width – {number} – </code>
+<p>Current width</p></li>
+<li><code ng:non-bindable="">height – {number} – </code>
+<p>Current height</p></li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>

@@ -9,7 +9,7 @@ NG_DOCS={
       "id": "index",
       "shortName": "Umbraco 7 JS documentation",
       "type": "overview",
-      "keywords": "all allows and angularjs any api app applicaton as at atleast automated basics be belle bootstrap browser build built can client cmd codename com command compiling convenience conventions create current data database demonstration dependencies dev directly dk do documentation done egghead either engine entire everything excellent exe explorer fest fetch files finally folder following for found frameworks from get getting globally go grunt grunt-cli guide have here html http in included initial install installed introduction io is it javascript js know less local locally machine merge might mocked need needed next node now npm of official on open or org osx other our overview package packages powerfull process ready register require required restart run runner running setup site slides so started sudo task tasks terminal tests that the these this through to tool twitter ui umbraco us use used videos we which will windows with won written yepnope you your"
+      "keywords": "all allows and angularjs any api app applicaton as at atleast automated basics be belle bootstrap browser build built can client cmd codename com command compiling convenience conventions create current data database demonstration dependencies dev directly dk do documentation done egghead either engine entire everything excellent exe explorer fest fetch files finally folder following for found frameworks from get getting globally go grunt grunt-cli guide have here html http in included initial install installed introduction io is it javascript js know lazyload less local locally machine merge might mocked need needed next node now npm of official on open or org osx other our overview package packages powerfull process ready register require required restart run runner running setup site slides so started sudo task tasks terminal tests that the these this through to tool twitter ui umbraco us use used videos we which will windows with won written you your"
     },
     {
       "section": "api",
@@ -83,6 +83,20 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.directives.directive:umbCropsy",
+      "shortName": "umbCropsy",
+      "type": "directive",
+      "keywords": "an api by directive directives editors entity form it naming own require required shows textbox that umbraco used validator with within"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbCropsy",
+      "shortName": "umbCropsy",
+      "type": "directive",
+      "keywords": "an api by directive directives editors entity form it naming own require required shows textbox that umbraco used validator with within"
+    },
+    {
+      "section": "api",
       "id": "umbraco.directives.directive:umbEditor ",
       "shortName": "umbEditor",
       "type": "directive",
@@ -93,14 +107,21 @@ NG_DOCS={
       "id": "umbraco.directives.directive:umbFileUpload",
       "shortName": "umbFileUpload",
       "type": "directive",
-      "keywords": "and api are changes control controllers directive directives emits events file files for in input listens other selected umbraco use when"
+      "keywords": "an api based because control directive directives field file for html in is it itself object on only parameter passed rebuild replace required reset single that the this to umbraco upload way will"
     },
     {
       "section": "api",
       "id": "umbraco.directives.directive:umbFileUpload",
       "shortName": "umbFileUpload",
       "type": "directive",
-      "keywords": "an api based because control directive directives field file for html in is it itself object on only parameter passed rebuild replace required reset single that the this to umbraco upload way will"
+      "keywords": "and api are changes control controllers directive directives emits events file files for in input listens other selected umbraco use when"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbImageCrop",
+      "shortName": "umbImageCrop",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
     },
     {
       "section": "api",
@@ -139,8 +160,22 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "umbraco.directives.directive:umbPanel",
+      "shortName": "umbPanel",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
       "id": "umbraco.directives.directive:umbPhotoFolder",
       "shortName": "umbPhotoFolder",
+      "type": "directive",
+      "keywords": "api directive directives umbraco"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.directives.directive:umbProperty",
+      "shortName": "umbProperty",
       "type": "directive",
       "keywords": "api directive directives umbraco"
     },
@@ -262,6 +297,13 @@ NG_DOCS={
       "shortName": "valToggleMsg",
       "type": "directive",
       "keywords": "an and api based been directive directives error form formcontroller given has input invalid is on show submitted the this umbraco validator value will"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.mocks.mediaHelperService",
+      "shortName": "mediaHelperService",
+      "type": "service",
+      "keywords": "api dealing for helper items media mediahelperservice mocks object service umbraco used with"
     },
     {
       "section": "api",
@@ -415,14 +457,21 @@ NG_DOCS={
       "id": "umbraco.services.contentEditingHelper",
       "shortName": "contentEditingHelper",
       "type": "service",
-      "keywords": "after all also among amount an and api appropriate are array at basic be but by changed changes check code contained content contenteditinghelper create created creating decide displayed editing edito editors ensure entity events fired for from fulfilled function getallprops handle handlesaveerror handlesuccessfulsave happens has have having helper if in inside is issues item least location logic maintain method methods mode model most name need new newly normal not notifications object of only or origcontent propertes properties property re re-binds rebind rebindchangedproperties redirect redirecttocreatedcontent reduce remain replicated requirements returns savedcontent saving server service services share side some specific successful tabs that the this to types umbraco used validation values was we what when which will"
+      "keywords": "action actions after alias all also among amount an and api appropriate are array at based basic be built but button buttons by changed changes char check code configurebuttons contained content contenteditinghelper create created creating currently decide displayed editing edito editor editors ensure entity events fired first for from fulfilled function getallprops getbuttonfromaction handle handlesaveerror handlesuccessfulsave happens has have having helper hot-key if in inside is issues item label least letter location logic maintain media method methods mode model most name need new newly normal not notifications object of on one only or origcontent permissions primary propertes properties property re re-binds rebind rebindchangedproperties redirect redirecttocreatedcontent reduce remain render replicated requirements returns savedcontent saving server service services share side some specific state successful system tabbed tabs that the this to types umbraco used validation values was we what when which will with"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.services.cropperHelper",
+      "shortName": "cropperHelper",
+      "type": "service",
+      "keywords": "api available collection configuration cropper cropperhelper data dealing editor for helper image method object of plugins returns service services the tinymce to umbraco used with"
     },
     {
       "section": "api",
       "id": "umbraco.services.dialogService",
       "shortName": "dialogService",
       "type": "service",
-      "keywords": "$compile $http $log $q $rootscope $templatecache accesible all also an and animation any api application-wide args array attach attached be been before body but by callback callbacks called can chosen class close closeall closes container contains content contentpicker controller css csss custom default dialog dialogs dialogservice display div document documents does dom done edit editor element embed existing fade for from function functon given group handling has html icon iconpicker if iframe iframes in incase inject injects inline instantly into is it item items its link linkpicker load macro macropicker make mcaro media mediapicker member membergrouppicker memberpicker members method modal modalclass modals module multipicker multiple needed needs new non-angular object of on one only open opens options or overlays page parameters passed path pick picker processing property propertydialog registered rendering renders representing return returned returning returns rootscope scope section selected sent serverside service services set should show simply single specific specified strips submitted support sure template templates that the this to tree treealias treepicker true umb-modal umbraco url usage use used value var want whatever when which width will with wrappers you ysod ysoddialog"
+      "keywords": "$compile $http $log $q $rootscope $templatecache accesible all also an and animation any api application-wide args array attach attached be been before body but by callback callbacks called can chosen class close closeall closes container contains content contentpicker controller css csss custom default dialog dialogs dialogservice display div document documents does dom done edit editor element embed existing fade file-extension files for from function functon given group handling has have html icon iconpicker if iframe iframes image in incase inject injects inline instantly into is it item items its link linkpicker load macro macropicker make mcaro media mediapicker member membergrouppicker memberpicker members method modal modalclass modals module multipicker multiple needed needs new non-angular object of on one only onlyimages open opens options or overlays page parameters passed path pick picker processing property propertydialog registered rendering renders representing return returned returning returns rootscope scope section selected sent serverside service services set should show simply single specific specified strips submitted support sure template templates that the this to tree treealias treepicker true umb-modal umbraco url usage use used value var want whatever when which width will with wrappers you ysod ysoddialog"
     },
     {
       "section": "api",
@@ -464,7 +513,7 @@ NG_DOCS={
       "id": "umbraco.services.imageHelper",
       "shortName": "imageHelper",
       "type": "service",
-      "keywords": "actual allowed an and api aspect associated content corrct current detectifimagebyextension dimensions display ex extension finds for formats from function getimagepropertyvalue getthumbnail getthumbnailfrompath given has height helper if image imagehelper imagemodel imagepath indicating is jpg keeping library max maximum maxsize media model object of one options parsing path paths property ratios retrieve returns save scaletomaxsize service services the there thumbnail to true umbraco used version width with"
+      "keywords": "api detectifimagebyextension function getimagepropertyvalue getthumbnail getthumbnailfrompath imagehelper scaletomaxsize service services umbraco"
     },
     {
       "section": "api",
@@ -472,6 +521,13 @@ NG_DOCS={
       "shortName": "macroService",
       "type": "service",
       "keywords": "alias an and api args as containing editor for function generatemvcsyntax generates generatewebformssyntax generating information insert inserting into is it macro macroservice mvc object old parameter return rich service services style such syntax template templates text the this to umbraco values very webforms"
+    },
+    {
+      "section": "api",
+      "id": "umbraco.services.mediaHelper",
+      "shortName": "mediaHelper",
+      "type": "service",
+      "keywords": "actual allowed an and api aspect associated content corrct current dealing detectifimagebyextension dimensions display entity entityresource ex extension file finds for formats from function getimagepropertyvalue gets getthumbnail getthumbnailfrompath given has height helper if image imagemodel imageonly imagepath indicating is item items jpg keeping library max maximum maxsize media mediaentity mediahelper mediamodel mediaresource model normal object of one only optional options or path property ratios resolvefile resolvefilefromentity retrieve return returned returns save scaletomaxsize service services the then there thumbnail to true umbraco url used version whether width will with"
     },
     {
       "section": "api",
@@ -485,7 +541,7 @@ NG_DOCS={
       "id": "umbraco.services.notificationsService",
       "shortName": "notificationsService",
       "type": "service",
-      "keywords": "$rootscope $timeout accesible add added adding adds advanced after all an and angularhelper any api application application-wide args array as at auto-close automaticly back based be booooh but by can changed changes characters clicked collection complete controller could current default display document error errors exanded expected failed for from getcurrent given green handling headline hooraaaay if in index info inject into is it item level longer lower maintains make message method module more needs normally not notication notications notifcations notification notifications notificationsservice object of on open operations options or passed property published red remove removeall removed removes render return returns seconds sent server service services set short should shownotification shows simply single something sticky success support sure text that the then this to trimmed true type ui umbraco url usage use used warning was watches when where which will without yellow you"
+      "keywords": "$rootscope $timeout accesible actions add added adding adds advanced after all an and angularhelper any api append application application-wide args array as at auto-close automaticly back based be booooh box but button by can changed changes characters clicked collection complete controller could cssclass current custom default display document error errors exanded expected failed for from func getcurrent given green handling headline hooraaaay if in index info inject into is it item level load longer lower maintains make message method module more needs normally not notication notications notifcations notification notifications notificationsservice object of on open operations options or passed path property published red remove removeall removed removes render return returns seconds sent server service services set short should shownotification shows simply single something sticky success support sure text that the then this to trimmed true type ui umbraco url usage use used view warning was watches when where which will without yellow you"
     },
     {
       "section": "api",
@@ -646,7 +702,7 @@ NG_DOCS={
       "id": "Source-Code-Structure",
       "shortName": "Source code structure",
       "type": "overview",
-      "keywords": "access all also and api app application are as assets async automated backend based be belle between bits build by central client client-side code comments common compiled concept configuration contain containing contains content controller controllers convention could crud data database default dependencies dev devided different directives document documentation edit editor editors errors everything example external fetched file files filters folder folders for found from generally global good groups grunt handles have how html http if in include inject inline inside into introduce is it items javascript js karma less load loaded loader loading located look looking manifest means merged minified mocked modify modules most multiple mvc-like navigationservice need ngdoc node not now obsolete of often on operations our outlines outputted over overview package packages pages part parts party pattern perform primarily production project projects promise property referencing require resource resources returns root routes routing same sample script serverless service services setup share shared simulate so source specifies start structure such term test testing testrunner that the them they this those time to tutorials ui umbraco unit-test use used variables variabls various very viewname views want we web well what when where which will work yepnope you"
+      "keywords": "access all also and api app application are as assets async automated backend based be belle between bits build by central client client-side code comments common compiled concept configuration contain containing contains content controller controllers convention could crud data database default dependencies dev devided different directives document documentation edit editor editors errors everything example external fetched file files filters folder folders for found from generally global good groups grunt handles have how html http if in include inject inline inside into introduce is it items javascript js karma lazyload less load loaded loader loading located look looking manifest means merged minified mocked modify modules most multiple mvc-like navigationservice need ngdoc node not now obsolete of often on operations our outlines outputted over overview package packages pages part parts party pattern perform primarily production project projects promise property referencing require resource resources returns root routes routing same sample script serverless service services setup share shared simulate so source specifies start structure such term test testing testrunner that the them they this those time to tutorials ui umbraco unit-test use used variables variabls various very viewname views want we web well what when where which will work you"
     },
     {
       "section": "tutorials",
@@ -667,7 +723,7 @@ NG_DOCS={
       "id": "using-promises-resources",
       "shortName": "Using AngularJS Promises and Umbraco Resources",
       "type": "overview",
-      "keywords": "$http about above accepts actually add additional all always an and angular angularjs anything api are arguments as async automatically based be bubble bubbled but call callback can circumstances consumes consuming consumption containing continue continues convert convertfromlegacyicon create created cssclass custom data display do document don done during err erromsg error errormsg etc everything exactly example expecting failed fails fetches for from function get getactions good handle handler handlers handling hanlding happens have helper here http httppromise iconhelper icons id if important in inside interceptors into is it itself json just leave length loadmenu loads look may menu message method methods might need needs new news next node nodes normal not note notice notificationsservice notified object of ok on one ones original our out outline overview own performed promise promises properties raw really receive required resolve resolves resource resourcepromise resources response rest result rethrow retreive return returned returning returns same scope section server service should show simple so some something sometimes statement still success such that the their then these thing things this those throw to transform transformed transforming transforms tree treeresource treeservice tutorials ui umbraco umbrequesthelper up usable usage used using utilize very want way we well what whatever when which will with work would you your"
+      "keywords": "$http about above accepts actually add additional all always an and angular angularjs anything api are arguments as async automatically based be bubble bubbled but call callback can circumstances consumes consuming consumption containing continue continues convert convertfromlegacyicon create created cssclass custom data display do document don done during err erromsg error errormsg etc everything exactly example expecting failed fails fetches for from function get getactions good handle handler handlers handling hanlding happens have helper here http httppromise iconhelper icons id if important in inside interceptors into is it itself json just leave length loadmenu loads look may menu message method methods might need needs new news next node nodes normal not note notice notificationsservice notified object of ok on one ones original our out outline overview own performed promise promises properties raw really receive required resolve resolves resource resourcepromise resources response rest result rethrow retrieve return returned returning returns same scope section server service should show simple so some something sometimes statement still success such that the their then these thing things this those throw to transform transformed transforming transforms tree treeresource treeservice tutorials ui umbraco umbrequesthelper up usable usage used using utilize very want way we well what whatever when which will with work would you your"
     },
     {
       "section": "tutorials",
