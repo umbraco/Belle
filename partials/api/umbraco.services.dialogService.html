@@ -55,9 +55,7 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <div class="contentpicker"><p>Opens a content picker tree in a modal, the callback returns an array of selected documents</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
 <p>content picker dialog options object</p></li>
-<li><code ng:non-bindable="">options.scope – {$scope} – </code>
-<p>dialog scope</p></li>
-<li><code ng:non-bindable="">options.multipicker – {$scope} – </code>
+<li><code ng:non-bindable="">options.multipicker – {Boolean} – </code>
 <p>should the picker return one or multiple items</p></li>
 <li><code ng:non-bindable="">options.callback – {Function} – </code>
 <p>callback function</p></li>
@@ -71,8 +69,6 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <div class="iconpicker"><p>Opens a icon picker in a modal, the callback returns a object representing the selected icon</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
 <p>iconpicker dialog options object</p></li>
-<li><code ng:non-bindable="">options.scope – {$scope} – </code>
-<p>dialog scope</p></li>
 <li><code ng:non-bindable="">options.callback – {Function} – </code>
 <p>callback function</p></li>
 </ul>
@@ -85,8 +81,6 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <div class="linkpicker"><p>Opens a link picker tree in a modal, the callback returns a single link</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
 <p>content picker dialog options object</p></li>
-<li><code ng:non-bindable="">options.scope – {$scope} – </code>
-<p>dialog scope</p></li>
 <li><code ng:non-bindable="">options.callback – {Function} – </code>
 <p>callback function</p></li>
 </ul>
@@ -99,8 +93,6 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <div class="macropicker"><p>Opens a mcaro picker in a modal, the callback returns a object representing the macro and it's parameters</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
 <p>macropicker dialog options object</p></li>
-<li><code ng:non-bindable="">options.scope – {$scope} – </code>
-<p>dialog scope</p></li>
 <li><code ng:non-bindable="">options.callback – {Function} – </code>
 <p>callback function</p></li>
 </ul>
@@ -113,8 +105,6 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <div class="mediapicker"><p>Opens a media picker in a modal, the callback returns an array of selected media items</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
 <p>mediapicker dialog options object</p></li>
-<li><code ng:non-bindable="">options.scope – {$scope} – </code>
-<p>dialog scope</p></li>
 <li><code ng:non-bindable="">options.onlyImages – {Boolean} – </code>
 <p>Only display files that have an image file-extension</p></li>
 <li><code ng:non-bindable="">options.callback – {Function} – </code>
@@ -129,9 +119,7 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <div class="membergrouppicker"><p>Opens a member group picker in a modal, the callback returns a object representing the selected member</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
 <p>member group picker dialog options object</p></li>
-<li><code ng:non-bindable="">options.scope – {$scope} – </code>
-<p>dialog scope</p></li>
-<li><code ng:non-bindable="">options.multiPicker – {$scope} – </code>
+<li><code ng:non-bindable="">options.multiPicker – {Boolean} – </code>
 <p>should the tree pick one or multiple members before returning</p></li>
 <li><code ng:non-bindable="">options.callback – {Function} – </code>
 <p>callback function</p></li>
@@ -145,9 +133,7 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <div class="memberpicker"><p>Opens a member picker in a modal, the callback returns a object representing the selected member</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
 <p>member picker dialog options object</p></li>
-<li><code ng:non-bindable="">options.scope – {$scope} – </code>
-<p>dialog scope</p></li>
-<li><code ng:non-bindable="">options.multiPicker – {$scope} – </code>
+<li><code ng:non-bindable="">options.multiPicker – {Boolean} – </code>
 <p>should the tree pick one or multiple members before returning</p></li>
 <li><code ng:non-bindable="">options.callback – {Function} – </code>
 <p>callback function</p></li>
@@ -173,8 +159,6 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <p>modal css class, by default "umb-modal"</p></li>
 <li><code ng:non-bindable="">options.show – {Bool} – </code>
 <p>show the modal instantly</p></li>
-<li><code ng:non-bindable="">options.scope – {Object} – </code>
-<p>scope to attach the modal to, by default rootScope.new()</p></li>
 <li><code ng:non-bindable="">options.iframe – {Bool} – </code>
 <p>load template in an iframe, only needed for serverside templates</p></li>
 <li><code ng:non-bindable="">options.width – {Int} – </code>
@@ -191,8 +175,6 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <div class="propertydialog"><p>Opens a dialog with a chosen property editor in, a value can be passed to the modal, and this value is returned in the callback</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
 <p>mediapicker dialog options object</p></li>
-<li><code ng:non-bindable="">options.scope – {$scope} – </code>
-<p>dialog scope</p></li>
 <li><code ng:non-bindable="">options.callback – {Function} – </code>
 <p>callback function</p></li>
 <li><code ng:non-bindable="">editor – {String} – </code>
@@ -209,13 +191,11 @@ sure the umbraco.services module is accesible - which it should be by default.</
 <div class="treepicker"><p>Opens a tree picker in a modal, the callback returns a object representing the selected tree item</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">options – {Object} – </code>
 <p>iconpicker dialog options object</p></li>
-<li><code ng:non-bindable="">options.scope – {$scope} – </code>
-<p>dialog scope</p></li>
-<li><code ng:non-bindable="">options.section – {$scope} – </code>
+<li><code ng:non-bindable="">options.section – {String} – </code>
 <p>tree section to display</p></li>
-<li><code ng:non-bindable="">options.treeAlias – {$scope} – </code>
+<li><code ng:non-bindable="">options.treeAlias – {String} – </code>
 <p>specific tree to display</p></li>
-<li><code ng:non-bindable="">options.multiPicker – {$scope} – </code>
+<li><code ng:non-bindable="">options.multiPicker – {Boolean} – </code>
 <p>should the tree pick one or multiple items before returning</p></li>
 <li><code ng:non-bindable="">options.callback – {Function} – </code>
 <p>callback function</p></li>

@@ -45,9 +45,7 @@ sure the umbraco.services module is accesible - which it should be by default.</
 </ul>
 <div class="member method"><h2 id="Methods">Methods</h2>
 <ul class="methods"><li><h3 id="load">load(pathArray, scope)</h3>
-<div class="load"><p>Injects a collection of files, this can be a mixed collection of css and js files, the loader will determine how to load them</p>
-
-<p><strong>Warning:</strong> if the collection of files contains a .css file, you will in some cases not receive a resolved promise, it is therefore prefered to use the individual loadCss and loadJs methods</p><h4 id="Parameters">Parameters</h4>
+<div class="load"><p>Injects a collection of files, this can be ONLY js files</p><h4 id="Parameters">Parameters</h4>
 <ul class="parameters"><li><code ng:non-bindable="">pathArray – {Array} – </code>
 <p>string array of paths to the files to load</p></li>
 <li><code ng:non-bindable="">scope – {Scope} – </code>
